@@ -1,0 +1,97 @@
+slug: "medir-oee-real-sin-tocar-el-plc"
+title: "Cómo medir OEE real con telemetría sin tocar el PLC de la máquina"
+category: "Automatización & Retrofit IoT"
+reading_time: "7 min de lectura"
+summary: "Los tres componentes del OEE —disponibilidad, rendimiento y calidad— y qué parte de cada uno se puede obtener midiendo desde el tablero, sin intervenir el control de la máquina ni depender de planillas de turno."
+problem: "El OEE se calcula con datos cargados a mano al final del turno, que llegan tarde, subregistran las microparadas y no sirven para actuar sobre el proceso."
+solution: "Captura automática de disponibilidad y rendimiento desde el consumo eléctrico y las señales existentes con Powermeter Gateway, dejando la carga manual sólo donde es inevitable."
+key_takeaways:
+  - "La disponibilidad se obtiene casi entera desde el patrón de consumo eléctrico, sin ninguna señal del control."
+  - "Las microparadas son las que destruyen el OEE y las que la carga manual nunca registra."
+  - "El rendimiento necesita una señal de conteo; la calidad casi siempre sigue necesitando una persona."
+  - "Un OEE parcial y automático vale más que uno completo cargado a mano tres días después."
+published_at: "2026-09-02"
+og_image: "/static/media/analytics-dashboard.svg"
+content: |
+  ## 1. Qué es el OEE y por qué casi nunca es real
+
+  El OEE (Overall Equipment Effectiveness) es el producto de tres factores:
+
+  > **OEE = Disponibilidad × Rendimiento × Calidad**
+
+  * **Disponibilidad:** tiempo que la máquina efectivamente produjo sobre el tiempo que estaba planificada para producir.
+  * **Rendimiento:** velocidad real de producción sobre la velocidad nominal del equipo.
+  * **Calidad:** piezas conformes sobre piezas totales producidas.
+
+  El problema no es la fórmula, es el dato. En la mayoría de las plantas los tres factores se cargan a mano, al final del turno, de memoria. Y ahí se pierden dos cosas: **las microparadas** —esas detenciones de tres o cuatro minutos que nadie anota pero que sumadas son horas al mes— y la **oportunidad de actuar**, porque el número llega cuando el turno ya terminó.
+
+  ---
+
+  ## 2. Disponibilidad: se resuelve casi entera desde el tablero
+
+  Es el factor más fácil de automatizar y el que más se subregistra manualmente.
+
+  Una máquina en marcha consume corriente. Una máquina detenida, no, o consume el residual de sus auxiliares. Midiendo la corriente en el seccional que la alimenta, con resolución suficiente, se obtiene directamente:
+
+  * **Tiempo de marcha efectiva**, por umbral de corriente.
+  * **Cantidad y duración de cada parada**, incluidas las de tres minutos que nunca llegan a la planilla.
+  * **Distribución horaria de las paradas**, que es lo que revela patrones: paradas concentradas en el cambio de turno, después del almuerzo, o siempre en el mismo momento del ciclo.
+
+  Esto no requiere ninguna señal del control de la máquina. Se instala el analizador o el gateway sobre el tablero y listo.
+
+  El límite es la **causa** de la parada. La medición te dice que la máquina estuvo doce minutos detenida a las 14:20; no te dice si fue cambio de formato, falta de material o rotura. Para eso hace falta una señal de estado o una carga manual, pero acotada: en lugar de reconstruir el turno entero de memoria, el operario clasifica paradas que el sistema ya detectó y ya midió.
+
+  ---
+
+  ## 3. Rendimiento: necesita una señal de conteo
+
+  Acá la medición eléctrica sola no alcanza. Hay que contar piezas, metros o kilos. Las vías posibles, en orden de preferencia:
+
+  1. **El contador que la máquina ya tiene.** Muchos equipos llevan un totalizador interno accesible por Modbus. Es la mejor opción: dato exacto, sin hardware nuevo.
+  2. **Una señal de fin de ciclo.** Un contacto seco que ya existe en el control y que se puede leer sin intervenir la lógica.
+  3. **Un sensor agregado en la salida.** Fotocélula, encoder o balanza según el producto. Es hardware nuevo, pero no toca la máquina.
+  4. **Derivar el conteo del patrón de consumo.** En procesos cíclicos y repetitivos, cada ciclo deja una firma reconocible en la curva de corriente. Es una aproximación: sirve para tendencia, no para un conteo exacto con validez contable.
+
+  Con el conteo y el tiempo de marcha, el rendimiento sale solo.
+
+  ---
+
+  ## 4. Calidad: sigue necesitando una persona
+
+  Conviene ser honesto: salvo que exista inspección automática en línea, la calidad no se automatiza con telemetría eléctrica. El descarte se detecta mirando el producto.
+
+  Lo que sí se puede hacer es **reducir la fricción de la carga**: que el operario registre el rechazo en el momento en que ocurre, contra la orden y la máquina que el sistema ya identificó, en lugar de reconstruir un total al cierre del turno.
+
+  Y algo más valioso: **correlacionar el descarte con las variables de proceso** que sí se capturan automáticamente. Si el rechazo se concentra en los lotes donde la temperatura estuvo fuera de banda, o en la primera hora después de un arranque en frío, eso aparece cuando ambos datos comparten estampa de tiempo.
+
+  ---
+
+  ## 5. Qué se obtiene en la práctica
+
+  | Componente | Automatizable | Cómo |
+  |---|---|---|
+  | Disponibilidad (tiempo) | Sí, completo | Umbral de corriente desde el tablero |
+  | Disponibilidad (causa) | Parcial | Señal de estado, o clasificación asistida por el operario |
+  | Rendimiento | Sí, con señal de conteo | Contador Modbus, fin de ciclo o sensor de salida |
+  | Calidad | No, salvo inspección en línea | Carga asistida, correlacionada con proceso |
+
+  ---
+
+  ## 6. El orden de implementación
+
+  El error habitual es intentar el OEE completo desde el día uno, atarlo a una carga manual pesada y abandonarlo en dos meses. La secuencia que funciona es incremental:
+
+  1. **Instrumentar el tablero y medir disponibilidad.** Sin tocar la máquina, sin pedirle nada a nadie. En una semana ya tenés el mapa real de paradas y microparadas.
+  2. **Mostrar ese dato en planta.** Antes de agregar complejidad, que el número se use.
+  3. **Sumar el conteo** por la vía menos invasiva que exista en ese equipo.
+  4. **Recién entonces incorporar la calidad**, con la carga más liviana posible.
+
+  Un OEE parcial, automático y disponible en tiempo real vale más que uno completo, cargado a mano y disponible tres días después. El primero se usa para decidir; el segundo se archiva.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de telemetría industrial y retrofit IoT](/landing/telemetria-industrial)
+  * [Modbus RS485 vs 4-20 mA: cómo elegir la interfaz](/guias/modbus-rs485-vs-4-20ma-elegir-interfaz)
+  * [Cobertura en General Pacheco, Tigre](/buenos-aires/tigre/general-pacheco.html)

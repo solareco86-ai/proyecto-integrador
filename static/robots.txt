@@ -1,0 +1,27 @@
+User-agent: *
+Disallow: /api/
+Allow: /
+
+# Motores de Búsqueda Generativa e IAs (GEM / GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+Sitemap: https://datamaq.com.ar/sitemap.xml

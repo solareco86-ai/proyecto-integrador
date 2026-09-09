@@ -1,0 +1,143 @@
+id: "fastapi-avanzado"
+slug: "fastapi-avanzado"
+title: "FastAPI Avanzado: MLOps, Async DB y Producción"
+description_short: "Llevá tus APIs FastAPI a producción: bases de datos asíncronas, seguridad, testing, Docker, MLOps y despliegue."
+description_long: "Este curso avanzado te lleva tus APIs FastAPI al nivel de producción. Aprenderás a integrar bases de datos asíncronas con SQLAlchemy y Alembic, a implementar autenticación y seguridad con OAuth2 y JWT, y a construir comunicación en tiempo real con WebSockets. También desarrollarás estrategias de testing asíncrono con pytest y HTTPX, y desplegarás tu aplicación con Docker, Gunicorn, Nginx y GitHub Actions. En la parte final aplicarás ciencia de datos en producción: análisis con NumPy y Pandas, entrenamiento de modelos con scikit-learn, un endpoint de predicción eficiente y un sistema de detección en tiempo real con OpenCV y WebSockets. Prerrequisitos: haber completado el curso Desarrollo de APIs con FastAPI y Python (fastapi-intermedio) o contar con experiencia equivalente en FastAPI, Pydantic e inyección de dependencias."
+duration: "25 horas de cursada"
+level: "Avanzado"
+language: "Español"
+price: 0.0
+og_image: "/static/media/cursos/og-fastapi-avanzado.webp"
+og_image_width: 1200
+og_image_height: 630
+instructor_id: "agustin-bustos"
+academic_only: true
+sections:
+  # --- SECCIÓN A ---
+  - id: "sec-av-backend-produccion"
+    title: "Sección A: Backend Web en Producción"
+    description: "Bases de datos asíncronas, seguridad, autenticación, tiempo real, testing y despliegue continuo."
+    chapters:
+      - id: "chap-av-cap-1"
+        title: "Cap 1: Bases de Datos Asíncronas y Seguridad"
+        description: "SQLAlchemy asíncrono, AsyncSession y Alembic; OAuth2, JWT, hashing de contraseñas y CORS."
+        items:
+          - type: "lesson"
+            id: "les-av-1-1"
+            slug: "bases-datos-orms-asincronos"
+            title: "Clase Completa: Conectividad Asíncrona con BD"
+            duration: "50 min"
+            content_file: "cap-6-databases-orms.md"
+          - type: "lesson"
+            id: "les-av-1-2"
+            slug: "autenticacion-seguridad-fastapi"
+            title: "Clase Completa: Seguridad con JWT y OAuth2"
+            duration: "45 min"
+            content_file: "cap-7-authentication-security.md"
+
+      - id: "chap-av-cap-2"
+        title: "Cap 2: Tiempo Real y Testing"
+        description: "Protocolo WebSocket, ConnectionManager, comunicación full-duplex y estrategias de testing asíncrono."
+        items:
+          - type: "lesson"
+            id: "les-av-2-1"
+            slug: "websockets-comunicacion-bidireccional"
+            title: "Clase completa: WebSockets en FastAPI"
+            duration: "40 min"
+            content_file: "cap-8-websockets.md"
+          - type: "lesson"
+            id: "les-av-2-2"
+            slug: "pruebas-asincronas-pytest-httpx"
+            title: "Clase Completa: Testing Asíncrono"
+            duration: "45 min"
+            content_file: "cap-9-testing-pytest.md"
+
+      - id: "chap-av-cap-3"
+        title: "Cap 3: Despliegue, Docker y CI/CD"
+        description: "Docker, Uvicorn ASGI, Nginx y GitHub Actions."
+        items:
+          - type: "lesson"
+            id: "les-av-3-1"
+            slug: "despliegue-proyecto-fastapi"
+            title: "Clase Completa: Despliegue y CI/CD"
+            duration: "40 min"
+            content_file: "cap-10-deploy-project.md"
+
+  # --- SECCIÓN B ---
+  - id: "sec-av-mlops"
+    title: "Sección B: MLOps y APIs de Ciencia de Datos"
+    description: "Análisis de datos, entrenamiento de modelos, endpoints de predicción y detección en tiempo real."
+    chapters:
+      - id: "chap-av-cap-4"
+        title: "Cap 4: Ciencia de Datos en Producción"
+        description: "NumPy y Pandas, scikit-learn, API de predicción eficiente y streaming de video con OpenCV."
+        items:
+          - type: "lesson"
+            id: "les-av-4-1"
+            slug: "introduccion-numpy-pandas"
+            title: "Clase Completa: Análisis de Datos"
+            duration: "40 min"
+            content_file: "cap-11-numpy-pandas.md"
+          - type: "lesson"
+            id: "les-av-4-2"
+            slug: "entrenamiento-modelos-scikit-learn"
+            title: "Clase Completa: Entrenamiento de Modelos"
+            duration: "50 min"
+            content_file: "cap-12-scikit-learn.md"
+          - type: "lesson"
+            id: "les-av-4-3"
+            slug: "creacion-endpoint-prediccion-fastapi"
+            title: "Clase completa: Endpoint de Predicción"
+            duration: "45 min"
+            content_file: "cap-13-endpoint-prediccion.md"
+          - type: "lesson"
+            id: "les-av-4-4"
+            slug: "sistema-deteccion-rostros-websockets"
+            title: "Clase Completa: Detección en Tiempo Real"
+            duration: "55 min"
+            content_file: "cap-14-face-detection.md"
+
+      - id: "chap-av-cap-5"
+        title: "Evaluación Final"
+        description: "Validá tus conocimientos adquiridos en el curso."
+        items:
+          - type: "quiz"
+            id: "quiz-fastapi-avanzado"
+            slug: "evaluacion-fastapi-avanzado"
+            title: "Cuestionario: FastAPI Avanzado"
+            duration: "10 min"
+            questions:
+              - id: "q-async-db"
+                question: "¿Por qué se recomienda utilizar un ORM asíncrono en FastAPI?"
+                type: "single_choice"
+                options:
+                  - "Porque permite conectarse a bases de datos relacionales sin usar SQL."
+                  - "Para evitar bloquear el event loop principal de FastAPI mientras se ejecutan operaciones de consulta lentas."
+                  - "Porque aumenta la seguridad de los tokens JWT."
+                correct_option: 1
+                explanation: "Las llamadas de E/S a bases de datos bloquean el flujo de ejecución principal. El uso de llamadas asíncronas cede el control del event loop a otras peticiones pendientes de resolver."
+              - id: "q-websockets"
+                question: "Los WebSockets son un protocolo que permite exclusivamente la comunicación del servidor hacia el cliente en una sola dirección."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 1
+                explanation: "Los WebSockets proveen una comunicación full-duplex bidireccional en tiempo real a través de una única conexión TCP de larga duración."
+              - id: "q-joblib"
+                question: "¿Cuál es la mejor práctica para servir un modelo de machine learning en FastAPI de forma que no afecte el rendimiento de la API?"
+                type: "single_choice"
+                options:
+                  - "Entrenar el modelo de nuevo en cada petición POST recibida del cliente."
+                  - "Cargar el modelo serializado (joblib/pickle) una sola vez al arrancar la aplicación (en el evento startup o lifespan) y reutilizarlo en cada petición."
+                  - "Guardar el modelo en una base de datos relacional y consultarlo en cada llamada."
+                correct_option: 1
+                explanation: "Cargar los pesos del modelo en memoria es una operación costosa. Al cargarlo una única vez durante la inicialización del ciclo de vida (lifespan) de la app, las llamadas de predicción individuales se resuelven en milisegundos."
+              - id: "q-pandas"
+                question: "Pandas es la herramienta principal utilizada para optimizar cálculos de matrices multidimensionales a bajo nivel."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 1
+                explanation: "NumPy es la librería base que optimiza los cálculos matriciales a bajo nivel, mientras que Pandas se construye sobre ella para proveer manipulación tabular y análisis de alto nivel a través de DataFrames."

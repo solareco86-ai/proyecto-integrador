@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% import "partials/head.html" as seo_macro %}
+{% import "partials/components/header.html" as header_macro %}
+{% import "partials/components/footer.html" as footer_macro %}
+{% import "partials/components/whatsapp_fab.html" as whatsapp_macro %}
+{% import "partials/components/cookie_banner.html" as cookie_banner_macro %}
+{% import "partials/components/power_factor_calculator.html" as calc_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header(content.navbar.links) }}
+{% endblock %}
+
+{% block main_content %}
+<!-- Hero CRO Calidad de Energía -->
+<section class="c-home-hero section-mobile tw:relative tw:overflow-hidden">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-12 tw:gap-8 tw:items-center">
+            <div class="tw:lg:col-span-7 tw:space-y-6">
+                <span class="tw:inline-flex tw:items-center tw:gap-2 tw:px-3.5 tw:py-1.5 tw:rounded-full tw:text-xs tw:font-bold tw:bg-amber-900/40 tw:text-amber-300 tw:border tw:border-amber-700/50">
+                    <i class="bi bi-shield-exclamation"></i> {{ campaign.badge }}
+                </span>
+                <h1 class="tw:text-3xl tw:md:text-4xl tw:lg:text-5xl tw:font-extrabold tw:text-white tw:tracking-tight tw:leading-tight">
+                    {{ campaign.hero_title }}
+                </h1>
+                <p class="tw:text-base tw:md:text-lg tw:text-dm-text-muted tw:leading-relaxed tw:max-w-2xl">
+                    {{ campaign.hero_subtitle }}
+                </p>
+
+                <!-- Badges de Autoridad Técnica -->
+                <div class="tw:flex tw:flex-wrap tw:gap-3 tw:pt-2">
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:text-xs tw:text-dm-text-0 tw:bg-dm-surface tw:px-3 tw:py-1.5 tw:rounded-lg tw:border tw:border-dm-border-0">
+                        <i class="bi bi-person-badge tw:text-dm-accent-orange"></i> Agustín Bustos · Docente ISFT 199
+                    </span>
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:text-xs tw:text-dm-text-0 tw:bg-dm-surface tw:px-3 tw:py-1.5 tw:rounded-lg tw:border tw:border-dm-border-0">
+                        <i class="bi bi-mortarboard tw:text-dm-accent-orange"></i> Posgrado Eficiencia Energética ITBA
+                    </span>
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:text-xs tw:text-dm-text-0 tw:bg-dm-surface tw:px-3 tw:py-1.5 tw:rounded-lg tw:border tw:border-dm-border-0">
+                        <i class="bi bi-geo-alt tw:text-dm-accent-orange"></i> Base Operativa Garín (GBA Norte)
+                    </span>
+                </div>
+
+                <div class="tw:flex tw:flex-wrap tw:gap-4 tw:pt-2">
+                    <a href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text={{ campaign.primary_cta_whatsapp_text | urlencode }}"
+                       target="_blank" rel="noopener noreferrer"
+                       class="tw:btn tw:btn-primary tw:text-sm tw:font-bold tw:flex tw:items-center tw:gap-2">
+                        <i class="bi bi-whatsapp"></i> {{ campaign.primary_cta_label }}
+                    </a>
+                    {% if campaign.secondary_cta_label %}
+                    <a href="{{ campaign.secondary_cta_href }}" class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold">
+                        {{ campaign.secondary_cta_label }} ↓
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Calculadora en Hero / Above the Fold -->
+            <div class="tw:lg:col-span-5" id="calculadora">
+                {% if campaign.calculator %}
+                {{ calc_macro.power_factor_calculator(campaign.calculator) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Beneficios y Propuesta de Valor -->
+<section class="tw:py-16 tw:bg-dm-bg-1/40 tw:border-y tw:border-dm-border-0">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:text-center tw:max-w-2xl tw:mx-auto tw:mb-12">
+            <h2 class="tw:text-2xl tw:md:text-3xl tw:font-bold tw:text-white">¿Por qué resolver el factor de potencia con DataMaq?</h2>
+            <p class="tw:text-sm tw:text-dm-text-muted tw:mt-2">Respaldo de ingeniería, instrumental de precisión y amortización medida en su factura eléctrica.</p>
+        </div>
+
+        <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-3 tw:gap-6">
+            {% for benefit in campaign.benefits %}
+            <div class="tw:p-6 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-2xl tw:hover:border-dm-accent-orange/40 tw:transition-all">
+                <div class="tw:w-10 tw:h-10 tw:rounded-xl tw:bg-amber-900/30 tw:text-amber-300 tw:flex tw:items-center tw:justify-center tw:mb-4 tw:text-lg">
+                    <i class="bi bi-check2-circle"></i>
+                </div>
+                <h3 class="tw:text-lg tw:font-bold tw:text-white tw:mb-2">{{ benefit.title }}</h3>
+                <p class="tw:text-sm tw:text-dm-text-muted tw:leading-relaxed">{{ benefit.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Casos Reales y Confianza -->
+<section class="tw:py-16">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-12 tw:gap-8 tw:items-center">
+            <div class="tw:lg:col-span-6 tw:space-y-6">
+                <span class="tw:text-xs tw:font-bold tw:uppercase tw:tracking-wider tw:text-dm-accent-orange">Experiencia en Campo</span>
+                <h2 class="tw:text-2xl tw:md:text-3xl tw:font-bold tw:text-white">Medición IoT y diagnóstico en plantas industriales de Zona Norte</h2>
+                <div class="tw:space-y-4">
+                    {% for proof in campaign.proof_items %}
+                    <div class="tw:p-4 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-xl">
+                        <h3 class="tw:text-base tw:font-bold tw:text-white">{{ proof.title }}</h3>
+                        <p class="tw:text-xs tw:text-dm-text-muted tw:mt-1">{{ proof.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="tw:lg:col-span-6 tw:p-8 tw:bg-dm-surface tw:border tw:border-dm-border-1 tw:rounded-2xl tw:text-center tw:space-y-6">
+                <div class="tw:inline-flex tw:w-16 tw:h-16 tw:rounded-full tw:bg-dm-accent-orange/20 tw:text-dm-accent-orange tw:items-center tw:justify-center tw:text-2xl">
+                    <i class="bi bi-tools"></i>
+                </div>
+                <h3 class="tw:text-xl tw:font-bold tw:text-white">¿Tenés una intimación o recargo de Edenor en tu última factura?</h3>
+                <p class="tw:text-sm tw:text-dm-text-muted tw:max-w-md tw:mx-auto">
+                    Envianos la foto de tu factura por WhatsApp. Auditamos los cargos en menos de 3 minutos y te indicamos la compensación requerida.
+                </p>
+                <a href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%20Agust%C3%ADn%2C%20tengo%20una%20penalidad%20de%20factor%20de%20potencia%20en%20la%20factura%20y%20quiero%20enviar%20el%20PDF%20para%20auditor%C3%ADa."
+                   target="_blank" rel="noopener noreferrer"
+                   class="tw:btn tw:btn-primary tw:font-bold tw:text-sm tw:inline-flex tw:items-center tw:gap-2">
+                    <i class="bi bi-whatsapp"></i> Auditar Factura por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Preguntas Frecuentes (FAQ) -->
+{% if campaign.faqs %}
+<section class="tw:py-16 tw:bg-dm-bg-1/40 tw:border-t tw:border-dm-border-0">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:max-w-3xl">
+        <div class="tw:text-center tw:mb-10">
+            <span class="tw:text-xs tw:font-bold tw:uppercase tw:tracking-wider tw:text-dm-accent-orange">Resolución ENRE 544/2024</span>
+            <h2 class="tw:text-2xl tw:md:text-3xl tw:font-bold tw:text-white tw:mt-1">Preguntas Frecuentes sobre Factor de Potencia</h2>
+        </div>
+
+        <div class="tw:space-y-4">
+            {% for faq in campaign.faqs %}
+            <details class="tw:p-5 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-xl tw:group">
+                <summary class="tw:font-bold tw:text-white tw:cursor-pointer tw:flex tw:items-center tw:justify-between tw:list-none">
+                    <span>{{ faq.question }}</span>
+                    <i class="bi bi-chevron-down tw:text-dm-text-muted group-open:tw:rotate-180 tw:transition-transform"></i>
+                </summary>
+                <p class="tw:text-sm tw:text-dm-text-muted tw:mt-3 tw:leading-relaxed tw:pt-3 tw:border-t tw:border-dm-border-0">
+                    {{ faq.answer }}
+                </p>
+            </details>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Schema.org JSON-LD FAQPage & Service -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Auditoría de Factor de Potencia y Montaje de Powermeter SmartPlus",
+      "provider": {
+        "@type": "Organization",
+        "name": "{{ brand.brandName }}",
+        "url": "{{ config.BASE_URL }}"
+      },
+      "areaServed": "Zona Norte GBA, Pilar, Garín, Tigre, Campana, San Martín",
+      "description": "{{ seo.description }}"
+    }
+    {% if campaign.faqs %},
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for faq in campaign.faqs %}
+        {
+          "@type": "Question",
+          "name": "{{ faq.question | replace('\"', '\\\"') }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ faq.answer | replace('\"', '\\\"') }}"
+          }
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+    }
+    {% endif %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block fab %}
+{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, campaign.primary_cta_whatsapp_text) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

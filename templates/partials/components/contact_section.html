@@ -1,0 +1,17 @@
+{% macro contact_section(data) %}
+<section id="contacto" class="tw:py-10 tw:bg-dm-bg tw:text-dm-text-0 c-contact" aria-labelledby="contacto-title">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:flex tw:justify-center">
+            <div class="tw:w-full tw:max-w-3xl">
+                <div class="tw:bg-dm-surface tw:border tw:border-dm-border tw:rounded-2xl tw:shadow-2xl c-contact__card">
+                    <div class="tw:p-5 tw:lg:p-8">
+                        <h2 id="contacto-title" class="tw:text-2xl tw:lg:text-3xl tw:font-bold c-contact__title tw:mb-2">{{ data.title }}</h2>
+                        <p class="tw:text-dm-text-muted tw:mb-5 c-contact__subtitle">{{ data.subtitle }}</p>
+                        {{ caller() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}

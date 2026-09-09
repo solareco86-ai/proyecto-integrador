@@ -1,0 +1,42 @@
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro hero(request, data, title=None, subtitle=None) %}
+<section data-v-236fef00="" class="section-mobile c-home-hero c-home-hero--direct" aria-labelledby="hero-title" style="background-image: linear-gradient(180deg, rgba(var(--dm-surface-0-rgb), 0.42), rgba(var(--dm-bg-0-rgb), 0.96));">
+    <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
+        <div data-v-236fef00="" class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-12 tw:gap-8 tw:items-end">
+            <div data-v-236fef00="" class="tw:col-span-1 tw:lg:col-span-7">
+                <div data-v-236fef00="" class="c-home-hero__copy">
+                    <span data-v-236fef00="" class="c-home-eyebrow">{{ data.badge }}</span>
+                    <h1 data-v-236fef00="" id="hero-title" class="c-home-hero__title">{{ title if title else data.title }}</h1>
+                    <p data-v-236fef00="" class="c-home-hero__subtitle">{{ subtitle if subtitle else data.subtitle }}</p>
+                    <div data-v-236fef00="" class="c-home-hero__actions">
+                        <a data-v-236fef00="" class="tw:btn-primary c-home-hero__primary" href="{{ data.primaryCta.href }}" target="_blank" rel="noopener noreferrer">{{ data.primaryCta.label }}</a>
+                        {% if data.secondaryCta %}
+                        <a data-v-236fef00="" class="tw:btn-outline c-home-hero__secondary" href="{{ data.secondaryCta.href }}">{{ data.secondaryCta.label }}</a>
+                        {% endif %}
+                    </div>
+                    <p data-v-236fef00="" class="c-home-hero__urgency" role="status">
+                        {{ icon_macro.bootstrap_icon('lightning-charge-fill') }}
+                        <span data-v-236fef00="">{{ data.responseNote }}</span>
+                    </p>
+                    <div data-v-320ae45d="" data-v-236fef00="" class="c-home-hero__trust-inline" aria-label="Capacidades destacadas">
+                        {% for benefit in data.benefits %}
+                        <span data-v-320ae45d="" class="c-home-hero__trust-chip">{{ benefit.text }}</span>
+                        {% endfor %}
+                    </div>
+                    <ul data-v-236fef00="" class="c-home-hero__signals" aria-label="Condiciones operativas">
+                        {% for benefit in data.benefits %}
+                        <li data-v-236fef00="">{{ benefit.title }}: {{ benefit.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div data-v-236fef00="" class="tw:col-span-1 tw:lg:col-span-5 tw:hidden tw:lg:block">
+                <article data-v-236fef00="" class="c-home-hero__media-card">
+                    <p data-v-236fef00="" class="c-home-hero__media-label">Cobertura técnica activa</p>
+                    <img data-v-236fef00="" src="{{ request.url_for('static', path=data.image.src.replace('/static/', '')) }}" alt="{{ data.image.alt }}" class="c-home-hero__image" width="{{ data.image.width }}" height="{{ data.image.height }}" fetchpriority="high" loading="eager" decoding="async">
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}

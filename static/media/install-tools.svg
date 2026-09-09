@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 180" role="img" aria-labelledby="title desc">
+  <title id="title">Herramientas para instalación</title>
+  <desc id="desc">Ilustración plana de herramientas y un plano técnico simbolizando el servicio de instalación.</desc>
+  <rect width="220" height="180" rx="24" fill="#f1f3f5" />
+  <rect x="24" y="28" width="80" height="124" rx="16" fill="#d0ebff" />
+  <rect x="40" y="48" width="48" height="6" rx="3" fill="#1b6ec2" opacity="0.8" />
+  <rect x="40" y="68" width="48" height="6" rx="3" fill="#1b6ec2" opacity="0.6" />
+  <rect x="40" y="88" width="48" height="6" rx="3" fill="#1b6ec2" opacity="0.4" />
+  <path d="M152 36h32v108h-32z" fill="#ffe066" />
+  <path d="M152 36h32l-8 16h-16z" fill="#fab005" />
+  <rect x="112" y="52" width="24" height="80" rx="12" fill="#495057" />
+  <rect x="118" y="60" width="12" height="64" rx="6" fill="#868e96" />
+  <path d="M172 64a16 16 0 0 1 16 16v32a16 16 0 0 1-16 16h-36l-10-16h46a6 6 0 0 0 6-6V86a6 6 0 0 0-6-6h-28l6-16z" fill="#228be6" />
+  <circle cx="96" cy="140" r="20" fill="#74c0fc" />
+  <circle cx="96" cy="140" r="10" fill="#1c7ed6" />
+  <path d="M70 116 90 96h12l-14 14 16 16h-12z" fill="#364fc7" />
+</svg>

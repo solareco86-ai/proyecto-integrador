@@ -1,0 +1,54 @@
+{% macro footer(brand, legal_text, footer, cookie_banner=None) %}
+{% import 'partials/components/icon.html' as icon_macro %}
+<footer data-v-236fef00="" class="c-home-footer" role="contentinfo">
+    <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
+        <!-- Fila Superior: Info, Links y CTA -->
+        <div data-v-236fef00="" class="c-home-footer__upper">
+            <!-- Columna 1: Marca y Contacto -->
+            <div data-v-236fef00="" class="c-home-footer__col-brand">
+                <p data-v-236fef00="" class="c-home-footer__brand">{{ brand.brandName }}</p>
+                <p data-v-236fef00="" class="c-home-footer__description">{{ brand.footerDescription }}</p>
+                <div data-v-236fef00="" class="c-home-footer__contact-info">
+                    <span data-v-236fef00="" class="c-home-footer__contact-item">
+                        {{ icon_macro.bootstrap_icon('geo-alt-fill') }} {{ brand.baseOperativa }}
+                    </span>
+                    <a data-v-236fef00="" href="#" class="c-home-footer__contact-item c-home-footer__link-email js-email-protect" data-u="ifst199alumnos" data-d="gmail.com" aria-label="Enviar correo electrónico a ifst199alumnos@gmail.com">
+                        {{ icon_macro.bootstrap_icon('envelope-fill') }} <span class="js-email-display">ifst199alumnos [en] gmail.com</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Columna 2: Navegación Central -->
+            <div data-v-236fef00="" class="c-home-footer__col-nav">
+                {% for group in footer.navigation_groups %}
+                <details data-v-236fef00="" class="c-home-footer__nav-group {% if group.title == 'Cobertura' %}c-home-footer__nav-group--cobertura{% endif %}">
+                    <summary data-v-236fef00="" class="c-home-footer__nav-title">
+                        <span>{{ group.title }}</span>
+                        <span data-v-236fef00="" class="c-home-footer__nav-icon">
+                            {{ icon_macro.bootstrap_icon('chevron-down') }}
+                        </span>
+                    </summary>
+                    <div data-v-236fef00="" class="c-home-footer__links-container">
+                        {% for link in group.links %}
+                        <a href="{{ link.href }}">{{ link.label }}</a>
+                        {% endfor %}
+                    </div>
+                </details>
+                {% endfor %}
+            </div>
+        </div>
+
+        <hr data-v-236fef00="" class="c-home-footer__divider" />
+
+        <!-- Fila Inferior: Legal y Copyright -->
+        <div data-v-236fef00="" class="c-home-footer__lower">
+            <p data-v-236fef00="" class="c-home-footer__legal">{{ legal_text }}</p>
+            <div data-v-236fef00="" class="c-home-footer__lower-links">
+                <a href="{{ footer.terms_href }}">{{ footer.terms_label }}</a>
+                <button type="button" id="manage-consent" class="c-home-footer__link-manage-consent">Gestionar consentimiento</button>
+                <p data-v-236fef00="" class="c-home-footer__note">&copy; {{ year }} {{ brand.brandName }}. {{ footer.copyright_suffix }}{% if commit_sha and commit_sha != 'dev' %} &middot; <span class="tw:opacity-75" title="Versión de despliegue">commit {{ commit_sha }}</span>{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endmacro %}

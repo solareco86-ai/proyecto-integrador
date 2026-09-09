@@ -1,0 +1,91 @@
+slug: "armonicos-variadores-frecuencia-diagnostico"
+title: "Armónicos en plantas con variadores de frecuencia: cómo se diagnostican y por qué condicionan la corrección de reactivo"
+category: "Regulación Eléctrica & Penalidades"
+reading_time: "7 min de lectura"
+summary: "Los variadores de frecuencia bajan el consumo activo pero inyectan corrientes armónicas en la instalación. Guía de diagnóstico previa a cualquier banco de capacitores, para evitar resonancia y sobretensiones destructivas."
+problem: "Instalar compensación de reactivo en una planta con alto contenido armónico sin medirlo antes puede provocar resonancia paralela, sobretensiones y la destrucción del propio equipo de corrección."
+solution: "Medición de espectro armónico y THD con analizador Powermeter SmartPlus antes de especificar la obra, y elección del tipo de compensación en función del contenido armónico medido."
+key_takeaways:
+  - "Un variador de frecuencia es una carga no lineal: mejora el cos φ de desplazamiento pero degrada el factor de potencia total."
+  - "El riesgo no es el armónico en sí, sino la resonancia entre la capacidad del banco y la inductancia de la instalación."
+  - "El diagnóstico mínimo es THD de tensión y de corriente, más el espectro por orden hasta el armónico 25."
+  - "Con THD de corriente elevado, la compensación debe llevar reactancias de rechazo; no es un extra opcional."
+published_at: "2026-09-02"
+og_image: "/static/media/powermeter.svg"
+content: |
+  ## 1. El variador resuelve un problema y crea otro
+
+  Un variador de frecuencia (VFD) es, casi siempre, una buena inversión: permite arrancar suave, regular velocidad según demanda real y reducir el consumo activo de bombas y ventiladores de forma significativa.
+
+  Pero un variador es una **carga no lineal**. Su etapa de entrada rectifica la tensión alterna en pulsos, y eso deforma la corriente que toma de la red. Esa deformación se descompone en **corrientes armónicas**: componentes de frecuencia múltiplo de los 50 Hz fundamentales, que circulan por la instalación sin producir trabajo útil.
+
+  El efecto sobre el factor de potencia es contraintuitivo. El **cos φ de desplazamiento** —el que mide el desfasaje entre tensión y corriente— puede quedar cerca de 1, porque el variador no genera el desfasaje inductivo clásico de un motor conectado directo. Pero el **factor de potencia total**, que incluye la distorsión, empeora.
+
+  ---
+
+  ## 2. Por qué esto condiciona la corrección de reactivo
+
+  Acá está el punto crítico, y es la razón por la que este diagnóstico va **antes** de cualquier obra de compensación.
+
+  Un banco de capacitores aporta capacidad a la instalación. Esa capacidad, combinada con la inductancia de los transformadores y del cableado, forma un **circuito resonante**. Si la frecuencia de resonancia de ese circuito coincide o se acerca a la frecuencia de un armónico presente en cantidad relevante —típicamente el 5° (250 Hz) o el 7° (350 Hz)— ocurre una **resonancia paralela**: la corriente armónica se amplifica en el lazo entre el banco y la red.
+
+  Las consecuencias son concretas y caras:
+
+  * Sobretensiones sostenidas sobre los capacitores, que reducen drásticamente su vida útil o los destruyen.
+  * Sobrecarga térmica en el transformador de la acometida.
+  * Actuación errática de protecciones y disparos sin causa aparente.
+  * Fallas repetidas de fuentes conmutadas y de electrónica de control.
+
+  Un banco instalado sin medir armónicos no es una obra más barata: es una obra que puede costar el equipo, el transformador y la producción.
+
+  ---
+
+  ## 3. Qué se mide
+
+  El diagnóstico mínimo, con la planta en carga real, incluye:
+
+  * **THD de tensión (THDu):** cuánta distorsión hay en la tensión que entrega la red en tu tablero. Es la que afecta a todos los equipos conectados.
+  * **THD de corriente (THDi):** cuánta distorsión inyecta tu instalación. Es la que identifica al culpable.
+  * **Espectro por orden armónico:** la magnitud de cada componente, al menos hasta el orden 25. Acá se ve si domina el 5°, el 7°, el 11° o el 13°, que es lo que determina el tipo de mitigación.
+  * **Factor de potencia total y de desplazamiento por separado:** la diferencia entre ambos cuantifica cuánto del problema es distorsión y cuánto es desfasaje.
+
+  La medición se hace con el analizador **Powermeter SmartPlus** sobre el tablero general y, cuando hay que aislar responsabilidades, también sobre el seccional que alimenta los variadores.
+
+  ---
+
+  ## 4. Leer el espectro
+
+  El orden armónico dominante dice mucho sobre la instalación:
+
+  * **5° y 7° dominantes:** rectificadores de 6 pulsos, que es la configuración de la enorme mayoría de los variadores industriales estándar.
+  * **11° y 13° dominantes:** rectificadores de 12 pulsos, típicos de equipamiento de mayor porte.
+  * **3° y múltiplos de 3 (triples):** cargas monofásicas no lineales —fuentes conmutadas, iluminación LED de baja calidad, UPS pequeñas— que se suman en el neutro. Este caso merece atención aparte, porque el neutro puede sobrecargarse aun con las fases equilibradas.
+
+  ---
+
+  ## 5. Qué corrección corresponde
+
+  La medición define la especificación, no al revés:
+
+  * **THDi bajo:** compensación estándar. Es el caso de plantas con carga motriz directa y pocos variadores.
+  * **THDi moderado a alto:** compensación con **reactancias de rechazo** (o antirresonantes), que desplazan la frecuencia de resonancia del conjunto por debajo del primer armónico relevante. Encarece el equipo, pero es la diferencia entre una obra que dura y una que falla.
+  * **THDi alto con orden dominante identificado:** puede justificarse un **filtro sintonizado** a ese orden, que además de corregir el desplazamiento absorbe el armónico.
+
+  ---
+
+  ## 6. El orden correcto de trabajo
+
+  1. Medir en carga durante un ciclo productivo completo: reactivo, armónicos y curva de demanda en la misma campaña.
+  2. Determinar los kVAR necesarios sobre el peor escenario sostenido, no sobre el promedio de factura.
+  3. Definir el tipo de compensación en función del THDi y del orden dominante medidos.
+  4. Recién entonces pedir presupuestos de obra, con una especificación técnica que permita comparar ofertas equivalentes.
+
+  Saltear el paso 1 es lo que convierte una corrección de reactivo en una falla de instalación.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de calidad de energía y corrección de factor de potencia](/landing/calidad-energia)
+  * [Checklist de auditoría energética en carga para T2 y T3](/guias/checklist-auditoria-energetica-en-carga-t2-t3)
+  * [Cobertura en Campana](/buenos-aires/campana/campana.html)

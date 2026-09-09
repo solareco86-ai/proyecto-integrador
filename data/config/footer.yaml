@@ -1,0 +1,18 @@
+navigation_groups:
+  - title: "Académica"
+    links:
+      - label: "Inicio"
+        href: "/"
+      - label: "Carreras y Tecnicaturas"
+        href: "/carreras"
+      - label: "Campus Virtual"
+        href: "/cursos"
+      - label: "Inscripciones"
+        href: "/inscripciones"
+      - label: "Contacto y Consultas"
+        href: "/contact"
+cta_title: "¿Tenés dudas sobre las carreras o inscripciones?"
+cta_label: "Consultar a Secretaría"
+terms_label: "Términos y condiciones"
+terms_href: "/terminos-y-condiciones"
+copyright_suffix: "Educación pública superior técnica - DGCyE Provincia de Buenos Aires."

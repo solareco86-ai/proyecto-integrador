@@ -1,0 +1,99 @@
+slug: "recontratacion-potencia-t3-mt-a-bt"
+title: "Recontratación de potencia: qué mirar antes de cambiar de categoría tarifaria"
+category: "Gestión Tarifaria & Costos"
+reading_time: "6 min de lectura"
+summary: "El cambio de categoría no es sólo un número de potencia: involucra el punto de medición, la propiedad del transformador y las pérdidas que pasás a asumir. Qué evaluar antes de pedirlo."
+problem: "Se compara el cargo por kW entre categorías y se concluye que conviene cambiar, sin considerar la responsabilidad sobre el transformador, las pérdidas ni el costo de la obra de adecuación."
+solution: "Análisis integral con la curva de carga medida, el estado de la subestación propia y el costo total de propiedad, no sólo el cuadro tarifario."
+key_takeaways:
+  - "En media tensión el cargo unitario es menor, pero el cliente asume el transformador, su mantenimiento y sus pérdidas."
+  - "Las pérdidas del transformador en vacío se pagan las 24 horas, produzca la planta o no."
+  - "El cambio de categoría suele requerir obra de adecuación en el punto de medición: es una inversión, no un trámite."
+  - "Con demanda estable y alta el análisis suele cerrar; con demanda baja o intermitente, muchas veces no."
+published_at: "2026-09-02"
+og_image: "/static/media/hero-energy.svg"
+content: |
+  ## 1. Qué separa realmente a las categorías
+
+  La diferencia entre tomar el suministro en **media tensión** o en **baja tensión** no es sólo el precio del kW. Es **dónde está el punto de medición** y, en consecuencia, quién es dueño del transformador y quién paga sus pérdidas.
+
+  * **Suministro en baja tensión:** el transformador es de la distribuidora. Vos medís y pagás lo que sale de él. Sus pérdidas son problema de la distribuidora.
+  * **Suministro en media tensión:** el transformador es tuyo, está en tu subestación, y **la medición ocurre antes**. Pagás la energía que entra al transformador, incluidas las pérdidas que ese transformador produce.
+
+  Ese desplazamiento del punto de medición es el corazón del análisis, y es lo que se omite cuando la comparación se hace sólo con el cuadro tarifario.
+
+  ---
+
+  ## 2. Lo que ganás
+
+  * **Cargo unitario menor** por energía y por potencia. Es real y puede ser significativo.
+  * **Mayor capacidad disponible** sin las limitaciones del suministro en baja.
+  * **Control sobre tu propia subestación**, que en plantas con exigencias de continuidad puede ser una ventaja operativa.
+
+  ---
+
+  ## 3. Lo que asumís
+
+  **a) El transformador y su mantenimiento.** Pasa a ser un activo tuyo: mantenimiento preventivo, ensayos periódicos, y su reemplazo cuando llegue el momento.
+
+  **b) Las pérdidas en el hierro (en vacío).** Son constantes mientras el transformador esté energizado, **independientemente de la carga**. Una planta que trabaja un turno y deja el transformador energizado las 24 horas paga esas pérdidas los siete días de la semana. Este ítem es el que más se subestima y el que más rápido erosiona el ahorro cuando la utilización es baja.
+
+  **c) Las pérdidas en el cobre (bajo carga).** Crecen con el cuadrado de la corriente. A alta utilización pesan; a baja utilización son marginales.
+
+  **d) La obra de adecuación.** El cambio de categoría requiere en general intervenir el punto de medición, la celda y la protección. No es un trámite administrativo: es una inversión con un plazo de ejecución.
+
+  **e) Responsabilidad técnica.** Operar en media tensión implica requisitos de seguridad, señalización, elementos de protección personal y personal habilitado que en baja tensión no aplican de la misma forma.
+
+  ---
+
+  ## 4. Dónde suele cerrar y dónde no
+
+  El factor determinante no es el tamaño de la planta sino **la utilización del transformador**: cuánta carga sostenida hay respecto de su capacidad, y cuántas horas al año.
+
+  **Suele cerrar cuando:**
+
+  * La demanda es alta y **sostenida**, con varios turnos o proceso continuo.
+  * La curva de carga es pareja, sin picos aislados en un mar de horas de baja carga.
+  * Ya existe subestación propia en condiciones, con lo que la obra de adecuación es menor.
+
+  **Suele no cerrar cuando:**
+
+  * La planta trabaja un turno y el transformador queda energizado el resto del tiempo: las pérdidas en vacío se comen el ahorro unitario.
+  * La demanda es intermitente o muy estacional.
+  * No hay subestación y la obra completa hay que hacerla desde cero.
+  * No hay estructura de mantenimiento propia ni contrato de mantenimiento previsto.
+
+  ---
+
+  ## 5. Cómo se hace el análisis bien
+
+  1. **Medir la curva de carga real** durante un período representativo, no estimarla desde la capacidad instalada. Se necesita el perfil completo: cuántas horas al año la planta está en cada nivel de carga.
+  2. **Calcular las pérdidas del transformador** en las condiciones reales de operación, separando vacío y carga, sobre ese perfil horario.
+  3. **Costear la obra de adecuación** con presupuesto en firme, no con una estimación gruesa.
+  4. **Sumar el costo anual de mantenimiento** de la subestación.
+  5. **Comparar el costo total anual** en ambos escenarios, no sólo el cargo tarifario unitario.
+
+  Recién con esos cinco números el resultado significa algo. Es frecuente que el ahorro tarifario sea real pero el repago de la obra más las pérdidas en vacío lo posterguen varios años, y que el mismo dinero rinda mucho más aplicado a corregir el factor de potencia y ajustar la potencia contratada dentro de la categoría actual.
+
+  ---
+
+  ## 6. Antes de esto, lo otro
+
+  Un orden razonable de trabajo, de menor a mayor inversión:
+
+  1. **Corregir el factor de potencia.** Elimina el recargo mensual bajo la Res. ENRE 544/2024 y suele tener el repago más corto de toda la lista.
+  2. **Ajustar la potencia contratada** dentro de la categoría actual, con la demanda máxima medida.
+  3. **Gestionar los picos** con escalonamiento de arranques y corte automático de cargas no críticas.
+  4. **Recién entonces**, evaluar el cambio de categoría, con la curva de carga ya optimizada por los tres pasos anteriores.
+
+  Hacerlo en este orden importa: si evaluás el cambio de categoría con una curva de carga que todavía tiene picos evitables y reactivo sin corregir, vas a dimensionar de más y el análisis va a dar un resultado equivocado.
+
+  El trámite ante la distribuidora, en cualquiera de los casos, exige un informe técnico de demanda respaldado por mediciones continuas.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de calidad de energía y corrección de factor de potencia](/landing/calidad-energia)
+  * [Cómo detectar que estás pagando potencia contratada de más](/guias/detectar-potencia-contratada-de-mas)
+  * [Cobertura en Campana](/buenos-aires/campana/campana.html)

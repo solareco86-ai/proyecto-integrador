@@ -1,0 +1,76 @@
+calidad_energia:
+  slug: "calidad-energia"
+  badge: "Resolución ENRE 544/2024 · Zona Norte GBA"
+  hero_title: "Elimine Multas por Factor de Potencia en Edenor y Edesur"
+  hero_subtitle: "Instalamos medidores inteligentes Powermeter SmartPlus en tablero, diagnosticamos en carga y especificamos el banco de capacitores exacto. Amortización típica en 30 a 60 días frente a multas millonarias."
+  primary_cta_label: "Consultar por WhatsApp (+54 11 5629 7160)"
+  primary_cta_whatsapp_text: "Hola! Tengo una penalidad de factor de potencia en la factura eléctrica y necesito presupuesto para un banco de capacitores."
+  secondary_cta_label: "Calcular Ahorro de cos φ"
+  secondary_cta_href: "#calculadora"
+  benefits:
+    - title: "Cumplimiento Estricto Res. ENRE 544/2024"
+      text: "La normativa exige cos φ ≥ 0,95 para suministros T2 y T3. Evite recargos automáticos mensuales y prevenga la suspensión de servicio si el factor cae por debajo de 0,60 (Art. 9)."
+    - title: "Medición en Carga con Powermeter SmartPlus"
+      text: "Auditoría en campo con instrumental de precisión: medición de potencia activa, reactiva inductiva/capacitiva, distorsión armónica (THD) y curvas de demanda pico."
+    - title: "Tarifas Claras, Descuentos y Financiación"
+      text: "Diagnóstico inicial ($55.000 ARS) 100% deducible de la obra. Hasta 25% OFF acumulable (10% Banco Provincia + 15% Vitrina Pública) y financiación en cuotas sin ticket mínimo con Pactar Digital."
+  calculator:
+    title: "Calculadora de Compensación Reactiva y Ahorro Estimado"
+    subtitle: "Ingresá la potencia activa de tu planta y tu factor de potencia actual para estimar los kVAR necesarios de banco de capacitores y normalizar tu factura."
+    default_kw: 50.0
+    default_cos_phi: 0.78
+    target_cos_phi: 0.96
+    help_text: "Cálculo normativo basado en la fórmula Q = P · [tan(arccos(cos φ₁)) - tan(arccos(cos φ₂))]."
+  proof_items:
+    - title: "Plantas Papeleras y Textiles en GBA Norte"
+      description: "Diagnósticos energéticos en carga, telemetría y especificación de bancos de capacitores en el marco de las Redes de Aprendizaje (UNPAZ, IPAC, GIZ)."
+    - title: "Atención Directa y Respaldo Profesional"
+      description: "Asistencia personalizada por Agustín Bustos (Técnico Universitario, docente ISFT 199 Tigre, posgrado en Eficiencia Energética ITBA)."
+    - title: "Seguridad y Rápido Ingreso a Planta"
+      description: "Póliza de Accidentes Personales y Responsabilidad Civil al día en Federación Patronal Seguros con cláusula de no repetición."
+  faqs:
+    - question: "¿Qué penalidades aplica Edenor/Edesur si el cos φ es menor a 0,95?"
+      answer: "La distribuidora aplica un recargo porcentual directo sobre el total de la energía activa y la potencia contratada de la factura. Si el valor es inferior a 0,60, la distribuidora está facultada por el Art. 9 de la Res. ENRE 544/2024 a intimar y suspender el suministro hasta su regularización."
+    - question: "¿Cómo se determina el banco de capacitores adecuado?"
+      answer: "No recomendamos sobredimensionar bancos sin una medición previa. Instalamos un analizador Powermeter SmartPlus para registrar el perfil de carga real y el contenido armónico (THD). Esto evita problemas de resonancia y sobretensión."
+    - question: "¿Cuánto tiempo demora la instalación de un SmartPlus?"
+      answer: "El montaje físico con transformadores de corriente (TI) de núcleo abierto en el tablero general o seccional toma entre 2 y 4 horas, sin requerir cortes prolongados en la producción."
+    - question: "¿Qué costo tiene la visita inicial de peritaje?"
+      answer: "La visita técnica de peritaje y relevamiento inicial en planta tiene un costo de $55.000 ARS en Zona Norte del GBA, el cual se deduce al 100% de la cotización final tras la aprobación de la obra."
+
+telemetria_industrial:
+  slug: "telemetria-industrial"
+  badge: "Retrofit IoT & Industria 4.0 · Zona Norte GBA"
+  hero_title: "Telemetría y Adquisición de Datos de Producción sin Cambiar sus PLC"
+  hero_subtitle: "Instalación de hardware Powermeter Gateway y Automate para digitalizar maquinaria existente. Base de datos 100% local, plataforma web $0 de por vida y sin suscripciones mensuales en dólares."
+  primary_cta_label: "Consultar por WhatsApp (+54 11 5629 7160)"
+  primary_cta_whatsapp_text: "Hola! Me interesa digitalizar máquinas con telemetría industrial Powermeter sin cambiar mis PLCs."
+  secondary_cta_label: "Solicitar Relevamiento"
+  secondary_cta_href: "#formulario"
+  benefits:
+    - title: "SaaS $0 de por Vida (Cero Costos Ocultos)"
+      text: "Nuestra plataforma web de telemetría es 100% gratuita para visualizar variables de planta en tiempo real. Cero licencias por usuario o cuotas recurrentes en dólares."
+    - title: "Conectividad Universal para Maquinaria Existente"
+      text: "Powermeter Gateway captura señales analógicas (4-20mA, 0-10V, PT100/pirómetros) y protocolos industriales (Modbus RS485 / RTU / TCP) sin alterar los programas de sus PLCs."
+    - title: "Control Inteligente de Demanda y Procesos"
+      text: "Powermeter Automate actúa como PLC IoT para desconexión automática de cargas no prioritarias ante picos de demanda máxima, evitando costosos recargos de potencia contratada."
+    - title: "Integración Complementaria con Xubio ERP"
+      text: "Traducción de tramas crudas e inyección automática de consumos y variables de producción en el ERP Xubio vía API REST estándar (OAuth2) para costeo por centro de costo."
+  form:
+    title: "Solicitá un Relevamiento Técnico de Telemetría"
+    subtitle: "Completá este formulario simplificado y Agustín Bustos revisará la viabilidad de tus máquinas en menos de 24 hs."
+    cta_button: "Solicitar Diagnóstico Express"
+  proof_items:
+    - title: "Vinculación Tecnológica e Industria 4.0"
+      description: "Sistemas de telemetría y adquisición de datos implementados en plantas cooperativas e industriales (MadyGraf, FITBA / UNPAZ)."
+    - title: "Soberanía de Datos"
+      description: "Toda la información operativa reside en su propia red o base de datos local, accesible sin depender de servidores en el exterior."
+    - title: "Financiación Digital"
+      description: "Proyectos financiados en cuotas mediante pagarés digitales con Pactar Digital, sin ticket mínimo de acceso."
+  faqs:
+    - question: "¿Es necesario detener las máquinas o reprogramar los PLCs?"
+      answer: "No. El Powermeter Gateway se conecta en paralelo mediante sensores no invasivos (sensores de corriente de núcleo abierto, puertos Modbus RS485 o lazos de 4-20mA existentes) sin alterar el programa lógico ni interrumpir la producción."
+    - question: "¿Qué variables se pueden medir?"
+      answer: "Variables eléctricas (tensión, corriente, kW, kWh, cos φ, armónicos), temperatura (PT100, termocuplas, pirómetros), presión, caudal, nivel, velocidad de giro (VFD) y señales de estado de marcha/parada."
+    - question: "¿La plataforma web requiere pago mensual?"
+      answer: "No. La plataforma web es $0 de por vida. DataMaq cobra únicamente por el servicio de montaje, cableado, puesta en marcha del hardware y consultoría de ingeniería."

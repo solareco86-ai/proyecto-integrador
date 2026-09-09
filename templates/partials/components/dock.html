@@ -1,0 +1,11 @@
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro dock(links) %}
+<nav data-v-236fef00="" class="c-home-dock tw:lg:hidden c-home-dock--direct" aria-label="Navegación rápida" style="--dock-columns: {{ links|length }};">
+    {% for link in links %}
+    <a data-v-236fef00="" href="{{ link.href }}" class="c-home-dock__link">
+        {{ icon_macro.bootstrap_icon(link.icon_name) }}
+        <span data-v-236fef00="">{{ link.label }}</span>
+    </a>
+    {% endfor %}
+</nav>
+{% endmacro %}

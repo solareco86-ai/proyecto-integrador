@@ -1,0 +1,88 @@
+slug: "leer-factura-edenor-t3-recargos-reactivo"
+title: "Cómo leer una factura Edenor T3 y detectar los recargos por energía reactiva"
+category: "Gestión Tarifaria & Costos"
+reading_time: "6 min de lectura"
+summary: "Recorrido línea por línea de una factura de gran demanda: dónde aparece el consumo reactivo, cómo se calcula el recargo por bajo factor de potencia y qué tres números hay que mirar antes de contratar cualquier obra de corrección."
+problem: "El recargo por energía reactiva no figura como una línea llamada 'multa': está distribuido entre los cargos por energía y potencia, y la mayoría de las plantas lo paga durante años sin identificarlo."
+solution: "Lectura guiada de la factura, cálculo del cos φ facturado a partir de los kWh y kVArh registrados, y contraste contra la medición real en carga con analizador Powermeter SmartPlus."
+key_takeaways:
+  - "El cos φ que factura la distribuidora se puede reconstruir con los kWh y kVArh que ya figuran en tu factura, sin instrumentar nada."
+  - "La factura informa promedios del período; la penalidad se origina en los momentos de peor desempeño, que sólo se ven midiendo."
+  - "Antes de dimensionar una corrección hay que separar el reactivo de proceso del reactivo de transformadores en vacío."
+  - "Una factura no alcanza: el patrón se confirma comparando doce períodos consecutivos."
+published_at: "2026-09-02"
+og_image: "/static/media/analytics-dashboard.svg"
+content: |
+  ## 1. Por qué el recargo no se ve
+
+  Cuando una planta pide "la multa por factor de potencia", espera encontrar un renglón con ese nombre. No existe. En el esquema de **Edenor** para grandes demandas, el sobrecosto por energía reactiva se aplica como un **recargo porcentual sobre los cargos de energía y potencia**, no como un ítem separado.
+
+  El resultado práctico es que la planta ve una factura más cara sin una causa identificable, la atribuye al aumento de tarifas y no actúa. El recargo se paga mes a mes, se acumula, y nadie lo mira.
+
+  ---
+
+  ## 2. Los tres números que hay que encontrar
+
+  En una factura T3 buscá estos registros, que suelen estar agrupados bajo "Detalle de consumos" o "Registros del medidor":
+
+  1. **Energía activa (kWh):** el consumo que efectivamente hace trabajo útil.
+  2. **Energía reactiva inductiva (kVArh):** la energía que va y vuelve entre la red y los campos magnéticos de motores y transformadores, sin producir trabajo.
+  3. **Potencia máxima registrada (kW o kVA):** el pico de demanda del período, que determina el cargo por capacidad.
+
+  Con los dos primeros se reconstruye el factor de potencia medio del período:
+
+  > **tg φ = kVArh / kWh**, y a partir de ahí **cos φ = 1 / √(1 + tg φ²)**
+
+  Si el resultado queda por debajo de **0,95**, estás dentro del régimen de penalidades de la **Resolución ENRE 544/2024**. Si queda por debajo de **0,60**, además estás dentro del supuesto del Artículo 9, que faculta a la distribuidora a suspender el suministro.
+
+  ---
+
+  ## 3. El promedio miente
+
+  Este cálculo sirve para saber si hay un problema, no para dimensionar la solución. La factura informa **totales del período**: un cos φ medio de 0,93 puede ser el resultado de una planta que trabaja a 0,97 durante el turno y se desploma a 0,70 en los arranques y en las horas de baja carga.
+
+  Ese detalle importa por dos motivos:
+
+  * La corrección se dimensiona sobre el **peor escenario sostenido**, no sobre el promedio.
+  * Una corrección calculada sobre el promedio queda **sobredimensionada en horas de baja carga**, y un banco sobredimensionado provoca sobretensiones y puede entrar en resonancia con los armónicos de la instalación.
+
+  Por eso el paso siguiente es siempre medir en carga: el analizador **Powermeter SmartPlus** registra el comportamiento instantáneo durante un ciclo productivo completo y muestra la distribución real, no el promedio.
+
+  ---
+
+  ## 4. Separar el reactivo de proceso del reactivo en vacío
+
+  Hay dos fuentes de consumo reactivo que se corrigen de forma distinta:
+
+  * **Reactivo de proceso:** motores, compresores y prensas trabajando. Varía con la producción y se corrige con compensación automática, que sigue la carga.
+  * **Reactivo en vacío:** transformadores energizados y equipos en espera fuera de turno. Es constante, ocurre de noche y los fines de semana, y se corrige con compensación fija, mucho más barata.
+
+  Una planta que trabaja un turno y deja el transformador energizado las 24 horas puede tener buena parte de su penalidad originada fuera del horario productivo. Distinguirlo cambia el presupuesto de la obra.
+
+  ---
+
+  ## 5. Doce facturas, no una
+
+  Un solo período puede estar distorsionado por una parada, un mes de vacaciones o un pico de producción atípico. Antes de decidir, armá una planilla con doce períodos consecutivos y tres columnas: kWh, kVArh y cos φ calculado.
+
+  El patrón que aparece te dice qué tipo de problema tenés:
+
+  * **cos φ bajo y estable todo el año:** reactivo estructural, típicamente transformadores y carga motriz de base. Corrección fija.
+  * **cos φ que empeora en los meses de mayor producción:** reactivo de proceso. Corrección automática por escalones.
+  * **cos φ que empeora en los meses de menor producción:** reactivo en vacío dominante. Revisar la operación fuera de turno antes que comprar equipamiento.
+
+  ---
+
+  ## 6. Qué hacer con el resultado
+
+  Si el cálculo sobre tus doce facturas da por debajo de 0,95, el paso siguiente es una **auditoría en carga**: instalar el analizador sobre el tablero general durante un ciclo productivo completo, registrar potencia activa, reactiva, armónicos y curva de demanda, y sobre esa medición dimensionar los kVAR necesarios.
+
+  Es el mismo relevamiento que permite verificar, en simultáneo, si la **potencia contratada** está sobredimensionada, que suele ser la segunda fuga de dinero de la factura.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de calidad de energía y corrección de factor de potencia](/landing/calidad-energia)
+  * [Checklist de auditoría energética en carga para T2 y T3](/guias/checklist-auditoria-energetica-en-carga-t2-t3)
+  * [Cobertura en Garín, Escobar](/buenos-aires/escobar/garin.html)

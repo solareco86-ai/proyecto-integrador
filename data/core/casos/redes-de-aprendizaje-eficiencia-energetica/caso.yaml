@@ -1,0 +1,35 @@
+slug: redes-de-aprendizaje-eficiencia-energetica
+title: "Redes de Aprendizaje y Diagnósticos de Eficiencia Energética (UNPAZ, IPAC, GIZ)"
+industry: "Sistemas de Gestión de la Energía (SGEn)"
+location: "Provincia de Buenos Aires, Argentina"
+client: "Secretaría de Energía, GIZ, UNPAZ, IPAC, UPP y Textiles Pigüé"
+summary: "Implementación de la metodología internacional de Redes de Aprendizaje y diagnósticos energéticos IoT en plantas papeleras, textiles y recuperadas de la provincia de Buenos Aires."
+problem: "Plantas de proceso continuo (Unión Papelera Platense - UPP, Textiles Pigüé, MadyGraf) enfrentaban altos costos en tarifas eléctricas y gas sin medición desglosada por máquina ni personal capacitado para detectar pérdidas."
+solution: "En articulación con la UNPAZ, el IPAC y la GIZ, se coordinaron las Redes de Aprendizaje en Eficiencia Energética, instalando medición IoT en tableros principales, realizando auditorías térmicas/eléctricas y estableciendo Indicadores de Desempeño Energético (IDEn)."
+results:
+  - "Diagnóstico energético integral en plantas papeleras y textiles de proceso continuo (UPP, Textiles Pigüé)."
+  - "Medición IoT de consumo activo, reactivo y factor de potencia en tableros principales."
+  - "Capacitación a responsables de mantenimiento en termografía y calidad de energía."
+  - "Construcción de líneas de base energética para evitar sanciones tarifarias y planificar ahorros."
+published_at: "2026-08-11"
+og_image: "/static/og-default.webp"
+content: |
+  ## Contexto e Iniciativa Institucional
+
+  Las Redes de Aprendizaje en Eficiencia Energética constituyen un modelo colaborativo internacional impulsado por la Secretaría de Energía de la Nación y la Cooperación Alemana (GIZ). En la provincia de Buenos Aires, esta metodología se desplegó junto a la Universidad Nacional de José C. Paz (UNPAZ) y el Instituto Provincial de Asociativismo y Cooperativismo (IPAC/IPAP).
+
+  El programa acompañó a empresas industriales recuperadas y PyMEs de proceso continuo —como Unión Papelera Platense (UPP), Textiles Pigüé y MadyGraf— en la implementación de Sistemas de Gestión de la Energía (SGEn) basados en la norma ISO 50001.
+
+  ## Trabajo en Campo e Ingesta IoT
+
+  Como docente, facilitador y consultor técnico del programa, Agustín Bustos intervino directamente en los tableros de distribución de las plantas participantes:
+
+  - **Instalación de Instrumentación IoT:** colocación de analizadores de redes en bornes principales para registrar demanda activa, potencia reactiva y armónicos sin interrumpir la marcha.
+  - **Relevamiento Térmico y Electrónico:** inspección termográfica en transformadores, borneras y celdas para identificar puntos calientes y riesgos de avería.
+  - **Línea de Base e IDEn:** definición de Indicadores de Desempeño Energético (kWh/tonelada de papel o kWh/kilo de tela) para evaluar la eficiencia real de cada turno.
+
+  ## Resultados e Impacto Industrial
+
+  Las plantas lograron detectar desbalances de fase, picos de demanda durante arranques simultáneos y bancos de capacitores fuera de servicio.
+
+  La combinación del trabajo colaborativo en red con datos duros medidos en campo permitió a los equipos de mantenimiento corregir sobrecostos tarifarios y operar de manera sustentable.

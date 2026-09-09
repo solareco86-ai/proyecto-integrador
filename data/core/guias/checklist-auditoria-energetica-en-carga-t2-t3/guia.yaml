@@ -1,0 +1,110 @@
+slug: "checklist-auditoria-energetica-en-carga-t2-t3"
+title: "Checklist de auditoría energética en carga para suministros T2 y T3"
+category: "Regulación Eléctrica & Penalidades"
+reading_time: "6 min de lectura"
+summary: "Qué se mide, dónde se instala el equipo, cuánto tiene que durar la campaña y qué entregables debe producir un relevamiento energético para que sirva como especificación técnica de obra."
+problem: "Relevamientos de una tarde, con pinza amperométrica y planta parada, que producen un número que no representa el comportamiento real y no sirve para dimensionar nada."
+solution: "Campaña de medición continua sobre un ciclo productivo completo con analizador Powermeter SmartPlus, con alcance, puntos de medición y entregables definidos por escrito antes de empezar."
+key_takeaways:
+  - "Una medición puntual con la planta parada no dice nada: el reactivo y los picos aparecen en carga."
+  - "La campaña tiene que cubrir un ciclo productivo completo, incluyendo el fin de semana y los arranques de turno."
+  - "El tablero general no alcanza cuando hay que asignar consumo o aislar responsabilidades."
+  - "Si el relevamiento no termina en una memoria técnica con curvas registradas, no sirve para licitar la obra."
+published_at: "2026-09-02"
+og_image: "/static/media/install-tools.svg"
+content: |
+  ## 1. Antes de empezar: definir el objetivo
+
+  No todas las auditorías buscan lo mismo, y el alcance cambia según el objetivo. Definilo por escrito antes de instalar nada:
+
+  * **Eliminar el recargo por reactivo** bajo la Res. ENRE 544/2024 → foco en cos φ, distribución horaria y armónicos.
+  * **Optimizar la potencia contratada** → foco en curva de demanda, demanda máxima en ventana de 15 minutos y comportamiento en horas de punta.
+  * **Asignar consumo por línea o centro de costos** → requiere instrumentar seccionales, no sólo el general.
+  * **Construir una línea de base energética** (por ejemplo para ISO 50001) → requiere correlacionar consumo con una variable de producción.
+
+  Un mismo relevamiento puede cubrir varios objetivos, pero cada uno agrega puntos de medición o duración.
+
+  ---
+
+  ## 2. Dónde se instala
+
+  **Punto obligatorio:**
+
+  * Tablero general, aguas abajo de la acometida y del transformador. Es el punto que la distribuidora factura y donde se valida contra la factura.
+
+  **Puntos adicionales según objetivo:**
+
+  * Seccional que alimenta la carga motriz principal, para separar reactivo de proceso de reactivo en vacío.
+  * Seccional de variadores de frecuencia, para atribuir contenido armónico.
+  * Un seccional por línea o centro de costos, cuando el objetivo es asignación de consumo.
+
+  La instalación de los transformadores de corriente se coordina en un cambio de turno o en una parada ya prevista. No requiere detener producción de forma extraordinaria.
+
+  ---
+
+  ## 3. Cuánto tiene que durar
+
+  La regla es **un ciclo productivo completo**, no una cantidad fija de horas. En la práctica:
+
+  * Planta de un turno, lunes a viernes: mínimo 7 días corridos, para capturar el comportamiento nocturno y de fin de semana con la planta parada pero energizada.
+  * Planta de turnos rotativos: 7 a 14 días, para cubrir la rotación completa.
+  * Producción por lotes o campañas estacionales: la campaña debe cubrir al menos un lote representativo de cada tipo.
+  * Para trámite de recontratación de potencia: **14 a 30 días** de registro continuo, que es lo que respalda la memoria de demanda máxima.
+
+  Las horas con la planta parada no son tiempo perdido: son las que revelan el reactivo en vacío de transformadores y equipos en espera, que se corrige con compensación fija, mucho más barata que la automática.
+
+  ---
+
+  ## 4. Qué variables se registran
+
+  | Variable | Para qué sirve |
+  |---|---|
+  | Potencia activa (kW) | Curva de carga, demanda máxima, línea de base |
+  | Potencia reactiva (kVAr) | Dimensionamiento de la corrección |
+  | Factor de potencia instantáneo | Distribución real del cos φ, no el promedio de factura |
+  | Tensión por fase | Detección de caídas, desequilibrio y sobretensiones |
+  | Corriente por fase y neutro | Desequilibrio de carga y corriente de neutro por armónicos triples |
+  | THD de tensión y corriente | Condiciona el tipo de compensación admisible |
+  | Espectro armónico por orden | Identifica la fuente y el riesgo de resonancia |
+  | Energía activa y reactiva acumuladas | Validación contra la factura de la distribuidora |
+
+  ---
+
+  ## 5. La validación contra factura
+
+  Es el control de calidad del relevamiento y se saltea casi siempre. Consiste en comparar la energía activa y reactiva que registró el analizador contra la que facturó la distribuidora en el mismo período.
+
+  Si los valores no cierran dentro de un margen razonable, hay algo mal: relación de transformación de los TI mal cargada, un TI invertido, o un punto de medición que no cubre toda la instalación. Un dimensionamiento hecho sobre datos que no validan contra factura es un dimensionamiento equivocado.
+
+  ---
+
+  ## 6. Entregables
+
+  Un relevamiento que no termina en documentación no sirve para tomar decisiones ni para pedir presupuestos comparables. El paquete mínimo es:
+
+  1. **Memoria de medición:** alcance, puntos instrumentados, período cubierto, equipamiento utilizado y relación de transformación.
+  2. **Curvas registradas:** carga, factor de potencia y tensión a lo largo de toda la campaña, no sólo valores máximos y mínimos.
+  3. **Validación contra factura** del período medido.
+  4. **Dimensionamiento de kVAR** con el criterio explicitado, indicando qué parte corresponde a compensación fija y qué parte a automática.
+  5. **Análisis armónico** con THD y espectro, y su implicancia sobre el tipo de compensación.
+  6. **Análisis de potencia contratada** con la demanda máxima registrada y la recomendación de recontratación si corresponde.
+  7. **Especificación técnica de obra** en condiciones de ser licitada a terceros.
+
+  El punto 7 importa incluso si la obra la hace quien midió: una especificación que permite pedir tres presupuestos comparables es la única forma de saber si el precio es razonable.
+
+  ---
+
+  ## 7. Lo que hay que exigir
+
+  * Medición **en carga**, con la planta produciendo. Un relevamiento con la planta parada no describe nada.
+  * **Registro continuo**, no lecturas puntuales anotadas en una planilla.
+  * **Análisis armónico incluido**, no cotizado aparte. Sin él, la especificación de compensación es incompleta.
+  * **Datos crudos disponibles**, no sólo un informe con conclusiones. Las curvas son tuyas.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de calidad de energía y corrección de factor de potencia](/landing/calidad-energia)
+  * [Cómo detectar que estás pagando potencia contratada de más](/guias/detectar-potencia-contratada-de-mas)
+  * [Cobertura en el Parque Industrial Pilar](/buenos-aires/pilar/parque-industrial-pilar.html)

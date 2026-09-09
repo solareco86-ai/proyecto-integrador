@@ -1,0 +1,52 @@
+slug: "guia-calculo-potencia-contratada-t2-t3"
+title: "Optimización de Potencia Contratada T2 y T3: Guía de cálculo para CFOs y Gerentes de Planta"
+category: "Gestión Tarifaria & Costos"
+reading_time: "5 min de lectura"
+summary: "Metodología paso a paso para auditar la factura de Edenor, detectar sobrecostos por capacidad ociosa o recargos por excesos de potencia contratada, y recontratar la capacidad justa ante la distribuidora."
+problem: "Pagar un cargo fijo elevado por potencia reservada que no se utiliza o, por el contrario, sufrir penalidades tarifarias punitorias por picos de demanda en horas de punta."
+solution: "Auditoría de curvas de carga con analizador IoT SmartPlus, control inteligente de picos con Powermeter Automate y gestión técnica de recontratación de potencia ante la distribuidora."
+key_takeaways:
+  - "La capacidad contratada ociosa representa un sobrecosto fijo que se abona todos los meses sin importar el nivel de producción."
+  - "Los excesos de potencia disparan cargos punitorios automáticos sobre la potencia registrada."
+  - "Powermeter Automate permite realizar 'peak shaving' (corte automático de cargas secundarias)."
+  - "El trámite de recontratación ante Edenor exige un informe técnico de demanda máxima justificado con mediciones."
+published_at: "2026-08-27"
+og_image: "/static/media/hero-energy.svg"
+content: |
+  ## 1. La Trampa de la Potencia Contratada en Tarifas T2 y T3
+
+  En el esquema tarifario de **Edenor y Edesur**, la potencia eléctrica contratada (medida en kW para T2 o kW/kVA para T3) no es un simple detalle administrativo: determina el **cargo fijo mensual por capacidad de suministro**, se use o no la energía.
+
+  Existen dos desvíos típicos que generan pérdidas directas en las finanzas de una empresa:
+
+  1. **Sobredimensionamiento (Capacidad Ociosa):** La planta contrató históricamente 150 kW, pero tras modernizar maquinaria o reducir turnos, su demanda pico real no supera los 70 kW. Está pagando 80 kW "fantasma" todos los meses.
+  2. **Subdimensionamiento (Penalidad por Excesos de Potencia):** La planta contrató 100 kW, pero en arranques simultáneos de compresores y hornos alcanza 130 kW. La distribuidora factura la potencia registrada con un recargo punitorio sobre el valor de la tarifa.
+
+  ---
+
+  ## 2. Los Dos Componentes Clave: Horas Pico y Horas Fuera de Pico
+
+  En la categoría **T3 (Grandes Demandas > 50 kW)**, la potencia se divide en dos bloques:
+
+  * **Potencia en Horas de Punta (18:00 a 23:00 hs):** El cargo tarifario es considerablemente más alto para desincentivar el uso de la red en la ventana de mayor consumo nacional.
+  * **Potencia en Horas Fuera de Punta (Valle y Resto):** Tarifa más económica para turnos nocturnos o continuos.
+
+  Un análisis riguroso de telemetría permite trasladar arranques de motores pesados fuera de la ventana de punta, reduciendo la potencia contratada en ese bloque hasta en un **40%**.
+
+  ---
+
+  ## 3. Control Inteligente de Demanda Máxima con Powermeter Automate (Peak Shaving)
+
+  Para evitar que un pico transitorio de 15 minutos obligue a contratar más potencia o dispare una penalidad, DataMaq instala el PLC IoT **Powermeter Automate**:
+
+  * Monitorea la potencia activa instantánea segundo a segundo.
+  * Si la demanda acumulada en la ventana de 15 minutos supera el umbral de seguridad (ej. 92% de la potencia contratada), el controlador ejecuta un **corte secuencial de cargas no críticas** (enfriadores, bombas de reserva, climatización auxiliar).
+  * Una vez superado el pico, reenciende las cargas automáticamente sin detener la línea principal de producción.
+
+  ---
+
+  ## 4. Cómo Proceder ante la Distribuidora Eléctrica
+
+  1. **Registro Continuo de Datos:** Medir durante 14 a 30 días la curva de carga con Powermeter SmartPlus.
+  2. **Confección del Informe de Demanda:** Elaborar la memoria técnica con el cálculo de demanda máxima simultánea y factor de simultaneidad.
+  3. **Presentación de la Solicitud:** Gestionar el cambio de potencia contratada ante Edenor/Edesur mediante el portal de grandes clientes.

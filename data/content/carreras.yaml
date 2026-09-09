@@ -1,0 +1,214 @@
+carreras:
+- id: ciencia-de-datos-ia
+  slug: ciencia-de-datos-ia
+  title: Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
+  titulo_otorgado: Técnico/a Superior en Ciencia de Datos e Inteligencia Artificial
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  resolucion: Resolución DGCyE N° 273/22
+  badge: Alta Demanda Laboral
+  icon: bi-cpu
+  description_short: Formación avanzada en Python, Machine Learning, Deep Learning,
+    SQL, Big Data y despliegue de modelos de IA aplicados a la industria, salud, finanzas
+    y servicios.
+  description_long: La Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
+    forma profesionales capacitados para recolectar, procesar, analizar y modelar
+    grandes volúmenes de datos. Los estudiantes aprenden a programar en Python, diseñar
+    arquitecturas de datos, entrenar algoritmos de aprendizaje automático (Machine
+    Learning), redes neuronales profundas (Deep Learning) y construir APIs de inferencia
+    en tiempo real, con una sólida base matemática, estadística y de responsabilidad
+    ética.
+  perfil_egresado: 'El/la egresado/a es capaz de liderar el ciclo de vida de los datos:
+    desde la extracción, limpieza e ingeniería de características, hasta el modelado
+    predictivo, la visualización ejecutiva y la puesta en producción (MLOps) de soluciones
+    basadas en IA.'
+  materias_destacadas:
+  - Programación en Python y Estructuras de Datos
+  - Álgebra Lineal, Probabilidad y Estadística Aplicada
+  - Bases de Datos Relacionales (SQL) y NoSQL
+  - Machine Learning y Minería de Datos
+  - Deep Learning, Redes Neuronales y Computer Vision
+  - Procesamiento de Lenguaje Natural (NLP)
+  - Despliegue de APIs y Microservicios (FastAPI)
+  - Ética, Gobernanza y Privacidad de los Datos
+  salida_laboral:
+  - Científico/a y Analista de Datos (Data Scientist / Data Analyst)
+  - Desarrollador/a de Machine Learning e Inteligencia Artificial
+  - Ingeniero/a de Datos Junior (ETL / Pipelines)
+  - Consultor/a de Business Intelligence (BI) y Analítica Predictiva
+  - Especialista en Automatización Inteligente de Procesos
+- id: mecatronica
+  slug: mecatronica
+  title: Tecnicatura Superior en Mecatrónica
+  titulo_otorgado: Técnico/a Superior en Mecatrónica
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  resolucion: Resolución DGCyE N° 5885/10
+  badge: Industria 4.0
+  icon: bi-gear-wide-connected
+  description_short: Integración multidisciplinaria de mecánica, electrónica, control
+    automático y programación para automatización de líneas industriales y sistemas
+    robóticos.
+  description_long: La carrera integra conocimientos de mecánica de precisión, electrónica
+    analógica y digital, microcontroladores y programación industrial para diseñar,
+    montar, calibrar y mantener sistemas mecatrónicos complejos, celdas robotizadas
+    y líneas de producción continuas.
+  perfil_egresado: El/la egresado/a está capacitado/a para programar autómatas programables
+    (PLCs), sistemas SCADA, brazos robóticos industriales, sensores avanzados e instrumentación
+    de procesos, garantizando la continuidad operativa y la modernización tecnológica
+    de las plantas productivas.
+  materias_destacadas:
+  - Electrónica Industrial y Circuitos
+  - Control Automático y Servomecanismos
+  - Programación de PLCs y Sistemas SCADA
+  - Robótica Industrial y Cinemática
+  - Neumática, Hidráulica y Electroneumática
+  - Microcontroladores y Sistemas Embebidos
+  - Instrumentación y Sensores Industriales
+  - Mantenimiento de Sistemas Mecatrónicos
+  salida_laboral:
+  - Programador/a de PLCs y Sistemas de Automatización
+  - Técnico/a de Mantenimiento Electromecánico y Robótica
+  - Integrador/a de Celdas de Manufactura Automatizada
+  - Instrumentista Industrial y Calibrador de Sensores
+  - Supervisor/a de Líneas de Producción Automatizadas
+- id: logistica
+  slug: logistica
+  title: Tecnicatura Superior en Logística
+  titulo_otorgado: Técnico/a Superior en Logística
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  resolucion: Resolución DGCyE N° 1243/19
+  badge: Estratégica en Tigre
+  icon: bi-truck
+  description_short: Gestión integral de la cadena de suministro, almacenamiento,
+    ruteo de distribución, control de inventarios y logística multimodal para el parque
+    industrial y el comercio.
+  description_long: Formación especializada en la planificación, coordinación y optimización
+    de flujos de materiales e información a lo largo de toda la cadena de suministros
+    (Supply Chain). Se enfoca especialmente en el entramado logístico e industrial
+    del Corredor Norte del Gran Buenos Aires.
+  perfil_egresado: El/la egresado/a coordina almacenes y centros de distribución (CD),
+    administra software de gestión logística (WMS / TMS / ERP), gestiona compras y
+    abastecimiento, optimiza rutas de transporte terrestre y fluvial, y lidera auditorías
+    de calidad y trazabilidad.
+  materias_destacadas:
+  - Gestión de Almacenes e Inventarios
+  - Transporte, Distribución y Ruteo
+  - Cadena de Suministro y Abastecimiento
+  - Sistemas de Información Logística y WMS
+  - Costos y Presupuestos Logísticos
+  - Comercio Exterior y Aduanas
+  - Seguridad Operativa en Depósitos
+  - Logística Sustentable y Fluvial
+  salida_laboral:
+  - Coordinador/a de Centros de Distribución y Almacenes
+  - Analista de Cadena de Suministro (Supply Chain Analyst)
+  - Planificador/a de Rutas y Flotas de Transporte
+  - Responsable de Gestión de Stocks e Inventarios
+  - Operador/a de Logística Internacional y Cargas
+- id: higiene-y-seguridad
+  slug: higiene-y-seguridad
+  title: Tecnicatura Superior en Higiene y Seguridad en el Trabajo
+  titulo_otorgado: Técnico/a Superior en Higiene y Seguridad en el Trabajo
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  resolucion: Resolución DGCyE N° 320/13
+  badge: Matrícula Habilitante
+  icon: bi-shield-check
+  description_short: Prevención de riesgos laborales, auditoría de condiciones ambientales,
+    ergonomía y diseño de planes de seguridad para industrias, obras civiles y organizaciones.
+  description_long: Forma profesionales competentes para diseñar, aplicar y auditar
+    programas de prevención de accidentes y enfermedades profesionales, de acuerdo
+    con el marco legal argentino (Ley 19.587, Ley 24.557 y normativas SRT).
+  perfil_egresado: El/la egresado/a evalúa riesgos en ambientes laborales, audita
+    el cumplimiento de normativas de higiene, capacita a trabajadores en primeros
+    auxilios y evacuación, diseña mapas de riesgos y tramita la habilitación de establecimientos
+    ante organismos de control.
+  materias_destacadas:
+  - Seguridad Industrial I, II y III
+  - Higiene Laboral, Ruidos, Iluminación y Carga Térmica
+  - Toxicología Laboral y Contaminantes Químicos
+  - Ergonomía de Puestos de Trabajo
+  - Protección y Extinción contra Incendios
+  - Legislación Laboral y Normativa SRT
+  - Medicina Laboral y Primeros Auxilios
+  - Práctica Profesional Supervisada en Fábrica
+  salida_laboral:
+  - Técnico/a de Higiene y Seguridad en Plantas Industriales
+  - Responsable de Seguridad en Obras en Construcción
+  - Auditor/a en Aseguradoras de Riesgos del Trabajo (ART)
+  - Consultor/a Externo/a Matriculado/a en Prevención de Riesgos
+  - Capacitador/a en Normas de Seguridad y Planes de Evacuación
+- id: recursos-humanos
+  slug: recursos-humanos
+  title: Tecnicatura Superior en Administración de Recursos Humanos
+  titulo_otorgado: Técnico/a Superior en Administración de Recursos Humanos
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  resolucion: Resolución DGCyE N° 276/03
+  badge: Gestión & Personas
+  icon: bi-people
+  description_short: Gestión del talento humano, relaciones laborales, liquidación
+    de haberes y cargas sociales, selección de personal, clima organizacional y capacitación
+    continua.
+  description_long: Prepara profesionales con visión estratégica y humana para gestionar
+    el capital de las organizaciones, promoviendo ambientes de trabajo saludables,
+    colaborativos y conformes con el régimen laboral vigente.
+  perfil_egresado: El/la egresado/a gestiona la incorporación y desarrollo del talento,
+    administra la documentación laboral, ejecuta la liquidación de remuneraciones
+    y aportes, media en conflictos laborales y diseña planes de bienestar y clima
+    laboral.
+  materias_destacadas:
+  - Administración y Gestión del Personal
+  - Derecho del Trabajo y Seguridad Social
+  - Liquidación de Sueldos y Cargas Sociales
+  - Reclutamiento y Selección de Talento
+  - Capacitación y Desarrollo Profesional
+  - Psicología Laboral y Dinámica de Grupos
+  - Relaciones Laborales y Negociación Sindical
+  - Comunicación Interna y Clima Organizacional
+  salida_laboral:
+  - Analista de Recursos Humanos y Relaciones Laborales
+  - Responsable de Reclutamiento y Selección (Talent Acquisition)
+  - Especialista en Liquidación de Haberes y Nómina
+  - Coordinador/a de Capacitación y Desarrollo Organizacional
+  - Consultor/a en Clima y Cultura de Trabajo
+- id: turismo-y-hoteleria
+  slug: turismo-y-hoteleria
+  title: Tecnicatura Superior en Servicios Gastronómicos, Turismo y Hotelería
+  titulo_otorgado: Técnico/a Superior en Servicios Gastronómicos y Turismo
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  resolucion: Resolución DGCyE N° 148/18
+  badge: Desarrollo Local Tigre
+  icon: bi-compass
+  description_short: Planificación y gestión de servicios turísticos, hoteleros y
+    gastronómicos, con énfasis en el ecoturismo y el desarrollo del Delta de Tigre.
+  description_long: Orienta a los profesionales hacia la gestión innovadora de empresas
+    y servicios turísticos, promoviendo el turismo sustentable, la preservación del
+    patrimonio biocultural de las islas de Tigre y la hospitalidad de estándar internacional.
+  perfil_egresado: El/la egresado/a diseña circuitos y experiencias turísticas, administra
+    establecimientos de hospedaje y gastronomía, coordina eventos corporativos y recreativos,
+    y promueve el turismo receptivo del municipio.
+  materias_destacadas:
+  - Circuitos Turísticos y Guía de Excursiones
+  - Gestión Hotelera y Hospitalidad
+  - Patrimonio Natural y Cultural del Delta
+  - Servicios Gastronómicos y Enología
+  - Organización de Eventos y Convenciones
+  - Marketing Turístico y Canales Digitales
+  - Inglés y Portugués Técnico para Turismo
+  - Legislación Turística y Sustentabilidad
+  salida_laboral:
+  - Coordinador/a de Servicios y Circuitos Turísticos
+  - Administrador/a de Hoteles, Cabañas y Resorts
+  - Organizador/a Profesional de Eventos y Congresos
+  - Agente de Viajes y Operador/a Receptivo
+  - Guía Especializado/a en Ecoturismo en el Delta

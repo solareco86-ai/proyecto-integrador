@@ -1,0 +1,16 @@
+{
+  "short_name": "ISFT 199",
+  "name": "ISFT N° 199 - Instituto Superior de Formación Técnica",
+  "icons": [
+    {
+      "src": "/static/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0a192f",
+  "theme_color": "#0284c7",
+  "display": "standalone",
+  "orientation": "portrait"
+}

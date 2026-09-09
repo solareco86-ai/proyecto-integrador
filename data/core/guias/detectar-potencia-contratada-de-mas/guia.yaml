@@ -1,0 +1,97 @@
+slug: "detectar-potencia-contratada-de-mas"
+title: "Cómo detectar que estás pagando potencia contratada de más"
+category: "Gestión Tarifaria & Costos"
+reading_time: "5 min de lectura"
+summary: "Verificación en tres pasos, con la factura en la mano, para saber si tu planta reservó capacidad que no usa. Qué margen es razonable dejar y por qué bajar demasiado sale más caro que no bajar nada."
+problem: "La potencia contratada se fijó hace años sobre una capacidad instalada que ya no existe, y se sigue pagando todos los meses como cargo fijo, produzca la planta o no."
+solution: "Contraste entre la potencia contratada de la factura y la demanda máxima realmente registrada durante una campaña de medición continua, con margen de seguridad dimensionado."
+key_takeaways:
+  - "El cargo por potencia se paga aunque la planta esté parada: es capacidad reservada, no consumo."
+  - "La demanda se mide en ventanas de 15 minutos; un pico instantáneo de tres segundos no define la potencia."
+  - "Un margen del 10 al 15 % sobre la demanda máxima registrada es razonable; menos es exponerse a penalidades."
+  - "Bajar la potencia sin analizar crecimiento previsto obliga a recontratar hacia arriba, que es más caro y más lento."
+published_at: "2026-09-02"
+og_image: "/static/media/hero-energy.svg"
+content: |
+  ## 1. Qué es exactamente lo que estás pagando
+
+  En tarifas T2 y T3, la factura tiene dos componentes grandes que conviene no confundir:
+
+  * **Cargo por energía (kWh):** lo que consumiste. Varía con la producción.
+  * **Cargo por potencia (kW o kVA):** la capacidad que la distribuidora reserva para vos. **Se paga completo, produzcas o no.**
+
+  El segundo es el que interesa acá. Es un costo fijo mensual, y si está sobredimensionado, es una pérdida recurrente que no depende de cuánto trabajes.
+
+  ---
+
+  ## 2. Paso 1: leer los dos números de la factura
+
+  Buscá en tu factura estos dos valores del mismo período:
+
+  * **Potencia contratada** (o "capacidad de suministro contratada"): lo que reservaste.
+  * **Potencia máxima registrada** (o "demanda máxima"): el pico que efectivamente alcanzaste.
+
+  Compará. Si la registrada está sistemáticamente muy por debajo de la contratada, hay margen. Si la registrada supera la contratada, tenés el problema inverso: estás pagando cargos punitorios por exceso.
+
+  En tarifa **T3**, además, la potencia se factura discriminada en **horas de punta (18 a 23 h)** y **fuera de punta**, con cargos muy distintos. Un mismo pico no cuesta lo mismo según cuándo ocurre, y esa distinción abre una posibilidad que veremos en el paso 3.
+
+  ---
+
+  ## 3. Paso 2: doce meses, no uno
+
+  Un solo período no sirve. La demanda máxima varía con la estación, con el mix de producción y con paradas programadas. Armá una planilla con doce meses y tres columnas: potencia contratada, potencia máxima registrada y el porcentaje de utilización.
+
+  Lo que estás buscando es el **máximo de los máximos** del año, no el promedio. La potencia contratada tiene que cubrir el peor mes, no el mes típico.
+
+  Si el máximo anual está en el 70 % de la contratada o menos, casi seguro hay margen de recontratación.
+
+  ---
+
+  ## 4. Paso 3: entender de dónde sale el pico
+
+  Antes de bajar la potencia hay que saber **qué** produce la demanda máxima. Acá la factura ya no alcanza: informa el valor del pico, no su origen. Se necesita registro continuo de la curva de carga.
+
+  Los patrones más frecuentes:
+
+  * **Arranque simultáneo.** Todo entra a la vez al inicio del turno. El pico dura minutos y define la potencia contratada de todo el año. Se resuelve **escalonando arranques**, sin comprar nada.
+  * **Coincidencia con horas de punta.** Un proceso pesado que cae dentro de la ventana de 18 a 23 h paga el cargo más caro. Correrlo fuera de esa ventana puede reducir sustancialmente la potencia contratada en el bloque de punta.
+  * **Pico genuino de proceso.** Un horno, una prensa grande, un compresor de arranque directo. No se puede correr sin afectar la producción, pero sí se puede **acotar** con corte automático de cargas no críticas.
+  * **Pico espurio.** Un evento único —una prueba, una falla, un arranque anómalo— que quedó registrado y fijó la demanda facturada de ese período. Vale la pena identificarlo para no dimensionar sobre un dato que no representa la operación.
+
+  Un detalle técnico que cambia el análisis: la demanda se integra en **ventanas de 15 minutos**. Un pico instantáneo de tres segundos no define la potencia facturada; lo que cuenta es la potencia media sostenida durante el intervalo. Por eso el peak shaving funciona: no hace falta evitar el pico, alcanza con impedir que se sostenga durante la ventana completa.
+
+  ---
+
+  ## 5. Cuánto margen dejar
+
+  Este es el error más caro del proceso, y se comete en las dos direcciones.
+
+  * **Margen demasiado chico:** cualquier variación normal de producción dispara **excesos de potencia**, que se facturan con recargo punitorio sobre la potencia registrada. El ahorro se evapora en dos meses malos.
+  * **Margen demasiado grande:** no resolviste nada, seguís pagando capacidad ociosa.
+
+  Un criterio razonable es contratar entre un **10 y un 15 % por encima de la demanda máxima registrada** en el año, ajustado por dos factores:
+
+  * **Crecimiento previsto:** si hay una máquina nueva proyectada, entra en el cálculo. Recontratar hacia arriba es más caro y más lento que hacia abajo.
+  * **Estacionalidad:** si el pico anual ocurre en un mes puntual y muy por encima del resto, evaluá si conviene contratar para ese mes o gestionar la demanda en esas semanas.
+
+  ---
+
+  ## 6. Qué hace falta para el trámite
+
+  La recontratación ante la distribuidora no se pide con una estimación. Requiere un **informe técnico de demanda** respaldado por mediciones:
+
+  1. **Registro continuo de 14 a 30 días** de la curva de carga con analizador Powermeter SmartPlus.
+  2. **Memoria técnica** con el cálculo de demanda máxima simultánea y el factor de simultaneidad aplicado.
+  3. **Presentación de la solicitud** por el canal de grandes clientes de la distribuidora.
+
+  Si además del sobredimensionamiento hay picos que conviene acotar, el **Powermeter Automate** permite contratar una potencia más ajustada con respaldo: monitorea la demanda dentro de la ventana de 15 minutos y desconecta cargas no críticas antes de que el intervalo se cierre por encima del umbral.
+
+  La misma campaña de medición sirve para las dos cosas, y también para el análisis de factor de potencia. Conviene hacerlas juntas.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de calidad de energía y corrección de factor de potencia](/landing/calidad-energia)
+  * [Control automático de cargas no críticas para cortar el pico de demanda](/guias/control-automatico-cargas-no-criticas-picos-demanda)
+  * [Cobertura en Pilar](/buenos-aires/pilar/pilar.html)

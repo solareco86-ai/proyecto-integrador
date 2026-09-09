@@ -1,0 +1,59 @@
+{% macro contact_form(data) %}
+<ol class="c-contact__stepper" aria-label="Pasos del formulario">
+    {% for step in data.steps %}
+    <li class="c-contact__stepper-item {{ 'is-active' if loop.first else '' }}">
+        <button type="button" class="c-contact__stepper-trigger" {% if loop.first %}aria-current="step"{% endif %} aria-label="Andá al paso {{ loop.index }}: {{ step.title }}" data-step-index="{{ loop.index0 }}">
+            <span class="c-contact__stepper-dot" aria-hidden="true"><span>{{ loop.index }}</span></span>
+            <span class="c-contact__stepper-label">{{ step.title }}</span>
+        </button>
+    </li>
+    {% endfor %}
+</ol>
+<div class="c-contact__progress" role="progressbar" aria-label="Progreso del formulario" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+    <div class="c-contact__progress-track">
+        <div class="c-contact__progress-fill" style="width: 33%;"></div>
+    </div>
+    <p class="c-contact__progress-text">{{ data.progress_text }}</p>
+    <p class="c-contact__privacy-note">{{ data.privacy_note }}</p>
+</div>
+<form class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false">
+    <!-- Campo señuelo Honeypot anti-spam (invisible para usuarios reales) -->
+    <div class="tw:hidden" aria-hidden="true" style="display: none !important;">
+        <label for="website_url_hp">Dejá este campo vacío</label>
+        <input id="website_url_hp" name="website_url_hp" type="text" tabindex="-1" autocomplete="off" value="">
+    </div>
+    <div>
+        {% for step in data.steps %}
+        <div class="c-contact__step-panel {{ 'is-hidden' if not loop.first else '' }}">
+            <h3 class="c-contact__step-title">{{ loop.index }}. {{ step.title }}</h3>
+            {% for field in step.fields %}
+            <div>
+                <label class="c-contact__label" for="{{ field.id }}">{{ field.label }}</label>
+                {% if field.type == 'textarea' %}
+                <textarea id="{{ field.id }}" name="{{ field.id }}" class="c-contact__input" rows="4" aria-describedby="{{ field.id }}-helper"></textarea>
+                {% elif field.type == 'select' %}
+                <select id="{{ field.id }}" name="{{ field.id }}" class="c-contact__input" aria-invalid="false" aria-describedby="{{ field.id }}-helper">
+                    {% for option in field.options %}
+                    <option value="{{ option.value }}">{{ option.label }}</option>
+                    {% endfor %}
+                </select>
+                {% else %}
+                <input id="{{ field.id }}" name="{{ field.id }}" type="text" class="c-contact__input" autocomplete="{{ field.autocomplete }}" maxlength="80" aria-invalid="false" aria-describedby="{{ field.id }}-helper">
+                {% endif %}
+                <small id="{{ field.id }}-helper" class="c-contact__helper">{{ data.optional_text }}</small>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="c-contact__actions tw:flex tw:items-center tw:gap-3">
+        <button type="button" class="c-contact__btn c-contact__btn--prev tw:btn tw:btn-outline tw:text-sm tw:hidden" aria-label="Volver al paso anterior">← Volver</button>
+        <button type="button" class="c-contact__btn c-contact__btn--primary c-contact__btn--next"> Continuar → </button>
+    </div>
+</form>
+<article class="c-contact__email-card" aria-label="Contacto alternativo por e-mail">
+    <p class="c-contact__email-label">{{ data.alt_email.label }}</p>
+    <p class="c-contact__email-title">{{ data.alt_email.title }}</p>
+    <a class="c-contact__email-link js-email-protect" href="#" data-u="ifst199alumnos" data-d="gmail.com" aria-label="Escribir correo a ifst199alumnos@gmail.com"><span class="js-email-display">ifst199alumnos [en] gmail.com</span></a>
+</article>
+{% endmacro %}

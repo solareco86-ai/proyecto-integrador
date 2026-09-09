@@ -1,0 +1,17 @@
+{% macro cookie_banner(cookie_banner) %}
+<div id="cookie-banner" class="c-cookie-banner" role="dialog" aria-live="polite" aria-label="Banner de cookies">
+    <div class="c-cookie-banner__container">
+        <div class="c-cookie-banner__content">
+            <p class="c-cookie-banner__title">{{ cookie_banner.title }}</p>
+            <p class="c-cookie-banner__text">
+                {{ cookie_banner.text }}
+                <a class="c-cookie-banner__link" href="{{ cookie_banner.more_info_link }}">{{ cookie_banner.more_info_label }}</a>.
+            </p>
+        </div>
+        <div class="c-cookie-banner__actions">
+            <button id="accept-cookies" class="c-cookie-banner__button c-cookie-banner__button--primary" type="button">{{ cookie_banner.accept_label }}</button>
+            <button id="reject-cookies" class="c-cookie-banner__button c-cookie-banner__button--secondary" type="button">{{ cookie_banner.reject_label }}</button>
+        </div>
+    </div>
+</div>
+{% endmacro %}

@@ -1,0 +1,132 @@
+{% extends "cursos/base_curso.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
+        <span class="c-cursos-hero__badge">{{ courses.badge }}</span>
+        <h1 class="c-cursos-hero__title">{{ courses.title }}</h1>
+        <p class="c-cursos-hero__subtitle">{{ courses.subtitle }}</p>
+    </div>
+</section>
+
+<section class="c-cursos-grid-section">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
+        <!-- Selector de visualización de cursos -->
+        <div class="tw:flex tw:flex-col sm:tw:flex-row tw:items-center tw:justify-between tw:gap-4 tw:mb-8 tw:p-4 tw:rounded-xl tw:bg-dm-surface tw:border tw:border-dm-border">
+            <div class="tw:flex tw:items-center tw:gap-2">
+                {% if mostrando_todos %}
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-cyan-500/20 tw:text-cyan-400 tw:border tw:border-cyan-500/30">
+                        <i class="bi bi-mortarboard-fill"></i> Mostrando todas las materias y cursos ({{ cursos | length }})
+                    </span>
+                {% else %}
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-dm-bg tw:text-dm-text-muted tw:border tw:border-dm-border">
+                        <i class="bi bi-star-fill tw:text-yellow-400"></i> Cursos destacados
+                    </span>
+                {% endif %}
+            </div>
+            <div>
+                {% if mostrando_todos %}
+                    <a href="{{ url_for('listado_cursos') }}" class="c-ui-btn c-ui-btn--outline tw:text-xs tw:py-2 tw:px-4">
+                        <i class="bi bi-funnel"></i> Ver solo cursos destacados
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('listado_cursos') }}?view=all" class="c-ui-btn c-ui-btn--primary tw:text-xs tw:py-2 tw:px-4">
+                        <i class="bi bi-grid-3x3-gap-fill"></i> Ver todos los cursos y materias académicas →
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if cursos %}
+            <div class="c-cursos-grid">
+                {% for curso in cursos %}
+                    <article class="c-curso-card">
+                        {% if curso.og_image %}
+                            <div class="c-curso-card__media">
+                                <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy" decoding="async"
+                                     {% if curso.og_image_width and curso.og_image_height %}width="{{ curso.og_image_width }}" height="{{ curso.og_image_height }}"{% endif %}>
+                            </div>
+                        {% endif %}
+                        <div class="c-curso-card__content">
+                            <div class="c-curso-card__meta">
+                                <div class="c-curso-card__badges">
+                                    <span class="c-curso-card__badge c-curso-card__badge--{{ curso.level | lower }}">{{ curso.level }}</span>
+                                    {% if curso.academic_only %}<span class="c-curso-card__badge c-curso-card__badge--academic">Alumnos</span>{% endif %}
+                                </div>
+                                <span class="c-curso-card__meta-item">
+                                    <i class="bi bi-clock"></i> {{ curso.duration }}
+                                </span>
+                            </div>
+                            <h2 class="c-curso-card__title">
+                                <a href="{{ url_for('detalle_curso', curso_slug=curso.slug) }}">{{ curso.title }}</a>
+                            </h2>
+                            <p class="c-curso-card__description">{{ curso.description_short }}</p>
+                            
+                            <div class="c-curso-card__footer">
+                                <div class="c-curso-card__instructor">
+                                    <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-link" aria-label="Perfil de {{ curso.instructor.name }}">
+                                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-curso-card__instructor-photo" loading="lazy" decoding="async"
+                                             {% if curso.instructor.photo_width and curso.instructor.photo_height %}width="{{ curso.instructor.photo_width }}" height="{{ curso.instructor.photo_height }}"{% endif %}>
+                                    </a>
+                                    <div class="c-curso-card__instructor-info">
+                                        <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-curso-card__instructor-name-link">
+                                            <span class="c-curso-card__instructor-name">{{ curso.instructor.name }}</span>
+                                        </a>
+                                        <span class="c-curso-card__instructor-role">{{ curso.instructor.role }}</span>
+                                    </div>
+                                </div>
+                                <a href="{{ url_for('detalle_curso', curso_slug=curso.slug) }}" class="c-curso-card__cta">Ver Temario</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="c-cursos-empty">
+                <p>Próximamente se publicarán los primeros cursos del catálogo técnico.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ request.url_for('root') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Cursos",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

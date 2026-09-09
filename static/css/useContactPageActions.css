@@ -1,0 +1,274 @@
+/* ─── Stepper ─── */
+.c-contact__stepper {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .6rem;
+    margin: 0 0 .8rem;
+    padding: 0;
+    list-style: none;
+}
+
+.c-contact__stepper-item {
+    border: 1px solid rgba(var(--dm-text-0-rgb), .16);
+    border-radius: 999px;
+    background: rgba(var(--dm-text-0-rgb), .03);
+    color: rgba(var(--dm-text-0-rgb), .78);
+    min-width: 0;
+}
+
+.c-contact__stepper-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    min-height: 2.75rem;
+    padding: .45rem .55rem;
+    background: transparent;
+    color: inherit;
+    border: 0;
+    text-align: left;
+    border-radius: 999px;
+}
+
+.c-contact__stepper-trigger:focus-visible {
+    outline: 2px solid rgb(var(--dm-accent-orange-rgb));
+    outline-offset: 2px;
+}
+
+.c-contact__stepper-dot {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(var(--dm-text-0-rgb), .25);
+    font-size: .72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.c-contact__stepper-label {
+    font-size: .75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.c-contact__stepper-item.is-active {
+    border-color: rgba(var(--dm-accent-orange-rgb), .8);
+    background: rgba(var(--dm-accent-orange-rgb), .14);
+    color: var(--dm-text-0);
+}
+
+.c-contact__stepper-item.is-active .c-contact__stepper-dot {
+    border-color: rgb(var(--dm-accent-orange-rgb));
+    background: rgba(var(--dm-accent-orange-rgb), .2);
+}
+
+.c-contact__stepper-item.is-completed {
+    border-color: rgba(var(--dm-accent-orange-rgb), .6);
+    color: rgba(var(--dm-accent-orange-rgb), .95);
+}
+
+.c-contact__stepper-item.is-completed .c-contact__stepper-dot {
+    border-color: rgb(var(--dm-accent-orange-rgb));
+    background: rgb(var(--dm-accent-orange-rgb));
+    color: var(--dm-bg-0);
+}
+
+/* ─── Progress ─── */
+.c-contact__progress {
+    margin-bottom: 1rem;
+}
+
+.c-contact__progress-track {
+    height: .35rem;
+    background: rgba(var(--dm-text-0-rgb), .12);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: .4rem;
+}
+
+.c-contact__progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgb(var(--dm-data-cyan-rgb)), rgb(var(--dm-accent-orange-rgb)));
+    border-radius: 999px;
+    transition: width .25s ease;
+}
+
+.c-contact__progress-text {
+    font-size: .75rem;
+    color: rgba(var(--dm-text-0-rgb), .7);
+    margin: 0 0 .25rem;
+}
+
+.c-contact__privacy-note {
+    font-size: .72rem;
+    color: rgba(var(--dm-text-0-rgb), .55);
+    margin: 0;
+}
+
+/* ─── Formulario ─── */
+.c-contact__step-panel {
+    display: grid;
+    gap: 1rem;
+}
+
+.c-contact__step-panel.is-hidden {
+    display: none;
+}
+
+.c-contact__step-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: .5rem 0 1rem;
+    color: var(--dm-text-0);
+}
+
+.c-contact__label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: .35rem;
+    color: var(--dm-text-0);
+}
+
+.c-contact__input {
+    width: 100%;
+    min-height: 2.9rem;
+    padding: .7rem .9rem;
+    border-radius: .75rem;
+    border: 1px solid rgba(var(--dm-text-0-rgb), .28);
+    background: rgba(var(--dm-bg-0-rgb), .88);
+    color: var(--dm-text-0);
+    font-size: .95rem;
+    outline: none;
+    transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.c-contact__input::placeholder {
+    color: rgba(var(--dm-text-0-rgb), .64);
+}
+
+.c-contact__input:focus-visible {
+    border-color: rgb(var(--dm-accent-orange-rgb));
+    box-shadow: 0 0 0 3px rgba(var(--dm-accent-orange-rgb), .25);
+}
+
+.c-contact__helper {
+    display: block;
+    font-size: .72rem;
+    color: rgba(var(--dm-text-0-rgb), .5);
+    margin-top: .25rem;
+}
+
+/* ─── Acciones ─── */
+.c-contact__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .8rem;
+    margin-top: .5rem;
+}
+
+.c-contact__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.8rem;
+    padding: .75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, opacity .16s ease;
+    border: 0;
+}
+
+.c-contact__btn:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.c-contact__btn--primary {
+    background: linear-gradient(90deg, rgb(var(--dm-data-cyan-rgb)), rgb(var(--dm-accent-orange-rgb)));
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(var(--dm-data-cyan-rgb), .35);
+}
+
+.c-contact__btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(var(--dm-accent-orange-rgb), .45);
+}
+
+/* ─── Email alternativo ─── */
+.c-contact__email-card {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border: 1px solid rgba(var(--dm-text-0-rgb), .12);
+    border-radius: 1rem;
+    background: rgba(var(--dm-text-0-rgb), .03);
+}
+
+.c-contact__email-label {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: rgba(var(--dm-text-0-rgb), .6);
+    margin: 0 0 .25rem;
+}
+
+.c-contact__email-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 .35rem;
+    color: var(--dm-text-0);
+}
+
+.c-contact__email-link {
+    color: rgb(var(--dm-accent-orange-rgb));
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: .35rem 0;
+}
+
+.c-contact__email-link:hover {
+    text-decoration: underline;
+}
+
+/* ─── Media queries ─── */
+@media (max-width: 767.98px) {
+    .c-contact__stepper {
+        grid-template-columns: 1fr;
+    }
+
+    .c-contact__stepper-item {
+        border-radius: .75rem;
+    }
+
+    .c-contact__stepper-trigger {
+        padding: .55rem .7rem;
+    }
+
+    .c-contact__stepper-label {
+        white-space: normal;
+    }
+
+    .c-contact__actions {
+        flex-direction: column-reverse;
+    }
+
+    .c-contact__btn {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .c-contact__progress-fill,
+    .c-contact__btn {
+        transition: none;
+    }
+}

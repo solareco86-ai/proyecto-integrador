@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" role="img" aria-labelledby="title desc">
+  <title id="title">Formación técnica</title>
+  <desc id="desc">Grupo de personas frente a una pizarra con indicadores energéticos.</desc>
+  <rect width="240" height="180" rx="24" fill="#f8f9fa" />
+  <rect x="32" y="32" width="176" height="96" rx="12" fill="#212529" />
+  <polyline points="52,104 72,76 96,92 120,64 148,88 172,56" fill="none" stroke="#4dabf7" stroke-width="6" stroke-linecap="round" />
+  <circle cx="72" cy="126" r="18" fill="#1c7ed6" />
+  <circle cx="120" cy="134" r="22" fill="#4263eb" />
+  <circle cx="168" cy="126" r="18" fill="#364fc7" />
+  <path d="M120 120c10 0 22 12 24 26H96c2-14 14-26 24-26z" fill="#1971c2" />
+  <path d="M72 120c8 0 16 8 18 18H54c2-10 10-18 18-18z" fill="#1864ab" />
+  <path d="M168 120c8 0 16 8 18 18h-36c2-10 10-18 18-18z" fill="#273c75" />
+  <rect x="156" y="44" width="28" height="10" rx="5" fill="#66d9e8" />
+  <rect x="52" y="44" width="36" height="10" rx="5" fill="#ffd43b" />
+  <rect x="96" y="44" width="48" height="10" rx="5" fill="#a5d8ff" />
+</svg>

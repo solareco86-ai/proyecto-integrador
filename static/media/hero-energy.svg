@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 320" role="img" aria-labelledby="title desc">
+  <title id="title">Tablero digital con indicadores de energía</title>
+  <desc id="desc">Ilustración minimalista de un panel con gráficos de línea y barras sobre un fondo con forma circular.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f4c75" />
+      <stop offset="100%" stop-color="#1b262c" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#48cae4" />
+      <stop offset="100%" stop-color="#0096c7" />
+    </linearGradient>
+  </defs>
+  <rect width="420" height="320" rx="32" ry="32" fill="url(#bg)" />
+  <g transform="translate(32 36)">
+    <rect width="356" height="208" rx="20" fill="#f8f9fa" opacity="0.9" />
+    <rect x="16" y="24" width="324" height="120" rx="12" fill="#ffffff" />
+    <polyline
+      points="28,116 80,64 132,92 184,52 236,80 288,44 340,72"
+      fill="none"
+      stroke="url(#accent)"
+      stroke-width="8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <g transform="translate(32 164)">
+      <rect width="48" height="36" rx="10" fill="#0f4c75" opacity="0.12" />
+      <rect x="64" width="48" height="48" rx="10" fill="#0f4c75" opacity="0.24" />
+      <rect x="128" y="-12" width="48" height="60" rx="10" fill="#0f4c75" opacity="0.36" />
+      <rect x="192" y="-24" width="48" height="72" rx="10" fill="#0f4c75" opacity="0.48" />
+      <rect x="256" y="-40" width="48" height="88" rx="10" fill="#0f4c75" opacity="0.6" />
+    </g>
+    <rect x="32" y="36" width="72" height="12" rx="6" fill="#adb5bd" />
+    <rect x="32" y="60" width="124" height="8" rx="4" fill="#adb5bd" opacity="0.6" />
+    <rect x="32" y="80" width="92" height="8" rx="4" fill="#adb5bd" opacity="0.5" />
+  </g>
+  <circle cx="340" cy="260" r="44" fill="#48cae4" opacity="0.3" />
+  <circle cx="92" cy="268" r="36" fill="#0096c7" opacity="0.24" />
+  <path
+    d="M278 248c0-18 14.4-32.4 32.4-32.4 9.4 0 18 4 24.2 10.4L320 252h22l-20 32h-32l14-22h-24z"
+    fill="#ffffff"
+    opacity="0.85"
+  />
+</svg>

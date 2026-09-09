@@ -1,0 +1,11 @@
+instructores:
+  - id: "agustin-bustos"
+    name: "Agustin Bustos"
+    role: "Técnico Universitario · Docente ISFT 199"
+    photo: "/static/media/logo-isft199.webp"
+    photo_width: 184
+    photo_height: 189
+    bio: "Técnico Universitario y Docente en el ISFT N° 199 (Tigre) en la Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial. Posgrado en Eficiencia Energética (ITBA). Especialista en programación Python, arquitectura de datos y automatización."
+    social_links:
+      linkedin: "https://www.linkedin.com/in/agustin-bustos"
+      github: "https://github.com/AgustinMadygraf"

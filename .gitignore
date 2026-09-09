@@ -1,0 +1,16 @@
+venv/
+.env
+__pycache__/
+.coverage
+scripts/.env.deploy
+data/leads/
+.ssh/
+.venv/
+tmp/
+node_modules/
+.claude/
+data/leads.db
+/var/
+.aider*
+docs/estrategia_inversion_2026/*
+uv.lock

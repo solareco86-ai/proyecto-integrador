@@ -1,0 +1,131 @@
+id: "opencode-intermedio"
+slug: "opencode-intermedio"
+title: "Desarrollo Asistido por IA con OpenCode"
+description_short: "Aprendé a desarrollar con agentes de IA usando OpenCode: CLI/TUI, tecla Tab, Modo Plan vs Build y directivas AGENTS.md."
+description_long: "Este curso práctico e interactivo te introduce al desarrollo asistido por agentes de IA con OpenCode. Aprenderás desde la instalación y configuración inicial de la CLI hasta el manejo fluido de su interfaz TUI, el uso del autocompletado con la tecla Tab, y la diferencia fundamental entre el Modo Plan y el Modo Build. También dominarás la gestión de contexto local del proyecto mediante AGENTS.md y directivas de repositorio, permitiéndote construir soluciones de ciencia de datos e inteligencia artificial de forma más rápida, consistente y verificable. Prerrequisitos recomendados: conocimientos básicos de Python, uso básico de la terminal y nociones de Git."
+duration: "7 horas"
+level: "Intermedio"
+language: "Español"
+price: 0.0
+og_image: "/static/media/cursos/og-opencode-intermedio.webp"
+og_image_width: 1200
+og_image_height: 630
+instructor_id: "agustin-bustos"
+academic_only: true
+sections:
+  # --- SECCIÓN A ---
+  - id: "sec-opencode-intermedio-a"
+    title: "Sección A: Fundamentos de OpenCode y su Interfaz"
+    description: "Introducción a OpenCode, instalación de la CLI, navegación de la TUI y productividad con la tecla Tab."
+    chapters:
+      - id: "chap-opencode-int-cap-1"
+        title: "Cap 1: Introducción e Instalación"
+        description: "Qué es OpenCode, cómo funciona un agente de IA en el ciclo de desarrollo y configuración inicial de la CLI."
+        items:
+          - type: "lesson"
+            id: "les-opencode-int-1-1"
+            slug: "que-es-opencode"
+            title: "1.1 ¿Qué es OpenCode y cómo funciona un agente de IA en el desarrollo?"
+            duration: "15 min"
+            content_file: "cap-1-1-que-es-opencode.md"
+          - type: "lesson"
+            id: "les-opencode-int-1-2"
+            slug: "instalacion-configuracion-cli"
+            title: "1.2 Instalación de la CLI y configuración inicial"
+            duration: "20 min"
+            content_file: "cap-1-2-instalacion-configuracion-cli.md"
+
+      - id: "chap-opencode-int-cap-2"
+        title: "Cap 2: La TUI y Productividad"
+        description: "Navegación eficiente de la interfaz de terminal y uso del autocompletado con la tecla Tab."
+        items:
+          - type: "lesson"
+            id: "les-opencode-int-2-1"
+            slug: "navegacion-tui-atajos-teclado"
+            title: "2.1 Navegación de la interfaz TUI y atajos de teclado"
+            duration: "20 min"
+            content_file: "cap-2-1-navegacion-tui-atajos-teclado.md"
+          - type: "lesson"
+            id: "les-opencode-int-2-2"
+            slug: "autocompletado-tecla-tab"
+            title: "2.2 Autocompletado con la tecla Tab"
+            duration: "15 min"
+            content_file: "cap-2-2-autocompletado-tecla-tab.md"
+
+  # --- SECCIÓN B ---
+  - id: "sec-opencode-intermedio-b"
+    title: "Sección B: Modos de Trabajo y Contexto de Proyecto"
+    description: "Modo Plan vs Modo Build, y gestión del contexto local con AGENTS.md y directivas de repositorio."
+    chapters:
+      - id: "chap-opencode-int-cap-3"
+        title: "Cap 3: Modo Plan vs Modo Build"
+        description: "Análisis y diseño antes de codificar, e implementación incremental con verificación continua."
+        items:
+          - type: "lesson"
+            id: "les-opencode-int-3-1"
+            slug: "modo-plan-analisis-diseno"
+            title: "3.1 Modo Plan: análisis y diseño antes de codificar"
+            duration: "20 min"
+            content_file: "cap-3-1-modo-plan-analisis-diseno.md"
+          - type: "lesson"
+            id: "les-opencode-int-3-2"
+            slug: "modo-build-iteracion-verificacion"
+            title: "3.2 Modo Build: implementación incremental y verificación"
+            duration: "20 min"
+            content_file: "cap-3-2-modo-build-iteracion-verificacion.md"
+
+      - id: "chap-opencode-int-cap-4"
+        title: "Cap 4: Contexto Local con AGENTS.md"
+        description: "Qué es AGENTS.md, cómo guía al agente y redacción de directivas de repositorio efectivas."
+        items:
+          - type: "lesson"
+            id: "les-opencode-int-4-1"
+            slug: "introduccion-agents-md"
+            title: "4.1 ¿Qué es AGENTS.md y cómo guía al agente?"
+            duration: "15 min"
+            content_file: "cap-4-1-introduccion-agents-md.md"
+          - type: "lesson"
+            id: "les-opencode-int-4-2"
+            slug: "redaccion-agents-md-directivas"
+            title: "4.2 Directivas de repo: redacción de AGENTS.md efectivo"
+            duration: "25 min"
+            content_file: "cap-4-2-redaccion-agents-md-directivas.md"
+
+      - id: "chap-opencode-int-cap-5"
+        title: "Evaluación de la Sección B"
+        description: "Validá tus conocimientos adquiridos en el curso."
+        items:
+          - type: "quiz"
+            id: "quiz-opencode-intermedio"
+            slug: "evaluacion-opencode-intermedio"
+            title: "Cuestionario: Desarrollo Asistido por IA con OpenCode"
+            duration: "10 min"
+            questions:
+              - id: "q-int-plan"
+                question: "¿Qué representa el Modo Plan en OpenCode?"
+                type: "single_choice"
+                options:
+                  - "Escribir código de forma inmediata"
+                  - "Analizar el problema y diseñar la solución antes de escribir código"
+                  - "Ejecutar los tests automáticamente"
+                  - "Desplegar la aplicación a producción"
+                correct_option: 1
+                explanation: "El Modo Plan se enfoca en razonar el problema, explorar el contexto y proponer una estrategia de implementación antes de tocar el código, reduciendo errores en la fase Build."
+              - id: "q-int-tab"
+                question: "La tecla Tab en la TUI de OpenCode permite autocompletar y seleccionar comandos sugeridos por la IA."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "La tecla Tab activa el autocompletado de comandos y sugerencias, acelerando la interacción con el agente y evitando errores de escritura."
+              - id: "q-int-agents"
+                question: "¿Cuál es la función principal de un archivo AGENTS.md en un repositorio?"
+                type: "single_choice"
+                options:
+                  - "Definir el esquema de la base de datos"
+                  - "Proveer contexto e instrucciones al agente de IA sobre el repositorio"
+                  - "Generar automáticamente la documentación del proyecto"
+                  - "Configurar el despliegue en producción"
+                correct_option: 1
+                explanation: "AGENTS.md actúa como memoria de contexto: informa al agente sobre la arquitectura, las convenciones y los comandos de validación del repositorio para que sus cambios sean consistentes."

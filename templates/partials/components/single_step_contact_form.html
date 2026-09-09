@@ -1,0 +1,63 @@
+{% macro single_step_contact_form(title, subtitle, cta_button="Solicitar Diagnóstico Express", lead_source="landing_direct") %}
+<div class="tw:p-6 tw:md:p-8 tw:bg-dm-surface tw:border tw:border-dm-border-1 tw:rounded-2xl tw:shadow-xl">
+    <div class="tw:mb-6">
+        <span class="tw:inline-flex tw:items-center tw:gap-2 tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-cyan-900/30 tw:text-cyan-300 tw:border tw:border-cyan-700/40">
+            <i class="bi bi-send-check"></i> Relevamiento Técnico Directo
+        </span>
+        <h3 class="tw:text-xl tw:md:text-2xl tw:font-bold tw:text-white tw:mt-3">{{ title }}</h3>
+        <p class="tw:text-sm tw:text-dm-text-muted tw:mt-1">{{ subtitle }}</p>
+    </div>
+
+    <form class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false" data-component="contact-form" data-lead-source="{{ lead_source }}">
+        <!-- Campo señuelo Honeypot anti-spam (invisible para usuarios reales) -->
+        <div class="tw:hidden" aria-hidden="true" style="display: none !important;">
+            <label for="website_url_hp_single">Dejá este campo vacío</label>
+            <input id="website_url_hp_single" name="website_url_hp" type="text" tabindex="-1" autocomplete="off" value="">
+        </div>
+
+        <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
+            <div>
+                <label class="tw:block tw:text-xs tw:font-semibold tw:text-dm-text-0 tw:mb-1" for="landing-nombre">Nombre y Apellido *</label>
+                <input id="landing-nombre" name="nombre" type="text" required class="tw:w-full tw:px-4 tw:py-2.5 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-white focus:tw:border-dm-accent-orange focus:tw:outline-none" placeholder="Ej. Martín Gómez" autocomplete="name">
+            </div>
+
+            <div>
+                <label class="tw:block tw:text-xs tw:font-semibold tw:text-dm-text-0 tw:mb-1" for="landing-telefono">Teléfono / WhatsApp *</label>
+                <input id="landing-telefono" name="telefono" type="tel" required class="tw:w-full tw:px-4 tw:py-2.5 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-white focus:tw:border-dm-accent-orange focus:tw:outline-none" placeholder="Ej. +54 9 11 1234-5678" autocomplete="tel">
+            </div>
+        </div>
+
+        <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
+            <div>
+                <label class="tw:block tw:text-xs tw:font-semibold tw:text-dm-text-0 tw:mb-1" for="landing-empresa">Empresa / Planta</label>
+                <input id="landing-empresa" name="empresa" type="text" class="tw:w-full tw:px-4 tw:py-2.5 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-white focus:tw:border-dm-accent-orange focus:tw:outline-none" placeholder="Ej. Metalúrgica San Martín" autocomplete="organization">
+            </div>
+
+            <div>
+                <label class="tw:block tw:text-xs tw:font-semibold tw:text-dm-text-0 tw:mb-1" for="landing-maquinas">Tipo de Máquinas / Variables</label>
+                <select id="landing-maquinas" name="maquinas" class="tw:w-full tw:px-4 tw:py-2.5 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-white focus:tw:border-dm-accent-orange focus:tw:outline-none">
+                    <option value="Pirómetros / Temperatura PT100">Pirómetros / Temperatura (PT100 / 4-20mA)</option>
+                    <option value="Balanzas / Celdas de Carga">Balanzas / Celdas de Carga / Pesaje</option>
+                    <option value="Variadores VFD / Motores">Variadores de Frecuencia (VFD) / Motores</option>
+                    <option value="Tablero General / Energía">Tablero Eléctrico / Consumo Energético</option>
+                    <option value="Varios / Otra Aplicación">Varios / Otra Aplicación de Planta</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <label class="tw:block tw:text-xs tw:font-semibold tw:text-dm-text-0 tw:mb-1" for="landing-comentario">Detalle breve de lo que necesitás medir o resolver</label>
+            <textarea id="landing-comentario" name="comentario" rows="3" class="tw:w-full tw:px-4 tw:py-2.5 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-white focus:tw:border-dm-accent-orange focus:tw:outline-none" placeholder="Ej. Necesitamos registrar temperatura de 4 hornos y conectar las lecturas a un tablero de control sin cambiar los PLCs actuales."></textarea>
+        </div>
+
+        <div class="c-contact__actions tw:mt-2">
+            <button type="submit" class="tw:w-full tw:btn tw:btn-primary c-contact__btn--next tw:text-center tw:text-sm tw:font-bold tw:flex tw:items-center tw:justify-center tw:gap-2">
+                <i class="bi bi-send-fill"></i> {{ cta_button }}
+            </button>
+            <p class="tw:text-xs tw:text-center tw:text-dm-text-muted tw:mt-2">
+                Respuesta directa por Agustín Bustos en menos de 24 hs. Datos protegidos y confidenciales.
+            </p>
+        </div>
+    </form>
+</div>
+{% endmacro %}

@@ -1,0 +1,8 @@
+industrias:
+  grafica: "Industria Gráfica"
+  plastica: "Industria Plástica"
+  papelera: "Industria Papelera"
+  metalurgica: "Industria Metalúrgica"
+  energia: "Energía"
+  siderurgica: "Industria Siderúrgica"
+  cables: "Industria de Cables"

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% import "partials/head.html" as seo_macro %}
+{% import "partials/components/header.html" as header_macro %}
+{% import "partials/components/footer.html" as footer_macro %}
+{% import "partials/components/whatsapp_fab.html" as whatsapp_macro %}
+{% import "partials/components/cookie_banner.html" as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand, robots=page_robots) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="tw:py-20 tw:min-h-[60vh] tw:flex tw:items-center tw:justify-center" aria-labelledby="error-title">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:max-w-2xl tw:text-center">
+        <div class="tw:inline-flex tw:items-center tw:gap-2 tw:px-4 tw:py-1.5 tw:rounded-full tw:text-xs tw:font-bold tw:bg-red-900/30 tw:text-red-300 tw:border tw:border-red-700/40 tw:mb-4">
+            <i class="bi bi-exclamation-triangle"></i> Error 404
+        </div>
+        <h1 id="error-title" class="tw:text-3xl tw:md:text-4xl tw:font-extrabold tw:text-white tw:tracking-tight">
+            Página no encontrada
+        </h1>
+        <p class="tw:text-sm tw:md:text-base tw:text-dm-text-muted tw:mt-3 tw:max-w-lg tw:mx-auto tw:leading-relaxed">
+            El recurso buscado fue reubicado o no está disponible. No te preocupes: nuestras herramientas, telemetría y servicios siguen en marcha.
+        </p>
+
+        <!-- Enlaces rápidos a soluciones -->
+        <div class="tw:mt-8 tw:p-6 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-2xl tw:text-left tw:space-y-3">
+            <span class="tw:text-xs tw:font-semibold tw:text-dm-text-muted tw:uppercase tw:tracking-wider">Accesos rápidos:</span>
+            <div class="tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:gap-3 tw:pt-1">
+                <a href="/landing/calidad-energia" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-dm-accent-orange/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
+                    <i class="bi bi-lightning-charge-fill tw:text-amber-400"></i> Factor de Potencia (cos φ)
+                </a>
+                <a href="/landing/telemetria-industrial" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-cyan-500/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
+                    <i class="bi bi-cpu-fill tw:text-cyan-400"></i> Telemetría & Retrofit IoT
+                </a>
+                <a href="/pricing" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-green-500/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
+                    <i class="bi bi-cash-coin tw:text-green-400"></i> Precios y Financiamiento
+                </a>
+                <a href="/cursos" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-purple-500/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
+                    <i class="bi bi-journal-code tw:text-purple-400"></i> Cursos Gratuitos
+                </a>
+            </div>
+        </div>
+
+        <div class="tw:mt-8 tw:flex tw:flex-wrap tw:justify-center tw:gap-4">
+            <a class="tw:btn tw:btn-primary tw:text-sm tw:font-bold tw:flex tw:items-center tw:gap-2" href="/">
+                <i class="bi bi-house-door-fill"></i> Volver al inicio
+            </a>
+            <a class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold tw:flex tw:items-center tw:gap-2"
+               href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%20Agust%C3%ADn%2C%20estaba%20navegando%20en%20el%20sitio%20web%20y%20no%20encontr%C3%A9%20lo%20que%20buscaba."
+               target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block fab %}
+{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

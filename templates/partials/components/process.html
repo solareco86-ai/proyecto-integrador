@@ -1,0 +1,23 @@
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro process(process_data) %}
+<section id="proceso" class="section-mobile c-home-process" aria-labelledby="proceso-title">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="c-home-section-head">
+            <span class="c-home-eyebrow">{{ process_data['eyebrow'] }}</span>
+            <h2 id="proceso-title" class="c-home-section-title">{{ process_data['title'] }}</h2>
+            {% if process_data['description'] %}
+            <p class="c-home-section-copy">{{ process_data['description'] }}</p>
+            {% endif %}
+        </div>
+        <div class="c-home-process__steps">
+            {% for step in process_data['steps'] %}
+            <article class="c-home-process__step-card c-home-panel">
+                <span class="c-home-process__step-number" aria-hidden="true">{{ loop.index }}</span>
+                <h3 class="c-home-process__step-title">{{ step['title'] }}</h3>
+                <p class="c-home-process__step-text">{{ step['text'] }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endmacro %}

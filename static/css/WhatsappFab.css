@@ -1,0 +1,69 @@
+.c-whatsapp-fab {
+    position: fixed !important;
+    bottom: calc(var(--fab-offset, 1rem) + env(safe-area-inset-bottom, 0px));
+    right: 1.5rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    background-color: #25d366; /* Verde WhatsApp */
+    color: #fff;
+    border-radius: 9999px;
+    box-shadow: 0 .75rem 1.75rem rgba(0, 0, 0, 0.35);
+    z-index: var(--z-index-whatsapp);
+    opacity: .96;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .24s ease, box-shadow .24s ease, opacity .24s ease, background-color .24s ease;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    text-decoration: none;
+}
+
+.c-whatsapp-fab:hover {
+    transform: translateY(-2px);
+    background-color: #1ebe5d;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+    opacity: 1;
+    color: #fff;
+}
+
+.c-whatsapp-fab:focus-visible {
+    outline: 3px solid rgba(var(--dm-data-cyan-rgb), 0.95);
+    outline-offset: 4px;
+}
+
+.c-whatsapp-fab:active {
+    transform: scale(0.95);
+}
+
+.c-whatsapp-fab__icon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+body.has-consent-banner .c-whatsapp-fab {
+    bottom: calc(var(--fab-offset, 1rem) + env(safe-area-inset-bottom, 0px) + var(--cookie-banner-height, 6rem) + .75rem);
+}
+
+body.dmq-offcanvas-open .c-whatsapp-fab,
+body.offcanvas-open .c-whatsapp-fab {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@media (max-width: 767.98px) {
+    .c-whatsapp-fab {
+        width: 3.5rem;
+        height: 3.5rem;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+        right: 1rem;
+        opacity: 1;
+    }
+
+    .c-whatsapp-fab__icon {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+}

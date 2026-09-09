@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% import "partials/head.html" as seo_macro %}
+{% import "partials/components/header.html" as header_macro %}
+{% import "partials/components/footer.html" as footer_macro %}
+{% import "partials/components/whatsapp_fab.html" as whatsapp_macro %}
+{% import "partials/components/cookie_banner.html" as cookie_banner_macro %}
+{% import "partials/components/single_step_contact_form.html" as form_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header(content.navbar.links) }}
+{% endblock %}
+
+{% block main_content %}
+<!-- Hero CRO Telemetría Industrial -->
+<section class="c-home-hero section-mobile tw:relative tw:overflow-hidden">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-12 tw:gap-8 tw:items-center">
+            <div class="tw:lg:col-span-7 tw:space-y-6">
+                <span class="tw:inline-flex tw:items-center tw:gap-2 tw:px-3.5 tw:py-1.5 tw:rounded-full tw:text-xs tw:font-bold tw:bg-cyan-900/40 tw:text-cyan-300 tw:border tw:border-cyan-700/50">
+                    <i class="bi bi-cpu"></i> {{ campaign.badge }}
+                </span>
+                <h1 class="tw:text-3xl tw:md:text-4xl tw:lg:text-5xl tw:font-extrabold tw:text-white tw:tracking-tight tw:leading-tight">
+                    {{ campaign.hero_title }}
+                </h1>
+                <p class="tw:text-base tw:md:text-lg tw:text-dm-text-muted tw:leading-relaxed tw:max-w-2xl">
+                    {{ campaign.hero_subtitle }}
+                </p>
+
+                <!-- Badges de Propuesta de Valor -->
+                <div class="tw:flex tw:flex-wrap tw:gap-3 tw:pt-2">
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:text-xs tw:text-dm-text-0 tw:bg-dm-surface tw:px-3 tw:py-1.5 tw:rounded-lg tw:border tw:border-dm-border-0">
+                        <i class="bi bi-check-circle-fill tw:text-cyan-400"></i> Plataforma Web $0 de por Vida
+                    </span>
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:text-xs tw:text-dm-text-0 tw:bg-dm-surface tw:px-3 tw:py-1.5 tw:rounded-lg tw:border tw:border-dm-border-0">
+                        <i class="bi bi-hdd-network tw:text-cyan-400"></i> Modbus RS485 / 4-20mA / 0-10V
+                    </span>
+                    <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:text-xs tw:text-dm-text-0 tw:bg-dm-surface tw:px-3 tw:py-1.5 tw:rounded-lg tw:border tw:border-dm-border-0">
+                        <i class="bi bi-box-arrow-in-right tw:text-cyan-400"></i> Integración REST a Xubio ERP
+                    </span>
+                </div>
+
+                <div class="tw:flex tw:flex-wrap tw:gap-4 tw:pt-2">
+                    <a href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text={{ campaign.primary_cta_whatsapp_text | urlencode }}"
+                       target="_blank" rel="noopener noreferrer"
+                       class="tw:btn tw:btn-primary tw:text-sm tw:font-bold tw:flex tw:items-center tw:gap-2">
+                        <i class="bi bi-whatsapp"></i> {{ campaign.primary_cta_label }}
+                    </a>
+                    {% if campaign.secondary_cta_label %}
+                    <a href="{{ campaign.secondary_cta_href }}" class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold">
+                        {{ campaign.secondary_cta_label }} ↓
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Formulario de 1 Paso -->
+            <div class="tw:lg:col-span-5" id="formulario">
+                {% if campaign.form %}
+                {{ form_macro.single_step_contact_form(campaign.form.title, campaign.form.subtitle, campaign.form.cta_button, "landing_telemetria_industrial") }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Beneficios Técnicos -->
+<section class="tw:py-16 tw:bg-dm-bg-1/40 tw:border-y tw:border-dm-border-0">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:text-center tw:max-w-2xl tw:mx-auto tw:mb-12">
+            <h2 class="tw:text-2xl tw:md:text-3xl tw:font-bold tw:text-white">Digitalización y Telemetría en Piso de Planta</h2>
+            <p class="tw:text-sm tw:text-dm-text-muted tw:mt-2">Del dato crudo en el sensor a la decisión en la oficina técnica o contable.</p>
+        </div>
+
+        <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:lg:grid-cols-4 tw:gap-6">
+            {% for benefit in campaign.benefits %}
+            <div class="tw:p-6 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-2xl tw:hover:border-cyan-500/40 tw:transition-all">
+                <div class="tw:w-10 tw:h-10 tw:rounded-xl tw:bg-cyan-900/30 tw:text-cyan-300 tw:flex tw:items-center tw:justify-center tw:mb-4 tw:text-lg">
+                    <i class="bi bi-cpu-fill"></i>
+                </div>
+                <h3 class="tw:text-base tw:font-bold tw:text-white tw:mb-2">{{ benefit.title }}</h3>
+                <p class="tw:text-xs tw:text-dm-text-muted tw:leading-relaxed">{{ benefit.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Casos Reales y Vinculación Tecnológica -->
+<section class="tw:py-16">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-12 tw:gap-8 tw:items-center">
+            <div class="tw:lg:col-span-6 tw:space-y-6">
+                <span class="tw:text-xs tw:font-bold tw:uppercase tw:tracking-wider tw:text-cyan-400">Industria 4.0 Aplicada</span>
+                <h2 class="tw:text-2xl tw:md:text-3xl tw:font-bold tw:text-white">Proyectos reales de adquisición de datos en Zona Norte</h2>
+                <div class="tw:space-y-4">
+                    {% for proof in campaign.proof_items %}
+                    <div class="tw:p-4 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-xl">
+                        <h3 class="tw:text-base tw:font-bold tw:text-white">{{ proof.title }}</h3>
+                        <p class="tw:text-xs tw:text-dm-text-muted tw:mt-1">{{ proof.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="tw:lg:col-span-6 tw:p-8 tw:bg-dm-surface tw:border tw:border-dm-border-1 tw:rounded-2xl tw:text-center tw:space-y-6">
+                <div class="tw:inline-flex tw:w-16 tw:h-16 tw:rounded-full tw:bg-cyan-900/40 tw:text-cyan-300 tw:items-center tw:justify-center tw:text-2xl">
+                    <i class="bi bi-diagram-3-fill"></i>
+                </div>
+                <h3 class="tw:text-xl tw:font-bold tw:text-white">¿Tenés máquinas funcionando que no entregan datos?</h3>
+                <p class="tw:text-sm tw:text-dm-text-muted tw:max-w-md tw:mx-auto">
+                    Conectamos Powermeter Gateway a tus pirómetros, balanzas o variadores sin alterar el cableado original ni detener la línea.
+                </p>
+                <a href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%20Agust%C3%ADn%2C%20quiero%20consultar%20por%20telemetr%C3%ADa%20y%20digitalizaci%C3%B3n%20de%20m%C3%A1quinas%20en%20planta."
+                   target="_blank" rel="noopener noreferrer"
+                   class="tw:btn tw:btn-primary tw:font-bold tw:text-sm tw:inline-flex tw:items-center tw:gap-2">
+                    <i class="bi bi-whatsapp"></i> Consultar Viabilidad por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Preguntas Frecuentes -->
+{% if campaign.faqs %}
+<section class="tw:py-16 tw:bg-dm-bg-1/40 tw:border-t tw:border-dm-border-0">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:max-w-3xl">
+        <div class="tw:text-center tw:mb-10">
+            <span class="tw:text-xs tw:font-bold tw:uppercase tw:tracking-wider tw:text-cyan-400">Telemetría e IoT</span>
+            <h2 class="tw:text-2xl tw:md:text-3xl tw:font-bold tw:text-white tw:mt-1">Preguntas Frecuentes sobre Retrofit IoT</h2>
+        </div>
+
+        <div class="tw:space-y-4">
+            {% for faq in campaign.faqs %}
+            <details class="tw:p-5 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-xl tw:group">
+                <summary class="tw:font-bold tw:text-white tw:cursor-pointer tw:flex tw:items-center tw:justify-between tw:list-none">
+                    <span>{{ faq.question }}</span>
+                    <i class="bi bi-chevron-down tw:text-dm-text-muted group-open:tw:rotate-180 tw:transition-transform"></i>
+                </summary>
+                <p class="tw:text-sm tw:text-dm-text-muted tw:mt-3 tw:leading-relaxed tw:pt-3 tw:border-t tw:border-dm-border-0">
+                    {{ faq.answer }}
+                </p>
+            </details>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Schema.org JSON-LD FAQPage & Service -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Retrofit IoT & Telemetría Industrial Powermeter",
+      "provider": {
+        "@type": "Organization",
+        "name": "{{ brand.brandName }}",
+        "url": "{{ config.BASE_URL }}"
+      },
+      "areaServed": "Zona Norte GBA, Pilar, Garín, Tigre, Campana, San Martín",
+      "description": "{{ seo.description }}"
+    }
+    {% if campaign.faqs %},
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for faq in campaign.faqs %}
+        {
+          "@type": "Question",
+          "name": "{{ faq.question | replace('\"', '\\\"') }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ faq.answer | replace('\"', '\\\"') }}"
+          }
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+    }
+    {% endif %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block fab %}
+{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, campaign.primary_cta_whatsapp_text) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

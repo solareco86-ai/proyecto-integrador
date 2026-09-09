@@ -1,0 +1,193 @@
+id: "lenguajes-electronicos-avanzado"
+slug: "lenguajes-electronicos-avanzado"
+title: "Lenguajes Electrónicos: Nivel Avanzado"
+description_short: "Proyecto integrador Pac-Man en ESP32-WROOM y OLED: arquitectura limpia, DDD y puertos con adaptadores pygame/machine."
+description_long: "Este es el nivel culminante del vertical Lenguajes Electrónicos y su proyecto integrador: un videojuego Pac-Man que se ejecuta en un ESP32-WROOM y se dibuja en una pantalla OLED de 128x64 por I2C. Antes de programar, vas a interiorizar los fundamentos de la arquitectura limpia y del Domain-Driven Design (DDD): la regla de dependencia (las capas externas dependen del dominio, nunca al revés), el lenguaje ubicuo del juego, las Entidades, los Value Objects y los Servicios de dominio, y el patrón puertos y adaptadores (arquitectura hexagonal) que permite correr el mismo juego en la PC con pygame y en el microcontrolador con el módulo machine. Luego construís el juego completo: entidades y movimiento de Pac-Man, IA básica de los fantasmas, detección de colisiones, capa de aplicación con bucle principal y puntuación, el renderizador OLED y el flasheo para ejecución autónoma. Un curso que combina electrónica, programación y diseño de software profesional."
+duration: "24 horas de cursada"
+level: "Avanzado"
+language: "Español"
+price: 0.0
+instructor_id: "agustin-bustos"
+academic_only: true
+sections:
+  # --- SECCIÓN A ---
+  - id: "sec-leng-av-a"
+    title: "Sección A: Arquitectura Limpia y DDD"
+    description: "Regla de dependencia, modelado del dominio del juego con DDD y puertos con adaptadores."
+    chapters:
+      - id: "chap-leng-av-1"
+        title: "Cap 1: Arquitectura Limpia"
+        description: "Capas, regla de dependencia y un dominio que no conoce a la infraestructura."
+        items:
+          - type: "lesson"
+            id: "les-leng-av-1-1"
+            slug: "arquitectura-limpia-regla-dependencia"
+            title: "1.1 Arquitectura limpia que grita: capas y regla de dependencia"
+            duration: "55 min"
+            content_file: "cap-1-1-arquitectura-limpia-regla-dependencia.md"
+
+      - id: "chap-leng-av-2"
+        title: "Cap 2: Modelado del Dominio con DDD"
+        description: "Lenguaje ubicuo, entidades, value objects, agregados y servicios de dominio del juego."
+        items:
+          - type: "lesson"
+            id: "les-leng-av-2-1"
+            slug: "ddd-modelado-dominio-pacman"
+            title: "2.1 Modelado del dominio con DDD: entidades, value objects y servicios"
+            duration: "60 min"
+            content_file: "cap-2-1-ddd-modelado-dominio-pacman.md"
+
+      - id: "chap-leng-av-3"
+        title: "Cap 3: Puertos y Adaptadores"
+        description: "Puertos de renderizado con dos adaptadores: pygame en PC y machine en ESP32."
+        items:
+          - type: "lesson"
+            id: "les-leng-av-3-1"
+            slug: "puertos-adaptadores-hexagonal"
+            title: "3.1 Puertos y adaptadores: renderizado en pygame y en machine"
+            duration: "55 min"
+            content_file: "cap-3-1-puertos-adaptadores-hexagonal.md"
+
+      - id: "chap-eval-leng-av-a"
+        title: "Evaluación de la Sección A"
+        description: "Comprobá tus conocimientos de arquitectura limpia y DDD."
+        items:
+          - type: "quiz"
+            id: "quiz-leng-av-a"
+            slug: "cuestionario-arquitectura-ddd"
+            title: "Cuestionario: Arquitectura Limpia y DDD"
+            duration: "20 min"
+            questions:
+              - id: "q-leng-regla-dependencia"
+                question: "La regla de dependencia de la arquitectura limpia establece que las dependencias del código fuente deben apuntar siempre:"
+                type: "single_choice"
+                options:
+                  - "Desde el dominio hacia la infraestructura"
+                  - "Desde las capas externas hacia el dominio"
+                  - "En ambas direcciones sin restricciones"
+                correct_option: 1
+                explanation: "Las dependencias deben apuntar hacia adentro: la infraestructura (pygame, machine) depende del dominio, pero el dominio no conoce ni importa nada de la infraestructura."
+              - id: "q-leng-entidades"
+                question: "En DDD, una Entidad se caracteriza por tener una identidad propia que se mantiene a lo largo del tiempo, a diferencia de un Value Object que se define por sus atributos."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "Las Entidades (como PacMan o un fantasma) tienen identidad y ciclo de vida; los Value Objects (como una Posicion o un Puntaje) son inmutables y se comparan por su valor."
+              - id: "q-leng-puerto"
+                question: "En el patrón puertos y adaptadores, el renderizador del juego es:"
+                type: "single_choice"
+                options:
+                  - "Un adaptador concreto que el dominio importa directamente"
+                  - "Un puerto (contrato) definido en el dominio, con adaptadores pygame y machine que lo implementan"
+                  - "Una librería de terceros obligatoria"
+                correct_option: 1
+                explanation: "El puerto es un contrato definido en el dominio; los adaptadores (pygame en PC y machine+OLED en ESP32) implementan ese contrato y se inyectan desde fuera."
+              - id: "q-leng-lenguaje-ubicuo"
+                question: "El lenguaje ubicuo en DDD es un vocabulario común y compartido entre el equipo técnico y el dominio del negocio, sin ambigüedades."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "El lenguaje ubicuo es central en DDD: todos usan los mismos términos (bolita, fantasma, laberinto) en el código, el diseño y la conversación."
+
+  # --- SECCIÓN B ---
+  - id: "sec-leng-av-b"
+    title: "Sección B: Construcción del Pac-Man"
+    description: "Entidades y movimiento, IA de fantasmas, capa de aplicación, renderizador OLED y ejecución autónoma."
+    chapters:
+      - id: "chap-leng-av-4"
+        title: "Cap 4: Dominio del Juego"
+        description: "Implementación de las entidades del dominio y los servicios de IA y colisiones."
+        items:
+          - type: "lesson"
+            id: "les-leng-av-4-1"
+            slug: "entidades-movimiento-pacman"
+            title: "4.1 Entidades y movimiento de Pac-Man en el dominio"
+            duration: "60 min"
+            content_file: "cap-4-1-entidades-movimiento-pacman.md"
+          - type: "lesson"
+            id: "les-leng-av-4-2"
+            slug: "ia-fantasmas-colisiones"
+            title: "4.2 Servicios de dominio: IA de fantasmas y detección de colisiones"
+            duration: "60 min"
+            content_file: "cap-4-2-ia-fantasmas-colisiones.md"
+
+      - id: "chap-leng-av-5"
+        title: "Cap 5: Aplicación e Infraestructura"
+        description: "Bucle principal, puntuación y estados, renderizador OLED y puesta en marcha del ESP32."
+        items:
+          - type: "lesson"
+            id: "les-leng-av-5-1"
+            slug: "bucle-principal-puntuacion-estados"
+            title: "5.1 Capa de aplicación: bucle principal, puntuación y estados del juego"
+            duration: "55 min"
+            content_file: "cap-5-1-bucle-principal-puntuacion-estados.md"
+          - type: "lesson"
+            id: "les-leng-av-5-2"
+            slug: "renderizador-oled"
+            title: "5.2 Infraestructura: renderizador OLED para el ESP32"
+            duration: "55 min"
+            content_file: "cap-5-2-renderizador-oled.md"
+          - type: "lesson"
+            id: "les-leng-av-5-3"
+            slug: "flasheo-ejecucion-autonoma"
+            title: "5.3 Flasheo y ejecución autónoma en el ESP32-WROOM"
+            duration: "55 min"
+            content_file: "cap-5-3-flasheo-ejecucion-autonoma.md"
+
+      - id: "chap-eval-leng-av-final"
+        title: "Evaluación Final"
+        description: "Validá tus conocimientos del proyecto integrador, la arquitectura limpia y DDD."
+        items:
+          - type: "quiz"
+            id: "quiz-leng-av-final"
+            slug: "evaluacion-proyecto-pacman"
+            title: "Cuestionario: Proyecto Pac-Man, Arquitectura Limpia y DDD"
+            duration: "25 min"
+            questions:
+              - id: "q-leng-fantasma"
+                question: "¿Qué estrategia de IA básica para fantasmas se utiliza en el proyecto Pac-Man?"
+                type: "single_choice"
+                options:
+                  - "Elegir siempre la dirección opuesta a la actual"
+                  - "Elegir direcciones válidas al azar en las intersecciones, con una probabilidad de perseguir a Pac-Man acortando la distancia"
+                  - "Recorrer siempre el camino más largo"
+                correct_option: 1
+                explanation: "En cada intersección el fantasma elige entre las direcciones válidas, con una probabilidad de preferir las que acortan la distancia hacia Pac-Man."
+              - id: "q-leng-scope-var"
+                question: "En MicroPython, una variable definida dentro de una función solo es reconocida por esa función y se denomina variable local."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "Las variables locales solo tienen validez dentro de la función donde se declaran; las globales, definidas fuera de todas las funciones, pueden ser usadas por cualquiera."
+              - id: "q-leng-bucle"
+                question: "El bucle principal del juego (game loop) se ejecuta repetidamente mientras dura la partida. ¿Qué estructura de MicroPython se usa típicamente?"
+                type: "single_choice"
+                options:
+                  - "while True:"
+                  - "if True:"
+                  - "for i in range(1):"
+                correct_option: 0
+                explanation: "Un while True: crea un bucle infinito que se repite hasta que una condición interna (game over o victoria) rompa la ejecución."
+              - id: "q-leng-framebuffer"
+                question: "En el renderizador OLED, el framebuffer se dibuja en memoria y luego se envía completo a la pantalla para evitar parpadeos."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "Dibujar sobre un buffer y volcarlo de una vez con show() evita que la pantalla muestre estados intermedios y produce una imagen estable."
+              - id: "q-leng-puerto-control"
+                question: "¿Qué puerto (interfaz) define el dominio del juego para recibir la dirección elegida por el jugador sin conocer pygame ni el hardware?"
+                type: "single_choice"
+                options:
+                  - "Una interfaz Controlador que el dominio implementa"
+                  - "Un puerto de entrada de comandos, implementado por adaptadores (teclado en PC o pulsadores en ESP32)"
+                  - "Una función interna de la entidad PacMan"
+                correct_option: 1
+                explanation: "El dominio declara el contrato de entrada (puerto) y los adaptadores de infraestructura (teclado pygame o pulsadores del ESP32) lo implementan e inyectan hacia adentro."

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Preview: {{ partial_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}?v={{ static_version() }}">
+</head>
+<body class="tw:bg-dm-bg">
+<div id="app" data-v-app="">
+    <!-- Wrapper para intentar replicar estilos -->
+    <div data-v-236fef00="" id="top" class="app-shell app-shell--home">
+        <div class="preview-container">
+            {% import 'partials/components/header.html' as header_macro %}
+            {% import 'partials/components/footer.html' as footer_macro %}
+            {% import 'partials/components/service_card.html' as service_macro %}
+            {% import 'partials/components/faq_item.html' as faq_item_macro %}
+            {% import 'partials/components/contact_form.html' as contact_macro %}
+            {% import 'partials/components/contact_section.html' as contact_section_macro %}
+            {% import 'partials/components/profile.html' as profile_macro %}
+            {% import 'partials/components/dock.html' as dock_macro %}
+            {% import 'partials/components/hero.html' as hero_macro %}
+            {% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
+            {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+            {% import 'partials/components/icon.html' as icon_macro %}
+            {% import 'partials/components/section_wrapper.html' as section_wrapper_macro %}
+            {% import 'partials/components/process.html' as process_macro %}
+            {% import 'partials/components/proof_strip.html' as proof_strip_macro %}
+            {% import 'partials/components/planes.html' as planes_macro %}
+
+            {% if 'header' in partial_name %}
+                {{ header_macro.header() }}
+            {% elif 'footer' in partial_name %}
+                {{ footer_macro.footer(brand, content.legal.text, footer) }}
+            {% elif 'contact_form' in partial_name or 'contact_section' in partial_name %}
+                {% call contact_section_macro.contact_section(content.contact) %}
+                    {{ contact_macro.contact_form(content.contact) }}
+                {% endcall %}
+            {% elif 'profile' in partial_name %}
+                {{ profile_macro.profile(request, brand, content.profile) }}
+            {% elif 'hero' in partial_name %}
+                {{ hero_macro.hero(request, content.hero) }}
+            {% elif 'whatsapp_fab' in partial_name %}
+                {{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
+            {% elif 'cookie_banner' in partial_name %}
+                {{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+            {% elif 'dock' in partial_name %}
+                {{ dock_macro.dock(content.navbar.links) }}
+            {% elif 'faq_item' in partial_name %}
+                {% set faq_sample = content.faq.questions[0] if content.faq.questions else {'question': 'Ejemplo de pregunta', 'answer': 'Respuesta de ejemplo'} %}
+                {{ faq_item_macro.faq_item(faq_sample.question, faq_sample.answer, true) }}
+            {% elif 'service_card' in partial_name %}
+                {% set svc_sample = content.services.cards[0] if content.services.cards else {} %}
+                {{ service_macro.service_card('bar-chart-line-fill', svc_sample.title or 'Título del servicio', svc_sample.description or 'Descripción del servicio.', svc_sample.problem or 'Problema que resuelve este servicio.', svc_sample.key_points or ['Item uno', 'Item dos'], svc_sample.proof, svc_sample.caso_slug, 'Solicitar asistencia', '/contact', svc_sample.modality or 'both', content.assistance_modes) }}
+            {% elif 'section_wrapper' in partial_name %}
+                {% call section_wrapper_macro.section_wrapper('preview', 'Título de sección', 'Eyebrow', 'Descripción opcional de la sección') %}
+                    <p>Contenido de ejemplo dentro del wrapper.</p>
+                {% endcall %}
+            {% elif 'process' in partial_name %}
+                {{ process_macro.process(content.process) }}
+            {% elif 'proof_strip' in partial_name %}
+                {{ proof_strip_macro.proof_strip(content.proof_strip) }}
+            {% elif 'planes' in partial_name %}
+                {{ planes_macro.planes(content.planes, config.WHATSAPP_PHONE, planes) }}
+            {% elif 'icon' in partial_name %}
+                {{ icon_macro.bootstrap_icon('check2-circle', size='2em') }}
+            {% else %}
+                <p>Componente no soportado para previsualización directa: {{ partial_name }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <script type="module" src="{{ url_for('static', path='js/app.js') }}?v={{ static_version() }}"></script>
+    <script type="module" src="{{ url_for('static', path='js/preview-telemetry.js') }}?v={{ static_version() }}"></script>
+</div>
+</body>
+</html>

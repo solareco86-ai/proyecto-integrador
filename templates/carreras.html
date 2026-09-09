@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header(content.navbar.links) }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero tw:py-12 tw:lg:py-16">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:text-center">
+        <span class="tw:inline-flex tw:items-center tw:gap-2 tw:px-4 tw:py-1.5 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-dm-accent-orange/15 tw:text-dm-accent-orange tw:border tw:border-dm-accent-orange/30 tw:mb-4">
+            <i class="bi bi-mortarboard-fill"></i> Educación Superior Técnica · Títulos Oficiales DGCyE
+        </span>
+        <h1 class="tw:text-3xl tw:lg:text-5xl tw:font-bold tw:text-dm-text-0 tw:mb-4">
+            Oferta Académica & Tecnicaturas Superiores
+        </h1>
+        <p class="tw:text-lg tw:text-dm-text-muted tw:max-w-3xl tw:mx-auto tw:mb-6">
+            Carreras técnicas de 3 años, públicas y 100% gratuitas en Tigre. Títulos oficiales con validez nacional, cursada en turno vespertino y planes de estudio orientados a la inserción laboral y tecnológica.
+        </p>
+        <div class="tw:flex tw:flex-wrap tw:justify-center tw:gap-4">
+            <a href="#listado-carreras" class="tw:btn-primary">Ver Carreras</a>
+            <a href="/contact" class="tw:btn-outline">Consultar Inscripciones</a>
+        </div>
+    </div>
+</section>
+
+<section id="listado-carreras" class="tw:py-12 tw:bg-dm-bg">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:lg:grid-cols-3 tw:gap-8">
+            {% for carrera in carreras %}
+            <article class="tw:flex tw:flex-col tw:justify-between tw:p-6 tw:rounded-2xl tw:bg-dm-surface tw:border tw:border-dm-border hover:tw:border-dm-accent-orange/50 tw:transition-all tw:duration-200 tw:shadow-sm">
+                <div>
+                    <div class="tw:flex tw:items-center tw:justify-between tw:gap-2 tw:mb-4">
+                        {% if carrera.badge %}
+                        <span class="tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-dm-accent-orange/10 tw:text-dm-accent-orange tw:border tw:border-dm-accent-orange/20">
+                            {{ carrera.badge }}
+                        </span>
+                        {% endif %}
+                        <span class="tw:text-xs tw:text-dm-text-muted tw:font-medium">
+                            {{ carrera.duracion }} · {{ carrera.modalidad }}
+                        </span>
+                    </div>
+
+                    <h2 class="tw:text-xl tw:font-bold tw:text-dm-text-0 tw:mb-2 hover:tw:text-dm-accent-orange tw:transition-colors">
+                        <a href="/carreras/{{ carrera.slug }}">{{ carrera.title }}</a>
+                    </h2>
+
+                    {% if carrera.resolucion %}
+                    <p class="tw:text-xs tw:text-cyan-400 tw:font-mono tw:mb-3">
+                        {{ carrera.resolucion }}
+                    </p>
+                    {% endif %}
+
+                    <p class="tw:text-sm tw:text-dm-text-muted tw:mb-4 tw:line-clamp-3">
+                        {{ carrera.description_short }}
+                    </p>
+
+                    <div class="tw:mb-6">
+                        <h3 class="tw:text-xs tw:font-semibold tw:uppercase tw:tracking-wider tw:text-dm-text-muted tw:mb-2">
+                            Ejes de Formación:
+                        </h3>
+                        <ul class="tw:space-y-1 tw:text-xs tw:text-dm-text-1">
+                            {% for materia in carrera.materias_destacadas[:3] %}
+                            <li class="tw:flex tw:items-start tw:gap-1.5">
+                                <i class="bi bi-check2 tw:text-dm-accent-orange tw:shrink-0 tw:mt-0.5"></i>
+                                <span>{{ materia }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tw:pt-4 tw:border-t tw:border-dm-border tw:flex tw:items-center tw:justify-between tw:gap-3">
+                    <a href="/carreras/{{ carrera.slug }}" class="tw:text-sm tw:font-semibold tw:text-dm-accent-orange hover:tw:underline tw:flex tw:items-center tw:gap-1">
+                        Ver detalles <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a href="/contact" class="tw:btn-outline tw:text-xs tw:py-1.5 tw:px-3">
+                        Inscribirme
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Requisitos e Ingreso -->
+<section id="requisitos" class="tw:py-12 tw:lg:py-16 tw:bg-dm-surface/50 tw:border-t tw:border-dm-border">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="tw:max-w-3xl tw:mx-auto tw:text-center tw:mb-10">
+            <h2 class="tw:text-2xl tw:lg:text-3xl tw:font-bold tw:text-dm-text-0 tw:mb-3">
+                Requisitos para el Ingreso
+            </h2>
+            <p class="tw:text-dm-text-muted tw:text-sm tw:lg:text-base">
+                La inscripción está abierta a todas las personas interesadas en continuar sus estudios de nivel superior técnico.
+            </p>
+        </div>
+
+        <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-3 tw:gap-6 tw:max-w-4xl tw:mx-auto">
+            <div class="tw:p-6 tw:rounded-xl tw:bg-dm-surface tw:border tw:border-dm-border tw:text-center">
+                <div class="tw:w-12 tw:h-12 tw:mx-auto tw:mb-4 tw:rounded-full tw:bg-dm-accent-orange/10 tw:flex tw:items-center tw:justify-center tw:text-dm-accent-orange tw:text-xl">
+                    <i class="bi bi-file-earmark-check"></i>
+                </div>
+                <h3 class="tw:font-bold tw:text-dm-text-0 tw:mb-2">Título Secundario</h3>
+                <p class="tw:text-xs tw:text-dm-text-muted">
+                    Analítico de secundario completo o constancia de título en trámite.
+                </p>
+            </div>
+
+            <div class="tw:p-6 tw:rounded-xl tw:bg-dm-surface tw:border tw:border-dm-border tw:text-center">
+                <div class="tw:w-12 tw:h-12 tw:mx-auto tw:mb-4 tw:rounded-full tw:bg-dm-accent-orange/10 tw:flex tw:items-center tw:justify-center tw:text-dm-accent-orange tw:text-xl">
+                    <i class="bi bi-person-vcard"></i>
+                </div>
+                <h3 class="tw:font-bold tw:text-dm-text-0 tw:mb-2">Documentación Personal</h3>
+                <p class="tw:text-xs tw:text-dm-text-muted">
+                    Fotocopia de DNI vigente, partida de nacimiento y 2 fotos carnet 4x4.
+                </p>
+            </div>
+
+            <div class="tw:p-6 tw:rounded-xl tw:bg-dm-surface tw:border tw:border-dm-border tw:text-center">
+                <div class="tw:w-12 tw:h-12 tw:mx-auto tw:mb-4 tw:rounded-full tw:bg-dm-accent-orange/10 tw:flex tw:items-center tw:justify-center tw:text-dm-accent-orange tw:text-xl">
+                    <i class="bi bi-heart-pulse"></i>
+                </div>
+                <h3 class="tw:font-bold tw:text-dm-text-0 tw:mb-2">Salud & Formulario</h3>
+                <p class="tw:text-xs tw:text-dm-text-muted">
+                    Certificado de aptitud psicofísica y planilla de inscripción del instituto.
+                </p>
+            </div>
+        </div>
+
+        <div class="tw:mt-10 tw:text-center">
+            <a href="/contact" class="tw:btn-primary">Iniciar Consulta de Inscripción</a>
+        </div>
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{{ seo.title }}",
+  "description": "{{ seo.description }}",
+  "url": "{{ seo.canonical_url }}"
+}
+</script>
+{% endblock %}
+
+{% block fab %}
+{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

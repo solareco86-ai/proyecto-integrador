@@ -1,0 +1,50 @@
+slug: "como-digitalizar-maquinas-modbus-gateway-iot"
+title: "Retrofit IoT Industrial: Cómo conectar pirómetros, balanzas y variadores VFD a la nube y a Xubio ERP"
+category: "Automatización & Retrofit IoT"
+reading_time: "4 min de lectura"
+summary: "Digitalización de maquinaria existente en planta sin recambios costosos de PLCs ni nuevos tableros. Uso de Powermeter Gateway multiprotocolo (Modbus RS485, 4-20mA, 0-10V) e inyección contable directa en Xubio."
+problem: "Maquinaria industrial aislada o analógica (hornos, tolvas, extrusoras) cuyos datos operativos se anotan manualmente en planillas de papel, impidiendo el costeo en tiempo real y la detección de fallas."
+solution: "Montaje de Powermeter Gateway en riel DIN para capturar señales analógicas y tramas Modbus, transmitiendo variables de proceso a la nube y al ERP Xubio vía API REST."
+key_takeaways:
+  - "Cero inversión en recambio de maquinaria (Cero CAPEX): se digitaliza el equipo actual."
+  - "Conectividad universal: Modbus RS485 (RTU), lazos de corriente 4-20mA y entradas 0-10V."
+  - "Telemetría en tiempo real accesible desde celular y PC con plataforma $0 SaaS."
+  - "Integración complementaria con ERP Xubio para imputación de costos energéticos y productivos."
+published_at: "2026-08-27"
+og_image: "/static/media/hero-energy.svg"
+content: |
+  ## 1. El Dilema del Retrofit IoT: ¿Comprar Máquinas Nuevas o Digitalizar las Existentes?
+
+  Muchas plantas industriales en el conurbano bonaerense operan con prensas, extrusoras, hornos y reactores mecánicamente impecables pero carentes de conectividad moderna.
+
+  Frente a esto, la opción de renovar la maquinaria completa representa una inversión de decenas de miles de dólares inalcanzable para la mayoría de las PyMEs.
+
+  El **Retrofit IoT** resuelve este dilema agregando una capa de sensado e instrumentación digital no invasiva que convierte cualquier máquina analógica en un activo conectado a la Industria 4.0.
+
+  ---
+
+  ## 2. Powermeter Gateway: El Puente Universal de Datos
+
+  El **Powermeter Gateway** es un concentrador multiprotocolo de montaje en riel DIN diseñado para entornos industriales severos:
+
+  * **Puerto RS485 Modbus RTU:** Permite conectar hasta 32 dispositivos en bus (variadores de frecuencia Schneider / WEG / Delta, pirómetros Novus / Autonics, controladores de temperatura y centrales de alarma).
+  * **Entradas Analógicas (4-20 mA y 0-10 V):** Lectura directa de transmisores de presión, sensores de nivel por ultrasonido, caudalímetros y termocuplas PT100.
+  * **Entradas Digitales de Pulsos:** Conteo de ciclos mecánicos, conteo de piezas y estados de marcha/parada de línea.
+
+  ---
+
+  ## 3. De la Trama Binaria a la Pantalla del Celular
+
+  1. **Captura en Tablero:** El Gateway lee las tramas de los variadores y sensores en planta.
+  2. **Enlace Seguro:** Transmite los datos vía Ethernet o Wi-Fi industrial con encriptación TLS.
+  3. **Visualización Gráfica:** Los operarios y jefes de planta acceden al dashboard web en tiempo real sin pagar licencias de software privativas ($0 SaaS).
+
+  ---
+
+  ## 4. Integración con el ERP Contable Xubio
+
+  Como servicio complementario, DataMaq programa la conexión directa entre la telemetría del Gateway y el software de gestión contable **Xubio**:
+
+  * **Costeo Directo por Lote:** Imputación automática del costo energético real de cada orden de producción según los kWh medidos en el tablero seccional de la máquina.
+  * **Control de Mermas:** Cruce entre los kilos pesados en balanzas conectadas por Modbus y las unidades facturadas en el ERP.
+  * **API REST Segura:** Comunicación estándar sin alterar la base de datos de la empresa.

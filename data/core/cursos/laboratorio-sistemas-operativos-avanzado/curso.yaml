@@ -1,0 +1,248 @@
+id: "laboratorio-sistemas-operativos-avanzado"
+slug: "laboratorio-sistemas-operativos-avanzado"
+title: "Laboratorio de Sistemas Operativos: Nivel Avanzado"
+description_short: "Conectividad, grupos y recursos compartidos; Internet y el browser; seguridad; instalación paramétrica; arquitecturas de sistemas, sistemas de archivos y scripts."
+description_long: "Este es el tercer nivel del vertical Laboratorio de Sistemas Operativos, basado en Debian con escritorio XFCE y con un enfoque de laboratorio. Extenderás los límites de la máquina hacia el grupo y el mundo: concepto de grupo, acceso a recursos compartidos, introducción a la configuración de red, Internet, el browser y su interacción con el sistema operativo, incluyendo problemas de ajuste y compatibilidad con aplicaciones. Incorporarás conceptos de seguridad: cuentas y privilegios, sudo, firewall y actualizaciones, junto con los parámetros de instalación y las posibilidades de configuración en función de la máquina y el entorno de aplicaciones, incluyendo instalación no interactiva con preseed. Finalmente estudiarás las distintas arquitecturas de sistemas operativos: sistemas abiertos y cerrados o propietarios, sus características, comparación e instalación; el núcleo y la modularidad, las bibliotecas compartidas (dll y .so), los sistemas de archivos, la compatibilidad y los scripts de administración. Se recomienda haber completado los niveles Inicial e Intermedio."
+duration: "48 horas de cursada"
+level: "Avanzado"
+language: "Español"
+price: 0.0
+og_image: "/static/media/cursos/og-laboratorio-sistemas-operativos-avanzado.webp"
+og_image_width: 1200
+og_image_height: 630
+instructor_id: "agustin-bustos"
+academic_only: true
+sections:
+  # --- SECCIÓN A ---
+  - id: "sec-lso-avz-a"
+    title: "Sección A: Conectividad y Recursos Compartidos"
+    description: "Grupos de trabajo, acceso a recursos compartidos, configuración de red, Internet y el browser."
+    chapters:
+      - id: "chap-lso-avz-1"
+        title: "Cap 1: Grupos de trabajo y recursos compartidos"
+        description: "Concepto de grupo, acceso a recursos compartidos y configuración de red en Debian."
+        items:
+          - type: "lesson"
+            id: "les-lso-avz-1-1"
+            slug: "grupos-recursos-compartidos"
+            title: "1.1 Concepto de grupo y acceso a recursos compartidos (Samba/NFS)"
+            duration: "50 min"
+            content_file: "cap-1-1-grupos-recursos-compartidos.md"
+          - type: "lesson"
+            id: "les-lso-avz-1-2"
+            slug: "configuracion-red-debian"
+            title: "1.2 Configuración de red en Debian (ip, nmtui, /etc/network)"
+            duration: "50 min"
+            content_file: "cap-1-2-configuracion-red-debian.md"
+
+      - id: "chap-lso-avz-2"
+        title: "Cap 2: Internet y el browser"
+        description: "Concepto de Internet, el browser y sus funciones, y su interacción con el sistema operativo."
+        items:
+          - type: "lesson"
+            id: "les-lso-avz-2-1"
+            slug: "internet-browser-funciones"
+            title: "2.1 Concepto de Internet, browser y funciones que brinda"
+            duration: "45 min"
+            content_file: "cap-2-1-internet-browser-funciones.md"
+          - type: "lesson"
+            id: "les-lso-avz-2-2"
+            slug: "interaccion-so-browser-proxy"
+            title: "2.2 Interacción con el SO: ajustes, proxy y compatibilidad con aplicaciones"
+            duration: "50 min"
+            content_file: "cap-2-2-interaccion-so-browser-proxy.md"
+
+      - id: "chap-eval-lso-avz-a"
+        title: "Evaluación de la Sección A"
+        description: "Comprobá tus conocimientos sobre conectividad, recursos compartidos e Internet."
+        items:
+          - type: "quiz"
+            id: "quiz-lso-avz-a"
+            slug: "cuestionario-conectividad-redes"
+            title: "Cuestionario: Conectividad y Recursos Compartidos"
+            duration: "20 min"
+            questions:
+              - id: "q-lso-avz-samba"
+                question: "¿Qué función cumple Samba en una red local?"
+                type: "single_choice"
+                options:
+                  - "Permitir compartir archivos e impresoras con equipos Windows"
+                  - "Comprimir archivos en la nube"
+                  - "Instalar tipografías"
+                  - "Configurar el fondo de pantalla"
+                correct_option: 0
+                explanation: "Samba implementa el protocolo SMB/CIFS, lo que permite compartir recursos con equipos Windows en la red local."
+              - id: "q-lso-avz-browser"
+                question: "El browser (navegador) se encarga de interpretar las páginas web y mostrar su contenido al usuario."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "El navegador descarga y renderiza documentos HTML, ejecuta scripts y muestra el contenido de Internet de forma visual."
+              - id: "q-lso-avz-ip"
+                question: "¿Qué comando permite consultar las direcciones IP de las interfaces de red en el sistema?"
+                type: "single_choice"
+                options:
+                  - "ip addr"
+                  - "ls"
+                  - "whoami"
+                  - "df"
+                correct_option: 0
+                explanation: "ip addr (o ifconfig) muestra las interfaces de red y sus direcciones IP, entre otros datos."
+
+  # --- SECCIÓN B ---
+  - id: "sec-lso-avz-b"
+    title: "Sección B: Seguridad"
+    description: "Conceptos de seguridad, cuentas y privilegios, firewall, actualizaciones e instalación paramétrica."
+    chapters:
+      - id: "chap-lso-avz-3"
+        title: "Cap 3: Conceptos de seguridad"
+        description: "Seguridad de cuentas y privilegios, firewall y gestión de actualizaciones."
+        items:
+          - type: "lesson"
+            id: "les-lso-avz-3-1"
+            slug: "seguridad-cuentas-privilegios"
+            title: "3.1 Seguridad de cuentas y privilegios (usuarios, grupos, sudo)"
+            duration: "50 min"
+            content_file: "cap-3-1-seguridad-cuentas-privilegios.md"
+          - type: "lesson"
+            id: "les-lso-avz-3-2"
+            slug: "firewall-actualizaciones-seguridad"
+            title: "3.2 Seguridad en la red: firewall y actualizaciones"
+            duration: "50 min"
+            content_file: "cap-3-2-firewall-actualizaciones-seguridad.md"
+
+      - id: "chap-lso-avz-4"
+        title: "Cap 4: Instalación paramétrica"
+        description: "Parámetros de instalación y configuración según la máquina, e instalación no interactiva con preseed."
+        items:
+          - type: "lesson"
+            id: "les-lso-avz-4-1"
+            slug: "parametros-instalacion-configuracion"
+            title: "4.1 Parámetros de instalación y configuración en función de la máquina y el entorno"
+            duration: "50 min"
+            content_file: "cap-4-1-parametros-instalacion-configuracion.md"
+          - type: "lesson"
+            id: "les-lso-avz-4-2"
+            slug: "instalacion-preseed-clonacion"
+            title: "4.2 Instalación no interactiva (preseed) y clonación"
+            duration: "55 min"
+            content_file: "cap-4-2-instalacion-preseed-clonacion.md"
+
+      - id: "chap-eval-lso-avz-b"
+        title: "Evaluación de la Sección B"
+        description: "Comprobá tus conocimientos sobre seguridad e instalación del sistema operativo."
+        items:
+          - type: "quiz"
+            id: "quiz-lso-avz-b"
+            slug: "cuestionario-seguridad-instalacion"
+            title: "Cuestionario: Seguridad e Instalación"
+            duration: "20 min"
+            questions:
+              - id: "q-lso-avz-root"
+                question: "¿Cuál es una buena práctica de seguridad para el uso de la cuenta root?"
+                type: "single_choice"
+                options:
+                  - "Usar sudo para tareas puntuales y evitar el login directo como root"
+                  - "Compartir la contraseña de root con todos los usuarios"
+                  - "Deshabilitar el firewall"
+                  - "Eliminar todas las contraseñas"
+                correct_option: 0
+                explanation: "Trabajar como usuario normal y elevar privilegios puntualmente con sudo reduce el riesgo ante errores o ataques."
+              - id: "q-lso-avz-firewall"
+                question: "Un firewall regula el tráfico de red entrante y saliente según reglas de seguridad."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "El firewall filtra paquetes según reglas, permitiendo o bloqueando conexiones para proteger el sistema."
+              - id: "q-lso-avz-preseed"
+                question: "¿Qué ventaja tiene una instalación preseed (no interactiva)?"
+                type: "single_choice"
+                options:
+                  - "Automatiza y estandariza la instalación sin intervención manual"
+                  - "Imprime los documentos más rápido"
+                  - "Aumenta la memoria RAM"
+                  - "Cambia el idioma del sistema automáticamente solo"
+                correct_option: 0
+                explanation: "El archivo preseed responde por adelantado las preguntas del instalador, permitiendo instalaciones repetibles y sin intervención."
+
+  # --- SECCIÓN C ---
+  - id: "sec-lso-avz-c"
+    title: "Sección C: Arquitecturas y Sistemas de Archivos"
+    description: "Sistemas abiertos y cerrados, núcleo, modularidad, bibliotecas compartidas, sistemas de archivos y scripts."
+    chapters:
+      - id: "chap-lso-avz-5"
+        title: "Cap 5: Arquitecturas de sistemas operativos"
+        description: "Sistemas abiertos y propietarios, comparación, núcleo, modularidad y bibliotecas compartidas."
+        items:
+          - type: "lesson"
+            id: "les-lso-avz-5-1"
+            slug: "sistemas-abiertos-vs-propietarios"
+            title: "5.1 Sistemas abiertos vs cerrados/propietarios: características y comparación"
+            duration: "50 min"
+            content_file: "cap-5-1-sistemas-abiertos-vs-propietarios.md"
+          - type: "lesson"
+            id: "les-lso-avz-5-2"
+            slug: "nucleo-modularidad-bibliotecas"
+            title: "5.2 Núcleo, modularidad, bibliotecas compartidas (dll y .so) y compatibilidad"
+            duration: "50 min"
+            content_file: "cap-5-2-nucleo-modularidad-bibliotecas.md"
+
+      - id: "chap-lso-avz-6"
+        title: "Cap 6: Sistemas de archivos y scripts"
+        description: "Tipos de sistemas de archivos, journaling, compatibilidad y scripts de administración en bash."
+        items:
+          - type: "lesson"
+            id: "les-lso-avz-6-1"
+            slug: "sistemas-archivos-tipos-compatibilidad"
+            title: "6.1 Sistemas de archivos: tipos, journaling y compatibilidad"
+            duration: "50 min"
+            content_file: "cap-6-1-sistemas-archivos-tipos-compatibilidad.md"
+          - type: "lesson"
+            id: "les-lso-avz-6-2"
+            slug: "scripts-administracion-bash"
+            title: "6.2 Scripts de administración (bash) y automatización"
+            duration: "55 min"
+            content_file: "cap-6-2-scripts-administracion-bash.md"
+
+      - id: "chap-eval-lso-avz-c"
+        title: "Evaluación de la Sección C"
+        description: "Comprobá tus conocimientos sobre arquitecturas, sistemas de archivos y scripts."
+        items:
+          - type: "quiz"
+            id: "quiz-lso-avz-c"
+            slug: "cuestionario-arquitecturas-scripts"
+            title: "Cuestionario: Arquitecturas, Sistemas de Archivos y Scripts"
+            duration: "20 min"
+            questions:
+              - id: "q-lso-avz-abierto"
+                question: "¿Cuál de las siguientes características define mejor a un sistema operativo de código abierto?"
+                type: "single_choice"
+                options:
+                  - "Su código fuente es accesible y modificable por la comunidad"
+                  - "Su código es secreto y controlado por una empresa"
+                  - "No se puede instalar en más de una máquina"
+                  - "Funciona únicamente en teléfonos móviles"
+                correct_option: 0
+                explanation: "En el software de código abierto el código fuente está disponible para verlo, usarlo y modificarlo, como ocurre con Debian."
+              - id: "q-lso-avz-so"
+                question: "En GNU/Linux, las bibliotecas compartidas dinámicas suelen identificarse con la extensión .so."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "Las bibliotecas compartidas en Linux usan la extensión .so (shared object), equivalentes a los .dll de Windows."
+              - id: "q-lso-avz-script"
+                question: "¿Qué es un script de administración?"
+                type: "single_choice"
+                options:
+                  - "Un archivo de texto con comandos que se ejecutan automáticamente para automatizar tareas"
+                  - "Un dispositivo de hardware"
+                  - "Un formato de imagen"
+                  - "Un tipo de tipografía"
+                correct_option: 0
+                explanation: "Un script agrupa comandos en un archivo ejecutable para automatizar tareas repetitivas de administración del sistema."

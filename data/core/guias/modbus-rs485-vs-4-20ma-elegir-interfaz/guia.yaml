@@ -1,0 +1,110 @@
+slug: "modbus-rs485-vs-4-20ma-elegir-interfaz"
+title: "Modbus RS485 vs 4-20 mA: cómo elegir la interfaz para digitalizar una máquina existente"
+category: "Automatización & Retrofit IoT"
+reading_time: "7 min de lectura"
+summary: "Criterio práctico para decidir por dónde sacar los datos de un equipo que ya está en la línea: qué resuelve cada interfaz, cuándo conviene cada una y qué hacer cuando la máquina no expone ninguna señal."
+problem: "Digitalizar maquinaria existente sin saber qué interfaz usar termina en dos errores caros: cablear analógico donde había un bus disponible, o intentar leer un bus propietario que no está documentado."
+solution: "Relevamiento de las señales que la máquina ya expone y elección de la interfaz de retrofit con Powermeter Gateway, sin reemplazar instrumentación ni intervenir la lógica de control."
+key_takeaways:
+  - "Si el equipo tiene un puerto serie con Modbus RTU documentado, casi siempre es el camino: un par de cables trae decenas de variables."
+  - "4-20 mA transporta una sola variable por lazo, pero es inmune al ruido y funciona con instrumentación de cualquier antigüedad."
+  - "El retrofit lee señales existentes; no modifica la lógica de control ni invalida garantías."
+  - "Cuando la máquina no expone nada, la instrumentación se hace desde el tablero, no desde el equipo."
+published_at: "2026-09-02"
+og_image: "/static/media/powermeter.svg"
+content: |
+  ## 1. El punto de partida: qué expone la máquina
+
+  Antes de elegir tecnología hay que relevar qué señales existen. En una planta típica del conurbano, una máquina de quince o treinta años suele exponer alguna de estas cuatro cosas:
+
+  1. Un **puerto serie** (RS485 o RS232) en el PLC o en el variador, con protocolo Modbus RTU.
+  2. **Salidas analógicas** de 4-20 mA o 0-10 V en transmisores de temperatura, presión, peso o velocidad.
+  3. **Contactos secos** de estado: marcha, parada, falla, fin de ciclo.
+  4. **Nada accesible**: el control es propietario, cerrado y sin documentación.
+
+  Los tres primeros casos se resuelven con retrofit. El cuarto también, pero por otro camino.
+
+  ---
+
+  ## 2. Modbus RTU sobre RS485
+
+  **Qué es:** un protocolo de consulta y respuesta sobre un bus serie de dos hilos. El gateway consulta ("leé el registro 40001") y el equipo responde con el valor.
+
+  **Cuándo es la mejor opción:**
+
+  * El equipo tiene PLC o variador con puerto Modbus y mapa de registros documentado.
+  * Necesitás **muchas variables del mismo equipo**: con un solo par de cables traés temperatura, velocidad, corriente, estado y contadores.
+  * Hay **varios equipos en la misma zona**: se conectan en cadena sobre el mismo bus, hasta 32 dispositivos, con distancias de hasta 1200 metros.
+
+  **Lo que hay que verificar antes:**
+
+  * Que exista el **mapa de registros**. Sin documentación del fabricante, leer un mapa desconocido es ingeniería inversa y se cotiza distinto.
+  * Los **parámetros de comunicación**: velocidad, paridad, bits de parada y dirección de esclavo. Tienen que ser consistentes en todo el bus.
+  * La **topología**: el RS485 es un bus lineal con terminación en los extremos. Cablearlo en estrella es la causa más común de comunicaciones intermitentes.
+  * Si el puerto **ya está ocupado** por un HMI o un SCADA existente. En ese caso hay que evaluar si el equipo admite un segundo maestro o si conviene otra vía.
+
+  ---
+
+  ## 3. Lazo de corriente 4-20 mA
+
+  **Qué es:** una señal analógica donde la magnitud física se codifica como corriente. 4 mA representa el mínimo de escala, 20 mA el máximo.
+
+  **Cuándo es la mejor opción:**
+
+  * El transmisor **no tiene comunicación digital**, sólo salida analógica. Es el caso de la enorme mayoría de la instrumentación de campo instalada antes de la última década.
+  * La distancia es larga y el ambiente **eléctricamente ruidoso**: variadores, soldadoras, hornos de inducción. La señal de corriente es inmune a la caída de tensión en el cable y al ruido inducido.
+  * Necesitás **una sola variable** de ese punto.
+
+  **La ventaja estructural del 4-20 mA:** el cero vivo. Como el mínimo de escala son 4 mA y no 0, un cable cortado da 0 mA, que es un valor imposible y por lo tanto **distinguible de una lectura legítima de cero**. Un lazo de 0-10 V no ofrece eso: 0 V puede ser el mínimo real o un cable suelto.
+
+  **Lo que hay que verificar:** la **escala** del transmisor (a qué magnitud física corresponden los 4 y los 20 mA) y quién alimenta el lazo, para no terminar con dos fuentes en el mismo circuito.
+
+  ---
+
+  ## 4. Cuadro de decisión
+
+  | Situación | Interfaz |
+  |---|---|
+  | PLC o variador con Modbus documentado | Modbus RTU sobre RS485 |
+  | Varios equipos en la misma zona | Modbus RTU sobre RS485 en cadena |
+  | Transmisor analógico sin comunicación | 4-20 mA |
+  | Ambiente muy ruidoso, tirada larga | 4-20 mA |
+  | Una sola variable de un punto aislado | 4-20 mA |
+  | Señal de tablero interno, distancia corta | 0-10 V |
+  | Sólo estados (marcha, falla, fin de ciclo) | Contacto seco |
+  | Nada accesible | Instrumentación desde el tablero |
+
+  ---
+
+  ## 5. Cuando la máquina no expone nada
+
+  Es más frecuente de lo que parece, sobre todo en equipos con control propietario cerrado. La salida no es intervenir la máquina: es **medirla desde afuera**.
+
+  Desde el tablero que la alimenta se puede obtener bastante más de lo que se supone:
+
+  * **Consumo eléctrico del equipo**, que es una variable de proceso en sí misma.
+  * **Detección de encendido y apagado** por umbral de corriente, sin ningún contacto con el control.
+  * **Ciclos de trabajo y tiempos de parada**, derivados del patrón de consumo.
+  * **Degradación progresiva**: un motor que empieza a consumir más para el mismo trabajo está avisando algo antes de fallar.
+
+  Para muchos objetivos de seguimiento operativo, esto alcanza. Y no toca la máquina.
+
+  ---
+
+  ## 6. Lo que el retrofit no hace
+
+  Conviene decirlo con claridad porque es la primera objeción de cualquier jefe de mantenimiento:
+
+  * **No modifica la lógica de control.** El gateway lee registros o mide una señal; no escribe consignas ni interviene el programa del PLC.
+  * **No reemplaza instrumentación.** Usa los transmisores y sensores que ya están calibrados y en servicio.
+  * **No invalida garantías**, porque no se interviene el equipo. En máquinas con garantía vigente igual conviene dejarlo asentado con el proveedor antes de trabajar.
+
+  El **Powermeter Gateway** soporta Modbus RS485, 4-20 mA y 0-10 V en el mismo dispositivo, de modo que una máquina con un variador Modbus y dos transmisores analógicos se resuelve con una sola instalación.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de telemetría industrial y retrofit IoT](/landing/telemetria-industrial)
+  * [Cómo medir OEE real sin tocar el PLC de la máquina](/guias/medir-oee-real-sin-tocar-el-plc)
+  * [Cobertura en Don Torcuato, Tigre](/buenos-aires/tigre/don-torcuato.html)

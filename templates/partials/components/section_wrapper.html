@@ -1,0 +1,14 @@
+{% macro section_wrapper(id, title, eyebrow, description=None, class_name='') %}
+<section data-v-236fef00="" id="{{ id }}" class="section-mobile {{ class_name }}" aria-labelledby="{{ id }}-title">
+    <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
+        <div data-v-236fef00="" class="c-home-section-head">
+            <span data-v-236fef00="" class="c-home-eyebrow">{{ eyebrow }}</span>
+            <h2 data-v-236fef00="" id="{{ id }}-title" class="c-home-section-title">{{ title }}</h2>
+            {% if description %}
+            <p data-v-236fef00="" class="c-home-section-copy">{{ description }}</p>
+            {% endif %}
+        </div>
+        {{ caller() }}
+    </div>
+</section>
+{% endmacro %}

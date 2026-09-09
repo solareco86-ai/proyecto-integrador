@@ -1,0 +1,326 @@
+hero:
+  badge: Educación Pública Superior · DGCyE Provincia de Buenos Aires
+  title: Formación técnica de excelencia para el futuro laboral y productivo de Tigre
+  subtitle: 'El Instituto Superior de Formación Técnica N° 199 ofrece tecnicaturas
+    superiores oficiales, públicas y 100% gratuitas en El Talar, Tigre: Ciencia de
+    Datos e Inteligencia Artificial, Mecatrónica, Logística, Higiene y Seguridad,
+    Recursos Humanos y Turismo. Títulos oficiales de validez nacional en turno vespertino.'
+  primaryCta:
+    href: /carreras
+    label: Explorar Carreras
+  secondaryCta:
+    href: '#ingreso'
+    label: Inscripción e Ingreso
+  responseNote: 'Sede El Talar: Maestra Celina Voena 1750 (Tigre) · Turno vespertino
+    (18:00 a 22:30 hs) · Tel. 11 4736-0013'
+  benefits:
+  - title: Títulos Oficiales de Validez Nacional
+    text: Tecnicaturas superiores de 3 años dependientes de la Dirección de Educación
+      Técnico Profesional (DGCyE).
+  - title: Educación Pública y 100% Gratuita
+    text: Sin aranceles ni cuotas mensuales. Acceso abierto y formación técnica de
+      calidad para toda la comunidad.
+  - title: Salida Laboral e Industria 4.0
+    text: Programas articulados con las demandas reales de tecnología, logística e
+      industria de Zona Norte.
+  image:
+    alt: Instituto Superior de Formación Técnica N° 199 de Tigre
+    height: 700
+    src: /static/media/hero-energy.svg
+    width: 900
+proof_strip:
+  items:
+  - label: Educación Superior Técnica Gratuita
+    text: Carreras terciarias técnicas oficiales con resoluciones ministeriales vigentes.
+  - label: Horario Vespertino (18 a 22:30 hs)
+    text: Diseñado para posibilitar que estudiantes y trabajadores puedan cursar sin
+      interrumpir su jornada laboral.
+  - label: Campus Virtual Integrado
+    text: Aulas digitales de apoyo, prácticas de código, apuntes abiertos y seguimiento
+      pedagógico continuo.
+services:
+  eyebrow: Áreas Formativas y Tecnicaturas
+  title: Propuesta académica orientada al desarrollo tecnológico y profesional
+  description: Seis tecnicaturas superiores diseñadas para responder a la transformación
+    digital, la automatización industrial, la logística regional y la gestión organizacional.
+  cards:
+  - id: ciencia-de-datos-ia
+    title: Tecnicatura Superior en Ciencia de Datos e IA
+    description: Formación especializada en programación Python, algoritmos de Machine
+      Learning, Deep Learning, SQL, Big Data y desarrollo de APIs inteligentes.
+    problem: ¿Querés insertarte en el sector tecnológico más demandado aprendiendo
+      a transformar datos en decisiones e inteligencia artificial?
+    key_points:
+    - Python para datos, visualización y análisis exploratorio
+    - Machine Learning, redes neuronales y visión artificial
+    - Despliegue de modelos y APIs en tiempo real con FastAPI
+    proof: Plan de estudios oficial DGCyE con prácticas de código aplicadas a problemas
+      reales.
+    caso_slug: null
+    modality: on_site
+    cta: Conocer Carrera
+  - id: mecatronica
+    title: Tecnicatura Superior en Mecatrónica
+    description: Integración de mecánica de precisión, electrónica industrial, microcontroladores,
+      PLCs, robótica y sistemas de control automático.
+    problem: ¿Buscás dominar el mantenimiento y la automatización de líneas de producción
+      industrial y celdas robotizadas?
+    key_points:
+    - Programación de PLCs y sistemas SCADA industriales
+    - Robótica, cinemática y control de servomecanismos
+    - Neumática, hidráulica e instrumentación de procesos
+    proof: Articulación con laboratorios y prácticas en equipamiento de automatización.
+    caso_slug: null
+    modality: on_site
+    cta: Conocer Carrera
+  - id: logistica
+    title: Tecnicatura Superior en Logística
+    description: Gestión de la cadena de suministro, almacenamiento, ruteo de distribución,
+      gestión de stocks y logística multimodal en el Corredor Norte.
+    problem: ¿Te interesa planificar y optimizar centros de distribución, transporte
+      de cargas y flujos de abastecimiento?
+    key_points:
+    - Gestión integral de depósitos y almacenes (WMS / ERP)
+    - Planificación y ruteo de distribución multimodal
+    - Comercio internacional, aduanas y logística sustentable
+    proof: Formación con fuerte inserción en los parques industriales de Tigre y alrededores.
+    caso_slug: null
+    modality: on_site
+    cta: Conocer Carrera
+  - id: higiene-y-seguridad
+    title: Tecnicatura Superior en Higiene y Seguridad
+    description: Prevención de riesgos del trabajo, auditoría ambiental laboral, ergonomía
+      y planes de seguridad con matrícula profesional habilitante.
+    problem: ¿Buscás una profesión con matrícula oficial para resguardar la salud
+      de los trabajadores en industrias y obras?
+    key_points:
+    - Normativas SRT, Ley 19.587 y fiscalización laboral
+    - Ergonomía, toxicología y mediciones ambientales
+    - Planes de evacuación y protección contra incendios
+    proof: Título con matrícula profesional para actuar como responsable de seguridad
+      en empresas.
+    caso_slug: null
+    modality: on_site
+    cta: Conocer Carrera
+planes:
+  eyebrow: Educación Gratuita
+  title: Carreras 100% Públicas y Gratuitas
+  subtitle: En el ISFT N° 199 no se abona matrícula ni cuotas mensuales. La educación
+    técnica superior es un derecho público.
+  live_demo_label: Ver Carreras
+  live_demo_href: /carreras
+  plans: []
+pricing:
+  eyebrow: Aranceles
+  title: Educación Superior Pública y Gratuita
+  subtitle: Todas las tecnicaturas del ISFT N° 199 son 100% no aranceladas para toda
+    la comunidad.
+  seo_title: Carreras Gratuitas y Oficiales | ISFT N° 199 Tigre
+  seo_description: Educación superior técnica pública y gratuita en Tigre. Tecnicaturas
+    superiores de 3 años con validez nacional.
+  live_demo_label: Ver Carreras
+  live_demo_href: /carreras
+process:
+  eyebrow: Ingreso e Inscripción
+  title: Pasos para sumarte al ISFT N° 199
+  description: El proceso de inscripción es sencillo y abierto para toda persona con
+    secundario completo.
+  steps:
+  - title: 1. Elegí tu Carrera
+    text: Consultá los planes de estudio y perfiles profesionales de las 6 tecnicaturas
+      oficiales.
+  - title: 2. Preinscripción en Línea
+    text: Completá el formulario web con tus datos personales y la carrera seleccionada.
+  - title: 3. Entrega de Documentación
+    text: Presentá fotocopia de DNI, constancia o título secundario, partida de nacimiento
+      y apto psicofísico en la sede.
+  - title: 4. Taller Inicial y Cursada
+    text: Participá de las jornadas de ambientación y comenzá la cursada vespertina
+      de 18:00 a 22:30 hs.
+profile:
+  eyebrow: Cuerpo Docente
+  title: Docentes con trayectoria profesional y académica
+  description: El plantel docente del ISFT N° 199 combina sólida experiencia académica
+    con ejercicio profesional activo en empresas, plantas industriales y proyectos
+    de base tecnológica, vinculando el aula con el mundo laboral.
+  detail_label: Enfoque Pedagógico
+  detail_copy: Articulamos la teoría con la práctica mediante laboratorios, proyectos
+    integradores y campus virtual.
+  bullets:
+  - Docentes activos en software, inteligencia artificial, robótica, logística y gestión
+    laboral.
+  - 'Cátedras aplicadas: programación práctica, resolución de problemas y proyectos
+    reales.'
+  - Prácticas Profesionalizantes supervisadas en articulación con el entorno socio-productivo.
+  - Acompañamiento docente cercano en horario vespertino para acompañar tu trayectoria.
+  cta_label: Consultar a Secretaría
+  cta_href: /contact
+cases:
+  badge: Prácticas Profesionalizantes
+  title: Vinculación con el Sector Productivo
+  subtitle: Experiencias formativas y proyectos de estudiantes del ISFT N° 199 en
+    empresas y organizaciones de Tigre.
+  detail_sidebar_title: ¿Tenés una empresa u organización?
+  detail_sidebar_text: Conectá con el ISFT N° 199 para convenios de pasantías y prácticas
+    profesionalizantes de nuestros estudiantes.
+  detail_sidebar_cta: Escribir a Secretaría
+guias:
+  badge: Comunidad Estudiantil
+  title: Trámites y Guías para Estudiantes
+  subtitle: Información académica, constancias de alumno regular, régimen de correlatividades
+    y calendario lectivo.
+  detail_sidebar_title: ¿Necesitás hacer una consulta?
+  detail_sidebar_text: La Secretaría y Preceptoría responden dudas académicas y administrativas.
+  detail_sidebar_cta: Consultar
+courses:
+  badge: Campus Virtual
+  title: Aulas y Materiales de Cátedra en Línea
+  subtitle: Acompañamiento pedagógico digital con lecciones interactivas, código abierto
+    y cuestionarios para estudiantes de las tecnicaturas.
+  assistance_cta_label: Ingresar al Campus
+  assistance_cta_href: /cursos
+faq:
+  eyebrow: Ayuda e Ingreso
+  title: Preguntas frecuentes sobre la cursada
+  questions:
+  - question: ¿Las carreras tienen costo de arancel o matrícula?
+    answer: No. El ISFT N° 199 es una institución de educación pública y estatal dependiente
+      de la DGCyE de la Provincia de Buenos Aires. Todas las tecnicaturas son 100%
+      gratuitas.
+  - question: ¿Cuáles son los requisitos de inscripción?
+    answer: Tener secundario completo (o constancia de título en trámite), fotocopia
+      de DNI, partida de nacimiento, planilla de inscripción y certificado de aptitud
+      psicofísica.
+  - question: ¿Los títulos otorgados son oficiales?
+    answer: Sí, todos los títulos tienen validez nacional oficial bajo resoluciones
+      de la Dirección General de Cultura y Educación.
+  - question: ¿En qué horario se cursa?
+    answer: El horario de cursada es vespertino, de lunes a viernes de 18:00 a 22:30
+      hs, diseñado especialmente para compatibilizar trabajo y estudio.
+  - question: ¿Dónde queda el instituto y cómo llegar?
+    answer: La sede está ubicada en Maestra Celina Voena 1750, El Talar, Tigre. Cuenta
+      con acceso rápido desde Panamericana y múltiples líneas de colectivos.
+  - question: ¿Puedo articular con universidades?
+    answer: Sí. Al ser títulos oficiales de nivel superior técnico, permiten ingresar
+      a Ciclos de Complementación Curricular en universidades nacionales para obtener
+      licenciaturas e ingenierías.
+about:
+  title: Sobre el ISFT N° 199
+  paragraphs:
+  - El Instituto Superior de Formación Técnica N° 199 de Tigre es una institución
+    pública y gratuita orientada a la formación de profesionales técnicos calificados
+    con fuerte compromiso social y productivo.
+  - Nuestra oferta educativa en Ciencia de Datos e IA, Mecatrónica, Logística, Higiene
+    y Seguridad, Recursos Humanos y Turismo busca potenciar las oportunidades laborales
+    de la comunidad de Tigre y Zona Norte.
+  image:
+    alt: Logotipo Oficial ISFT N° 199 Tigre
+    height: 189
+    src: /static/media/logo-isft199.webp
+    width: 184
+contact:
+  title: Inscripciones y Consultas Institucionales
+  subtitle: Completá el formulario para recibir información sobre las carreras, fechas
+    de ingreso o consultar a Secretaría.
+  cta: Enviar Consulta
+  alt_email:
+    email: isft199@gmail.com
+    label: Correo institucional
+    title: Escribinos directamente
+  progress_text: Paso 1 de 3
+  privacy_note: Tus datos se gestionan de forma confidencial exclusivamente para fines
+    informativos y académicos.
+  error_message: Servicio temporalmente no disponible. Podés escribirnos a isft199@gmail.com.
+  optional_text: Opcional
+  steps:
+  - title: Datos del Aspirante
+    fields:
+    - autocomplete: name
+      id: contacto-nombre
+      label: Nombre y apellido completo
+    - autocomplete: organization
+      id: contacto-empresa
+      label: Colegio secundario o lugar de trabajo
+    - autocomplete: organization-title
+      id: contacto-cargo
+      label: Año de egreso secundario u ocupación
+  - title: Carrera de Interés
+    fields:
+    - id: contacto-servicio
+      label: ¿En qué tecnicatura te interesa inscribirte?
+      options:
+      - label: Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
+        value: ciencia-de-datos-ia
+      - label: Tecnicatura Superior en Mecatrónica
+        value: mecatronica
+      - label: Tecnicatura Superior en Logística
+        value: logistica
+      - label: Tecnicatura Superior en Higiene y Seguridad en el Trabajo
+        value: higiene-y-seguridad
+      - label: Tecnicatura Superior en Administración de Recursos Humanos
+        value: recursos-humanos
+      - label: Tecnicatura Superior en Servicios Gastronómicos y Turismo
+        value: turismo-y-hoteleria
+      - label: Otra consulta general / Alumno regular
+        value: otra-consulta
+      type: select
+    - id: contacto-tarifa
+      label: Situación de estudios secundarios
+      options:
+      - label: Secundario completo (con título o constancia)
+        value: secundario-completo
+      - label: Secundario en trámite
+        value: secundario-en-tramite
+      - label: Adeudo materias de secundario
+        value: adeuda-materias
+      - label: Ya soy estudiante del ISFT 199
+        value: alumno-regular
+      - label: Otra consulta
+        value: otra
+      type: select
+    - id: contacto-comentario
+      label: ¿Tenés alguna duda o consulta específica?
+      type: textarea
+  - title: Canales de Contacto
+    fields:
+    - autocomplete: email
+      id: contacto-email
+      label: Correo electrónico
+    - autocomplete: tel
+      id: contacto-telefono
+      label: Teléfono o WhatsApp
+legal:
+  text: La información publicada es oficial y de carácter orientativo, sujeta a las
+    disposiciones y normativas vigentes de la Dirección General de Cultura y Educación
+    (DGCyE) de la Provincia de Buenos Aires.
+navbar:
+  links:
+  - href: /carreras
+    label: Carreras
+  - href: /cursos
+    label: Campus Virtual
+  - href: '#ingreso'
+    label: Ingreso
+  - href: '#faq'
+    label: Preguntas Frecuentes
+  - href: '#contacto'
+    label: Contacto
+cookie_banner:
+  accept_label: Aceptar
+  more_info_label: Ver más
+  more_info_link: /terminos-y-condiciones
+  reject_label: Rechazar
+  text: Usamos cookies propias y técnicas para mejorar la experiencia de navegación
+    institucional.
+  title: Política de Cookies
+assistance_modes:
+  presencial:
+    description: Clases teórico-prácticas y laboratorios presenciales en sede El Talar
+      en turno vespertino (18:00 a 22:30 hs).
+    icon: geo-alt-fill
+    label: Cursada Presencial
+  campus_virtual:
+    description: Acompañamiento pedagógico en línea, prácticas guiadas y repositorios
+      de código abiertos.
+    icon: laptop
+    label: Campus Virtual

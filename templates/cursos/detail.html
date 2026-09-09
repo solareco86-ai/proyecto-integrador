@@ -1,0 +1,240 @@
+{% extends "cursos/base_curso.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand, page_type='article') }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<div class="c-curso-detalle-header">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12">
+        <nav class="c-breadcrumbs" aria-label="Breadcrumb">
+            <ol class="c-breadcrumbs__list">
+                <li class="c-breadcrumbs__item"><a href="/">Inicio</a></li>
+                <li class="c-breadcrumbs__item"><a href="{{ url_for('listado_cursos') }}">Cursos</a></li>
+                <li class="c-breadcrumbs__item aria-current-page" aria-current="page">{{ curso.title }}</li>
+            </ol>
+        </nav>
+        
+        <div class="c-curso-header-layout">
+            <div class="c-curso-header-layout__main">
+                <span class="c-curso-detalle-header__badge">{{ curso.level }}</span>
+                <h1 class="c-curso-detalle-header__title">{{ curso.title }}</h1>
+                <p class="c-curso-detalle-header__subtitle">{{ curso.description_short }}</p>
+                <p class="c-curso-detalle-header__courtesy" style="margin-top: 0.75rem; font-size: 0.95rem; color: var(--dm-text-muted);">
+                    <i class="bi bi-gift"></i> {{ courses.badge }}
+                </p>
+                
+                <div class="c-curso-detalle-header__meta">
+                    <span class="c-curso-detalle-header__meta-item"><i class="bi bi-clock"></i> {{ curso.duration }}</span>
+                    <span class="c-curso-detalle-header__meta-item"><i class="bi bi-translate"></i> {{ curso.language }}</span>
+                    <span class="c-curso-detalle-header__meta-item"><i class="bi bi-tag-fill"></i> Acceso Gratuito y Libre</span>
+                </div>
+            </div>
+            
+            {% if curso.og_image %}
+                <div class="c-curso-header-layout__side">
+                    <div class="c-curso-detalle-card">
+                        <img src="{{ curso.og_image }}" alt="{{ curso.title }}" class="c-curso-detalle-card__img" decoding="async" fetchpriority="high"
+                             {% if curso.og_image_width and curso.og_image_height %}width="{{ curso.og_image_width }}" height="{{ curso.og_image_height }}"{% endif %}>
+                        <div class="c-curso-detalle-card__content">
+                            {% set first_section = curso.sections | first %}
+                            {% if first_section and first_section.chapters %}
+                                {% set first_chapter = first_section.chapters | first %}
+                                {% if first_chapter and first_chapter['items'] %}
+                                    {% set first_lesson = first_chapter['items'] | first %}
+                                    <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=first_lesson.slug) }}" class="c-curso-detalle-card__btn">Comenzar Curso</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="tw:container tw:mx-auto tw:px-4 tw:py-12">
+    <div class="c-curso-body-layout">
+        <main class="c-curso-body-layout__content">
+            <section class="c-curso-section" aria-labelledby="desc-title">
+                <h2 id="desc-title" class="c-curso-section__title">Descripción del Curso</h2>
+                <div class="c-curso-section__text">
+                    <p>{{ curso.description_long }}</p>
+                </div>
+            </section>
+
+            <section class="c-curso-section" aria-labelledby="curriculum-title">
+                <h2 id="curriculum-title" class="c-curso-section__title">Temario del Curso</h2>
+                <div class="c-curriculum" style="display: flex; flex-direction: column; gap: 2rem;">
+                    {% for seccion in curso.sections %}
+                        {% set seccion_loop = loop %}
+                        <div class="c-curriculum-seccion-group" style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="c-curriculum-seccion-header-block" style="border-bottom: 2px solid var(--dm-data-cyan); padding-bottom: 0.5rem; margin-top: 1rem;">
+                                <h3 class="c-curriculum-seccion__title" style="font-size: 1.3rem; color: var(--dm-data-cyan);">{{ seccion.title }}</h3>
+                                {% if seccion.description %}
+                                    <p class="c-curriculum-seccion__desc" style="margin: 0.25rem 0 0 0;">{{ seccion.description }}</p>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="c-curriculum-chapters-list" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                {% for chapter in seccion.chapters %}
+                                    <details class="c-curriculum-seccion" {% if loop.first and seccion_loop.first %}open{% endif %}>
+                                        <summary class="c-curriculum-seccion__header" style="background-color: var(--dm-surface-1);">
+                                            <div class="c-curriculum-seccion__info">
+                                                <h4 class="c-curriculum-seccion__title" style="font-size: 1.05rem; font-weight: 700; color: var(--dm-text-0);">{{ chapter.title }}</h4>
+                                                {% if chapter.description %}
+                                                    <p class="c-curriculum-seccion__desc">{{ chapter.description }}</p>
+                                                {% endif %}
+                                            </div>
+                                            <span class="c-curriculum-seccion__toggle-icon"><i class="bi bi-chevron-down"></i></span>
+                                        </summary>
+                                        
+                                        <div class="c-curriculum-seccion__body">
+                                            <ul class="c-curriculum-lecciones">
+                                                {% for item in chapter['items'] %}
+                                                    <li class="c-curriculum-leccion-item">
+                                                        <a href="{{ url_for('vista_leccion', curso_slug=curso.slug, leccion_slug=item.slug) }}" class="c-curriculum-leccion-link">
+                                                            <span class="c-curriculum-leccion-title">
+                                                                {% if item.type == 'quiz' %}
+                                                                    <i class="bi bi-question-circle-fill"></i>
+                                                                {% elif item.content_type == 'video' %}
+                                                                    <i class="bi bi-play-circle-fill"></i>
+                                                                {% else %}
+                                                                    <i class="bi bi-file-text-fill"></i>
+                                                                {% endif %}
+                                                                {{ item.title }}
+                                                            </span>
+                                                            <span class="c-curriculum-leccion-duration">{{ item.duration }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </details>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="c-curso-section" aria-labelledby="instructor-title">
+                <h2 id="instructor-title" class="c-curso-section__title">Instructor del Curso</h2>
+                <div class="c-instructor-perfil">
+                    <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-instructor-perfil__photo-link" aria-label="Perfil de {{ curso.instructor.name }}">
+                        <img src="{{ curso.instructor.photo }}" alt="{{ curso.instructor.name }}" class="c-instructor-perfil__photo" loading="lazy" decoding="async"
+                             {% if curso.instructor.photo_width and curso.instructor.photo_height %}width="{{ curso.instructor.photo_width }}" height="{{ curso.instructor.photo_height }}"{% endif %}>
+                    </a>
+                    <div class="c-instructor-perfil__info">
+                        <h3 class="c-instructor-perfil__name">
+                            <a href="{{ url_for('detalle_instructor', instructor_id=curso.instructor.id) }}" class="c-instructor-perfil__name-link">
+                                {{ curso.instructor.name }}
+                            </a>
+                        </h3>
+                        <p class="c-instructor-perfil__role">{{ curso.instructor.role }}</p>
+                        <p class="c-instructor-perfil__bio">{{ curso.instructor.bio }}</p>
+                        {% if curso.instructor.social_links %}
+                            <div class="c-instructor-perfil__socials">
+                                {% if curso.instructor.social_links.linkedin %}
+                                    <a href="{{ curso.instructor.social_links.linkedin }}" class="c-instructor-perfil__social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de {{ curso.instructor.name }}">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                                    </a>
+                                {% endif %}
+                                {% if curso.instructor.social_links.github %}
+                                    <a href="{{ curso.instructor.social_links.github }}" class="c-instructor-perfil__social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub de {{ curso.instructor.name }}">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                                    </a>
+                                {% endif %}
+                                {% if curso.instructor.social_links.twitter %}
+                                    <a href="{{ curso.instructor.social_links.twitter }}" class="c-instructor-perfil__social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter de {{ curso.instructor.name }}">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </a>
+                                {% endif %}
+                                {% if curso.instructor.social_links.website %}
+                                    <a href="{{ curso.instructor.social_links.website }}" class="c-instructor-perfil__social-link" target="_blank" rel="noopener noreferrer" aria-label="Sitio web de {{ curso.instructor.name }}">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "{{ curso.title }}",
+  "description": "{{ curso.description_short }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ brand.brandName }}",
+    "sameAs": "{{ seo.canonical_url }}"
+  },
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "category": "free",
+    "price": "0",
+    "priceCurrency": "ARS"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "courseWorkload": "PT{{ curso.duration.split(' ')[0] }}H",
+    "instructor": {
+      "@type": "Person",
+      "name": "{{ curso.instructor.name }}",
+      "jobTitle": "{{ curso.instructor.role }}",
+      "image": "{{ request.url_for('static', path=curso.instructor.photo.replace('/static/', '')) }}"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ request.url_for('root') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Cursos",
+      "item": "{{ request.url_for('listado_cursos') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ curso.title | replace('"', '\\"') }}",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

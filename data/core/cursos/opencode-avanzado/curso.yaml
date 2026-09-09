@@ -1,0 +1,131 @@
+id: "opencode-avanzado"
+slug: "opencode-avanzado"
+title: "OpenCode Avanzado: CI/CD, LLMs Locales y Automatización"
+description_short: "Profundizá en OpenCode: LLMs locales con Ollama, modo headless, automatización con GitHub Actions y hooks propios."
+description_long: "Este curso avanzado te lleva al siguiente nivel del desarrollo asistido por IA con OpenCode. Aprenderás a configurar y ejecutar modelos de lenguaje locales mediante Ollama para mantener el control total de tus datos, a integrar OpenCode de forma headless en scripts y procesos automatizados, y a construir tuberías de CI/CD completas con GitHub Actions. Además, diseñarás hooks y workflows personalizados (pre-commit, pre-push) y automatizarás la publicación de artefactos y modelos de machine learning, alineando la asistencia por IA con las prácticas profesionales de ingeniería de software. Prerrequisitos recomendados: conocimientos de Git, Docker y conceptos de CI/CD, o haber completado el curso Desarrollo de APIs con FastAPI y Python (fastapi-intermedio)."
+duration: "8 horas"
+level: "Avanzado"
+language: "Español"
+price: 0.0
+og_image: "/static/media/cursos/og-opencode-avanzado.webp"
+og_image_width: 1200
+og_image_height: 630
+instructor_id: "agustin-bustos"
+academic_only: true
+sections:
+  # --- SECCIÓN A ---
+  - id: "sec-opencode-avanzado-a"
+    title: "Sección A: LLMs Locales y Modo Headless"
+    description: "Configuración de modelos locales con Ollama e integración no interactiva de OpenCode en scripts."
+    chapters:
+      - id: "chap-opencode-avanzado-cap-1"
+        title: "Cap 1: Modelos Locales con Ollama"
+        description: "Instalación y configuración de Ollama, selección de modelos y su integración como proveedor de OpenCode."
+        items:
+          - type: "lesson"
+            id: "les-opencode-avanzado-1-1"
+            slug: "configuracion-ollama-modelos-locales"
+            title: "1.1 Configuración de Ollama y modelos locales"
+            duration: "25 min"
+            content_file: "cap-1-1-configuracion-ollama-modelos-locales.md"
+          - type: "lesson"
+            id: "les-opencode-avanzado-1-2"
+            slug: "integracion-opencode-ollama"
+            title: "1.2 Integración de OpenCode con Ollama"
+            duration: "25 min"
+            content_file: "cap-1-2-integracion-opencode-ollama.md"
+
+      - id: "chap-opencode-avanzado-cap-2"
+        title: "Cap 2: Integración Headless"
+        description: "Ejecución no interactiva de OpenCode y automatización de tareas mediante scripts."
+        items:
+          - type: "lesson"
+            id: "les-opencode-avanzado-2-1"
+            slug: "modo-headless-opencode"
+            title: "2.1 Uso headless de OpenCode: ejecución no interactiva"
+            duration: "20 min"
+            content_file: "cap-2-1-modo-headless-opencode.md"
+          - type: "lesson"
+            id: "les-opencode-avanzado-2-2"
+            slug: "automatizacion-scripts-headless"
+            title: "2.2 Automatización de tareas con scripts"
+            duration: "30 min"
+            content_file: "cap-2-2-automatizacion-scripts-headless.md"
+
+  # --- SECCIÓN B ---
+  - id: "sec-opencode-avanzado-b"
+    title: "Sección B: Automatización y CI/CD con GitHub Actions"
+    description: "Tuberías de integración continua, workflows de GitHub Actions y hooks personalizados."
+    chapters:
+      - id: "chap-opencode-avanzado-cap-3"
+        title: "Cap 3: GitHub Actions y Flujos de Trabajo"
+        description: "Conceptos de CI/CD, estructura de workflows y primer pipeline con lint, test y OpenCode en CI."
+        items:
+          - type: "lesson"
+            id: "les-opencode-avanzado-3-1"
+            slug: "conceptos-cicd-workflows"
+            title: "3.1 Conceptos de CI/CD y estructura de workflows"
+            duration: "20 min"
+            content_file: "cap-3-1-conceptos-cicd-workflows.md"
+          - type: "lesson"
+            id: "les-opencode-avanzado-3-2"
+            slug: "workflow-lint-test-ci"
+            title: "3.2 Primer workflow: lint + test + OpenCode en CI"
+            duration: "30 min"
+            content_file: "cap-3-2-workflow-lint-test-ci.md"
+
+      - id: "chap-opencode-avanzado-cap-4"
+        title: "Cap 4: Workflows y Hooks Personalizados"
+        description: "Hooks pre-commit/pre-push, automatización local y publicación de artefactos y modelos."
+        items:
+          - type: "lesson"
+            id: "les-opencode-avanzado-4-1"
+            slug: "hooks-personalizados-precommit-prepush"
+            title: "4.1 Hooks personalizados pre-commit/pre-push y automatización local"
+            duration: "25 min"
+            content_file: "cap-4-1-hooks-personalizados-precommit-prepush.md"
+          - type: "lesson"
+            id: "les-opencode-avanzado-4-2"
+            slug: "despliegue-artefactos-publish"
+            title: "4.2 Despliegue y publicación de artefactos y modelos"
+            duration: "25 min"
+            content_file: "cap-4-2-despliegue-artefactos-publish.md"
+
+      - id: "chap-opencode-avanzado-cap-5"
+        title: "Evaluación de la Sección B"
+        description: "Validá tus conocimientos adquiridos en el curso."
+        items:
+          - type: "quiz"
+            id: "quiz-opencode-avanzado"
+            slug: "evaluacion-opencode-avanzado"
+            title: "Cuestionario: OpenCode Avanzado"
+            duration: "10 min"
+            questions:
+              - id: "q-av-ollama"
+                question: "¿Cuál es la principal ventaja de integrar OpenCode con modelos locales como Ollama?"
+                type: "single_choice"
+                options:
+                  - "Aumentar la latencia de cada respuesta generada"
+                  - "Privacidad de los datos y funcionamiento sin conexión"
+                  - "Acceso exclusivo a modelos propietarios de pago"
+                  - "Eliminar la necesidad de escribir tests"
+                correct_option: 1
+                explanation: "Los modelos locales se ejecutan en tu propia infraestructura, lo que garantiza que el código y los datos sensibles no salgan del entorno, además de habilitar el trabajo sin conexión."
+              - id: "q-av-headless"
+                question: "El uso headless de OpenCode permite ejecutarlo de forma no interactiva dentro de scripts y procesos automatizados."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "El modo headless habilita la invocación de OpenCode desde la línea de comandos sin la TUI, ideal para integrarlo en scripts, hooks y tuberías de CI/CD."
+              - id: "q-av-actions"
+                question: "¿Qué archivo define los flujos de trabajo (workflows) en un repositorio con GitHub Actions?"
+                type: "single_choice"
+                options:
+                  - "package.json"
+                  - ".github/workflows/*.yml"
+                  - "docker-compose.yml"
+                  - "opencode.json"
+                correct_option: 1
+                explanation: "Los workflows de GitHub Actions se definen como archivos YAML dentro del directorio .github/workflows/, donde se declaran triggers, jobs y steps."

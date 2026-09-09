@@ -1,0 +1,105 @@
+slug: "control-automatico-cargas-no-criticas-picos-demanda"
+title: "Control automático de cargas no críticas: cómo cortar el pico de demanda sin frenar la producción"
+category: "Automatización & Retrofit IoT"
+reading_time: "6 min de lectura"
+summary: "Cómo funciona el peak shaving sobre la ventana de integración de 15 minutos, qué cargas se pueden desconectar sin afectar el proceso y cómo se define la lógica con el jefe de planta antes de la puesta en marcha."
+problem: "Un pico de pocos minutos, muchas veces por arranques simultáneos, fija la potencia facturada de todo el período y obliga a contratar capacidad que el resto del tiempo está ociosa."
+solution: "Monitoreo de la demanda dentro de la ventana de 15 minutos con Powermeter Automate y desconexión secuencial de cargas previamente definidas como no críticas, con reconexión automática."
+key_takeaways:
+  - "La demanda se factura por potencia media en ventanas de 15 minutos, no por el pico instantáneo."
+  - "No hace falta evitar el pico: alcanza con impedir que se sostenga durante la ventana completa."
+  - "La lista de cargas desconectables y su orden la define el jefe de planta, no el equipo."
+  - "Antes de automatizar conviene probar lo gratuito: escalonar arranques suele resolver buena parte del problema."
+published_at: "2026-09-02"
+og_image: "/static/media/powermeter.svg"
+content: |
+  ## 1. La ventana de 15 minutos lo cambia todo
+
+  La distribuidora no factura el pico instantáneo. Factura la **potencia media integrada en ventanas de 15 minutos**, y toma el mayor de esos valores del período.
+
+  Esta distinción es la que hace posible todo lo demás. Un arranque que dispara 40 kW adicionales durante veinte segundos casi no mueve el promedio de un intervalo de 15 minutos. Lo que fija la demanda facturada es la **carga sostenida** durante el intervalo completo.
+
+  De ahí se sigue el principio del peak shaving: **no hay que evitar el pico, hay que impedir que se sostenga**. Y para eso alcanza con liberar algunos kW durante unos minutos.
+
+  ---
+
+  ## 2. Cómo funciona
+
+  El **Powermeter Automate** monitorea la potencia activa instantánea y calcula, dentro de cada ventana de integración en curso, la proyección de hacia dónde va el promedio del intervalo.
+
+  Cuando esa proyección se acerca al umbral configurado —típicamente un porcentaje de la potencia contratada, del orden del 92 %— ejecuta un **corte secuencial** de las cargas definidas como no críticas, en el orden establecido, hasta que la proyección vuelve por debajo del umbral.
+
+  Cerrada la ventana, o superado el evento que originó el pico, **reconecta automáticamente** en orden inverso, respetando los tiempos mínimos de reposo que requiera cada equipo.
+
+  La línea principal de producción no se toca en ningún momento.
+
+  ---
+
+  ## 3. Qué cargas se pueden desconectar
+
+  El criterio es que la carga tenga **inercia térmica o capacidad de almacenamiento** suficiente para tolerar una interrupción de minutos sin consecuencias sobre el proceso ni sobre el producto.
+
+  **Candidatas habituales:**
+
+  * **Climatización de espacios** (no de proceso). Un depósito o una oficina no cambian de temperatura en cinco minutos.
+  * **Compresores de aire con pulmón adecuado.** Si el tanque tiene reserva, el compresor puede esperar.
+  * **Bombas de recirculación con tanque intermedio.** Mientras haya nivel, la interrupción es transparente.
+  * **Cámaras de frío**, dentro de una banda de temperatura acordada y por tiempos acotados. Requiere validación con el responsable de calidad.
+  * **Calentamiento de agua sanitaria o de servicios.**
+  * **Carga de baterías de autoelevadores** fuera del horario crítico.
+
+  **Nunca:**
+
+  * Equipos de la línea principal de producción.
+  * Procesos con producto en curso que se arruina si se interrumpe.
+  * Sistemas de seguridad, incendio, iluminación de emergencia.
+  * Ventilación de proceso o extracción de gases.
+  * Servidores, controles y equipamiento de red.
+
+  ---
+
+  ## 4. La lógica la define la planta
+
+  Este es el punto que hace que el sistema se use o se termine puenteando a la semana de instalado.
+
+  Antes de la puesta en marcha se acuerda por escrito, con el jefe de planta:
+
+  * **Qué cargas** entran en la lista de desconectables.
+  * **En qué orden** se cortan y en qué orden se reconectan.
+  * **Cuánto tiempo máximo** puede permanecer desconectada cada una.
+  * **Qué tiempo mínimo de reposo** requiere cada equipo antes de volver a arrancar, para no dañar compresores ni motores.
+  * **Qué condiciones inhiben el corte** por completo: por ejemplo, una cámara de frío no se desconecta si su temperatura ya está en el límite superior de banda.
+  * **Qué se registra**, para poder auditar después qué se cortó, cuándo y por cuánto tiempo.
+
+  Un sistema que corta algo que no debía, una sola vez, pierde la confianza de la planta y se desactiva. La conversación previa vale más que la configuración.
+
+  ---
+
+  ## 5. Antes de automatizar, lo gratuito
+
+  El peak shaving automático tiene sentido cuando el pico es **inevitable**. Muchas veces no lo es, y hay medidas sin costo que conviene agotar primero:
+
+  * **Escalonar arranques.** Es la causa más frecuente de picos en plantas de un turno: todo entra a la vez a las siete de la mañana. Separar los arranques en tramos de pocos minutos puede recortar la demanda máxima de forma notable sin invertir un peso.
+  * **Correr procesos pesados fuera de la ventana de punta.** En tarifa T3, la potencia en horas de punta (18 a 23 h) tiene un cargo considerablemente mayor. Mover un proceso que cae ahí y puede ejecutarse en otro momento reduce la potencia contratada en el bloque más caro.
+  * **Revisar las simultaneidades del proceso.** A veces dos equipos coinciden por costumbre operativa y no por necesidad técnica.
+
+  La medición de la curva de carga muestra cuál de estos casos aplica. Si después de aplicarlos el pico persiste y es genuino, ahí el control automático se justifica.
+
+  ---
+
+  ## 6. Cómo se evalúa el resultado
+
+  El beneficio se calcula sobre dos efectos combinados:
+
+  1. **Evitar el cargo punitorio por exceso** de potencia, si venías registrando picos por encima de lo contratado.
+  2. **Habilitar una recontratación a la baja** con respaldo. Sin control de picos, el margen de seguridad sobre la demanda máxima tiene que ser generoso; con control automático se puede ajustar más, porque el sistema garantiza que el intervalo no se pasa.
+
+  El segundo efecto suele ser mayor que el primero, y es el que hace que la inversión se pague. Por eso el análisis de peak shaving y el de potencia contratada se hacen juntos, sobre la misma campaña de medición.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de telemetría industrial y retrofit IoT](/landing/telemetria-industrial)
+  * [Cómo detectar que estás pagando potencia contratada de más](/guias/detectar-potencia-contratada-de-mas)
+  * [Cobertura en San Martín](/buenos-aires/san-martin/san-martin.html)

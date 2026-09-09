@@ -1,0 +1,65 @@
+# Catálogo de planes y servicios de telemetría y campo DataMaq.
+# Modelo: SaaS 100% Gratuito ($0), Instalación de Hardware y Consultoría Energética,
+# Financiación vía Pactar Digital y Descuentos comerciales (Banco Provincia y Vitrina Pública acumulables hasta 25% OFF).
+planes:
+  - id: "plataforma-cloud"
+    name: "Plataforma Cloud y Telemetría"
+    badge: "SaaS $0 Incluido"
+    price: "$0"
+    tagline: "Plataforma web de telemetría y dashboard en tiempo real sin canon mensual. Incluye 60 días de Versión PRO con cada obra o consultoría."
+    featured: false
+    features:
+      - "SaaS en la nube sin costo recurrente de licencia ($0 de por vida)"
+      - "60 días de Versión PRO completa incluidos con la instalación de tus medidores"
+      - "Cada consultoría energética renueva 60 días de Versión PRO"
+      - "Al vencer: elegí entre aportar a la Vitrina Pública Anónima o mantener monitoreo privado horario"
+      - "Compatible con toda la suite Powermeter (SmartPlus, Gateway, Automate)"
+    cta_label: "Ver Demo en Vivo"
+    cta_whatsapp_text: "Hola Agustín, quiero probar la plataforma gratuita de telemetría para mi planta."
+
+  - id: "instalacion-hardware"
+    name: "Instalación de Hardware Powermeter"
+    badge: "Obra Llave en Mano"
+    price: "A cotizar"
+    tagline: "Montaje físico de SmartPlus, Gateway y Automate con transformadores TI y enlace de red. Packs Cero Multas, Control de Picos y Fábrica 4.0."
+    featured: true
+    features:
+      - "Hardware por compra directa a Powermeter SAS a precio oficial de fábrica"
+      - "Packs por dolor: Cero Multas (SmartPlus), Control de Picos (Automate) y Fábrica 4.0 (Gateway)"
+      - "Incluye 60 días de Plataforma PRO (curvas segundo a segundo, alertas WhatsApp y privacidad total)"
+      - "Visita técnica inicial con costo de diagnóstico 100% deducible de la obra"
+      - "Seguro AP/ART al día (Federación Patronal) y atención directa por Agustín Bustos"
+      - "Hasta 25% OFF acumulable (10% BAPRO + 15% Vitrina) y cuotas con Pactar Digital"
+    cta_label: "Cotizar Instalación"
+    cta_whatsapp_text: "Hola Agustín, quiero cotizar la instalación de hardware Powermeter con financiación de Pactar Digital y relevamiento deducible."
+
+  - id: "consultoria-energia"
+    name: "Consultoría Energética y Potencia"
+    badge: "Ahorro Inmediato"
+    price: "A cotizar"
+    tagline: "Auditoría en carga, recontratación de potencia contratada, eliminación de multas por cos φ e informe ejecutivo de ROI en 30 a 90 días."
+    featured: false
+    features:
+      - "Recontratación de potencia exacta para eliminar sobrecostos o excesos"
+      - "Eliminación 100% de penalidades por cos φ < 0,95 (Res. ENRE 544/2024) y capacitores"
+      - "Garantiza 60 días de extensión de Plataforma PRO completa"
+      - "Payback estimado: inversión amortizable en 30 a 90 días con el ahorro de penalidades"
+      - "Línea de base e IDEn bajo estándares de Redes de Aprendizaje (ISO 50001)"
+      - "Hasta 25% OFF acumulable (10% BAPRO + 15% Vitrina) y financiación Pactar Digital"
+    cta_label: "Pedir Consultoría"
+    cta_whatsapp_text: "Hola Agustín, quiero solicitar la auditoría asíncrona de nuestra factura de Edenor (Res. ENRE 544/2024) y optimización de potencia para mi planta. Adjunto PDF."
+
+  - id: "predios-submetering"
+    name: "Predios, Naves y Prorrateo"
+    badge: "Sub-metering"
+    price: "A cotizar"
+    tagline: "Sub-medición para naves compartidas, parques de galpones y condominios comerciales con plataforma cloud $0 incluida."
+    featured: false
+    features:
+      - "Sub-medición por usuario/inquilino y liquidación transparente de consumos"
+      - "Plataforma web multi-inquilino $0 incluida sin canon mensual recurrente"
+      - "Adecuación de tableros y montaje financiable con Pactar Digital (sin ticket mínimo)"
+      - "Hasta 25% OFF acumulable para desarrolladores y administradores (BAPRO + Vitrina)"
+      - "Soporte técnico directo de cabecera en Zona Norte GBA"
+    cta_label: "Consultar Predios"
+    cta_whatsapp_text: "Hola Agustín, quiero consultar por el servicio de Sub-metering y Prorrateo para predios."

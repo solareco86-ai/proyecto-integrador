@@ -1,0 +1,130 @@
+/* ==========================================================================
+   CRITICAL CSS — Above the fold
+   Fuente real del CSS crítico inline (partial generado por scripts/build_critical_css.py).
+   Los tokens se importan de tokens.css y se inlinean en el build.
+   No declara variables propias ni reglas de planes (viven en input.css / HomePage.css).
+   ========================================================================== */
+
+@import "./tokens.css";
+
+/* Resets y Estilos Base */
+body {
+    font-family: var(--ui-font-family-base);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-size: var(--ui-font-size-body);
+    line-height: var(--ui-line-height-body);
+    overflow-x: hidden;
+}
+html { scroll-behavior: smooth; }
+.app-shell { display: flex; flex-direction: column; }
+.section-mobile { padding-block: clamp(var(--section-mobile-padding), 3vw + 2.25rem, 5rem); }
+.bi { display: inline-block; width: 1em; height: 1em; vertical-align: -.125em; flex-shrink: 0; }
+
+/* Botones Básicos del Fold (Tailwind layout) */
+.tw\:btn {
+    cursor: pointer; border-radius: var(--tw-radius-xl);
+    padding-inline: 1.5rem; padding-block: 0.75rem;
+    font-weight: 600; transition: all .2s;
+    justify-content: center; align-items: center; display: inline-flex;
+}
+.tw\:btn-primary {
+    cursor: pointer; border-radius: var(--tw-radius-xl);
+    padding-inline: 1.5rem; padding-block: 0.75rem;
+    font-weight: 700; color: #ffffff; background-color: var(--dm-data-cyan);
+    justify-content: center; align-items: center; display: inline-flex; transition: all .2s;
+    box-shadow: 0 4px 14px rgba(var(--dm-data-cyan-rgb), .35);
+}
+.tw\:btn-primary:hover {
+    background-color: var(--dm-accent-orange);
+    color: var(--dm-bg-0);
+    box-shadow: 0 6px 20px rgba(var(--dm-accent-orange-rgb), .45);
+    transform: translateY(-1px);
+}
+.tw\:btn-outline {
+    border: 1px solid var(--dm-border-1); color: var(--dm-text-0);
+    border-radius: .75rem; padding: .75rem 1.5rem; transition: all .2s;
+    background-color: rgba(var(--dm-surface-0-rgb), .6);
+}
+.tw\:btn-outline:hover {
+    border-color: var(--dm-accent-orange);
+    color: var(--dm-accent-orange);
+    background-color: rgba(var(--dm-accent-orange-rgb), .08);
+}
+
+/* Header Común y Header Home */
+.c-home-header {
+    position: sticky; top: 0; z-index: var(--z-index-header);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: rgba(var(--dm-bg-0-rgb), .92); border-bottom: 1px solid var(--dm-border-0);
+}
+.c-home-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4rem; }
+.c-home-header__brand { display: inline-flex; align-items: center; gap: .8rem; color: var(--dm-text-0); font-weight: 800; text-decoration: none; letter-spacing: .02em; }
+.c-home-header__brand-logo { display: block; height: 3.3rem; width: auto; aspect-ratio: 184 / 189; object-fit: contain; border-radius: .4rem; background-color: #ffffff; padding: .15rem; box-shadow: 0 1px 4px rgba(0, 0, 0, .25); flex-shrink: 0; transition: transform .2s ease, box-shadow .2s ease; }
+.c-home-header__brand:hover .c-home-header__brand-logo { transform: scale(1.04); box-shadow: 0 2px 8px rgba(var(--dm-accent-orange-rgb), .35); }
+.c-home-header__brand-copy { font-size: 1.25rem; font-weight: 800; letter-spacing: .02em; color: var(--dm-text-0); line-height: 1.2; white-space: nowrap; }
+.c-home-header__brand-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: rgba(var(--dm-accent-orange-rgb), .14); color: rgb(var(--dm-accent-orange-rgb)); font-size: 1.15rem; }
+.c-home-header__nav { display: flex; align-items: center; gap: 1.5rem; }
+.c-home-header__nav-link { position: relative; color: rgba(var(--dm-text-0-rgb), .8); text-decoration: none; font-size: .95rem; padding-bottom: .2rem; transition: color .25s; }
+.c-home-header__nav-link:hover { color: rgb(var(--dm-accent-orange-rgb)); }
+.c-home-header__cta { min-height: 2.65rem; white-space: nowrap; }
+
+/* Navbar Legacy (Cursos) */
+.navbar.c-navbar { background: var(--dm-bg-0); border-color: var(--dm-border-0); }
+.c-navbar .c-navbar__inner { max-width: 1200px; margin-inline: auto; min-height: clamp(4rem, 4vw, 4.8rem); display: flex; align-items: center; gap: .75rem; }
+.c-navbar .navbar-brand { color: var(--dm-text-0); letter-spacing: var(--ui-letter-spacing-sm); font-size: 1.05rem; }
+.c-navbar .nav-link { color: rgba(var(--dm-text-0-rgb), .88); padding-block: .5rem; font-size: .98rem; }
+.c-navbar .nav-link:hover { color: var(--dm-data-cyan); }
+
+/* Hero Principal Datamaq (Home) */
+.app-shell--home {
+    background: linear-gradient(180deg, var(--dm-bg-0) 0%, var(--dm-bg-1) 40%, var(--dm-bg-0) 100%);
+    color: var(--dm-text-0);
+}
+.c-home-hero { position: relative; background-position: center; background-repeat: no-repeat; background-size: cover; overflow: hidden; }
+.c-home-hero.section-mobile { padding-block: clamp(1.4rem, 3vw, 2.2rem) clamp(2.4rem, 4vw, 3.1rem); }
+.c-home-hero:before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(var(--dm-bg-0-rgb), .85), transparent 65%), linear-gradient(rgba(var(--dm-line-blueprint-rgb), .12) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--dm-line-blueprint-rgb), .12) 1px, transparent 1px);
+    background-size: auto, 56px 56px, 56px 56px; pointer-events: none;
+}
+.c-home-hero__copy, .c-home-hero__media-card {
+    border: 1px solid var(--dm-border-0); border-radius: 1.25rem; background: rgba(var(--dm-surface-0-rgb), .92);
+    box-shadow: 0 1rem 2.5rem rgba(var(--dm-shadow-rgb), .45);
+}
+.c-home-hero__copy { padding: clamp(1.2rem, 3vw, 1.8rem); }
+.c-home-hero__title { margin: 0; font-size: clamp(2rem, 3.8vw, 3.4rem); line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; font-weight: 800; color: #ffffff; text-shadow: 0 2px 10px rgba(0, 0, 0, .45); }
+.c-home-hero__subtitle { color: rgba(var(--dm-text-0-rgb), .78); line-height: 1.6; max-width: 52ch; margin: .95rem 0 0; }
+.c-home-hero__actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 1.5rem; }
+.c-home-hero__primary, .c-home-hero__secondary { min-height: 3.2rem; }
+.c-home-hero__image { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 1rem; border: 1px solid var(--dm-border-0); }
+.c-home-hero__media-card { padding: 1.15rem; }
+.c-home-hero__media-label { margin: 0 0 .85rem; color: rgba(var(--dm-text-0-rgb), .6); text-transform: uppercase; letter-spacing: .18em; font-size: .7rem; font-weight: 700; }
+
+/* Hero Genérico (Cursos, Casos, Contacto) */
+.c-hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    background: linear-gradient(135deg, var(--dm-bg-0) 0%, var(--dm-bg-1) 48%, var(--dm-bg-2) 100%);
+    color: var(--dm-text-0);
+}
+.c-hero:before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(var(--dm-line-blueprint-rgb), .48) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--dm-line-blueprint-rgb), .48) 1px, transparent 1px);
+    background-size: 64px 64px; opacity: calc(var(--dm-blueprint-opacity) * .58); pointer-events: none;
+}
+.c-hero__content-panel {
+    position: relative; border: 1px solid rgba(var(--dm-text-0-rgb), .16); border-radius: 1rem;
+    background: linear-gradient(160deg, rgba(var(--dm-bg-0-rgb), .92), rgba(var(--dm-bg-0-rgb), .88) 72%, rgba(var(--dm-bg-0-rgb), .82));
+    box-shadow: 0 18px 36px rgba(var(--dm-shadow-rgb), .28); padding: clamp(1.05rem, 1.75vw, 1.45rem);
+}
+.c-hero__title { max-width: 14ch; text-wrap: balance; line-height: 1.1; }
+.c-hero__subtitle { max-width: 44ch; line-height: 1.58; color: rgba(var(--dm-text-0-rgb), .88); margin-bottom: 1rem; }
+.c-hero__image { display: block; width: 100%; height: auto; aspect-ratio: 21/16; }
+
+@media (max-width: 767.98px) {
+    .c-home-hero.section-mobile { padding-block: clamp(1.4rem, 3vw, 2.2rem); }
+    .c-home-hero__copy { padding: .92rem .86rem 1.02rem; }
+    .c-home-hero__title { font-size: clamp(1.7rem, 8vw, 2.15rem); line-height: 1.15; }
+    .c-home-hero__subtitle { font-size: .96rem; line-height: 1.56; }
+    .c-hero__content-panel { padding: .92rem .86rem 1.02rem; }
+}

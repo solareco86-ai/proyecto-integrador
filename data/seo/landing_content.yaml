@@ -1,0 +1,341 @@
+industrias:
+  grafica:
+    title: "Soluciones para la Industria Gráfica"
+    paragraphs:
+      - "La industria gráfica consume energía en prensas, rotativas, termofijadoras, cizallas, sistemas de secado y climatización. Medir el consumo por máquina y turno permite identificar desperdicios, planificar mantenimiento y calcular el costo real de cada tirada de impresión."
+      - "Instalamos analizadores Powermeter SmartPlus en tableros y Gateway en prensas para capturar variables de proceso, telemetría de energía y factor de potencia, inyectando los datos directamente en Xubio para imputación por centro de costo."
+    bullets:
+      - "Medición de energía y factor de potencia con Powermeter SmartPlus por equipo y turno"
+      - "Detección y control de picos durante arranques de prensas con Powermeter Automate"
+      - "Integración directa de consumos de tirada en el ERP Xubio vía API REST"
+
+  plastica:
+    title: "Soluciones para la Industria Plástica"
+    paragraphs:
+      - "En plantas de inyección, extrusión y soplado, los ciclos de máquinas, la temperatura de pirómetros y el consumo de compresores y chillers son factores críticos de costo. Capturar datos operativos ayuda a reducir tiempos muertos y optimizar la potencia contratada."
+      - "Instalamos Powermeter Gateway para digitalizar pirómetros (PT100/4-20mA), SmartPlus para telemetría eléctrica y Automate para corte de cargas no prioritarias, vinculando los registros a Xubio."
+    bullets:
+      - "Retrofit IoT con Powermeter Gateway en inyectoras, extrusoras, pirómetros y chillers"
+      - "Control inteligente de demanda máxima y compresores con Powermeter Automate"
+      - "Imputación automática de costos energéticos por lote en el ERP Xubio"
+
+  papelera:
+    title: "Soluciones para la Industria Papelera"
+    paragraphs:
+      - "El proceso papelero y cartonero involucra pulperías, prensas, calderas, secadores y sistemas de tratamiento de efluentes. El monitoreo de energía y variables operativas permite controlar eficiencia térmica, evitar penalidades de potencia y planificar paradas de planta."
+      - "Asistimos a plantas cartoneras y papeleras con la instalación de medidores Powermeter SmartPlus, telemetría en tiempo real y conexión directa con el ERP Xubio para conciliación de costos de proceso."
+    bullets:
+      - "Medición y telemetría en calderas, prensas y motores pesados con SmartPlus"
+      - "Auditoría de factor de potencia y optimización de potencia contratada"
+      - "Sincronización de consumos de producción con el ERP Xubio vía API REST"
+
+  metalurgica:
+    title: "Soluciones para la Industria Metalúrgica"
+    paragraphs:
+      - "Hornos, soldadoras, plegadoras, centros de mecanizado CNC y hornos de tratamiento térmico definen el perfil de alta potencia de la metalurgia. Medir consumos por celda de trabajo permite recontratar la potencia justa, eliminar recargos y proteger la electrónica sensible."
+      - "Realizamos relevamientos en plantas metalmecánicas para instalar hardware Powermeter (SmartPlus, Gateway, Automate), diagnosticar armónicos y estructurar la imputación contable directa en Xubio."
+    bullets:
+      - "Monitoreo de energía y distorsión armónica en hornos y máquinas herramienta"
+      - "Retrofit IoT en pirómetros y balanzas industriales con Powermeter Gateway"
+      - "Eliminación de penalidades de factor de potencia y sincronización con Xubio"
+
+  siderurgica:
+    title: "Soluciones para la Industria Siderúrgica"
+    paragraphs:
+      - "La industria siderúrgica opera con procesos continuos de altísima exigencia: hornos eléctricos, colada continua, laminadores y bombas de refrigeración. Medir calidad de energía, temperatura y variables de proceso permite anticipar fallas, reducir paradas imprevistas y optimizar contratos de potencia."
+      - "Trabajamos con plantas siderúrgicas para instalar analizadores Powermeter SmartPlus, telemetría de calidad de red y control lógico de corte con Automate, con volcado automático de datos a Xubio."
+    bullets:
+      - "Monitoreo de calidad de energía en hornos y laminadores con SmartPlus"
+      - "Diagnóstico de armónicos, factor de potencia y demanda máxima"
+      - "Captura de variables de temperatura y proceso integradas a Xubio"
+
+  cables:
+    title: "Soluciones para la Industria de Cables"
+    paragraphs:
+      - "La fabricación de cables involucra trefilería, extrusión de aislación, cableado y ensayos de calidad. El control de tensión, temperatura y velocidad son críticos para la calidad del producto final. La distorsión armónica de los variadores de frecuencia afecta tanto la medición como la vida útil de los equipos."
+      - "Realizamos diagnóstico de calidad de energía en plantas de cables, instalación de Powermeter SmartPlus en subestaciones y retrofit IoT con Gateway y Automate para telemetría de pirómetros y variadores VFD, integrando los datos directamente en Xubio."
+    bullets:
+      - "Calidad de energía y factor de potencia en subestaciones de trefilería y extrusión"
+      - "Retrofit IoT con Powermeter Gateway en líneas de extrusión y pirómetros"
+      - "Monitoreo de tensión, temperatura y variables de proceso conectadas a Xubio"
+
+  energia:
+    title: "Eficiencia Energética para Plantas Industriales"
+    paragraphs:
+      - "Servicios integrales de auditoría eléctrica, recontratación de potencia y telemetría de variables operativas para plantas industriales en Zona Norte del GBA. Eliminación de penalidades por factor de potencia (cos φ < 0,95) y optimización de curvas de carga."
+      - "Instalación en campo de la suite Powermeter (SmartPlus, Gateway y Automate). Integración directa de métricas de consumo y costos en el ERP Xubio vía API REST."
+    bullets:
+      - "Auditoría de curva de carga y optimización de potencia contratada"
+      - "Telemetría de factor de potencia y especificación de bancos de capacitores"
+      - "Retrofit IoT de maquinaria y control de corte de cargas no prioritarias"
+      - "Integración de variables energéticas y costos al ERP Xubio vía API REST"
+
+# Contenido propio de cada localidad indexable. La huella se consolidó en 10
+# localidades con demanda industrial real (ver data/meta/geografia.yaml); el
+# resto redirige 301 al hub de su municipio.
+localidades:
+  buenos-aires:
+    escobar:
+      garin:
+        title: "Telemetría de energía y corrección de factor de potencia en Garín"
+        paragraphs:
+          - "Garín concentra la mayor densidad industrial del partido de Escobar. El Parque Industrial Garín y los corredores de la Ruta 26 y el Ramal Escobar de la Panamericana reúnen plantas gráficas, plásticas, metalúrgicas, papeleras y de alimentos que operan con suministros T2 y T3 de Edenor. Es también nuestra base operativa: la mayoría de los relevamientos en Garín se coordinan dentro de las 48 horas y no requieren viático."
+          - "El problema recurrente en la zona no es la falta de energía sino la calidad con la que se consume. Motores de gran porte, compresores en ciclo intermitente, prensas y variadores de frecuencia generan un desfasaje inductivo que empuja el factor de potencia por debajo del cos φ ≥ 0,95 que exige la Resolución ENRE 544/2024. El recargo aparece todos los meses en la factura y se acumula; por debajo de 0,60 la distribuidora queda facultada a suspender el suministro."
+          - "Trabajamos con un analizador de redes Powermeter SmartPlus instalado en el tablero general durante un ciclo productivo completo, para medir potencia activa, reactiva, armónicos y curva de demanda con la planta en carga real. Sobre esa medición dimensionamos los kVAR necesarios y evaluamos si la potencia contratada está sobredimensionada, que es la segunda fuga de dinero más común en las plantas de la zona."
+          - "Para las máquinas que ya están en la línea y no se van a reemplazar, el retrofit con Powermeter Gateway digitaliza balanzas, pirómetros PT100, variadores y PLC existentes por Modbus RS485 o 4-20 mA, sin tocar la lógica de control. Los datos quedan disponibles en telemetría cloud en tiempo real, sin costo de plataforma."
+        bullets:
+          - "Base operativa propia en Garín: relevamiento coordinado dentro de las 48 horas"
+          - "Auditoría en carga con analizador SmartPlus sobre tablero general y seccionales"
+          - "Dimensionamiento de kVAR y verificación de potencia contratada T2/T3"
+          - "Retrofit IoT sobre maquinaria existente por Modbus RS485 y 4-20 mA"
+          - "Rubros habituales en la zona: gráfica, plástica, metalúrgica, papelera y alimentos"
+        links:
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+          - label: "Caso: monitoreo energético IoT en una planta gráfica del GBA Norte"
+            url: "/casos/madygraf-eficiencia-y-vision-40"
+        faq:
+          - question: "¿Cuánto tarda una visita de relevamiento en Garín?"
+            answer: "Al estar la base operativa en Garín, el relevamiento se coordina normalmente dentro de las 48 horas hábiles y no lleva viático. La visita inicial cuesta $55.000 ARS y se deduce al 100% si se aprueba la cotización de obra."
+          - question: "¿Hay que parar la producción para medir?"
+            answer: "No. El analizador se monta en el tablero con la planta funcionando, porque justamente necesitamos la curva de carga real. La instalación de los transformadores de corriente se coordina en un cambio de turno o en una parada programada que ya tengas prevista."
+          - question: "Mi planta está en el Parque Industrial Garín, ¿el suministro es T3?"
+            answer: "La mayoría de las plantas del parque tiene suministro T3, en baja o media tensión. Eso define tanto el régimen de penalidades por reactivo como el honorario de la consultoría de potencia. Lo confirmamos leyendo tu factura antes de cotizar."
+
+      belen-de-escobar:
+        title: "Monitoreo energético IoT en Belén de Escobar"
+        paragraphs:
+          - "Belén de Escobar es la cabecera del partido y concentra actividad comercial, logística y de transformación alrededor del casco urbano y del corredor de la Ruta 25. El perfil productivo es más fragmentado que el de Garín: predominan pymes de menor porte, depósitos con cámaras de frío, talleres metalúrgicos y establecimientos vinculados a la floricultura y la agroindustria."
+          - "En este tipo de suministros el costo eléctrico suele estar dominado por dos factores que no se ven en la factura a simple vista: el consumo reactivo de motores y equipos de refrigeración que trabajan en ciclo, y una potencia contratada que quedó fijada años atrás y ya no corresponde al consumo actual. Ambos se corrigen con medición, no con recambio de maquinaria."
+          - "El trabajo arranca con una auditoría en carga sobre el tablero general con analizador Powermeter SmartPlus. Medimos potencia activa y reactiva, factor de potencia, armónicos y picos de demanda a lo largo de un ciclo completo de operación. Con esos datos se determina si corresponde corregir el cos φ para cumplir la Res. ENRE 544/2024 y si conviene recontratar la potencia."
+          - "Para plantas que quieren visibilidad continua y no sólo un diagnóstico puntual, dejamos instalada telemetría cloud en tiempo real, sin costo de plataforma, con alertas por pico de demanda. Sobre la misma infraestructura se puede sumar después la captura de variables de proceso mediante Powermeter Gateway."
+        bullets:
+          - "Cobertura sin viático desde la base en Garín, a menos de 10 km"
+          - "Diagnóstico orientado a pymes con suministro T2 y T3 en baja tensión"
+          - "Detección de sobrecontratación de potencia sobre factura Edenor"
+          - "Telemetría cloud en tiempo real con alertas de pico de demanda"
+          - "Rubros habituales: logística con frío, metalúrgica liviana y agroindustria"
+        links:
+          - label: "Guía: cálculo de potencia contratada para tarifas T2 y T3"
+            url: "/guias/guia-calculo-potencia-contratada-t2-t3"
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+        faq:
+          - question: "Tengo cámaras de frío, ¿sirve igual la medición?"
+            answer: "Sí, y suele ser donde más se recupera. Los equipos de refrigeración trabajan en ciclo y generan consumo reactivo constante; medir un ciclo completo permite dimensionar la corrección sin sobredimensionar, que es lo que provoca sobretensiones."
+          - question: "¿Cuál es el plazo de retorno de la inversión?"
+            answer: "En los suministros que estamos midiendo en la zona, el payback típico se ubica entre 30 y 90 días, contando la eliminación del recargo por reactivo y el ajuste de potencia contratada."
+          - question: "¿La plataforma de telemetría tiene costo mensual?"
+            answer: "No. La plataforma cloud de visualización es gratuita de por vida. Se cobra la visita de relevamiento, la obra de instalación y, si corresponde, la consultoría de gestión energética."
+
+    tigre:
+      tigre:
+        title: "Calidad de energía y telemetría industrial en Tigre"
+        paragraphs:
+          - "Tigre es la cabecera de un partido con dos perfiles productivos bien distintos: la zona continental, con parques industriales y logística pesada sobre la Ruta 197 y el Acceso Norte, y el frente del Delta, con astilleros, náutica y talleres de reparación. Cada uno plantea un problema eléctrico diferente y requiere un abordaje distinto."
+          - "En la zona continental el foco está en la calidad de energía: motores, compresores y variadores empujan el factor de potencia por debajo del umbral de cos φ ≥ 0,95 que fija la Resolución ENRE 544/2024, con recargos mensuales acumulativos y riesgo de suspensión del servicio por debajo de 0,60. En el frente del Delta, en cambio, el problema suele ser la estabilidad del suministro y la trazabilidad del consumo por sector."
+          - "El procedimiento es el mismo en ambos casos: instalamos un analizador Powermeter SmartPlus sobre el tablero general y los seccionales críticos, medimos durante un ciclo productivo completo y sobre esa base dimensionamos la corrección de reactivo, verificamos la potencia contratada y detectamos armónicos que puedan estar deteriorando la instalación."
+          - "El resultado no es un informe cerrado sino telemetría en tiempo real: la planta queda viendo su propia curva de carga, sus picos de demanda y su factor de potencia de forma continua, lo que permite reprogramar encendidos de maquinaria pesada y nivelar la curva sin invertir un peso adicional."
+        bullets:
+          - "Cobertura de la zona continental y del frente del Delta"
+          - "Auditoría en carga sobre tablero general y seccionales críticos"
+          - "Detección de armónicos en instalaciones con variadores de frecuencia"
+          - "Telemetría en tiempo real de curva de carga, picos y factor de potencia"
+          - "Rubros habituales: logística, metalmecánica, náutica y astilleros"
+        links:
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+          - label: "Guía: digitalizar máquinas existentes con gateway IoT y Modbus"
+            url: "/guias/como-digitalizar-maquinas-modbus-gateway-iot"
+        faq:
+          - question: "¿Trabajan en el frente del Delta?"
+            answer: "Sí, en la zona continental y en establecimientos del frente accesibles por tierra. Para instalaciones que sólo tienen acceso fluvial, coordinamos la logística caso por caso antes de cotizar."
+          - question: "¿Qué pasa si tengo variadores de frecuencia?"
+            answer: "Los variadores mejoran el consumo activo pero inyectan armónicos en la red. Por eso la medición incluye análisis armónico: corregir reactivo sin mirar armónicos puede generar resonancia y dañar el banco y la instalación."
+          - question: "¿Puedo medir sólo un sector de la planta?"
+            answer: "Sí. Se puede instrumentar un tablero seccional específico si el objetivo es aislar el consumo de una línea o de un centro de costos determinado."
+
+      don-torcuato:
+        title: "Corrección de factor de potencia y retrofit IoT en Don Torcuato"
+        paragraphs:
+          - "Don Torcuato alberga uno de los polos industriales más consolidados del partido de Tigre, con acceso directo por la Panamericana y la Ruta 197. La zona reúne metalmecánica, autopartes, plásticos y talleres de mecanizado, en general con maquinaria de años de servicio que sigue siendo productiva pero no fue pensada para entregar datos."
+          - "Ese perfil genera dos frentes de trabajo simultáneos. Por un lado, la calidad de energía: los motores de inducción y las prensas hidráulicas de la zona empujan el factor de potencia por debajo del cos φ ≥ 0,95 exigido por la Res. ENRE 544/2024, y el recargo se acumula mes a mes en la factura de Edenor. Por otro, la falta de trazabilidad: no hay registro de cuánto consume cada línea ni de cuándo se producen los picos."
+          - "La medición en carga con Powermeter SmartPlus resuelve el primer frente. El retrofit con Powermeter Gateway resuelve el segundo: se conecta a la instrumentación que la máquina ya tiene —balanzas, pirómetros PT100, variadores, PLC— por Modbus RS485, 4-20 mA o 0-10 V, sin reemplazar equipamiento ni intervenir la lógica de control existente."
+          - "Cuando el problema es el pico de demanda máxima, el Powermeter Automate permite cortar automáticamente cargas no críticas antes de que el pico se registre, lo que evita el sobrecosto tarifario sin afectar la producción."
+        bullets:
+          - "Zona de metalmecánica, autopartes, plásticos y mecanizado"
+          - "Retrofit sobre maquinaria existente sin reemplazar instrumentación"
+          - "Corte automático de cargas no críticas ante picos de demanda"
+          - "Conectividad Modbus RS485, 4-20 mA y 0-10 V"
+          - "Acceso directo por Panamericana y Ruta 197"
+        links:
+          - label: "Guía: digitalizar máquinas existentes con gateway IoT y Modbus"
+            url: "/guias/como-digitalizar-maquinas-modbus-gateway-iot"
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+        faq:
+          - question: "Mi máquina tiene 30 años, ¿se puede digitalizar igual?"
+            answer: "En general sí. Si el equipo tiene alguna señal disponible —una salida analógica, un PLC con puerto serie, un variador, una balanza— el gateway la lee sin modificar la lógica de control. Si no tiene ninguna, se instrumenta desde el tablero."
+          - question: "¿El retrofit invalida la garantía del equipo?"
+            answer: "No, porque no se interviene el control de la máquina: se lee la señal que ya existe. En equipos bajo garantía vigente lo verificamos con el proveedor antes de tocar nada."
+          - question: "¿Cómo funciona el corte automático de cargas?"
+            answer: "El Powermeter Automate monitorea la demanda instantánea y, al acercarse al umbral contratado, desconecta cargas que vos definís como no críticas. La lógica se acuerda con el jefe de planta antes de la puesta en marcha."
+
+      el-talar:
+        title: "Auditoría energética y monitoreo IoT en El Talar"
+        paragraphs:
+          - "El Talar es una de las localidades industriales de mayor peso dentro de Tigre, sobre el corredor de la Ruta 197 y con salida rápida al Acceso Norte y a la Ruta 9. La zona reúne plantas químicas, laboratorios, alimentos y depósitos con procesos que dependen de condiciones controladas de temperatura y de continuidad de suministro."
+          - "En procesos de este tipo el riesgo no es sólo económico. La Resolución ENRE 544/2024 faculta a la distribuidora a suspender el servicio cuando el factor de potencia cae por debajo de 0,60, y en una planta con proceso térmico o cadena de frío una interrupción de 48 a 72 horas cuesta mucho más que cualquier obra de corrección. La medición preventiva es, en estos casos, gestión de riesgo operativo."
+          - "El relevamiento con analizador Powermeter SmartPlus mide el comportamiento real del suministro durante un ciclo completo: factor de potencia, armónicos, curva de demanda y estabilidad de tensión. Sobre eso se define la corrección de reactivo, se verifica si la potencia contratada es la adecuada y se documenta el estado de la instalación."
+          - "Para el seguimiento de proceso, el Powermeter Gateway captura variables operativas de la instrumentación existente —pirómetros PT100, balanzas, variadores— por Modbus RS485 o 4-20 mA, y las publica junto a las variables energéticas en la misma plataforma de telemetría, sin costo de licencia."
+        bullets:
+          - "Perfil de plantas químicas, laboratorios, alimentos y logística con frío"
+          - "Prevención del riesgo de suspensión de suministro por cos φ < 0,60"
+          - "Análisis de armónicos y estabilidad de tensión"
+          - "Captura de variables de proceso junto a variables energéticas"
+          - "Corredor Ruta 197 con salida al Acceso Norte y la Ruta 9"
+        links:
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+          - label: "Guía: digitalizar máquinas existentes con gateway IoT y Modbus"
+            url: "/guias/como-digitalizar-maquinas-modbus-gateway-iot"
+        faq:
+          - question: "¿Pueden medir temperatura de proceso además de energía?"
+            answer: "Sí. El gateway lee pirómetros y sensores PT100 por 4-20 mA o Modbus, así que las variables de proceso quedan en la misma plataforma que el consumo eléctrico, con la misma estampa de tiempo."
+          - question: "¿Qué riesgo real tengo si mi cos φ está bajo?"
+            answer: "Por debajo de 0,95 hay recargo mensual acumulativo en factura. Por debajo de 0,60, el Artículo 9 de la Res. ENRE 544/2024 habilita a la distribuidora a suspender el suministro. En un proceso con cadena de frío eso es la pérdida directa del lote."
+          - question: "¿Entregan documentación técnica del relevamiento?"
+            answer: "Sí. El relevamiento se entrega con memoria de medición, curvas registradas y el dimensionamiento de kVAR, que sirve como especificación técnica para pedir presupuestos de obra."
+
+      general-pacheco:
+        title: "Gestión de energía y telemetría industrial en General Pacheco"
+        paragraphs:
+          - "General Pacheco es el corazón del polo automotriz del norte del conurbano. Alrededor de la terminal y del corredor de la Ruta 197 se ubica una red densa de autopartistas, matricerías, plantas de estampado y proveedores de segundo y tercer nivel, con exigencias de trazabilidad que vienen impuestas por la propia cadena de suministro."
+          - "Ese contexto define la prioridad: acá no alcanza con bajar la factura, hay que poder demostrar el dato. Las plantas de la zona necesitan registro continuo de consumo por línea, líneas de base energéticas comparables en el tiempo y trazabilidad de variables de proceso, muchas veces como requisito de auditoría de sus propios clientes."
+          - "Instrumentamos el tablero general y los seccionales por línea con analizadores Powermeter SmartPlus, lo que permite asignar consumo a centro de costos y no sólo al total de la planta. En paralelo, la medición en carga determina la corrección de factor de potencia necesaria para cumplir la Res. ENRE 544/2024 y evita el recargo mensual de Edenor."
+          - "Sobre esa base se construyen líneas de base energéticas compatibles con ISO 50001 y, si la planta lo necesita, se integran las variables al ERP por API REST para que el costo energético aparezca en el costeo de producto y no como un gasto general indiferenciado."
+        bullets:
+          - "Polo automotriz: autopartistas, matricerías y plantas de estampado"
+          - "Medición por línea y asignación de consumo a centro de costos"
+          - "Líneas de base energéticas compatibles con ISO 50001"
+          - "Integración de variables energéticas al ERP vía API REST"
+          - "Trazabilidad documentada para auditorías de cadena de suministro"
+        links:
+          - label: "Guía: digitalizar máquinas existentes con gateway IoT y Modbus"
+            url: "/guias/como-digitalizar-maquinas-modbus-gateway-iot"
+          - label: "Caso: redes de aprendizaje en eficiencia energética"
+            url: "/casos/redes-de-aprendizaje-eficiencia-energetica"
+        faq:
+          - question: "¿Puedo medir el consumo por línea de producción?"
+            answer: "Sí. Se instrumenta cada tablero seccional con su propio analizador, de modo que el consumo queda asignado por línea o por centro de costos, no sólo al total de la acometida."
+          - question: "¿Sirve para una auditoría ISO 50001?"
+            answer: "La medición continua es la base sobre la que se construye la línea de base energética que pide la norma. No certificamos, pero entregamos el registro y la memoria técnica que la certificación requiere."
+          - question: "¿Se integra con nuestro sistema de gestión?"
+            answer: "La integración con ERP se ofrece como servicio complementario vía API REST. Está implementada sobre Xubio y se puede adaptar a otros sistemas que expongan una API."
+
+    pilar:
+      pilar:
+        title: "Calidad de energía y potencia contratada en Pilar"
+        paragraphs:
+          - "Pilar combina el casco urbano cabecera con uno de los corredores industriales más extensos del norte bonaerense, sobre la Ruta 8 y el Ramal Pilar de la Panamericana. Fuera del parque industrial hay una franja amplia de plantas medianas, depósitos, talleres y establecimientos de servicios que operan con suministros T2 y T3 de Edenor."
+          - "El patrón que encontramos con más frecuencia en esta franja es la potencia contratada mal dimensionada. Muchas plantas contrataron potencia hace años, en función de una capacidad instalada que hoy no usan, y siguen pagando por una reserva que nunca ocupan. Es un costo fijo mensual que se elimina sin obra, sólo con medición y recontratación."
+          - "El segundo frente es el reactivo. La Resolución ENRE 544/2024 elevó el umbral exigido a cos φ ≥ 0,95, y buena parte de las instalaciones de la zona quedó por debajo de la noche a la mañana, con recargos que aparecen todos los meses. La medición en carga con analizador Powermeter SmartPlus determina los kVAR reales necesarios, que es lo que evita sobredimensionar la corrección."
+          - "El relevamiento cubre los dos frentes con una sola instalación: se mide un ciclo productivo completo y se entrega el dimensionamiento de corrección junto con el análisis de potencia contratada y la recomendación de recontratación si corresponde."
+        bullets:
+          - "Corredor de la Ruta 8 y Ramal Pilar de la Panamericana"
+          - "Detección de sobrecontratación de potencia sobre factura Edenor"
+          - "Dimensionamiento de kVAR con medición en carga, sin sobredimensionar"
+          - "Un único relevamiento cubre reactivo y potencia contratada"
+          - "Honorario de consultoría cerrado por acometida, según tarifa T2 o T3"
+        links:
+          - label: "Guía: cálculo de potencia contratada para tarifas T2 y T3"
+            url: "/guias/guia-calculo-potencia-contratada-t2-t3"
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+        faq:
+          - question: "¿Cómo sé si estoy pagando potencia contratada de más?"
+            answer: "Se compara la potencia contratada que figura en la factura contra la demanda máxima realmente registrada durante un ciclo productivo completo. Si nunca te acercás al valor contratado, hay margen de recontratación."
+          - question: "¿Cuánto cuesta la consultoría de potencia?"
+            answer: "Es un honorario cerrado por acometida y depende de la tarifa: T2, T3 en baja tensión o T3 en media tensión. En acometidas adicionales del mismo cliente se aplica 50% de bonificación."
+          - question: "¿Puedo recontratar potencia en cualquier momento?"
+            answer: "La recontratación tiene ventanas y condiciones que fija la distribuidora. Parte del trabajo de la consultoría es determinar el momento y el valor correctos para pedirla, con la medición como respaldo."
+
+      parque-industrial-pilar:
+        title: "Telemetría IoT y eficiencia energética en el Parque Industrial Pilar"
+        paragraphs:
+          - "El Parque Industrial Pilar, sobre la Ruta 8, es uno de los conglomerados con mayor cantidad de empresas radicadas de la región. Reúne laboratorios farmacéuticos, plantas de alimentos, química, plásticos, cosmética y logística, en general con suministros T3 de porte considerable y con estándares de proceso más exigentes que el promedio del conurbano."
+          - "En un parque de esta escala el costo eléctrico es una línea significativa del costo de producción, y la exigencia de la Resolución ENRE 544/2024 sobre el factor de potencia se siente de inmediato en la factura. Con suministros T3, el recargo mensual acumulativo por reactivo alcanza magnitudes que justifican por sí solas la obra de corrección en pocos meses."
+          - "Nuestro trabajo empieza con una auditoría en carga sobre el tablero general y los seccionales críticos, usando analizadores Powermeter SmartPlus durante un ciclo productivo completo. Medimos factor de potencia, armónicos, curva de demanda y estabilidad, y sobre esa base dimensionamos los kVAR requeridos y evaluamos la potencia contratada."
+          - "Para plantas con proceso instrumentado, el Powermeter Gateway suma la captura de variables operativas —temperatura, peso, velocidad, estado de máquina— desde el equipamiento existente por Modbus RS485 o 4-20 mA. Energía y proceso quedan en la misma plataforma de telemetría, lo que permite correlacionar consumo con producción real en lugar de mirar el total de la factura."
+        bullets:
+          - "Suministros T3 de porte: el recargo por reactivo justifica la obra en pocos meses"
+          - "Auditoría en carga sobre tablero general y seccionales críticos"
+          - "Análisis armónico previo a cualquier corrección de reactivo"
+          - "Correlación entre consumo energético y producción real"
+          - "Rubros del parque: farmacéutica, alimentos, química, plásticos y cosmética"
+        links:
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+          - label: "Guía: cálculo de potencia contratada para tarifas T2 y T3"
+            url: "/guias/guia-calculo-potencia-contratada-t2-t3"
+        faq:
+          - question: "¿Trabajan con los requisitos de ingreso del parque?"
+            answer: "Sí. Contamos con póliza de accidentes personales y responsabilidad civil vigente en Federación Patronal, con cláusula de no repetición, que es lo que habitualmente exige el ingreso a planta dentro del parque."
+          - question: "Tengo varias acometidas, ¿se cotizan por separado?"
+            answer: "El honorario de consultoría es por acometida, pero a partir de la segunda del mismo cliente se aplica 50% de bonificación."
+          - question: "¿Cuánto dura la medición en una planta grande?"
+            answer: "El analizador queda instalado el tiempo necesario para cubrir un ciclo productivo completo, que en plantas con turnos rotativos suele ser de una semana. La duración se acuerda en la visita de relevamiento."
+
+    campana:
+      campana:
+        title: "Calidad de energía en media tensión en Campana"
+        paragraphs:
+          - "Campana es un polo petroquímico, siderúrgico y metalúrgico de escala nacional, articulado sobre la Ruta 9 y la Ruta 6. Junto a las grandes plantas opera una red amplia de proveedores, talleres de mantenimiento, metalúrgicas y empresas de servicios industriales que trabajan con suministros de porte y, en muchos casos, con acometidas en media tensión."
+          - "En tarifa T3 en media tensión el peso del componente de potencia y del recargo por energía reactiva sobre la factura total es sustancialmente mayor que en baja tensión. Un factor de potencia por debajo del cos φ ≥ 0,95 que exige la Res. ENRE 544/2024 se traduce en un sobrecosto mensual acumulativo de magnitud, y el riesgo del Artículo 9 —suspensión del servicio por debajo de 0,60— tiene un impacto operativo que en esta zona es difícil de absorber."
+          - "El relevamiento se hace con analizador Powermeter SmartPlus sobre el tablero general y los seccionales que concentran carga motriz, midiendo un ciclo productivo completo. En instalaciones con variadores de frecuencia el análisis armónico es obligatorio antes de especificar cualquier corrección: un banco mal dimensionado en presencia de armónicos genera resonancia y sobretensiones destructivas."
+          - "Sobre la medición se entrega el dimensionamiento de kVAR, el análisis de potencia contratada y la especificación técnica para licitar la obra, además de la telemetría en tiempo real que deja a la planta viendo su propia curva de carga de forma continua."
+        bullets:
+          - "Zona de suministros de gran porte, con acometidas en media tensión"
+          - "Consultoría T3 MT con honorario cerrado por acometida"
+          - "Análisis armónico obligatorio antes de especificar corrección"
+          - "Especificación técnica lista para licitar la obra con terceros"
+          - "Rubros habituales: petroquímica, siderurgia, metalúrgica y servicios industriales"
+        links:
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+          - label: "Guía: cálculo de potencia contratada para tarifas T2 y T3"
+            url: "/guias/guia-calculo-potencia-contratada-t2-t3"
+        faq:
+          - question: "¿Trabajan sobre acometidas en media tensión?"
+            answer: "Sí. La consultoría de gestión energética contempla tarifa T3 en media tensión como categoría propia, con su honorario diferenciado, porque el análisis y la responsabilidad técnica son distintos a los de baja tensión."
+          - question: "¿Por qué es tan importante el análisis armónico acá?"
+            answer: "Porque en instalaciones con variadores y hornos, un banco de capacitores dimensionado sin mirar el contenido armónico puede entrar en resonancia con la red y provocar sobretensiones que dañan el banco y el resto de la instalación."
+          - question: "¿Pueden hacer sólo la especificación y que la obra la haga otro?"
+            answer: "Sí. Muchas plantas de la zona licitan la obra por política interna. Entregamos la memoria de medición y la especificación técnica para que la licitación se haga sobre un dimensionamiento correcto."
+
+    san-martin:
+      san-martin:
+        title: "Corrección de factor de potencia y monitoreo IoT en San Martín"
+        paragraphs:
+          - "General San Martín es uno de los partidos industriales históricos del primer cordón del conurbano, con una densidad de pymes metalúrgicas, textiles, plásticas y de manufactura difícil de igualar en el AMBA. A diferencia de los parques del segundo cordón, acá la industria convive con el tejido urbano y opera sobre una red de distribución con muchos años de servicio."
+          - "Esa combinación produce un problema de calidad de energía particular: instalaciones internas antiguas, tableros que crecieron por agregado a lo largo de décadas y un factor de potencia que casi nunca alcanza el cos φ ≥ 0,95 que exige la Resolución ENRE 544/2024. El recargo aparece mes a mes en la factura de Edenor y en muchos talleres se naturalizó como parte del costo."
+          - "El relevamiento con analizador Powermeter SmartPlus sobre el tablero general permite ver el comportamiento real: cuánto reactivo se consume, en qué momentos del turno, qué armónicos hay presentes y si la potencia contratada corresponde al uso actual. En instalaciones que crecieron por agregado, la medición suele revelar además desequilibrios de fase que nadie estaba mirando."
+          - "Para talleres y pymes que no van a encarar una obra grande, el camino es incremental: primero la medición y la corrección de reactivo, que se paga sola en pocos meses; después, si el proceso lo justifica, el retrofit con Powermeter Gateway para capturar variables de máquina sin reemplazar instrumentación."
+        bullets:
+          - "Alta densidad de pymes metalúrgicas, textiles, plásticas y de manufactura"
+          - "Diagnóstico de instalaciones antiguas que crecieron por agregado"
+          - "Detección de desequilibrio de fases además de reactivo y armónicos"
+          - "Camino incremental: primero corrección, después captura de proceso"
+          - "Financiación en cuotas con pagarés digitales, sin ticket mínimo"
+        links:
+          - label: "Guía: cómo evitar multas y cortes por factor de potencia (ENRE 544/2024)"
+            url: "/guias/enre-544-2024-evitar-cortes-cos-phi"
+          - label: "Guía: digitalizar máquinas existentes con gateway IoT y Modbus"
+            url: "/guias/como-digitalizar-maquinas-modbus-gateway-iot"
+        faq:
+          - question: "Tengo un taller chico, ¿me conviene igual?"
+            answer: "Si tenés suministro T2 o T3 y motores, sí: el recargo por reactivo se aplica igual y se elimina con la corrección. La visita de relevamiento cuesta $55.000 ARS y se deduce al 100% si aprobás la cotización de obra."
+          - question: "¿Hay financiación?"
+            answer: "Sí, con pagarés digitales en cuotas y sin ticket mínimo, a través de Pactar Digital. También hay 10% de descuento para clientes de Banco Provincia, acumulable con el 15% por telemetría en vitrina abierta."
+          - question: "Mi tablero es viejo y fue creciendo por agregado, ¿es un problema?"
+            answer: "Es justamente el escenario donde más aparece. La medición muestra si además del reactivo hay desequilibrio entre fases o conductores subdimensionados, que son riesgos de seguridad antes que de costo."

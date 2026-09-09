@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
+        <span class="c-cursos-hero__badge">{{ guias_hero.badge }}</span>
+        <h1 class="c-cursos-hero__title">{{ guias_hero.title }}</h1>
+        <p class="c-cursos-hero__subtitle">{{ guias_hero.subtitle }}</p>
+    </div>
+</section>
+
+<section class="c-cursos-grid-section">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
+        {% if guias %}
+            <div class="c-cursos-grid">
+                {% for guia in guias %}
+                    <article class="c-curso-card">
+                        <div class="c-curso-card__content">
+                            <div class="c-curso-card__meta">
+                                <span class="c-curso-card__badge">{{ guia.category }}</span>
+                                <span class="c-curso-card__meta-item">
+                                    <i class="bi bi-clock"></i> {{ guia.reading_time }}
+                                </span>
+                            </div>
+                            <h2 class="c-curso-card__title">
+                                <a href="{{ url_for('detalle_guia', guia_slug=guia.slug) }}">{{ guia.title }}</a>
+                            </h2>
+                            <p class="c-curso-card__description">{{ guia.summary }}</p>
+                            <div class="c-curso-card__footer">
+                                <span class="c-curso-card__meta-item">{{ guia.published_at }}</span>
+                                <a href="{{ url_for('detalle_guia', guia_slug=guia.slug) }}" class="c-curso-card__cta">Leer guía</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="c-cursos-empty">
+                <p>Próximamente se publicarán las primeras guías técnicas.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ request.url_for('root') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guías Técnicas",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock() }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand=brand, footer=footer) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(cookie_banner=content.cookie_banner) }}
+{% endblock %}

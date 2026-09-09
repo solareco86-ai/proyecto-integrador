@@ -1,0 +1,173 @@
+{% macro head_seo(request, seo_data, brand, page_type='website', robots='index,follow') %}
+    <meta charset='UTF-8'>
+    <link rel='icon' href='{{ request.url_for('static', path='favicon.svg') }}' type='image/svg+xml'>
+    <link rel='manifest' href='{{ request.url_for('static', path='manifest.json') }}'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>{{ seo_data.title }}</title>
+
+    <link rel='preconnect' href='https://fonts.googleapis.com' crossorigin>
+    <link rel='dns-prefetch' href='https://fonts.googleapis.com'>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+    <link rel='dns-prefetch' href='https://fonts.gstatic.com'>
+    <link rel='preconnect' href='https://www.googletagmanager.com' crossorigin>
+    <link rel='dns-prefetch' href='https://www.googletagmanager.com'>
+    <link rel='preconnect' href='https://www.google-analytics.com' crossorigin>
+    <link rel='dns-prefetch' href='https://www.google-analytics.com'>
+    <link rel='preconnect' href='https://googleads.g.doubleclick.net' crossorigin>
+    <link rel='dns-prefetch' href='https://googleads.g.doubleclick.net'>
+    <link rel='preconnect' href='https://www.googleadservices.com' crossorigin>
+    <link rel='dns-prefetch' href='https://www.googleadservices.com'>
+    <link rel='preconnect' href='https://www.clarity.ms' crossorigin>
+    <link rel='dns-prefetch' href='https://www.clarity.ms'>
+
+    <!-- CSS Crítico Inline (Above The Fold) -->
+    {% include 'partials/critical_css.html' %}
+
+    <!-- CSS Principal de la Aplicación -->
+    <link rel="stylesheet" href="{{ request.url_for('static', path='css/index.css') }}?v={{ static_version() }}">
+
+    <script>
+        window.APP_CONFIG = {
+            gaId: '{{ config.GOOGLE_ANALYTICS_ID }}',
+            googleAdsId: '{{ config.GOOGLE_ADS_ID }}',
+            googleAdsConversionId: '{{ config.GOOGLE_ADS_CONVERSION_ID }}',
+            googleAdsWhatsappConversionId: '{{ config.GOOGLE_ADS_WHATSAPP_CONVERSION_ID }}',
+            clarityId: '{{ config.CLARITY_ID }}',
+            contactApiUrl: '{{ request.url_for("submit_contact") }}',
+            telemetryApiUrl: '{{ config.TELEMETRY_API_URL }}',
+            telemetryWsUrl: '{{ config.TELEMETRY_WS_URL }}',
+            debug: '{{ "true" if config.DEBUG else "false" }}' === 'true'
+        };
+    </script>
+
+
+
+    <meta name='description' content='{{ seo_data.description }}'>
+    <meta name='robots' content='{{ seo_data.meta_robots or robots }}'>
+
+    <meta property='og:title' content='{{ seo_data.title }}'>
+    <meta property='og:description' content='{{ seo_data.description }}'>
+    <meta property='og:type' content='{{ page_type }}'>
+    <meta property='og:url' content='{{ seo_data.canonical_url }}'>
+    <meta property='og:image' content='{{ seo_data.og_image }}'>
+    {% if seo_data.og_image_width %}<meta property='og:image:width' content='{{ seo_data.og_image_width }}'>{% endif %}
+    {% if seo_data.og_image_height %}<meta property='og:image:height' content='{{ seo_data.og_image_height }}'>{% endif %}
+    <meta property='og:site_name' content='{{ seo_data.site_name }}'>
+    <meta property='og:locale' content='es_AR'>
+
+    <meta name='twitter:card' content='summary_large_image'>
+    <meta name='twitter:title' content='{{ seo_data.title }}'>
+    <meta name='twitter:description' content='{{ seo_data.description }}'>
+    <meta name='twitter:image' content='{{ seo_data.og_image }}'>
+
+    <link rel='canonical' href='{{ seo_data.canonical_url }}'>
+    <link rel='alternate' hreflang='es_AR' href='{{ seo_data.canonical_url }}'>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "name": "{{ seo_data.site_name }}",
+                "url": "{{ seo_data.canonical_url }}",
+                "logo": "{{ request.url_for('static', path='favicon.svg') }}",
+                "telephone": "+{{ config.WHATSAPP_PHONE }}",
+                "email": "{{ brand.contactEmail }}",
+                {% if brand.address %}
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "{{ brand.address.streetAddress }}",
+                    "postalCode": "{{ brand.address.postalCode }}",
+                    "addressLocality": "{{ brand.address.addressLocality }}",
+                    "addressRegion": "{{ brand.address.addressRegion }}",
+                    "addressCountry": "{{ brand.address.addressCountry }}"
+                },
+                {% endif %}
+                {% if brand.sameAs %}"sameAs": [{% for url in brand.sameAs %}"{{ url }}"{% if not loop.last %},{% endif %}{% endfor %}],{% endif %}
+                "knowsAbout": [
+                    "Eficiencia Energética Industrial",
+                    "Resolución ENRE 544/2024",
+                    "Factor de Potencia y Energía Reactiva",
+                    "Analizador de Redes Powermeter SmartPlus",
+                    "Powermeter Gateway IoT",
+                    "Powermeter Automate PLC",
+                    "Protocolo Modbus RS485 y 4-20mA",
+                    "Integración ERP Xubio",
+                    "Norma ISO 50001 e IDEn",
+                    "Sub-metering en Parques Industriales"
+                ],
+                "areaServed": [
+                    {"@type": "AdministrativeArea", "name": "Garín"},
+                    {"@type": "AdministrativeArea", "name": "Pilar"},
+                    {"@type": "AdministrativeArea", "name": "Escobar"},
+                    {"@type": "AdministrativeArea", "name": "Tigre"},
+                    {"@type": "AdministrativeArea", "name": "Campana"},
+                    {"@type": "AdministrativeArea", "name": "San Martín"},
+                    {"@type": "AdministrativeArea", "name": "Zona Norte GBA"}
+                ],
+                "founder": {
+                    "@type": "Person",
+                    "name": "{{ brand.technician.name }}",
+                    "jobTitle": "{{ brand.technician.role }}",
+                    {% if brand.technician.linkedin_url %}"url": "{{ brand.technician.linkedin_url }}",
+                    "sameAs": ["{{ brand.technician.linkedin_url }}"],{% endif %}
+                    "description": "{{ (brand.technician.bio or brand.technician.role) | replace('\"', '\\\"') }}"
+                },
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Servicios de Ingeniería y Telemetría DataMaq",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Instalación de Powermeter SmartPlus: Auditoría & Telemetría Energética",
+                                "description": "Auditoría eléctrica, instalación de analizadores inteligentes SmartPlus en tableros y optimización de potencia contratada."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Retrofit IoT & Automatización con Gateway y Automate",
+                                "description": "Captura de variables de proceso (temperatura, pesaje, VFD) y control inteligente de demanda máxima."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Consultoría en Gestión de la Energía & Recontratación de Potencia ENRE 544/2024",
+                                "description": "Línea de base ISO 50001, eliminación de multas por factor de potencia cos φ y recontratación de potencia contratada."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Integración IoT & Transformación de Datos a Xubio ERP",
+                                "description": "Traducción de tramas industriales e inyección automática en el ERP Xubio vía API REST."
+                            }
+                        }
+                    ]
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "contactType": "Soporte técnico y ventas",
+                    "telephone": "+{{ config.WHATSAPP_PHONE }}",
+                    "email": "{{ brand.contactEmail }}",
+                    "areaServed": "AR",
+                    "availableLanguage": "Spanish"
+                }
+            },
+            {
+                "@type": "WebPage",
+                "name": "{{ seo_data.title }}",
+                "description": "{{ seo_data.description }}",
+                "url": "{{ seo_data.canonical_url }}"
+            }
+        ]
+    }
+    </script>
+{% endmacro %}

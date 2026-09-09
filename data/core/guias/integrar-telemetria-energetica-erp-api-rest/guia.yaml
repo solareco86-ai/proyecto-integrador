@@ -1,0 +1,88 @@
+slug: "integrar-telemetria-energetica-erp-api-rest"
+title: "Integrar telemetría energética con el ERP vía API REST: del kWh al costo por producto"
+category: "Automatización & Retrofit IoT"
+reading_time: "6 min de lectura"
+summary: "Cómo llevar el consumo eléctrico medido en planta al sistema de gestión para que aparezca en el costeo, en lugar de quedar como un gasto general indiferenciado que nadie puede atribuir."
+problem: "La energía se contabiliza como un gasto fijo mensual del total de la planta, así que ningún producto, línea ni turno carga con su consumo real y no hay forma de justificar una inversión en eficiencia."
+solution: "Integración de las variables de telemetría al ERP por API REST, con la energía asignada por centro de costos y correlacionada con producción."
+key_takeaways:
+  - "Si la energía entra al ERP como un único asiento mensual, ningún análisis de costo por producto va a ser real."
+  - "La asignación por centro de costos requiere instrumentar seccionales, no sólo el tablero general."
+  - "La correlación necesita que consumo y producción compartan estampa de tiempo y unidad de agregación."
+  - "Conviene empezar por los dos o tres centros de costo que concentran el consumo, no por toda la planta."
+published_at: "2026-09-02"
+og_image: "/static/media/analytics-dashboard.svg"
+content: |
+  ## 1. El problema del asiento único
+
+  En la mayoría de las pymes industriales, la energía eléctrica entra al sistema de gestión una vez por mes, como un único asiento por el total de la factura, imputado a gastos generales.
+
+  Eso tiene una consecuencia que se subestima: **ningún producto carga con su consumo real**. El costeo reparte la energía por algún criterio indirecto —horas hombre, unidades producidas, metros cuadrados— que no tiene relación con el consumo efectivo. El resultado es que los productos intensivos en energía aparecen más baratos de lo que son y los livianos, más caros.
+
+  Y hay un efecto secundario: sin costo atribuido, **ninguna inversión en eficiencia se puede justificar**, porque el ahorro no se puede imputar a nada concreto.
+
+  ---
+
+  ## 2. Qué hace falta antes de integrar
+
+  La integración es el último paso, no el primero. Antes hacen falta tres cosas:
+
+  **a) Medición segmentada.** Si sólo medís el tablero general, el único dato que podés integrar es el total, que es lo que ya tenías en la factura. Para asignar consumo por centro de costos hay que instrumentar los **seccionales** correspondientes.
+
+  **b) Un mapa de correspondencia.** Cada punto de medición tiene que corresponder a un centro de costos que el ERP ya conozca. Este paso es organizativo, no técnico, y es donde se traba la mayoría de los proyectos: muchas veces la división física de tableros no coincide con la división contable de centros de costos, y hay que decidir cuál se ajusta a cuál.
+
+  **c) Una unidad de agregación común.** El ERP no necesita muestras cada segundo. Necesita totales por período: por turno, por día o por orden de producción. Definir esa unidad determina toda la integración.
+
+  ---
+
+  ## 3. La integración por API REST
+
+  El esquema es directo: la plataforma de telemetría acumula las mediciones y las publica, agregadas según la unidad definida, contra la API del ERP.
+
+  Los elementos a acordar son cuatro:
+
+  * **Qué se envía:** consumo activo por punto de medición y período. Opcionalmente demanda máxima del período y factor de potencia medio, si se quiere seguir su evolución dentro del sistema de gestión.
+  * **Con qué frecuencia:** el cierre de turno o el cierre diario cubren la mayoría de los casos. Una frecuencia mayor rara vez aporta y multiplica los problemas de conciliación.
+  * **Contra qué endpoint:** el que el ERP exponga para asientos de consumo o para movimientos de centro de costos.
+  * **Cómo se identifica cada punto:** con el código de centro de costos del ERP, no con un identificador propio del sistema de medición. Esto evita una tabla de traducción que después nadie mantiene.
+
+  En la implementación sobre **Xubio** este esquema está resuelto y se ofrece como servicio complementario. Cualquier ERP que exponga una API REST documentada admite el mismo enfoque; lo que cambia es el mapeo de endpoints, no la arquitectura.
+
+  ---
+
+  ## 4. La conciliación mensual
+
+  Es el control que hace confiable a todo lo demás y conviene definirlo desde el principio.
+
+  La suma de los consumos integrados durante el mes tiene que **cerrar contra la factura de la distribuidora**, con una diferencia acotada y explicable. Esa diferencia siempre existe y tiene causas legítimas:
+
+  * Consumos no instrumentados: iluminación, oficinas, servicios auxiliares.
+  * Pérdidas en transformadores y cableado.
+  * Desfasaje entre el corte del período de facturación y el cierre contable.
+
+  Lo importante es que la diferencia sea **estable y conocida**. Si un mes salta, hay un problema: un punto de medición caído, un TI mal instalado o una carga nueva que nadie instrumentó. La conciliación es el detector.
+
+  ---
+
+  ## 5. Qué se puede hacer una vez integrado
+
+  * **Costo energético por producto y por orden**, con la energía imputada al centro de costos que efectivamente la consumió.
+  * **Comparación entre turnos** produciendo lo mismo. Suele ser el primer hallazgo y casi siempre incomoda: diferencias de consumo del 10 al 20 % entre turnos con la misma producción, atribuibles a prácticas operativas.
+  * **Justificación de inversiones** con el ahorro imputado a una línea concreta y no al total de la planta.
+  * **Línea de base energética** por unidad producida, que es el indicador que pide ISO 50001 y el único que permite comparar meses con producción distinta.
+
+  ---
+
+  ## 6. Por dónde empezar
+
+  No instrumentes toda la planta. Empezá por los **dos o tres centros de costo que concentran el consumo** —típicamente el 70 u 80 % está en unos pocos equipos— y por una única unidad de agregación, el cierre diario.
+
+  Con eso ya tenés costo atribuido donde importa y una conciliación que valida el circuito. Ampliar después es agregar puntos de medición a un esquema que ya funciona; hacerlo al revés es un proyecto que se abandona.
+
+  ---
+
+  ## Dónde seguir
+
+  * [Servicio de telemetría industrial y retrofit IoT](/landing/telemetria-industrial)
+  * [Cómo medir OEE real sin tocar el PLC de la máquina](/guias/medir-oee-real-sin-tocar-el-plc)
+  * [Cobertura en General Pacheco, Tigre](/buenos-aires/tigre/general-pacheco.html)

@@ -1,0 +1,336 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   1. TOKENS DE DISEÑO — Single Source of Truth (importados de tokens.css)
+   ========================================================================== */
+@import "./tokens.css";
+
+/* ==========================================================================
+   2. ESTILOS BASE Y MAQUETACIÓN GLOBAL (Heredados del original)
+   ========================================================================== */
+body {
+    font-family: var(--ui-font-family-base);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-size: var(--ui-font-size-body);
+    line-height: var(--ui-line-height-body);
+    overflow-x: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html.dmq-offcanvas-open,
+body.dmq-offcanvas-open,
+#app.dmq-offcanvas-open {
+    overflow: hidden;
+    height: 100dvh;
+}
+
+body.has-consent-banner {
+    --cookie-banner-height: var(--cookie-banner-visible-height);
+    padding-bottom: var(--cookie-banner-height);
+}
+
+section[aria-labelledby],
+section[id] {
+    content-visibility: auto;
+    contain-intrinsic-size: 600px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+:focus-visible {
+    outline: 3px solid rgba(var(--dm-data-cyan-rgb), .95);
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *:before, *:after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.app-shell {
+    display: flex;
+    flex-direction: column;
+}
+
+.skip-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    z-index: var(--ui-skip-link-z);
+    background-color: var(--ui-skip-link-bg);
+    color: var(--ui-skip-link-color);
+    border-radius: var(--ui-skip-link-radius);
+}
+
+.skip-link:focus {
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    left: 1rem;
+    top: 1rem;
+    padding: .75rem 1rem;
+}
+
+.section-mobile {
+    padding-block: clamp(var(--section-mobile-padding), 3vw + 2.25rem, 5rem);
+}
+
+.with-floating-cta {
+    padding-bottom: var(--floating-safe-area);
+}
+
+.c-cta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.c-cta-stack .btn:focus-visible {
+    outline: 3px solid var(--dm-accent-orange);
+    outline-offset: 4px;
+}
+
+.c-cta-stack__item {
+    width: 100%;
+}
+
+@media (max-width: 767.98px) {
+    body {
+        --floating-safe-area: calc(
+            var(--floating-cta-height, 3.5rem) +
+            var(--fab-safe-gap, 2.5rem) +
+            env(safe-area-inset-bottom, 0px)
+        );
+    }
+    .section-mobile {
+        padding-block: var(--section-mobile-padding) !important;
+    }
+    .section-mobile + .section-mobile {
+        margin-top: var(--section-mobile-gap);
+    }
+    .with-floating-cta {
+        padding-bottom: calc(var(--floating-safe-area) + var(--cookie-banner-height));
+    }
+    .c-cta-stack {
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .c-cta-stack__item {
+        display: block;
+    }
+    .c-cta-stack .btn {
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   3. INTEGRACIÓN DE TAILWIND CSS V4 CON PREFIJO (tw:)
+   ========================================================================== */
+@import "tailwindcss" prefix(tw);
+
+/* ==========================================================================
+   4. CLASES DE COMPONENTES ADICIONALES (Estilo Tailwind components)
+   ========================================================================== */
+@layer components {
+    .tw\:btn {
+        cursor: pointer;
+        border-radius: var(--tw-radius-xl);
+        padding-inline: calc(var(--tw-spacing) * 6);
+        padding-block: calc(var(--tw-spacing) * 3);
+        --tw-font-weight: var(--tw-font-weight-medium);
+        font-weight: var(--tw-font-weight-medium);
+        transition-property: all;
+        transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+        transition-duration: var(--tw-duration, var(--default-transition-duration));
+        --tw-duration: .2s;
+        justify-content: center;
+        align-items: center;
+        transition-duration: .2s;
+        display: inline-flex;
+    }
+
+    .tw\:btn-primary {
+        cursor: pointer;
+        border-radius: var(--tw-radius-xl);
+        padding-inline: calc(var(--tw-spacing) * 6);
+        padding-block: calc(var(--tw-spacing) * 3);
+        min-height: 3rem;
+        --tw-font-weight: var(--tw-font-weight-medium);
+        font-weight: var(--tw-font-weight-medium);
+        transition-property: all;
+        transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+        transition-duration: var(--tw-duration, var(--default-transition-duration));
+        --tw-duration: .2s;
+        color: #ffffff;
+        background-color: var(--dm-data-cyan);
+        justify-content: center;
+        align-items: center;
+        transition-duration: .2s;
+        display: inline-flex;
+    }
+
+    @media (hover: hover) {
+        .tw\:btn-primary:hover {
+            background-color: var(--dm-accent-orange);
+            color: var(--dm-bg-0);
+            --tw-brightness: brightness(105%);
+            filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+        }
+    }
+
+    .tw\:btn-primary:active {
+        --tw-scale-x: 95%;
+        --tw-scale-y: 95%;
+        --tw-scale-z: 95%;
+        scale: var(--tw-scale-x) var(--tw-scale-y);
+    }
+
+    .tw\:btn-outline {
+        border: 1px solid var(--dm-border-1);
+        color: var(--dm-text-0);
+        border-radius: .75rem;
+        padding: .75rem 1.5rem;
+        min-height: 3rem;
+        transition: all .3s;
+    }
+
+    .tw\:btn-outline:hover {
+        background-color: #ffffff0d;
+    }
+
+    .tw\:form-label {
+        color: var(--dm-text-muted);
+        margin-bottom: .5rem;
+        font-size: .875rem;
+        font-weight: 600;
+        display: block;
+    }
+
+    .tw\:form-control {
+        background-color: var(--dm-surface-0);
+        border: 1px solid var(--dm-border-0);
+        width: 100%;
+        color: var(--dm-text-0);
+        border-radius: .75rem;
+        outline: none;
+        padding: .75rem 1rem;
+        transition: all .2s;
+    }
+
+    .tw\:form-control:focus {
+        border-color: var(--dm-data-cyan);
+        box-shadow: 0 0 0 2px rgba(var(--dm-data-cyan-rgb), 0.5);
+    }
+}
+
+/* Iconos y elementos específicos */
+.bi {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -.125em;
+    flex-shrink: 0;
+}
+
+.c-dev-backend-banner {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    align-items: flex-end;
+    padding: .65rem 1rem;
+    background: rgba(var(--dm-bg-0-rgb), .85);
+    border: 1px solid rgba(var(--dm-accent-orange-rgb), .5);
+    border-radius: var(--bs-border-radius-lg);
+    color: var(--bs-emphasis-color);
+    font-size: .85rem;
+    line-height: 1.35;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 16px #0006;
+    max-width: 300px;
+    text-align: right;
+    transition: opacity .3s ease;
+}
+
+.c-dev-backend-banner:hover {
+    opacity: .2;
+}
+
+.c-dev-backend-banner__meta {
+    opacity: .85;
+    font-family: var(--bs-font-monospace);
+    font-size: .85rem;
+}
+
+/* ==========================================================================
+   5. IMPORTACIÓN DE HOJAS DE ESTILOS LEGACY (Unificadas en el bundle)
+   ========================================================================== */
+@import "../CookieBanner.css";
+@import "../WhatsappFab.css";
+@import "../useContactPageActions.css";
+@import "../LegalPage.css";
+@import "../cursos.css";
+@import "../HomePage.css";
+
+/* ==========================================================================
+   6. SECCIÓN DE PLANES (movida desde el CSS crítico; no es above-the-fold)
+   Las tarjetas (.c-home-plan-card*) viven en HomePage.css.
+   ========================================================================== */
+.c-home-planes {
+    background: linear-gradient(180deg, rgba(var(--dm-bg-0-rgb), .96), rgba(var(--dm-surface-0-rgb), .96));
+}
+.c-home-planes__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+}
+.c-home-planes__note {
+    display: flex;
+    align-items: flex-start;
+    gap: .65rem;
+    margin-top: 1.5rem;
+    padding: 1rem 1.15rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(var(--dm-status-green-rgb), .35);
+    background: rgba(var(--dm-status-green-rgb), .1);
+    color: rgba(var(--dm-text-0-rgb), .82);
+    font-size: .85rem;
+    line-height: 1.55;
+}
+.c-home-planes__note .bi {
+    color: rgba(var(--dm-status-green-rgb), .95);
+    margin-top: .15rem;
+}
+
+@media (max-width: 991.98px) {
+    .c-home-planes__grid {
+        grid-template-columns: 1fr;
+    }
+}

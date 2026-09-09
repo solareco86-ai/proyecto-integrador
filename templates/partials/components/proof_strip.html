@@ -1,0 +1,16 @@
+{% macro proof_strip(proof_strip_data) %}
+<section class="section-mobile c-home-proof-strip" aria-label="Propuesta de valor">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="c-home-proof-strip__grid">
+            {% for item in proof_strip_data['items'] %}
+            <article class="c-home-proof-strip__card c-home-panel">
+                {% if item['label'] %}
+                <span class="c-home-eyebrow">{{ item['label'] }}</span>
+                {% endif %}
+                <p class="c-home-proof-strip__text">{{ item['text'] }}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endmacro %}

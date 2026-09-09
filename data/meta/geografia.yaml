@@ -1,0 +1,21 @@
+# Huella geográfica indexable.
+# Solo localidades con demanda industrial real dentro del areaServed declarado
+# (Zona Norte GBA). Las localidades removidas se redirigen 301 al hub de su
+# municipio desde data/config/redirects.yaml.
+localidades:
+  buenos-aires:
+    escobar:
+      garin: "Garín"
+      belen-de-escobar: "Belén de Escobar"
+    tigre:
+      tigre: "Tigre"
+      don-torcuato: "Don Torcuato"
+      el-talar: "El Talar"
+      general-pacheco: "General Pacheco"
+    pilar:
+      pilar: "Pilar"
+      parque-industrial-pilar: "Parque Industrial Pilar"
+    campana:
+      campana: "Campana"
+    san-martin:
+      san-martin: "San Martín"

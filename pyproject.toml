@@ -1,0 +1,42 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+cache_dir = "tmp/.pytest_cache"
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*"]
+data_file = "tmp/.coverage"
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+cache-dir = "tmp/.ruff_cache"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP"]
+ignore = [
+    "N815",  # Pydantic model fields must match YAML keys (camelCase)
+    "E402",  # Imports in tests are intentionally grouped near usage
+    "E501",  # Line length: cosmetic, pre-existing in data_service and routes
+    "E741",  # Ambiguous variable name 'l' in logger.py
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402"]  # Already covered by global ignore, explicit for clarity
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pyright]
+include = ["src", "scripts", "tests"]
+typeCheckingMode = "standard"
+reportUnknownVariableType = true
+reportUnknownMemberType = false
+

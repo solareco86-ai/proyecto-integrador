@@ -1,0 +1,45 @@
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro service_card(icon_name, title, description, problem, items, proof, caso_slug, cta_text, cta_href='/contact', modality='both', assistance_modes={}) %}
+<article data-v-236fef00="" class="c-home-service-card">
+    <div data-v-236fef00="" class="c-home-service-card__summary">
+        <span data-v-236fef00="" class="c-home-service-card__icon" aria-hidden="true">{{ icon_macro.bootstrap_icon(icon_name) }}</span>
+        <span data-v-236fef00="" class="c-home-service-card__summary-copy">
+            <h3 data-v-236fef00="" class="c-home-service-card__title">{{ title }}</h3>
+            <span data-v-236fef00="" class="c-home-service-card__description">{{ description }}</span>
+            {% if assistance_modes %}
+            <span data-v-236fef00="" class="c-home-service-card__modality" aria-label="Modalidad de asistencia">
+                {% if modality == 'both' %}
+                    {{ icon_macro.bootstrap_icon('arrow-left-right') }} {{ assistance_modes.on_site.label }} / {{ assistance_modes.remote.label }}
+                {% elif modality == 'on_site' and assistance_modes.on_site %}
+                    {{ icon_macro.bootstrap_icon(assistance_modes.on_site.icon) }} {{ assistance_modes.on_site.label }}
+                {% elif modality == 'remote' and assistance_modes.remote %}
+                    {{ icon_macro.bootstrap_icon(assistance_modes.remote.icon) }} {{ assistance_modes.remote.label }}
+                {% endif %}
+            </span>
+            {% endif %}
+        </span>
+    </div>
+    <div data-v-236fef00="" class="c-home-service-card__content">
+        <p data-v-236fef00="" class="c-home-service-card__subtitle">{{ problem }}</p>
+        <ul data-v-236fef00="" class="c-home-service-card__list">
+            {% for item in items %}
+            <li data-v-236fef00="">
+                <span data-v-236fef00="" class="c-home-service-card__bullet" aria-hidden="true">{{ icon_macro.bootstrap_icon('check2-circle') }}</span>
+                <span data-v-236fef00="">{{ item }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% if proof %}
+        <p data-v-236fef00="" class="c-home-service-card__proof">{{ proof }}</p>
+        {% endif %}
+        {% if caso_slug %}
+        <a data-v-236fef00="" class="c-home-service-card__case-link" href="/casos/{{ caso_slug }}">Ver caso real →</a>
+        {% endif %}
+        {% if cta_href.startswith('/') %}
+        <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="{{ cta_href }}">{{ cta_text }}</a>
+        {% else %}
+        <a data-v-236fef00="" class="tw:btn-outline c-home-service-card__cta" href="{{ cta_href }}" target="_blank" rel="noopener noreferrer">{{ cta_text }}</a>
+        {% endif %}
+    </div>
+</article>
+{% endmacro %}

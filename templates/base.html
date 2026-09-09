@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div id="app" data-v-app="">
+        <div data-v-236fef00="" id="top" class="app-shell app-shell--home tw:min-h-screen app-shell--variant-direct">
+            <a data-v-236fef00="" class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
+            {% block header %}{% endblock %}
+            <main data-v-236fef00="" id="contenido-principal" class="c-home-main with-floating-cta">
+                {% block main_content %}{% endblock %}
+            </main>
+            {% block fab %}{% endblock %}
+            {% block dock %}{% endblock %}
+            {% block footer %}{% endblock %}
+            {% block cookie_banner %}{% endblock %}
+            {% block scripts %}
+    <script type="module" src="{{ url_for("static", path="js/app.js") }}?v={{ static_version() }}"></script>
+    {% if config.DEBUG %}
+    <script type="module" src="{{ url_for("static", path="js/preview-telemetry.js") }}?v={{ static_version() }}"></script>
+    {% endif %}
+{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

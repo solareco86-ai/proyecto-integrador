@@ -1,0 +1,76 @@
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro planes(data, phone, catalog=None, show_header=True) %}
+{% set tiers = catalog if catalog is not none else data.plans %}
+{% if data %}
+<section id="planes" class="section-mobile c-home-planes" aria-labelledby="planes-title">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        {% if show_header %}
+        <div class="c-home-section-head">
+            <span class="c-home-eyebrow">{{ data.eyebrow }}</span>
+            <h2 id="planes-title" class="c-home-section-title">{{ data.title }}</h2>
+            <p class="c-home-section-copy">{{ data.subtitle }}</p>
+        </div>
+        {% endif %}
+
+        <div class="c-home-planes__grid">
+            {% for plan in tiers %}
+            <article class="c-home-plan-card c-home-panel {% if plan.featured %}c-home-plan-card--featured{% endif %}">
+                {% if plan.badge %}
+                <div class="c-home-plan-card__badge-wrap">
+                    <span class="c-home-plan-card__badge {% if plan.featured %}c-home-plan-card__badge--featured{% endif %}">
+                        {{ plan.badge }}
+                    </span>
+                </div>
+                {% endif %}
+
+                <header class="c-home-plan-card__header">
+                    <h3 class="c-home-plan-card__name">{{ plan.name }}</h3>
+                    <span class="c-home-plan-card__frequency">{{ plan.price }}</span>
+                    <p class="c-home-plan-card__tagline">{{ plan.tagline }}</p>
+                </header>
+
+                <div class="c-home-plan-card__body">
+                    <ul class="c-home-plan-card__features" aria-label="Beneficios del plan {{ plan.name }}">
+                        {% for feature in plan.features %}
+                        <li>
+                            <span class="c-home-plan-card__feature-icon" aria-hidden="true">{{ icon_macro.bootstrap_icon('check-lg') }}</span>
+                            <span>{{ feature }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <footer class="c-home-plan-card__footer">
+                    {% if phone %}
+                    <a href="https://wa.me/{{ phone }}?text={{ plan.cta_whatsapp_text | urlencode }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="{% if plan.featured %}tw:btn-primary{% else %}tw:btn-outline{% endif %} c-home-plan-card__cta">
+                        {{ icon_macro.bootstrap_icon('whatsapp') }}
+                        <span>{{ plan.cta_label }}</span>
+                    </a>
+                    {% else %}
+                    <a href="/contact" class="tw:btn-primary c-home-plan-card__cta">{{ plan.cta_label }}</a>
+                    {% endif %}
+                </footer>
+            </article>
+            {% endfor %}
+        </div>
+
+        <div class="c-home-planes__demo">
+            <a href="{{ data.live_demo_href }}" class="tw:btn-outline c-home-planes__demo-link">
+                {{ icon_macro.bootstrap_icon('bar-chart-line-fill') }}
+                <span>{{ data.live_demo_label }}</span>
+            </a>
+        </div>
+
+        <div class="c-home-planes__note">
+            <p>
+                {{ icon_macro.bootstrap_icon('shield-check') }}
+                <span>Todos los servicios y obras se prestan bajo estrictos protocolos de seguridad eléctrica, normativa SRT y seguro de accidentes personales (AP/ART). Factura formal B2B. Hardware con provisión transparente directo de fábrica (Powermeter SAS), diagnóstico inicial 100% deducible de la obra, financiación con Pactar Digital (sin ticket mínimo) y hasta 25% OFF acumulable (Banco Provincia y Vitrina Pública).</span>
+            </p>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endmacro %}

@@ -1,0 +1,29 @@
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro header(nav_links=[]) %}
+<header data-v-236fef00="" class="c-home-header" role="banner">
+    <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4 c-home-header__inner">
+        <a data-v-236fef00="" href="/" class="c-home-header__brand tw:flex tw:items-center tw:gap-2.5 tw:text-dm-text-0 tw:decoration-0" aria-label="ISFT N° 199, inicio">
+            <img data-v-236fef00="" src="/static/media/logo-isft199.webp" alt="Logo ISFT N° 199" class="c-home-header__brand-logo" width="184" height="189" loading="eager" decoding="async">
+            <span data-v-236fef00="" class="c-home-header__brand-copy">ISFT N° 199</span>
+        </a>
+        <nav data-v-236fef00="" class="c-home-header__nav tw:hidden tw:lg:flex" aria-label="Navegación principal">
+            {% for link in nav_links %}
+            <a data-v-236fef00="" href="{{ link.href }}" class="c-home-header__nav-link">{{ link.label }}</a>
+            {% endfor %}
+            {% if not nav_links %}
+            <a data-v-236fef00="" href="/carreras" class="c-home-header__nav-link">Carreras</a>
+            <a data-v-236fef00="" href="/cursos" class="c-home-header__nav-link">Campus Virtual</a>
+            <a data-v-236fef00="" href="/#ingreso" class="c-home-header__nav-link">Ingreso</a>
+            <a data-v-236fef00="" href="/#faq" class="c-home-header__nav-link">FAQ</a>
+            <a data-v-236fef00="" href="/contact" class="c-home-header__nav-link">Contacto</a>
+            {% endif %}
+        </nav>
+        <div data-v-236fef00="" class="c-home-header__actions">
+            <a data-v-236fef00="" href="/contact" class="c-home-header__icon-link tw:lg:hidden" aria-label="Inscripción y Consultas" title="Contacto">
+                {{ icon_macro.bootstrap_icon('telephone-forward-fill') }}
+            </a>
+            <a data-v-236fef00="" href="/contact" class="tw:btn-primary c-home-header__cta tw:hidden tw:lg:inline-flex">Inscripción</a>
+        </div>
+    </div>
+</header>
+{% endmacro %}

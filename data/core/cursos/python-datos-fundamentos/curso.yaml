@@ -1,0 +1,131 @@
+id: "python-datos-fundamentos"
+slug: "python-datos-fundamentos"
+title: "Python y Entorno para Ciencia de Datos"
+description_short: "Introducción práctica a Python, entornos virtuales, Git y análisis de datos con Pandas y NumPy."
+description_long: "Este curso es el punto de entrada recomendado del catálogo de DataMaq para estudiantes de Ciencia de Datos e Inteligencia Artificial que necesitan nivelar sus bases antes de avanzar a FastAPI, OpenCode o proyectos aplicados. Aprenderás a manejar la terminal y el control de versiones con Git, a instalar Python y gestionar entornos virtuales con venv, y a programar en Python con listas, diccionarios, funciones y módulos. En la segunda parte trabajarás con el flujo interactivo de Jupyter Notebooks, el análisis de datos con NumPy y Pandas, la visualización con Matplotlib y Seaborn, y las buenas prácticas de código que te preparan para construir APIs. No se requieren conocimientos previos de programación: el curso asume un punto de partida inicial y te acompaña paso a paso."
+duration: "20 horas de cursada"
+level: "Inicial"
+language: "Español"
+price: 0.0
+og_image: "/static/media/cursos/og-python-datos-fundamentos.webp"
+og_image_width: 1200
+og_image_height: 630
+instructor_id: "agustin-bustos"
+academic_only: true
+sections:
+  # --- SECCIÓN A ---
+  - id: "sec-python-a"
+    title: "Sección A: Fundamentos de Lenguaje y Entorno Dev"
+    description: "Terminal, Git, instalación de Python, entornos virtuales y programación básica en Python orientada a datos."
+    chapters:
+      - id: "chap-py-cap-1"
+        title: "Cap 1: Entorno de Desarrollo y Control de Versiones"
+        description: "Uso de la terminal, comandos básicos, flujo inicial con Git y gestión de entornos virtuales con venv."
+        items:
+          - type: "lesson"
+            id: "les-py-1-1"
+            slug: "terminal-git-fundamentos"
+            title: "1.1 Uso de la terminal, comandos básicos y flujo inicial con Git"
+            duration: "25 min"
+            content_file: "cap-1-1-terminal-git-fundamentos.md"
+          - type: "lesson"
+            id: "les-py-1-2"
+            slug: "python-entornos-virtuales"
+            title: "1.2 Instalación de Python, entornos virtuales (venv) y repositorios"
+            duration: "25 min"
+            content_file: "cap-1-2-python-entornos-virtuales.md"
+
+      - id: "chap-py-cap-2"
+        title: "Cap 2: Programación en Python para Datos"
+        description: "Estructuras de datos, control de flujo, funciones y gestión de dependencias con pip."
+        items:
+          - type: "lesson"
+            id: "les-py-2-1"
+            slug: "estructuras-datos-funciones"
+            title: "2.1 Listas, diccionarios, control de flujo y funciones"
+            duration: "30 min"
+            content_file: "cap-2-1-estructuras-datos-funciones.md"
+          - type: "lesson"
+            id: "les-py-2-2"
+            slug: "modulos-pip-gestion-dependencias"
+            title: "2.2 Instalación de paquetes con pip y archivos requirements.txt"
+            duration: "25 min"
+            content_file: "cap-2-2-modulos-pip-gestion-dependencias.md"
+
+  # --- SECCIÓN B ---
+  - id: "sec-python-b"
+    title: "Sección B: Análisis de Datos y Evaluación"
+    description: "Jupyter Notebooks, NumPy, Pandas, visualización con Matplotlib y Seaborn, y buenas prácticas de código."
+    chapters:
+      - id: "chap-py-cap-3"
+        title: "Cap 3: Herramientas del Data Scientist"
+        description: "Flujo de trabajo interactivo con Jupyter y análisis de datos con NumPy y Pandas."
+        items:
+          - type: "lesson"
+            id: "les-py-3-1"
+            slug: "jupyter-notebooks"
+            title: "3.1 Flujo de trabajo interactivo con Jupyter Notebooks"
+            duration: "25 min"
+            content_file: "cap-3-1-jupyter-notebooks.md"
+          - type: "lesson"
+            id: "les-py-3-2"
+            slug: "numpy-pandas-fundamentos"
+            title: "3.2 Manejo de DataFrames, Series y operaciones vectoriales básicas"
+            duration: "35 min"
+            content_file: "cap-3-2-numpy-pandas-fundamentos.md"
+
+      - id: "chap-py-cap-4"
+        title: "Cap 4: Visualización y Exploración"
+        description: "Creación de gráficos y Análisis Exploratorio de Datos (EDA), limpieza de código y preparación para APIs."
+        items:
+          - type: "lesson"
+            id: "les-py-4-1"
+            slug: "matplotlib-seaborn-eda"
+            title: "4.1 Creación de gráficos y Análisis Exploratorio de Datos (EDA)"
+            duration: "35 min"
+            content_file: "cap-4-1-matplotlib-seaborn-eda.md"
+          - type: "lesson"
+            id: "les-py-4-2"
+            slug: "buenas-practicas-codigo"
+            title: "4.2 Limpieza de código, refactorización y preparación para APIs"
+            duration: "30 min"
+            content_file: "cap-4-2-buenas-practicas-codigo.md"
+
+      - id: "chap-py-cap-5"
+        title: "Evaluación Final"
+        description: "Validá tus conocimientos adquiridos en el curso."
+        items:
+          - type: "quiz"
+            id: "quiz-python-fundamentos"
+            slug: "evaluacion-python-fundamentos"
+            title: "Cuestionario: Python y Entorno para Ciencia de Datos"
+            duration: "10 min"
+            questions:
+              - id: "q-py-venv"
+                question: "¿Cuál es el propósito principal de un entorno virtual (venv) en un proyecto de Python?"
+                type: "single_choice"
+                options:
+                  - "Acelerar la ejecución de los scripts de Python"
+                  - "Aislar las dependencias del proyecto para evitar conflictos de versiones"
+                  - "Compilar el código Python a lenguaje de máquina"
+                  - "Subir automáticamente el código a GitHub"
+                correct_option: 1
+                explanation: "Un entorno virtual aísla los paquetes instalados por proyecto, evitando que versiones distintas de una misma librería entren en conflicto en el sistema."
+              - id: "q-py-git"
+                question: "El comando git commit guarda los cambios en el historial local del repositorio, mientras que git push los envía al repositorio remoto."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "git commit registra los cambios en el historial local y git push publica ese historial en el repositorio remoto, como GitHub."
+              - id: "q-py-pandas"
+                question: "¿Cuál de las siguientes estructuras de Pandas es la más adecuada para almacenar una tabla de datos con filas y columnas?"
+                type: "single_choice"
+                options:
+                  - "Series"
+                  - "DataFrame"
+                  - "List"
+                  - "Dict"
+                correct_option: 1
+                explanation: "El DataFrame es la estructura tabular bidimensional de Pandas, ideal para representar datos con filas y columnas en el análisis de datos."

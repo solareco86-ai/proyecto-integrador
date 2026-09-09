@@ -1,0 +1,43 @@
+# Redirecciones 301 para URLs eliminadas en el pivote de posicionamiento
+# (Oil & Gas / Neuquén → Reconversión productiva 4.0 / AMBA)
+redirects:
+  "/casos/diagnostico-vfd-compresion": "/casos"
+  "/casos/medicion-aislacion-mt": "/casos"
+  "/industria/oil-gas.html": "/"
+  "/neuquen": "/"
+  "/neuquen/anelo": "/"
+  "/neuquen/anelo/anelo.html": "/"
+  "/neuquen/anelo/rincon-de-los-sauces.html": "/"
+  "/neuquen/confluencia": "/"
+  "/neuquen/confluencia/neuquen-capital.html": "/"
+  "/neuquen/confluencia/centenario.html": "/"
+  "/neuquen/confluencia/plaza-huincul.html": "/"
+  "/neuquen/confluencia/cutral-co.html": "/"
+
+  # Consolidación de la huella geográfica: de 30 a 10 localidades indexables.
+  # Cada localidad removida apunta al hub de su municipio, que sigue vigente.
+  "/buenos-aires/escobar/ingeniero-maschwitz.html": "/buenos-aires/escobar"
+  "/buenos-aires/escobar/loma-verde.html": "/buenos-aires/escobar"
+  "/buenos-aires/escobar/matheu.html": "/buenos-aires/escobar"
+  "/buenos-aires/escobar/maquinista-savio.html": "/buenos-aires/escobar"
+  "/buenos-aires/tigre/benavidez.html": "/buenos-aires/tigre"
+  "/buenos-aires/tigre/los-troncos-del-talar.html": "/buenos-aires/tigre"
+  "/buenos-aires/tigre/dique-lujan.html": "/buenos-aires/tigre"
+  "/buenos-aires/tigre/rincon-de-milberg.html": "/buenos-aires/tigre"
+  "/buenos-aires/tigre/villa-la-nata.html": "/buenos-aires/tigre"
+  "/buenos-aires/tigre/nordelta.html": "/buenos-aires/tigre"
+  "/buenos-aires/tigre/ricardo-rojas.html": "/buenos-aires/tigre"
+  "/buenos-aires/pilar/del-viso.html": "/buenos-aires/pilar"
+  "/buenos-aires/pilar/villa-rosa.html": "/buenos-aires/pilar"
+  "/buenos-aires/pilar/fatima.html": "/buenos-aires/pilar"
+  "/buenos-aires/campana/los-cardales.html": "/buenos-aires/campana"
+  "/buenos-aires/san-martin/villa-ballester.html": "/buenos-aires/san-martin"
+  "/buenos-aires/san-martin/villa-lynch.html": "/buenos-aires/san-martin"
+  "/buenos-aires/san-martin/jose-leon-suarez.html": "/buenos-aires/san-martin"
+
+  # San Pedro queda a ~180 km de la base operativa en Garín, fuera del
+  # areaServed declarado (Zona Norte GBA). Se retira la rama completa.
+  "/san-pedro": "/"
+  "/san-pedro/san-pedro": "/"
+  "/san-pedro/san-pedro/san-pedro.html": "/"
+  "/san-pedro/san-pedro/santa-lucia.html": "/"

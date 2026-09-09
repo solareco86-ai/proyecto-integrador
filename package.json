@@ -1,0 +1,35 @@
+{
+  "name": "isftn199-web",
+  "version": "1.0.0",
+  "description": "Sitio web institucional oficial y campus virtual del Instituto Superior de Formación Técnica N° 199 de Tigre (DGCyE, Provincia de Buenos Aires).",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "build:css": "python3 scripts/build_critical_css.py && tailwindcss -i static/css/src/input.css -o static/css/index.css --minify",
+    "build:critical": "python3 scripts/build_critical_css.py",
+    "watch:css": "tailwindcss -i static/css/src/input.css -o static/css/index.css --watch",
+    "typecheck:js": "tsc -p jsconfig.json --noEmit",
+    "test": "echo 'Usar: PYTHONPATH=. pytest tests/ (ver pyproject.toml)'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datamaq-automation/www-datamaq.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/datamaq-automation/www-datamaq/issues"
+  },
+  "homepage": "https://github.com/datamaq-automation/www-datamaq#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.2",
+    "axe-core": "^4.12.1",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^7.0.2"
+  }
+}

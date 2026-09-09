@@ -1,0 +1,12 @@
+/* TEAM */
+    Autor: ISFT N° 199
+    Contacto: https://isftn199.com.ar/contact
+    Desde: El Talar, Tigre, Buenos Aires, Argentina
+
+/* SITE */
+    Nombre: ISFT N° 199 - Portal Institucional y Campus Virtual
+    URL: https://isftn199.com.ar/
+    Última actualización: 2026-09-06
+    Estándares: HTML5, CSS3
+    Componentes: FastAPI, Jinja2, Tailwind CSS
+    Software: Python 3.12

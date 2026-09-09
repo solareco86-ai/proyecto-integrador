@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "checkJs": true,
+    "allowJs": true,
+    "strict": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ]
+  },
+  "include": [
+    "static/js/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "data",
+    "dist",
+    ".git"
+  ]
+}
+

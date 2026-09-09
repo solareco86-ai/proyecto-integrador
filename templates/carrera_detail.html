@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header(content.navbar.links) }}
+{% endblock %}
+
+{% block main_content %}
+<article class="tw:py-10 tw:lg:py-16">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <!-- Breadcrumbs -->
+        <nav class="tw:flex tw:items-center tw:gap-2 tw:text-xs tw:text-dm-text-muted tw:mb-8" aria-label="Migas de pan">
+            <a href="/" class="hover:tw:text-dm-text-0">Inicio</a>
+            <span>/</span>
+            <a href="/carreras" class="hover:tw:text-dm-text-0">Carreras</a>
+            <span>/</span>
+            <span class="tw:text-dm-text-0 tw:font-medium">{{ carrera.title }}</span>
+        </nav>
+
+        <!-- Header de la Carrera -->
+        <header class="tw:max-w-4xl tw:mb-12">
+            <div class="tw:flex tw:flex-wrap tw:items-center tw:gap-3 tw:mb-4">
+                {% if carrera.badge %}
+                <span class="tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-dm-accent-orange/15 tw:text-dm-accent-orange tw:border tw:border-dm-accent-orange/30">
+                    {{ carrera.badge }}
+                </span>
+                {% endif %}
+                <span class="tw:text-xs tw:text-cyan-400 tw:font-mono">
+                    {{ carrera.resolucion }}
+                </span>
+                <span class="tw:text-xs tw:text-dm-text-muted">
+                    Título Oficial DGCyE
+                </span>
+            </div>
+
+            <h1 class="tw:text-3xl tw:lg:text-4xl tw:font-bold tw:text-dm-text-0 tw:mb-4">
+                {{ carrera.title }}
+            </h1>
+
+            <p class="tw:text-lg tw:text-dm-text-muted tw:mb-6">
+                {{ carrera.description_short }}
+            </p>
+
+            <div class="tw:grid tw:grid-cols-2 tw:sm:grid-cols-4 tw:gap-4 tw:p-4 tw:rounded-xl tw:bg-dm-surface tw:border tw:border-dm-border tw:text-center">
+                <div>
+                    <span class="tw:block tw:text-xs tw:text-dm-text-muted tw:uppercase tw:tracking-wider">Duración</span>
+                    <span class="tw:font-bold tw:text-dm-text-0 tw:text-sm tw:lg:text-base">{{ carrera.duracion }}</span>
+                </div>
+                <div>
+                    <span class="tw:block tw:text-xs tw:text-dm-text-muted tw:uppercase tw:tracking-wider">Modalidad</span>
+                    <span class="tw:font-bold tw:text-dm-text-0 tw:text-sm tw:lg:text-base">{{ carrera.modalidad }}</span>
+                </div>
+                <div>
+                    <span class="tw:block tw:text-xs tw:text-dm-text-muted tw:uppercase tw:tracking-wider">Turno</span>
+                    <span class="tw:font-bold tw:text-dm-text-0 tw:text-sm tw:lg:text-base">Vespertino</span>
+                </div>
+                <div>
+                    <span class="tw:block tw:text-xs tw:text-dm-text-muted tw:uppercase tw:tracking-wider">Arancel</span>
+                    <span class="tw:font-bold tw:text-emerald-400 tw:text-sm tw:lg:text-base">100% Gratuita</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenido en 2 Columnas -->
+        <div class="tw:grid tw:grid-cols-1 tw:lg:grid-cols-3 tw:gap-12">
+            <div class="tw:lg:col-span-2 tw:space-y-10">
+                <!-- Descripción Larga -->
+                <section>
+                    <h2 class="tw:text-2xl tw:font-bold tw:text-dm-text-0 tw:mb-4">Presentación de la Carrera</h2>
+                    <p class="tw:text-dm-text-1 tw:leading-relaxed tw:text-base">
+                        {{ carrera.description_long }}
+                    </p>
+                </section>
+
+                <!-- Perfil del Egresado -->
+                <section class="tw:p-6 tw:rounded-2xl tw:bg-dm-surface tw:border tw:border-dm-border">
+                    <h2 class="tw:text-xl tw:font-bold tw:text-dm-text-0 tw:mb-3">
+                        <i class="bi bi-person-badge tw:text-dm-accent-orange tw:mr-2"></i> Perfil Profesional del Egresado
+                    </h2>
+                    <p class="tw:text-dm-text-1 tw:leading-relaxed tw:text-sm tw:lg:text-base">
+                        {{ carrera.perfil_egresado }}
+                    </p>
+                </section>
+
+                <!-- Plan de Estudios / Materias -->
+                <section>
+                    <h2 class="tw:text-2xl tw:font-bold tw:text-dm-text-0 tw:mb-4">Ejes Temáticos y Materias Destacadas</h2>
+                    <div class="tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:gap-3">
+                        {% for materia in carrera.materias_destacadas %}
+                        <div class="tw:flex tw:items-center tw:gap-3 tw:p-3.5 tw:rounded-xl tw:bg-dm-surface/70 tw:border tw:border-dm-border">
+                            <i class="bi bi-check-circle-fill tw:text-dm-accent-orange tw:shrink-0"></i>
+                            <span class="tw:text-sm tw:text-dm-text-0 tw:font-medium">{{ materia }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Salida Laboral -->
+                <section>
+                    <h2 class="tw:text-2xl tw:font-bold tw:text-dm-text-0 tw:mb-4">Alcance y Salida Laboral</h2>
+                    <ul class="tw:space-y-2.5">
+                        {% for salida in carrera.salida_laboral %}
+                        <li class="tw:flex tw:items-start tw:gap-3 tw:text-sm tw:text-dm-text-1">
+                            <i class="bi bi-briefcase tw:text-cyan-400 tw:shrink-0 tw:mt-0.5"></i>
+                            <span>{{ salida }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+
+            <!-- Sidebar / CTA de Inscripción -->
+            <aside class="tw:space-y-6">
+                <div class="tw:sticky tw:top-24 tw:p-6 tw:rounded-2xl tw:bg-dm-surface tw:border tw:border-dm-border tw:shadow-lg">
+                    <h3 class="tw:text-lg tw:font-bold tw:text-dm-text-0 tw:mb-2">¿Querés inscribirte?</h3>
+                    <p class="tw:text-xs tw:text-dm-text-muted tw:mb-6">
+                        Completá el formulario en línea para recibir los requisitos y confirmar tu vacante para el ciclo lectivo.
+                    </p>
+
+                    <a href="/contact" class="tw:btn-primary tw:w-full tw:text-center tw:mb-3">
+                        Preinscribirme a esta Carrera
+                    </a>
+
+                    {% if config.WHATSAPP_PHONE %}
+                    <a href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola!%20Quisiera%20consultar%20por%20la%20inscripci%C3%B3n%20a%20{{ carrera.title | urlencode }}"
+                       target="_blank" rel="noopener noreferrer"
+                       class="tw:btn-outline tw:w-full tw:text-center tw:flex tw:items-center tw:justify-center tw:gap-2 tw:text-xs">
+                        <i class="bi bi-whatsapp"></i> Consultar por WhatsApp
+                    </a>
+                    {% endif %}
+
+                    <div class="tw:mt-6 tw:pt-6 tw:border-t tw:border-dm-border tw:text-xs tw:text-dm-text-muted tw:space-y-2">
+                        <p><strong class="tw:text-dm-text-0">Sede:</strong> Maestra Celina Voena 1750, El Talar, Tigre.</p>
+                        <p><strong class="tw:text-dm-text-0">Horario:</strong> Lunes a viernes de 18:00 a 22:30 hs.</p>
+                        <p><strong class="tw:text-dm-text-0">Arancel:</strong> Gratuito (Educación Pública DGCyE).</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "{{ carrera.title }}",
+  "description": "{{ carrera.description_short }}",
+  "provider": {
+    "@type": "EducationalOrganization",
+    "name": "ISFT N° 199",
+    "sameAs": "{{ config.BASE_URL }}"
+  }
+}
+</script>
+{% endblock %}
+
+{% block fab %}
+{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

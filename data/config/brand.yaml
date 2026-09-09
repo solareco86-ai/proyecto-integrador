@@ -1,0 +1,29 @@
+baseOperativa: "El Talar, Tigre (Buenos Aires)"
+brandAriaLabel: "ISFT N° 199 - Inicio"
+brandName: "ISFT N° 199"
+contactEmail: "isft199@gmail.com"
+technician:
+  name: "Agustin Bustos"
+  photo:
+    alt: "Logotipo oficial del ISFT N° 199 Tigre"
+    height: 189
+    src: "/static/media/logo-isft199.webp"
+    width: 184
+  role: "Docente en Ciencia de Datos e Inteligencia Artificial · ISFT N° 199"
+  linkedin_url: "https://www.linkedin.com/in/agustin-bustos"
+  bio: "Técnico Universitario y Docente en el Instituto Superior de Formación Técnica N° 199 de Tigre en la Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial. Posgrado en Eficiencia Energética (ITBA)."
+footerDescription: "Instituto Superior de Formación Técnica N° 199 (Tigre, Pcia. de Buenos Aires). Educación superior técnica pública, gratuita y oficial dependiente de la DGCyE. Títulos oficiales con validez nacional."
+whatsappUrl: "https://wa.me/541156297160"
+# Datos estructurados (JSON-LD EducationalOrganization)
+address:
+  streetAddress: "Maestra Celina Voena 1750"
+  postalCode: "1618"              
+  addressLocality: "El Talar"
+  addressRegion: "Buenos Aires"
+  addressCountry: "AR"
+geo:
+  lat: -34.4682
+  lng: -58.6432
+openingHours: "Mo-Fr 18:00-22:30" 
+sameAs:
+  - "https://www.instagram.com/isft_199"

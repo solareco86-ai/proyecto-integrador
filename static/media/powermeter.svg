@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 140" role="img" aria-labelledby="title desc">
+  <title id="title">Medidor de energía</title>
+  <desc id="desc">Un medidor semicircular con aguja apuntando a una zona de eficiencia óptima.</desc>
+  <rect width="220" height="140" rx="28" fill="#f8f9fa" />
+  <path d="M40 104a70 70 0 0 1 140 0" fill="#d0ebff" />
+  <path d="M52 104a58 58 0 0 1 116 0" fill="#74c0fc" />
+  <path d="M64 104a46 46 0 0 1 92 0" fill="#1c7ed6" />
+  <circle cx="110" cy="104" r="14" fill="#ffffff" stroke="#0b7285" stroke-width="4" />
+  <path d="M112 100 148 64" stroke="#d9480f" stroke-width="6" stroke-linecap="round" />
+  <path d="M110 54a50 50 0 0 1 50 50" stroke="#2b8a3e" stroke-width="10" stroke-linecap="round" fill="none" />
+  <circle cx="148" cy="64" r="10" fill="#2b8a3e" />
+  <rect x="92" y="112" width="40" height="12" rx="6" fill="#343a40" />
+  <path d="M84 122h56" stroke="#adb5bd" stroke-width="4" stroke-linecap="round" />
+</svg>

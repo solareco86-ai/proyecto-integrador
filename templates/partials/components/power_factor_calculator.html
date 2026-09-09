@@ -1,0 +1,71 @@
+{% macro power_factor_calculator(calc_data) %}
+<div class="c-calculator tw:p-6 tw:md:p-8 tw:bg-dm-surface tw:border tw:border-dm-border-1 tw:rounded-2xl tw:shadow-xl" data-component="power-factor-calculator">
+    <div class="tw:mb-6">
+        <span class="tw:inline-flex tw:items-center tw:gap-2 tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-amber-900/30 tw:text-amber-300 tw:border tw:border-amber-700/40">
+            <i class="bi bi-calculator"></i> Herramienta Técnica
+        </span>
+        <h3 class="tw:text-xl tw:md:text-2xl tw:font-bold tw:text-white tw:mt-3">{{ calc_data.title }}</h3>
+        <p class="tw:text-sm tw:text-dm-text-muted tw:mt-1">{{ calc_data.subtitle }}</p>
+    </div>
+
+    <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-6">
+        <div class="tw:space-y-4">
+            <div>
+                <label for="calc-kw" class="tw:block tw:text-sm tw:font-medium tw:text-dm-text-0 tw:mb-1">
+                    Potencia Activa Estimada / Demanda (kW):
+                </label>
+                <input type="number" id="calc-kw" name="calc-kw" value="{{ calc_data.default_kw }}" min="1" max="5000" step="5"
+                       class="tw:w-full tw:px-4 tw:py-2.5 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-white focus:tw:border-dm-accent-orange focus:tw:outline-none">
+                <small class="tw:text-xs tw:text-dm-text-muted">Valor típico para PyME o sector productivo: 30 a 150 kW.</small>
+            </div>
+
+            <div>
+                <label for="calc-cos-phi" class="tw:block tw:text-sm tw:font-medium tw:text-dm-text-0 tw:mb-1">
+                    Factor de Potencia Actual (cos φ en factura):
+                </label>
+                <select id="calc-cos-phi" name="calc-cos-phi"
+                        class="tw:w-full tw:px-4 tw:py-2.5 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-white focus:tw:border-dm-accent-orange focus:tw:outline-none">
+                    <option value="0.55">0.55 — Crítico (Riesgo de corte Art. 9)</option>
+                    <option value="0.65">0.65 — Muy bajo (Penalidad severa)</option>
+                    <option value="0.72">0.72 — Bajo (Penalidad alta)</option>
+                    <option value="0.78" selected>0.78 — Habitual sin compensar (Penalidad mensual)</option>
+                    <option value="0.84">0.84 — Límite anterior Edenor (Fuera de norma 544/2024)</option>
+                    <option value="0.90">0.90 — Moderado (Incumple cos φ ≥ 0.95)</option>
+                    <option value="0.95">0.95 — Límite Normativo (Cumple norma)</option>
+                </select>
+                <small class="tw:text-xs tw:text-dm-text-muted">Objetivo de compensación normativo: cos φ = 0.96.</small>
+            </div>
+        </div>
+
+        <div class="tw:bg-dm-bg-0/80 tw:p-6 tw:rounded-xl tw:border tw:border-dm-border-0 tw:flex tw:flex-col tw:justify-between">
+            <div>
+                <div class="tw:flex tw:items-center tw:justify-between tw:mb-2">
+                    <span class="tw:text-xs tw:uppercase tw:tracking-wider tw:text-dm-text-muted tw:font-semibold">Diagnóstico Estimado</span>
+                    <span id="calc-status-badge" class="tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-amber-900/40 tw:text-amber-300 tw:border tw:border-amber-700/50">
+                        ⚠️ Fuera de Norma ENRE
+                    </span>
+                </div>
+                <div class="tw:my-3">
+                    <span class="tw:text-xs tw:text-dm-text-muted tw:block">Compensación requerida aproximada:</span>
+                    <span id="calc-result-kvar" class="tw:text-3xl tw:md:text-4xl tw:font-black tw:text-dm-accent-orange tw:tracking-tight">
+                        25 kVAR
+                    </span>
+                </div>
+                <p id="calc-status-desc" class="tw:text-xs tw:text-dm-text-muted tw:leading-relaxed">
+                    Incumple el nuevo límite de cos φ ≥ 0,95 fijado por la Res. ENRE 544/2024. Genera recargos mensuales automáticos en la factura.
+                </p>
+            </div>
+
+            <div class="tw:mt-6 tw:pt-4 tw:border-t tw:border-dm-border-0">
+                <a id="calc-cta-whatsapp" href="https://wa.me/541156297160" target="_blank" rel="noopener noreferrer"
+                   class="tw:w-full tw:btn tw:btn-primary tw:text-center tw:text-sm tw:font-bold tw:flex tw:items-center tw:justify-center tw:gap-2">
+                    <i class="bi bi-whatsapp"></i> Solicitar Presupuesto para este Banco
+                </a>
+                <p class="tw:text-[11px] tw:text-center tw:text-dm-text-muted tw:mt-2">
+                    Peritaje en planta ($55.000 ARS) 100% deducible de la obra de instalación.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}

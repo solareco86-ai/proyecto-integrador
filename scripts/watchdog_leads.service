@@ -1,0 +1,13 @@
+[Unit]
+Description=DataMaq Watchdog de leads (alerting Telegram)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=datamaq
+Group=datamaq
+WorkingDirectory=/var/www/www-datamaq
+EnvironmentFile=/var/www/www-datamaq/.env
+Environment=WATCHDOG_BASE_URL=http://127.0.0.1:8001
+ExecStart=/var/www/www-datamaq/.venv/bin/python3 /var/www/www-datamaq/scripts/watchdog_leads.py
