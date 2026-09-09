@@ -22,10 +22,15 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 # Selección del ejecutable Python
-if [ -f "venv/bin/python" ]; then
+if [ -f ".venv/bin/python" ]; then
+  PYTHON=".venv/bin/python"
+  export PATH="$(pwd)/.venv/bin:$PATH"
+elif [ -f "venv/bin/python" ]; then
   PYTHON="venv/bin/python"
+  export PATH="$(pwd)/venv/bin:$PATH"
 elif [ -f "./venv/bin/python" ]; then
   PYTHON="./venv/bin/python"
+  export PATH="$(pwd)/venv/bin:$PATH"
 else
   PYTHON="python3"
 fi

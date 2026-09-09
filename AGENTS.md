@@ -61,7 +61,8 @@ Este archivo contiene los lineamientos de diseño, restricciones arquitectónica
 ---
 
 ## 5. Control de Cambios y Despliegue
-* **Despliegue Continuo (CI/CD Automático):** La publicación de cambios hacia el VPS de producción opera mediante **GitHub Actions (`.github/workflows/deploy.yml`)** en cada `git push` a `main` autorizado por el usuario. Una vez que el usuario aprueba el push, el pipeline de CD corre los tests y realiza el deploy automáticamente.
+* **Integración Continua Local (CI con Pre-push):** El 100% de las validaciones de calidad (CSS crítico, Tailwind, esquemas YAML, templates HTML, Clean Architecture, Ruff, Pyright, TypeScript LSP y Pytest con cobertura >= 85%) se ejecutan de forma local y obligatoria en CPU ($0 tokens) antes de cada push mediante el hook `.git/hooks/pre-push` (`scripts/pre-push.sh`).
+* **Despliegue Continuo (CD en GitHub Actions):** La publicación de cambios hacia el VPS de producción opera mediante **GitHub Actions (`.github/workflows/deploy.yml`)** en cada `git push` a `main` autorizado por el usuario. El flujo remoto se dedica exclusivamente al despliegue al VPS, asumiendo la garantía de calidad provista por el gatekeeper local.
 * **Prohibición de Deploy Manual Autónomo:** Queda terminantemente prohibido ejecutar el script local/VPS `./scripts/deploy-server.sh` de forma manual o autónoma sin la expresa aprobación previa del usuario.
 * **Validación de Dependencias:** Al añadir librerías nuevas al archivo [requirements.txt](requirements.txt), valida primero localmente que no existan conflictos de versiones.
 

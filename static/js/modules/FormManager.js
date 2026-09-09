@@ -19,7 +19,7 @@ export class FormManager {
         /** @type {string} */
         this.apiUrl = apiUrl;
         /** @type {HTMLElement | Document} */
-        this.container = this.form.closest('.c-contact') || document;
+        this.container = /** @type {HTMLElement | null} */ (this.form.closest('.c-contact')) || document;
         
         /** @type {HTMLElement[]} */
         this.steps = Array.from(this.form.querySelectorAll('.c-contact__step-panel'));

@@ -73,7 +73,13 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
 
 ## 4. Control de Calidad y Pruebas
 
+El repositorio implementa una política de **CI Local Obligatorio** ejecutado en hardware local ($0 tokens) mediante el hook de pre-push antes de enviar código a producción:
+
 ```bash
+# Ejecutar la suite completa de CI local (calidad, tipos, linters, arquitectura y tests con cobertura):
+./scripts/pre-push.sh
+
+# O ejecutar validaciones puntuales:
 # 1. Verificación estricta de tipos JavaScript (0 errores LSP)
 npm run typecheck:js
 
