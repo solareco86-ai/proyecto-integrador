@@ -43,6 +43,7 @@ jobs:
           DEPLOY_SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
           DEPLOY_REMOTE_DIR: ${{ vars.DEPLOY_REMOTE_DIR || '/var/www/proyecto-integrador' }}
           DEPLOY_SERVICE_NAME: ${{ vars.DEPLOY_SERVICE_NAME || 'isftn199.service' }}
+          DEPLOY_APP_PORT: "8003"
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
         run: ./scripts/deploy-server.sh

@@ -65,7 +65,8 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
     fi
 
     echo "==> Actualizando código..."
-    git pull --ff-only
+    git fetch origin main
+    git reset --hard origin/main
 
     echo "==> Instalando dependencias..."
     ./.venv/bin/pip install -r requirements.txt
@@ -74,7 +75,8 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
     sudo systemctl restart "$DEPLOY_SERVICE_NAME"
 
     echo "==> Verificando salud del servicio vía HTTP..."
-    HEALTH_URL="http://localhost:8000/"
+    DEPLOY_APP_PORT="${DEPLOY_APP_PORT:-8003}"
+    HEALTH_URL="http://127.0.0.1:${DEPLOY_APP_PORT}/"
     MAX_WAIT=30
     INTERVAL=2
     ATTEMPTS=$((MAX_WAIT / INTERVAL))
