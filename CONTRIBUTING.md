@@ -9,26 +9,27 @@
 
 | Rol | Usuario(s) | Permisos en GitHub |
 |---|---|:---:|
-| **Profesor / Responsable Técnico** | `solareco86-ai` | Admin |
-| **Alumno Referente / Ayudante** | A designar | Write |
-| **Alumno** | `VeroJuarez`, `mili-len` y otros | Write |
+| **Profesor / Responsable Técnico** | Agustín Bustos (fuera del repo) | — |
+| **Alumna Referente / Administradora** | `solareco86-ai` | Admin |
+| **Alumna** | `VeroJuarez`, `mili-len` y otros | Write |
 | **Automatización CI/CD** | `datamaq-automation` | Write |
 
 ### 1.1 Profesor
-- Es el dueño del repositorio y el guardián de la rama `main`.
-- **Única persona** habilitada para hacer merge de `develop → main`.
-- Revisa y aprueba Pull Requests con criterio técnico y pedagógico.
-- Puede delegar revisiones al **Alumno Referente**.
+- Define los criterios técnicos y pedagógicos del proyecto.
+- Revisa y aprueba Pull Requests de `develop → main` antes de cada despliegue a producción.
+- **No trabaja directamente en el repositorio:** orienta y valida a través de la Alumna Referente.
 
-### 1.2 Alumno Referente / Ayudante
-- Puede revisar y aprobar Pull Requests hacia `develop`.
-- **No puede** hacer merge a `main` sin la aprobación del Profesor.
-- Actúa como primera línea de revisión de código entre pares.
+### 1.2 Alumna Referente (`solareco86-ai`)
+- Es la administradora del repositorio en GitHub.
+- **Primera responsable** de revisar y aprobar Pull Requests hacia `develop`.
+- Puede hacer merge a `main` previa consulta y aprobación del Profesor.
+- Gestiona permisos, ramas protegidas y configuración del repositorio.
 
-### 1.3 Alumno
+### 1.3 Alumna
 - Trabaja exclusivamente en su **rama personal** (ver sección 3).
 - Hace Pull Requests hacia `develop` al finalizar cada clase.
 - No tiene permiso de hacer push directo a `develop` ni a `main`.
+
 
 ---
 
