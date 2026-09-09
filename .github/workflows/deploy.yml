@@ -3,11 +3,15 @@ name: CD Deploy
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - "docs/**"
-      - "*.md"
-      - ".gitignore"
-      - ".agents/**"
+    paths:
+      - "src/**"
+      - "data/**"
+      - "static/**"
+      - "templates/**"
+      - "requirements.txt"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 jobs:
