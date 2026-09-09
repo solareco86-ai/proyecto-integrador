@@ -9,15 +9,14 @@
 
 | Rol | Usuario(s) | Permisos en GitHub |
 |---|---|:---:|
-| **Profesor / Responsable Técnico** | Agustín Bustos (fuera del repo) | — |
+| **Profesor / Responsable Técnico** | `datamaq-automation` (Agustín Bustos) | Write |
 | **Alumna Referente / Administradora** | `solareco86-ai` | Admin |
 | **Alumna** | `VeroJuarez`, `mili-len` y otros | Write |
-| **Automatización CI/CD** | `datamaq-automation` | Write |
 
-### 1.1 Profesor
+### 1.1 Profesor (`datamaq-automation`)
 - Define los criterios técnicos y pedagógicos del proyecto.
 - Revisa y aprueba Pull Requests de `develop → main` antes de cada despliegue a producción.
-- **No trabaja directamente en el repositorio:** orienta y valida a través de la Alumna Referente.
+- Opera la automatización de CI/CD y el pipeline de despliegue al VPS.
 
 ### 1.2 Alumna Referente (`solareco86-ai`)
 - Es la administradora del repositorio en GitHub.
