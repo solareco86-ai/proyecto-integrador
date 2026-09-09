@@ -35,9 +35,12 @@ if [ ! -z "$PIDS" ]; then
   kill -9 $PIDS 2>/dev/null
 fi
 
-VENV_DIR="venv"
-
-if [ ! -d "$VENV_DIR" ]; then
+if [ -d ".venv" ]; then
+  VENV_DIR=".venv"
+elif [ -d "venv" ]; then
+  VENV_DIR="venv"
+else
+  VENV_DIR=".venv"
   echo "Entorno virtual no encontrado. Creando $VENV_DIR..."
   python3 -m venv "$VENV_DIR"
   echo "Instalando dependencias desde requirements.txt..."

@@ -46,7 +46,11 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
    ```bash
    cp .env.example .env
    ```
-2. Iniciar el servidor local (crea automáticamente el entorno virtual `.venv`, instala dependencias y arranca Uvicorn con recarga en vivo):
+2. Otorgar permisos de ejecución a los scripts (Linux / macOS):
+   ```bash
+   chmod +x run.sh scripts/*.sh
+   ```
+3. Iniciar el servidor local (crea automáticamente el entorno virtual `.venv` si no existe, instala dependencias y arranca Uvicorn con recarga en vivo):
    - **Multiplataforma / Python:**
      ```bash
      python run.py
@@ -59,6 +63,10 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
      ```bash
      ./run.sh
      ```
+     *(O alternativamente: `bash run.sh`)*
+
+   > **Nota:** Si ya cuentas con un entorno virtual activo (`source .venv/bin/activate`), el script lo detecta y reutiliza automáticamente sin reinstalar dependencias.
+
    Acceder a: `http://localhost:8001` (o puerto configurado).
 
 ---
