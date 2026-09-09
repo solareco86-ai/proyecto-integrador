@@ -1,4 +1,5 @@
 import os
+import secrets
 
 from dotenv import load_dotenv
 
@@ -81,6 +82,32 @@ HTML_CACHE_CONTROL = os.getenv(
 
 # Cabeceras de Seguridad
 HSTS_HEADER = os.getenv("HSTS_HEADER", "max-age=31536000; includeSubDomains")
+
+# --- Autenticación de autoridades (panel privado) ---
+
+
+def _get_secret_key() -> str:
+    """Resuelve la SECRET_KEY para firmar cookies de sesión.
+
+    En producción (DEBUG=False) es obligatoria: si falta, se falla rápido al
+    arrancar en vez de usar una clave insegura por defecto. En desarrollo
+    (DEBUG=True) se genera una clave aleatoria en memoria si no está seteada,
+    para no exigir configuración local extra.
+    """
+    secret_key = os.getenv("SECRET_KEY", "")
+    if secret_key:
+        return secret_key
+    if DEBUG:
+        return secrets.token_hex(32)
+    raise RuntimeError(
+        "SECRET_KEY no está configurada. Es obligatoria en producción (DEBUG=False) "
+        "para firmar las cookies de sesión del panel de autoridades."
+    )
+
+
+SECRET_KEY = _get_secret_key()
+SESSION_MAX_AGE_SECONDS = int(os.getenv("SESSION_MAX_AGE_SECONDS", "28800"))  # 8 horas
+SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME", "isft199_session")
 
 
 def _get_git_commit_sha() -> str:

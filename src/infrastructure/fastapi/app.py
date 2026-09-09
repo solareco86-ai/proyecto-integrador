@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import HTMLResponse, RedirectResponse
 from starlette.exceptions import HTTPException
+from starlette.middleware.sessions import SessionMiddleware
 
 from src.application.dtos import ContenidoModel
 from src.infrastructure.fastapi.dependencies import CachedStaticFiles, data_service, get_contenido, templates
@@ -29,6 +30,14 @@ app.middleware("http")(security_headers_middleware)
 app.middleware("http")(cache_control_middleware)
 app.middleware("http")(metrics_middleware)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=config.SECRET_KEY,
+    session_cookie=config.SESSION_COOKIE_NAME,
+    max_age=config.SESSION_MAX_AGE_SECONDS,
+    same_site="lax",
+    https_only=not config.DEBUG,
+)
 app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="static")
 
 # --- Manejadores de error ---
@@ -94,10 +103,15 @@ async def http_exception_handler(request: Request, exc: HTTPException):
         content=f"<h1>Error {exc.status_code}</h1><p>Error interno del servidor</p>", status_code=exc.status_code
     )
     response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    if exc.headers:
+        # Preserva headers de la excepción (p. ej. "Location" en redirects 303
+        # de require_authority hacia /panel/login).
+        response.headers.update(exc.headers)
     return response
 
 
 # --- Registro de Routers ---
+from src.infrastructure.fastapi.routes.auth_routes import router as auth_router
 from src.infrastructure.fastapi.routes.carreras_routes import router as carreras_router
 from src.infrastructure.fastapi.routes.caso_routes import router as caso_router
 from src.infrastructure.fastapi.routes.contact_routes import router as contact_router
@@ -106,10 +120,13 @@ from src.infrastructure.fastapi.routes.guia_routes import router as guia_router
 from src.infrastructure.fastapi.routes.industry_routes import router as industry_router
 from src.infrastructure.fastapi.routes.landing_routes import router as landing_router
 from src.infrastructure.fastapi.routes.main_routes import router as main_router
+from src.infrastructure.fastapi.routes.panel_routes import router as panel_router
 from src.infrastructure.fastapi.routes.seo_routes import router as seo_router
 
 # Eliminamos el prefijo para respetar la estructura de URLs solicitada
 app.include_router(main_router)
+app.include_router(auth_router)
+app.include_router(panel_router)
 app.include_router(carreras_router)
 app.include_router(industry_router)
 app.include_router(contact_router)
