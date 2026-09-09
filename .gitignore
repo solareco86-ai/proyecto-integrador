@@ -14,3 +14,4 @@ data/leads.db
 .aider*
 docs/estrategia_inversion_2026/*
 uv.lock
+tmp/
