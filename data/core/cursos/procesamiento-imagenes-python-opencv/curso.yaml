@@ -1,0 +1,98 @@
+id: "procesamiento-imagenes-python-opencv"
+slug: "procesamiento-imagenes-python-opencv"
+title: "Técnicas de Procesamiento Digital de Imágenes con Python y OpenCV"
+description_short: "Domina el procesamiento digital de imágenes con OpenCV y Python: transformaciones, filtrado espacial, histogramas, bordes y segmentación."
+description_long: "Este curso práctico introduce a estudiantes y profesionales de Ciencia de Datos, Inteligencia Artificial y Mecatrónica al procesamiento digital de imágenes utilizando Python y OpenCV. A lo largo del curso aprenderás la fundamentación matemática de las imágenes digitales como matrices numéricas, las técnicas esenciales de conversión entre espacios de color (BGR, RGB, HSV, escala de grises), transformaciones geométricas (escalado, rotación, traslación) y operaciones de filtrado espacial para reducción de ruido. Además, dominarás el cálculo e igualación de histogramas, algoritmos de umbralización como el método de Otsu, y detectores de bordes fundamentales como Sobel y Canny. Es una base imprescindible antes de encarar proyectos avanzados de visión por computadora y aprendizaje profundo (Deep Learning/CNNs)."
+duration: "20 horas de cursada"
+level: "Intermedio"
+language: "Español"
+price: 0.0
+og_image: "/static/media/cursos/og-fastapi-intermedio.webp"
+og_image_width: 1200
+og_image_height: 630
+instructor_id: "agustin-bustos"
+academic_only: true
+
+sections:
+  - id: "sec-pdi-1"
+    title: "Sección 1: Fundamentos de Visión por Computadora y Operaciones Básicas"
+    description: "Introducción a OpenCV, representación de imágenes como matrices de NumPy, manipulación de espacios de color y transformaciones geométricas."
+    chapters:
+      - id: "chap-pdi-cap-1"
+        title: "Cap 1: Manejo de Imágenes y Espacios de Color"
+        description: "Lectura, escritura, desglose de canales BGR/RGB, conversión a escala de grises y transformaciones de coordenadas en imágenes."
+        items:
+          - type: "lesson"
+            id: "les-pdi-1-1"
+            slug: "lectura-escritura-espacios-color"
+            title: "1.1 Lectura, escritura y manipulación de espacios de color (BGR, RGB, Grises)"
+            duration: "30 min"
+            content_file: "cap-1-1-lectura-escritura-espacios-color.md"
+          - type: "lesson"
+            id: "les-pdi-1-2"
+            slug: "transformaciones-geometricas-operaciones"
+            title: "1.2 Transformaciones geométricas: escalado, recortes, rotaciones y matrices afines"
+            duration: "30 min"
+            content_file: "cap-1-2-transformaciones-geometricas-operaciones.md"
+
+  - id: "sec-pdi-2"
+    title: "Sección 2: Filtrado Espacial, Histogramas y Detección de Bordes"
+    description: "Técnicas avanzadas de mejora de calidad de imagen, filtrado de ruido, segmentación por umbral e identificación de bordes con Canny."
+    chapters:
+      - id: "chap-pdi-cap-2"
+        title: "Cap 2: Filtrado Espacial y Suavizado"
+        description: "Operaciones de convolución 2D, kernel espacial, suavizado gaussiano y eliminación de ruido por filtro de mediana."
+        items:
+          - type: "lesson"
+            id: "les-pdi-2-1"
+            slug: "filtros-espaciales-suavizado-convolucion"
+            title: "2.1 Convolución 2D, suavizado gaussiano y filtro de mediana para reducción de ruido"
+            duration: "35 min"
+            content_file: "cap-2-1-filtros-espaciales-suavizado-convolucion.md"
+          - type: "lesson"
+            id: "les-pdi-2-2"
+            slug: "histogramas-umbralizacion-bordes-canny"
+            title: "2.2 Histogramas, umbralización de Otsu y detección de bordes con Sobel y Canny"
+            duration: "40 min"
+            content_file: "cap-2-2-histogramas-umbralizacion-bordes-canny.md"
+
+      - id: "chap-pdi-cap-3"
+        title: "Evaluación Final"
+        description: "Evaluación técnica integradora sobre conceptos de procesamiento digital de imágenes con OpenCV."
+        items:
+          - type: "quiz"
+            id: "quiz-procesamiento-imagenes-opencv"
+            slug: "evaluacion-procesamiento-imagenes-opencv"
+            title: "Cuestionario Integrador: Procesamiento Digital de Imágenes"
+            duration: "15 min"
+            questions:
+              - id: "q-opencv-bgr"
+                question: "¿En qué orden almacena OpenCV por defecto los canales de color al cargar una imagen con cv2.imread()?"
+                type: "single_choice"
+                options:
+                  - "RGB (Red, Green, Blue)"
+                  - "BGR (Blue, Green, Red)"
+                  - "HSV (Hue, Saturation, Value)"
+                  - "CMYK (Cyan, Magenta, Yellow, Black)"
+                correct_option: 1
+                explanation: "Por razones históricas de diseño de hardware informático, OpenCV carga por defecto los canales en orden BGR (Azul, Verde, Rojo)."
+
+              - id: "q-opencv-median"
+                question: "¿Cuál es el filtro espacial más recomendado para eliminar el ruido de tipo 'sal y pimienta' sin desenfocar destructivamente los bordes?"
+                type: "single_choice"
+                options:
+                  - "Filtro Gaussiano (cv2.GaussianBlur)"
+                  - "Filtro de Mediana (cv2.medianBlur)"
+                  - "Filtro Promedio (cv2.blur)"
+                  - "Filtro Sobel (cv2.Sobel)"
+                correct_option: 1
+                explanation: "El filtro de mediana reemplaza cada píxel por la mediana de sus vecinos, eliminado eficazmente valores atípicos extremos como los del ruido sal y pimienta."
+
+              - id: "q-opencv-canny"
+                question: "El algoritmo Canny de detección de bordes requiere convertir la imagen a escala de grises y aplicar suavizado previo para evitar falsos positivos."
+                type: "true_false"
+                options:
+                  - "Verdadero"
+                  - "Falso"
+                correct_option: 0
+                explanation: "Verdadero. Canny opera sobre gradientes de intensidad monocromáticos y un suavizado gaussiano previo elimina el ruido de alta frecuencia que distorsionaría la detección de bordes."
