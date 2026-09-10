@@ -14,9 +14,9 @@ async def test_llms_txt_endpoint_returns_200() -> None:
     assert response.status_code == 200
     assert "text/plain" in response.headers["content-type"]
     text = response.text
-    assert "# DataMaq" in text
-    assert "Powermeter" in text
-    assert "ENRE 544/2024" in text
+    assert "# ISFT N° 199" in text
+    assert "Ciencia de Datos" in text
+    assert "DGCyE" in text
     assert "+54 11 5629 7160" in text
 
 
@@ -30,10 +30,10 @@ async def test_llms_full_txt_endpoint_returns_200() -> None:
     assert response.status_code == 200
     assert "text/plain" in response.headers["content-type"]
     text = response.text
-    assert "Powermeter SmartPlus" in text
-    assert "Powermeter Gateway" in text
-    assert "Powermeter Automate" in text
-    assert "Xubio" in text
+    assert "Ciencia de Datos e Inteligencia Artificial" in text
+    assert "Mecatrónica" in text
+    assert "Logística" in text
+    assert "Higiene y Seguridad" in text
     assert "Agustín Bustos" in text
 
 
@@ -49,4 +49,4 @@ async def test_robots_txt_allows_ai_bots() -> None:
     assert "User-agent: GPTBot" in text
     assert "User-agent: ClaudeBot" in text
     assert "User-agent: PerplexityBot" in text
-    assert "Sitemap: https://datamaq.com.ar/sitemap.xml" in text
+    assert "Sitemap: https://isftn199.com.ar/sitemap.xml" in text

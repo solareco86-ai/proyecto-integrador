@@ -69,6 +69,7 @@
         "@graph": [
             {
                 "@type": "Organization",
+                "additionalType": "https://schema.org/EducationalOrganization",
                 "name": "{{ seo_data.site_name }}",
                 "url": "{{ seo_data.canonical_url }}",
                 "logo": "{{ request.url_for('static', path='favicon.svg') }}",
@@ -84,77 +85,98 @@
                     "addressCountry": "{{ brand.address.addressCountry }}"
                 },
                 {% endif %}
+                {% if brand.geo %}
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": {{ brand.geo.lat }},
+                    "longitude": {{ brand.geo.lng }}
+                },
+                {% endif %}
+                {% if brand.openingHours %}
+                "openingHours": "{{ brand.openingHours }}",
+                {% endif %}
                 {% if brand.sameAs %}"sameAs": [{% for url in brand.sameAs %}"{{ url }}"{% if not loop.last %},{% endif %}{% endfor %}],{% endif %}
                 "knowsAbout": [
-                    "Eficiencia Energética Industrial",
-                    "Resolución ENRE 544/2024",
-                    "Factor de Potencia y Energía Reactiva",
-                    "Analizador de Redes Powermeter SmartPlus",
-                    "Powermeter Gateway IoT",
-                    "Powermeter Automate PLC",
-                    "Protocolo Modbus RS485 y 4-20mA",
-                    "Integración ERP Xubio",
-                    "Norma ISO 50001 e IDEn",
-                    "Sub-metering en Parques Industriales"
+                    "Educación Superior Técnica Pública",
+                    "Ciencia de Datos e Inteligencia Artificial",
+                    "Mecatrónica y Automatización Industrial",
+                    "Logística y Cadena de Suministro",
+                    "Higiene y Seguridad en el Trabajo",
+                    "Administración de Recursos Humanos",
+                    "Servicios Gastronómicos y Turismo",
+                    "Programación en Python y Machine Learning",
+                    "Robótica y Controladores Lógicos Programables (PLC)",
+                    "Dirección General de Cultura y Educación (DGCyE)"
                 ],
                 "areaServed": [
+                    {"@type": "AdministrativeArea", "name": "Tigre"},
+                    {"@type": "AdministrativeArea", "name": "El Talar"},
+                    {"@type": "AdministrativeArea", "name": "General Pacheco"},
+                    {"@type": "AdministrativeArea", "name": "Don Torcuato"},
+                    {"@type": "AdministrativeArea", "name": "Benavídez"},
+                    {"@type": "AdministrativeArea", "name": "San Fernando"},
+                    {"@type": "AdministrativeArea", "name": "Escobar"},
                     {"@type": "AdministrativeArea", "name": "Garín"},
                     {"@type": "AdministrativeArea", "name": "Pilar"},
-                    {"@type": "AdministrativeArea", "name": "Escobar"},
-                    {"@type": "AdministrativeArea", "name": "Tigre"},
-                    {"@type": "AdministrativeArea", "name": "Campana"},
-                    {"@type": "AdministrativeArea", "name": "San Martín"},
                     {"@type": "AdministrativeArea", "name": "Zona Norte GBA"}
                 ],
-                "founder": {
-                    "@type": "Person",
-                    "name": "{{ brand.technician.name }}",
-                    "jobTitle": "{{ brand.technician.role }}",
-                    {% if brand.technician.linkedin_url %}"url": "{{ brand.technician.linkedin_url }}",
-                    "sameAs": ["{{ brand.technician.linkedin_url }}"],{% endif %}
-                    "description": "{{ (brand.technician.bio or brand.technician.role) | replace('\"', '\\\"') }}"
-                },
                 "hasOfferCatalog": {
                     "@type": "OfferCatalog",
-                    "name": "Servicios de Ingeniería y Telemetría DataMaq",
+                    "name": "Tecnicaturas Superiores Oficiales del ISFT N° 199",
                     "itemListElement": [
                         {
                             "@type": "Offer",
                             "itemOffered": {
-                                "@type": "Service",
-                                "name": "Instalación de Powermeter SmartPlus: Auditoría & Telemetría Energética",
-                                "description": "Auditoría eléctrica, instalación de analizadores inteligentes SmartPlus en tableros y optimización de potencia contratada."
+                                "@type": "Course",
+                                "name": "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial",
+                                "description": "Carrera oficial de 3 años en Python, Machine Learning, Deep Learning, SQL y Big Data. Turno vespertino, 100% gratuita."
                             }
                         },
                         {
                             "@type": "Offer",
                             "itemOffered": {
-                                "@type": "Service",
-                                "name": "Retrofit IoT & Automatización con Gateway y Automate",
-                                "description": "Captura de variables de proceso (temperatura, pesaje, VFD) y control inteligente de demanda máxima."
+                                "@type": "Course",
+                                "name": "Tecnicatura Superior en Mecatrónica",
+                                "description": "Carrera oficial de 3 años en automatización industrial, robótica, PLCs, neumática y control. Turno vespertino, 100% gratuita."
                             }
                         },
                         {
                             "@type": "Offer",
                             "itemOffered": {
-                                "@type": "Service",
-                                "name": "Consultoría en Gestión de la Energía & Recontratación de Potencia ENRE 544/2024",
-                                "description": "Línea de base ISO 50001, eliminación de multas por factor de potencia cos φ y recontratación de potencia contratada."
+                                "@type": "Course",
+                                "name": "Tecnicatura Superior en Logística",
+                                "description": "Carrera oficial de 3 años en gestión de la cadena de suministro, almacenamiento, ruteo y comercio exterior. Turno vespertino, 100% gratuita."
                             }
                         },
                         {
                             "@type": "Offer",
                             "itemOffered": {
-                                "@type": "Service",
-                                "name": "Integración IoT & Transformación de Datos a Xubio ERP",
-                                "description": "Traducción de tramas industriales e inyección automática en el ERP Xubio vía API REST."
+                                "@type": "Course",
+                                "name": "Tecnicatura Superior en Higiene y Seguridad en el Trabajo",
+                                "description": "Carrera oficial de 3 años con matrícula habilitante en prevención de riesgos laborales y normativa SRT. Turno vespertino, 100% gratuita."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Course",
+                                "name": "Tecnicatura Superior en Administración de Recursos Humanos",
+                                "description": "Carrera oficial de 3 años en gestión del talento, relaciones laborales y liquidación de haberes. Turno vespertino, 100% gratuita."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Course",
+                                "name": "Tecnicatura Superior en Servicios Gastronómicos y Turismo",
+                                "description": "Carrera oficial de 3 años en planificación turística, gestión hotelera y desarrollo del Delta de Tigre. Turno vespertino, 100% gratuita."
                             }
                         }
                     ]
                 },
                 "contactPoint": {
                     "@type": "ContactPoint",
-                    "contactType": "Soporte técnico y ventas",
+                    "contactType": "Secretaría Académica e Informes de Ingreso",
                     "telephone": "+{{ config.WHATSAPP_PHONE }}",
                     "email": "{{ brand.contactEmail }}",
                     "areaServed": "AR",
