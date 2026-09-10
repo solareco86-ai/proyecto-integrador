@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 from src.application.dtos.content_management_dto import CrearComunicadoInput, EditarComunicadoInput
 from src.application.use_cases.content.create_comunicado import CreateComunicadoUseCase
+from src.application.use_cases.content.delete_comunicado import DeleteComunicadoUseCase
 from src.application.use_cases.content.get_comunicado import GetComunicadoUseCase
 from src.application.use_cases.content.list_comunicados import ListComunicadosUseCase
 from src.application.use_cases.content.update_comunicado import UpdateComunicadoUseCase
@@ -179,3 +180,46 @@ async def editar_comunicado(
         raise HTTPException(status_code=404, detail="Comunicado no encontrado")
 
     return RedirectResponse(url="/panel/comunicados?ok=editado", status_code=303)
+
+
+@router.get("/comunicados/{comunicado_id}/eliminar")
+async def confirmar_eliminar_comunicado(
+    request: Request,
+    comunicado_id: str,
+    usuario: Usuario = Depends(require_authority),
+    comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
+) -> HTMLResponse:
+    """Muestra la página de confirmación de eliminación. No elimina nada."""
+    comunicado = await GetComunicadoUseCase(repository=comunicado_repository).execute(comunicado_id)
+    if comunicado is None:
+        raise HTTPException(status_code=404, detail="Comunicado no encontrado")
+
+    csrf_token = get_or_create_csrf_token(request)
+    return templates.TemplateResponse(
+        request=request,
+        name="panel/comunicados/eliminar.html",
+        context={
+            "usuario": usuario,
+            "seccion_activa": "comunicados",
+            "csrf_token": csrf_token,
+            "comunicado": comunicado,
+        },
+    )
+
+
+@router.post("/comunicados/{comunicado_id}/eliminar", dependencies=[Depends(verify_csrf)], response_model=None)
+async def eliminar_comunicado(
+    request: Request,
+    comunicado_id: str,
+    usuario: Usuario = Depends(require_authority),
+    comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
+) -> RedirectResponse:
+    """Elimina un comunicado existente. DeleteComunicadoUseCase es idempotente, por eso se
+    verifica existencia antes con GetComunicadoUseCase para poder responder 404."""
+    comunicado = await GetComunicadoUseCase(repository=comunicado_repository).execute(comunicado_id)
+    if comunicado is None:
+        raise HTTPException(status_code=404, detail="Comunicado no encontrado")
+
+    await DeleteComunicadoUseCase(repository=comunicado_repository).execute(comunicado_id)
+
+    return RedirectResponse(url="/panel/comunicados?ok=eliminado", status_code=303)
