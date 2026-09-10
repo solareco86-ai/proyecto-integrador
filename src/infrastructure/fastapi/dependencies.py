@@ -16,10 +16,12 @@ from src.application.gateways.notification_gateway import NotificationGateway
 from src.application.gateways.password_hasher_gateway import PasswordHasherGateway
 from src.domain.auth.entities import Usuario
 from src.domain.auth.repositories import UsuarioRepository
+from src.domain.content.repositories import NoticiaRepository
 from src.domain.repositories.lead_repository import LeadRepository
 from src.infrastructure.gateways.bcrypt_password_hasher import BcryptPasswordHasher
 from src.infrastructure.gateways.email_notification_gateway import EmailNotificationGateway
 from src.infrastructure.persistence.mysql.lead_repository_mysql import LeadRepositorySQL
+from src.infrastructure.persistence.mysql.noticia_repository_mysql import NoticiaRepositorySQL
 from src.infrastructure.persistence.mysql.usuario_repository_mysql import UsuarioRepositorySQL
 from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import setup_logger
@@ -94,6 +96,10 @@ def get_usuario_repository() -> UsuarioRepository:
 
 def get_password_hasher() -> PasswordHasherGateway:
     return BcryptPasswordHasher()
+
+
+def get_noticia_repository() -> NoticiaRepository:
+    return NoticiaRepositorySQL()
 
 
 async def get_current_user(

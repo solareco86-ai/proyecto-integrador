@@ -1,0 +1,46 @@
+{% extends "panel/base.html" %}
+
+{% block title %}Noticias{% endblock %}
+
+{% block panel_content %}
+<div class="panel-page-header">
+    <h1 class="panel-page-title">Noticias</h1>
+    <span class="panel-button panel-button--disabled" aria-disabled="true" title="Próximamente">Nueva noticia (Próximamente)</span>
+</div>
+
+{% if noticias %}
+<div class="panel-table-wrapper">
+    <table class="panel-table">
+        <thead>
+            <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for noticia in noticias %}
+            <tr>
+                <td>{{ noticia.titulo }}</td>
+                <td>
+                    {% if noticia.publicada %}
+                    <span class="panel-badge panel-badge--publicada">Publicada</span>
+                    {% else %}
+                    <span class="panel-badge panel-badge--borrador">Borrador</span>
+                    {% endif %}
+                </td>
+                <td>{{ noticia.created_at }}</td>
+                <td class="panel-table__actions">
+                    <span class="panel-link-disabled" aria-disabled="true" title="Próximamente">Editar</span>
+                    <span class="panel-link-disabled" aria-disabled="true" title="Próximamente">Eliminar</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="panel-empty-state">Todavía no hay noticias cargadas.</p>
+{% endif %}
+{% endblock %}

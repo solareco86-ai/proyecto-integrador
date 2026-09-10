@@ -148,6 +148,99 @@
     font-size: var(--ui-font-size-label);
 }
 
+/* --- Encabezado de página con acción --- */
+
+.panel-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ui-space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--ui-space-5);
+}
+
+.panel-page-header .panel-page-title {
+    margin: 0;
+}
+
+/* --- Tabla administrativa (listados) --- */
+
+.panel-table-wrapper {
+    overflow-x: auto;
+}
+
+.panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--dm-surface-0);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-md);
+    overflow: hidden;
+}
+
+.panel-table th,
+.panel-table td {
+    text-align: left;
+    padding: var(--ui-space-3) var(--ui-space-4);
+    border-bottom: 1px solid var(--dm-border-0);
+    font-size: var(--ui-font-size-label);
+}
+
+.panel-table th {
+    color: var(--dm-text-muted);
+    font-weight: var(--ui-font-weight-title);
+}
+
+.panel-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.panel-table__actions {
+    display: flex;
+    gap: var(--ui-space-3);
+}
+
+/* --- Badges de estado --- */
+
+.panel-badge {
+    display: inline-block;
+    padding: .15rem .6rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+.panel-badge--publicada {
+    background: rgba(var(--dm-status-green-rgb), .18);
+    color: var(--dm-status-green);
+}
+
+.panel-badge--borrador {
+    background: rgba(var(--dm-text-muted-rgb), .18);
+    color: var(--dm-text-muted);
+}
+
+/* --- Estado vacío --- */
+
+.panel-empty-state {
+    color: var(--dm-text-muted);
+    padding: var(--ui-space-6);
+    text-align: center;
+    background: var(--dm-surface-0);
+    border: 1px dashed var(--dm-border-1);
+    border-radius: var(--ui-radius-md);
+}
+
+/* --- Elementos deshabilitados / "Próximamente" (sin JS, no navegables) --- */
+
+.panel-button--disabled,
+.panel-link-disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: var(--dm-text-muted);
+}
+
 /* --- Botones --- */
 
 .panel-button {
