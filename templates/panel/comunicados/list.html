@@ -10,6 +10,8 @@
 
 {% if ok == "creado" %}
 <p class="panel-alert panel-alert--success" role="status">Comunicado creado correctamente.</p>
+{% elif ok == "editado" %}
+<p class="panel-alert panel-alert--success" role="status">Comunicado editado correctamente.</p>
 {% endif %}
 
 {% if comunicados %}
@@ -36,7 +38,7 @@
                     {% endif %}
                 </td>
                 <td class="panel-table__actions">
-                    <span class="panel-link-disabled" aria-disabled="true" title="Próximamente">Editar</span>
+                    <a href="/panel/comunicados/{{ comunicado.id }}/editar" class="panel-button panel-button--secondary">Editar</a>
                     <span class="panel-link-disabled" aria-disabled="true" title="Próximamente">Eliminar</span>
                 </td>
             </tr>

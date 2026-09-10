@@ -1,10 +1,13 @@
-from fastapi import APIRouter, Depends, Form, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
-from src.application.dtos.content_management_dto import CrearComunicadoInput
+from src.application.dtos.content_management_dto import CrearComunicadoInput, EditarComunicadoInput
 from src.application.use_cases.content.create_comunicado import CreateComunicadoUseCase
+from src.application.use_cases.content.get_comunicado import GetComunicadoUseCase
 from src.application.use_cases.content.list_comunicados import ListComunicadosUseCase
+from src.application.use_cases.content.update_comunicado import UpdateComunicadoUseCase
 from src.domain.auth.entities import Usuario
+from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.content.repositories import ComunicadoRepository
 from src.infrastructure.fastapi.csrf import get_or_create_csrf_token, verify_csrf
 from src.infrastructure.fastapi.dependencies import get_comunicado_repository, require_authority, templates
@@ -105,3 +108,74 @@ async def crear_comunicado(
     )
 
     return RedirectResponse(url="/panel/comunicados?ok=creado", status_code=303)
+
+
+@router.get("/comunicados/{comunicado_id}/editar")
+async def form_editar_comunicado(
+    request: Request,
+    comunicado_id: str,
+    usuario: Usuario = Depends(require_authority),
+    comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
+) -> HTMLResponse:
+    """Muestra el formulario de edición de un comunicado existente, precargado."""
+    comunicado = await GetComunicadoUseCase(repository=comunicado_repository).execute(comunicado_id)
+    if comunicado is None:
+        raise HTTPException(status_code=404, detail="Comunicado no encontrado")
+
+    csrf_token = get_or_create_csrf_token(request)
+    return templates.TemplateResponse(
+        request=request,
+        name="panel/comunicados/form.html",
+        context={
+            "usuario": usuario,
+            "seccion_activa": "comunicados",
+            "csrf_token": csrf_token,
+            "error": None,
+            "titulo": comunicado.titulo,
+            "cuerpo": comunicado.cuerpo,
+            "modo": "editar",
+            "comunicado_id": comunicado.id,
+        },
+    )
+
+
+@router.post("/comunicados/{comunicado_id}/editar", dependencies=[Depends(verify_csrf)], response_model=None)
+async def editar_comunicado(
+    request: Request,
+    comunicado_id: str,
+    titulo: str = Form(""),
+    cuerpo: str = Form(""),
+    usuario: Usuario = Depends(require_authority),
+    comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
+) -> HTMLResponse | RedirectResponse:
+    """Edita un comunicado existente. autor_id, id y created_at nunca se toman del body."""
+    titulo_limpio = titulo.strip()
+    cuerpo_limpio = cuerpo.strip()
+
+    error = _validar(titulo_limpio, cuerpo_limpio)
+    if error:
+        return templates.TemplateResponse(
+            request=request,
+            name="panel/comunicados/form.html",
+            context={
+                "usuario": usuario,
+                "seccion_activa": "comunicados",
+                "csrf_token": get_or_create_csrf_token(request),
+                "error": error,
+                "titulo": titulo,
+                "cuerpo": cuerpo,
+                "modo": "editar",
+                "comunicado_id": comunicado_id,
+            },
+            status_code=422,
+        )
+
+    use_case = UpdateComunicadoUseCase(repository=comunicado_repository)
+    try:
+        await use_case.execute(
+            EditarComunicadoInput(id=comunicado_id, titulo=titulo_limpio, cuerpo=cuerpo_limpio)
+        )
+    except EntityNotFoundError:
+        raise HTTPException(status_code=404, detail="Comunicado no encontrado")
+
+    return RedirectResponse(url="/panel/comunicados?ok=editado", status_code=303)
