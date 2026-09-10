@@ -12,6 +12,8 @@
 <p class="panel-alert panel-alert--success" role="status">Noticia creada correctamente.</p>
 {% elif ok == "editada" %}
 <p class="panel-alert panel-alert--success" role="status">Noticia editada correctamente.</p>
+{% elif ok == "eliminada" %}
+<p class="panel-alert panel-alert--success" role="status">Noticia eliminada correctamente.</p>
 {% endif %}
 
 {% if noticias %}
@@ -39,7 +41,7 @@
                 <td>{{ noticia.created_at }}</td>
                 <td class="panel-table__actions">
                     <a href="/panel/noticias/{{ noticia.id }}/editar" class="panel-button panel-button--secondary">Editar</a>
-                    <span class="panel-link-disabled" aria-disabled="true" title="Próximamente">Eliminar</span>
+                    <a href="/panel/noticias/{{ noticia.id }}/eliminar" class="panel-button panel-button--danger">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}

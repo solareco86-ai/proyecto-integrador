@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 
 from src.application.dtos.content_management_dto import CrearNoticiaInput, EditarNoticiaInput
 from src.application.use_cases.content.create_noticia import CreateNoticiaUseCase
+from src.application.use_cases.content.delete_noticia import DeleteNoticiaUseCase
 from src.application.use_cases.content.get_noticia import GetNoticiaUseCase
 from src.application.use_cases.content.list_noticias import ListNoticiasUseCase
 from src.application.use_cases.content.update_noticia import UpdateNoticiaUseCase
@@ -193,3 +194,46 @@ async def editar_noticia(
         raise HTTPException(status_code=404, detail="Noticia no encontrada")
 
     return RedirectResponse(url="/panel/noticias?ok=editada", status_code=303)
+
+
+@router.get("/noticias/{noticia_id}/eliminar")
+async def confirmar_eliminar_noticia(
+    request: Request,
+    noticia_id: str,
+    usuario: Usuario = Depends(require_authority),
+    noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
+) -> HTMLResponse:
+    """Muestra la página de confirmación de eliminación. No elimina nada."""
+    noticia = await GetNoticiaUseCase(repository=noticia_repository).execute(noticia_id)
+    if noticia is None:
+        raise HTTPException(status_code=404, detail="Noticia no encontrada")
+
+    csrf_token = get_or_create_csrf_token(request)
+    return templates.TemplateResponse(
+        request=request,
+        name="panel/noticias/eliminar.html",
+        context={
+            "usuario": usuario,
+            "seccion_activa": "noticias",
+            "csrf_token": csrf_token,
+            "noticia": noticia,
+        },
+    )
+
+
+@router.post("/noticias/{noticia_id}/eliminar", dependencies=[Depends(verify_csrf)], response_model=None)
+async def eliminar_noticia(
+    request: Request,
+    noticia_id: str,
+    usuario: Usuario = Depends(require_authority),
+    noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
+) -> RedirectResponse:
+    """Elimina una noticia existente. DeleteNoticiaUseCase es idempotente, por eso se
+    verifica existencia antes con GetNoticiaUseCase para poder responder 404."""
+    noticia = await GetNoticiaUseCase(repository=noticia_repository).execute(noticia_id)
+    if noticia is None:
+        raise HTTPException(status_code=404, detail="Noticia no encontrada")
+
+    await DeleteNoticiaUseCase(repository=noticia_repository).execute(noticia_id)
+
+    return RedirectResponse(url="/panel/noticias?ok=eliminada", status_code=303)
