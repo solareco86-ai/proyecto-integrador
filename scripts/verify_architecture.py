@@ -15,6 +15,7 @@ Uso:
 
 import ast
 import os
+import re
 import sys
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -45,6 +46,28 @@ def get_all_imports(file_path: str) -> list[str]:
     return imports
 
 
+_SUSPICIOUS_PATTERNS: list[tuple[re.Pattern[str], str]] = [
+    (
+        re.compile(
+            r"""(?:password|secret_key|api_key|token)\s*=\s*['"][a-zA-Z0-9_\-]{8,}['"]""",
+            re.IGNORECASE,
+        ),
+        "Posible credencial/token quemado en código",
+    ),
+    (
+        re.compile(
+            r"""(?:postgres|mysql|mariadb|mongodb):\/\/[^:]+:[^@]+@""",
+            re.IGNORECASE,
+        ),
+        "Connection string con contraseña en código fuente",
+    ),
+    (
+        re.compile(r"""['"]eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}""", re.IGNORECASE),
+        "Token JWT quemado en código fuente",
+    ),
+]
+
+
 def verify_architecture() -> list[str]:
     """Verifica todas las reglas de arquitectura y retorna la lista de errores encontrados."""
     errors: list[str] = []
@@ -62,6 +85,36 @@ def verify_architecture() -> list[str]:
             rel_path = os.path.relpath(full_path, ROOT_DIR)
             imports = get_all_imports(full_path)
 
+            # ── Regla: Imports relativos prohibidos ──
+            try:
+                with open(full_path, encoding="utf-8") as f:
+                    tree = ast.parse(f.read(), filename=full_path)
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.ImportFrom) and node.level and node.level > 0:
+                        mod_name: str = node.module or ""
+                        errors.append(
+                            f"[IMPORT RELATIVO] {rel_path}:{node.lineno} usa import relativo '{mod_name}'. Use 'from src...'."
+                        )
+            except Exception:
+                pass
+
+            # ── Regla: Secretos hardcodeados (excluye config.py) ──
+            if "src/infrastructure/settings/config.py" not in rel_path:
+                try:
+                    with open(full_path, encoding="utf-8") as f:
+                        lines = f.read().splitlines()
+                    for lineno, line in enumerate(lines, start=1):
+                        stripped = line.strip()
+                        if stripped.startswith("#"):
+                            continue
+                        for pattern, desc in _SUSPICIOUS_PATTERNS:
+                            if pattern.search(line):
+                                errors.append(
+                                    f"[SECRETO HARDCODEADO] {rel_path}:{lineno} {desc}. Centralice en Settings."
+                                )
+                except Exception:
+                    pass
+
             # 1. Regla de Dominio: Solo stdlib pura (dataclasses, typing, abc). Prohibido pydantic y capas superiores.
             if "src/domain" in rel_path:
                 forbidden = (
@@ -69,10 +122,14 @@ def verify_architecture() -> list[str]:
                     "pydantic_core",
                     "fastapi",
                     "sqlalchemy",
+                    "sqlmodel",
                     "starlette",
                     "httpx",
                     "requests",
                     "pymysql",
+                    "redis",
+                    "celery",
+                    "kafka",
                     "src.application",
                     "src.adapters",
                     "src.infrastructure",
@@ -86,8 +143,12 @@ def verify_architecture() -> list[str]:
                 forbidden = (
                     "fastapi",
                     "sqlalchemy",
+                    "sqlmodel",
                     "starlette",
                     "pymysql",
+                    "redis",
+                    "celery",
+                    "kafka",
                     "src.adapters",
                     "src.infrastructure",
                 )
