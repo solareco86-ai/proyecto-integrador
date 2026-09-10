@@ -120,6 +120,7 @@ from src.infrastructure.fastapi.routes.guia_routes import router as guia_router
 from src.infrastructure.fastapi.routes.industry_routes import router as industry_router
 from src.infrastructure.fastapi.routes.landing_routes import router as landing_router
 from src.infrastructure.fastapi.routes.main_routes import router as main_router
+from src.infrastructure.fastapi.routes.panel_eventos_routes import router as panel_eventos_router
 from src.infrastructure.fastapi.routes.panel_noticias_routes import router as panel_noticias_router
 from src.infrastructure.fastapi.routes.panel_routes import router as panel_router
 from src.infrastructure.fastapi.routes.seo_routes import router as seo_router
@@ -129,6 +130,7 @@ app.include_router(main_router)
 app.include_router(auth_router)
 app.include_router(panel_router)
 app.include_router(panel_noticias_router)
+app.include_router(panel_eventos_router)
 app.include_router(carreras_router)
 app.include_router(industry_router)
 app.include_router(contact_router)

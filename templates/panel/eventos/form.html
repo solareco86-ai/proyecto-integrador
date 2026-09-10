@@ -1,0 +1,40 @@
+{% extends "panel/base.html" %}
+
+{% block title %}{% if modo == "editar" %}Editar evento{% else %}Nuevo evento{% endif %}{% endblock %}
+
+{% block panel_content %}
+<h1 class="panel-page-title">{% if modo == "editar" %}Editar evento{% else %}Nuevo evento{% endif %}</h1>
+
+<form method="post" action="{% if modo == 'editar' %}/panel/eventos/{{ evento_id }}/editar{% else %}/panel/eventos/nuevo{% endif %}" class="panel-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    {% if error %}
+    <p class="panel-alert panel-alert--error" role="alert">{{ error }}</p>
+    {% endif %}
+
+    <label class="panel-field">
+        <span class="panel-field__label">Título</span>
+        <input type="text" name="titulo" value="{{ titulo }}" maxlength="200" required autofocus class="panel-field__input">
+    </label>
+
+    <label class="panel-field">
+        <span class="panel-field__label">Descripción</span>
+        <textarea name="descripcion" rows="8" required class="panel-field__input panel-field__textarea">{{ descripcion }}</textarea>
+    </label>
+
+    <label class="panel-field">
+        <span class="panel-field__label">Fecha y hora</span>
+        <input type="datetime-local" name="fecha_evento" value="{{ fecha_evento }}" required class="panel-field__input">
+    </label>
+
+    <label class="panel-field">
+        <span class="panel-field__label">Lugar (opcional)</span>
+        <input type="text" name="lugar" value="{{ lugar }}" class="panel-field__input">
+    </label>
+
+    <div class="panel-form__actions">
+        <button type="submit" class="panel-button panel-button--primary">{% if modo == "editar" %}Guardar cambios{% else %}Guardar evento{% endif %}</button>
+        <a href="/panel/eventos" class="panel-button panel-button--secondary">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

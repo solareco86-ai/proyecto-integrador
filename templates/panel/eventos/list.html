@@ -1,0 +1,54 @@
+{% extends "panel/base.html" %}
+
+{% block title %}Eventos{% endblock %}
+
+{% block panel_content %}
+<div class="panel-page-header">
+    <h1 class="panel-page-title">Eventos</h1>
+    <a href="/panel/eventos/nuevo" class="panel-button panel-button--primary">Nuevo evento</a>
+</div>
+
+{% if ok == "creado" %}
+<p class="panel-alert panel-alert--success" role="status">Evento creado correctamente.</p>
+{% elif ok == "editado" %}
+<p class="panel-alert panel-alert--success" role="status">Evento editado correctamente.</p>
+{% elif ok == "eliminado" %}
+<p class="panel-alert panel-alert--success" role="status">Evento eliminado correctamente.</p>
+{% endif %}
+
+{% if eventos %}
+<div class="panel-table-wrapper">
+    <table class="panel-table">
+        <thead>
+            <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Lugar</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos %}
+            <tr>
+                <td>{{ evento.titulo }}</td>
+                <td>
+                    {% if evento.fecha_evento %}
+                    {{ evento.fecha_evento[8:10] }}/{{ evento.fecha_evento[5:7] }}/{{ evento.fecha_evento[0:4] }} {{ evento.fecha_evento[11:16] }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td>{{ evento.lugar or "—" }}</td>
+                <td class="panel-table__actions">
+                    <a href="/panel/eventos/{{ evento.id }}/editar" class="panel-button panel-button--secondary">Editar</a>
+                    <a href="/panel/eventos/{{ evento.id }}/eliminar" class="panel-button panel-button--danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="panel-empty-state">Todavía no hay eventos cargados.</p>
+{% endif %}
+{% endblock %}
