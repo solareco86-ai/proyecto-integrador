@@ -268,6 +268,10 @@
     filter: brightness(1.1);
 }
 
+a.panel-button {
+    text-decoration: none;
+}
+
 /* --- Login --- */
 
 .panel-body--login {
@@ -330,12 +334,45 @@
     background: var(--dm-bg-1);
     color: var(--dm-text-0);
     font-size: var(--ui-font-size-body);
+    font-family: inherit;
+}
+
+.panel-field__textarea {
+    resize: vertical;
+    min-height: 8rem;
+}
+
+.panel-checkbox-field {
+    display: flex;
+    align-items: center;
+    gap: var(--ui-space-2);
+    font-size: var(--ui-font-size-label);
+    color: var(--dm-text-0);
+}
+
+/* --- Formularios de contenido (noticias/eventos/comunicados) --- */
+
+.panel-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-4);
+    max-width: 640px;
+    background: var(--dm-surface-0);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-md);
+    padding: var(--ui-space-6);
+}
+
+.panel-form__actions {
+    display: flex;
+    gap: var(--ui-space-3);
+    flex-wrap: wrap;
 }
 
 /* --- Alertas --- */
 
 .panel-alert {
-    margin: 0;
+    margin: 0 0 var(--ui-space-4);
     padding: var(--ui-space-3);
     border-radius: var(--ui-radius-sm);
     font-size: var(--ui-font-size-label);
@@ -345,6 +382,12 @@
     background: rgba(220, 38, 38, .15);
     border: 1px solid rgba(220, 38, 38, .4);
     color: #fecaca;
+}
+
+.panel-alert--success {
+    background: rgba(var(--dm-status-green-rgb), .15);
+    border: 1px solid rgba(var(--dm-status-green-rgb), .4);
+    color: var(--dm-status-green);
 }
 
 /* ==========================================================================

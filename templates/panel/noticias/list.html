@@ -5,8 +5,14 @@
 {% block panel_content %}
 <div class="panel-page-header">
     <h1 class="panel-page-title">Noticias</h1>
-    <span class="panel-button panel-button--disabled" aria-disabled="true" title="Próximamente">Nueva noticia (Próximamente)</span>
+    <a href="/panel/noticias/nueva" class="panel-button panel-button--primary">Nueva noticia</a>
 </div>
+
+{% if ok == "creada" %}
+<p class="panel-alert panel-alert--success" role="status">Noticia creada correctamente.</p>
+{% elif ok == "editada" %}
+<p class="panel-alert panel-alert--success" role="status">Noticia editada correctamente.</p>
+{% endif %}
 
 {% if noticias %}
 <div class="panel-table-wrapper">
@@ -32,7 +38,7 @@
                 </td>
                 <td>{{ noticia.created_at }}</td>
                 <td class="panel-table__actions">
-                    <span class="panel-link-disabled" aria-disabled="true" title="Próximamente">Editar</span>
+                    <a href="/panel/noticias/{{ noticia.id }}/editar" class="panel-button panel-button--secondary">Editar</a>
                     <span class="panel-link-disabled" aria-disabled="true" title="Próximamente">Eliminar</span>
                 </td>
             </tr>
