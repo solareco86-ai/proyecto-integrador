@@ -229,20 +229,8 @@ async def test_listado_seccion_activa_comunicados():
     assert 'href="/panel/comunicados" class="panel-sidebar__link panel-sidebar__link--active"' in response.text
 
 
-# --- Alcance: sin crear/editar/eliminar en esta subetapa ---
-
-
-@pytest.mark.asyncio
-async def test_no_existe_ruta_de_crear_comunicado_todavia():
-    usuario = _usuario()
-    _configurar(usuario)
-
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="https://test") as ac:
-        await _login(ac, usuario)
-        response = await ac.get("/panel/comunicados/nuevo")
-
-    assert response.status_code == 404
+# --- Alcance: sin editar/eliminar en esta subetapa ---
+# (la creación ya se implementó en 4D-2; ver tests/test_panel_comunicados_crear.py)
 
 
 @pytest.mark.asyncio

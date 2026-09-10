@@ -5,8 +5,12 @@
 {% block panel_content %}
 <div class="panel-page-header">
     <h1 class="panel-page-title">Comunicados</h1>
-    <span class="panel-button panel-button--disabled" aria-disabled="true" title="Próximamente">Nuevo comunicado (Próximamente)</span>
+    <a href="/panel/comunicados/nuevo" class="panel-button panel-button--primary">Nuevo comunicado</a>
 </div>
+
+{% if ok == "creado" %}
+<p class="panel-alert panel-alert--success" role="status">Comunicado creado correctamente.</p>
+{% endif %}
 
 {% if comunicados %}
 <div class="panel-table-wrapper">
