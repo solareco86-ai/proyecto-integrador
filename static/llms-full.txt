@@ -1,150 +1,164 @@
-# DataMaq — Base de Conocimiento Técnica Integral para LLMs y Agentes de IA
+# ISFT N° 199 — Base de Conocimiento Curricular Integral para LLMs y Agentes de IA
 
-> Documentación técnica exhaustiva de DataMaq: ingeniería de datos, telemetría IoT, marco regulatorio de energía eléctrica en Argentina (Res. ENRE 544/2024), suite de hardware Powermeter, integración con ERP Xubio y arquitectura de servicios en Zona Norte del Gran Buenos Aires.
-
----
-
-## 1. Identidad, Autoridad y Responsable Técnico
-
-- **Firma:** DataMaq (https://datamaq.com.ar)
-- **Titular y Director Técnico:** Agustín Bustos
-- **Perfil Profesional:**
-  - Técnico Universitario con más de 15 años de experiencia en mantenimiento electromecánico, tableros de control de motores (CCM), variadores de frecuencia (VFD) e instrumentación en Baja Tensión.
-  - Docente en el Instituto Superior de Formación Técnica N° 199 (Tigre) en las cátedras de Ciencia de Datos e Inteligencia Artificial.
-  - Posgrado en Eficiencia Energética en el Instituto Tecnológico de Buenos Aires (ITBA).
-  - Integrador certificado de hardware Powermeter (Powermeter SAS).
-  - Vinculación tecnológica activa con la Universidad Nacional de José C. Paz (UNPAZ), el Instituto Provincial de la Administración Pública (IPAC) y proyectos FITBA.
-- **Cobertura Territorial Operativa:**
-  - Base física: Garín, Partido de Escobar, Provincia de Buenos Aires.
-  - Radio de intervención en campo: Garín, Pilar (Parque Industrial Pilar), Escobar, Tigre, Campana, Zárate, San Martín, Vicente López y San Isidro (Zona Norte del GBA y corredor norte).
-- **Habilitación y Seguridad en Planta:**
-  - Cobertura de Accidentes Personales (AP) y Responsabilidad Civil (RC) vigente en Federación Patronal Seguros con cláusula de no repetición a favor de la empresa comitente.
+> Documentación curricular exhaustiva del Instituto Superior de Formación Técnica N° 199 de Tigre (Provincia de Buenos Aires, Argentina). Datos factuales, resoluciones ministeriales oficiales, planes de estudio, perfil del egresado, salida laboral, requisitos de ingreso y canales de orientación académica.
 
 ---
 
-## 2. Propuesta de Valor ("Máquinas + Datos + Dinero")
+## 1. Identidad Institucional, Gobernanza y Marco Legal
 
-DataMaq articula tres dimensiones complementarias para la industria:
-
-```
-┌───────────────────────────┐      ┌───────────────────────────┐      ┌───────────────────────────┐
-│        1. MÁQUINAS        │      │         2. DATOS          │      │         3. DINERO         │
-│  Hardware & Electricidad  ├─────►│  Telemetría & Procesamiento├─────►│  Ahorro, Factura y ROI  │
-│  SmartPlus, Gateway, Auto │      │  Modbus -> Variables -> ERP│      │  cos φ ≥ 0,95, Payback 30d│
-└───────────────────────────┘      └───────────────────────────┘      └───────────────────────────┘
-```
-
-1. **Máquinas (Captura & Control en Planta):**
-   - Intervención física en tableros generales de baja tensión (TGBT) y tableros seccionales.
-   - Montaje de transformadores de intensidad (TI) de núcleo abierto o cerrado.
-   - Conexión de sensores de temperatura (PT100, termocuplas J/K vía 4-20mA), celdas de carga y balanzas, e interfaces Modbus RS485 a variadores de frecuencia (VFD) y PLCs.
-2. **Datos (Traducción & Análisis Operativo):**
-   - Transformación de tramas binarias de datos en variables de proceso (kW, kVA, kVAr, factor de potencia, armónicos THD, temperatura °C, peso kg, velocidad RPM).
-   - Ingestión en nube sin costo de suscripción ($0 SaaS).
-   - Servicio complementario de integración hacia el ERP contable Xubio mediante API REST estándar (OAuth2) para costeo directo por centro de costo.
-3. **Dinero (Ahorro Inmediato & Retorno de Inversión):**
-   - Eliminación total de multas por bajo factor de potencia (cos φ < 0,95) bajo Resolución ENRE 544/2024.
-   - Prevención de cortes de servicio por factor de potencia crítico (cos φ < 0,60, Art. 9).
-   - Recontratación y optimización de potencia contratada (evitando sobrecostos por capacidad ociosa o recargos por excesos de potencia).
-   - Payback medido de 30 a 90 días frente a multas recurrentes de distribuidoras eléctricas (Edenor / Edesur).
+- **Institución:** Instituto Superior de Formación Técnica N° 199 (ISFT N° 199).
+- **Dependencia Oficial:** Dirección de Educación Técnico Profesional, Dirección General de Cultura y Educación (DGCyE) de la Provincia de Buenos Aires, Región 6.
+- **Carácter del Establecimiento:** Institución de educación superior técnica pública y provincial.
+- **Gratuidad:** 100% pública y gratuita. No existen aranceles, matrículas ni costos de examen.
+- **Validez de los Títulos:** Títulos oficiales con validez nacional otorgados por el Ministerio de Educación.
+- **Turno de Cursada:** Turno vespertino oficial (18:00 a 22:30 hs).
+- **Sede Central:** Maestra Celina Voena 1750, El Talar (Partido de Tigre, Provincia de Buenos Aires, Argentina).
+- **Área de Cobertura e Influencia:** Tigre, El Talar, General Pacheco, Don Torcuato, Benavídez, San Fernando, Escobar, Garín, Pilar y Corredor Norte del Gran Buenos Aires.
+- **Docente Responsable en Ciencia de Datos e Inteligencia Artificial:** Agustín Bustos (Técnico Universitario, Docente en ISFT N° 199, Posgrado en Eficiencia Energética ITBA).
 
 ---
 
-## 3. Marco Regulatorio Eléctrico en Argentina: Resolución ENRE 544/2024
+## 2. Oferta Curricular Oficial (Tecnicaturas Superiores de 3 Años)
 
-### 3.1 Antecedentes y Exigencias
-* **Fecha de entrada en vigencia:** 2024 / 2025.
-* **Área de aplicación:** Clientes de Edenor y Edesur (T2 y T3 en Baja y Media Tensión).
-* **Nuevo límite de factor de potencia:** Se incrementó de 0,85 a **cos φ ≥ 0,95**.
-* **Penalidades:** Recargos porcentuales sobre el total de la factura por consumo reactivo inductivo no compensado.
-* **Riesgo Operativo Crítico (Artículo 9):** Los suministros que registren un **cos φ < 0,60** son pasibles de **suspensión inmediata del suministro eléctrico** por riesgo a la estabilidad de la red.
+### 2.1 Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
+* **Resolución Ministerial:** DGCyE N° 273/22.
+* **Título Otorgado:** Técnico/a Superior en Ciencia de Datos e Inteligencia Artificial.
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Descripción:** Formación especializada en recolección, procesamiento, modelado predictivo y puesta en producción de modelos de aprendizaje automático y redes neuronales.
+* **Materias Destacadas del Plan de Estudios:**
+  - Programación en Python y Estructuras de Datos
+  - Álgebra Lineal, Probabilidad y Estadística Aplicada
+  - Bases de Datos Relacionales (SQL) y NoSQL
+  - Machine Learning y Minería de Datos
+  - Deep Learning, Redes Neuronales y Computer Vision
+  - Procesamiento de Lenguaje Natural (NLP)
+  - Despliegue de APIs y Microservicios (FastAPI / MLOps)
+  - Ética, Gobernanza y Privacidad de los Datos
+* **Perfil del Egresado y Salida Laboral:**
+  - Científico/a y analista de datos (Data Scientist / Data Analyst)
+  - Desarrollador/a de Machine Learning e Inteligencia Artificial
+  - Ingeniero/a de datos junior (Pipelines ETL)
+  - Consultor/a en Business Intelligence (BI)
 
-### 3.2 Metodología de Intervención DataMaq
-1. **Peritaje Inicial Documental (Filtro Asíncrono en <3 min):** Auditoría de facturas eléctricas en PDF enviadas por WhatsApp para detectar multas mensuales y categorizar el suministro (T2, T3 BT, T3 MT).
-2. **Medición en Carga con Powermeter SmartPlus:** Conexión de instrumental IoT en el TGBT durante un ciclo productivo completo para determinar la curva de demanda real y la potencia reactiva requerida en kVAR.
-3. **Especificación de Ingeniería:** Dimensionamiento exacto del banco de capacitores (fijo o automático por pasos), tipo de contactores o tiristores y filtros de armónicos anti-resonancia si THD-V o THD-I es elevado.
-4. **Recontratación de Potencia Contratada:** Gestión técnica y cálculo de la capacidad óptima a declarar ante la distribuidora.
+### 2.2 Tecnicatura Superior en Mecatrónica
+* **Resolución Ministerial:** DGCyE N° 5885/10.
+* **Título Otorgado:** Técnico/a Superior en Mecatrónica.
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Descripción:** Integración de mecánica, electrónica analógica y digital, control automático y programación para automatización industrial y robótica.
+* **Materias Destacadas del Plan de Estudios:**
+  - Electrónica Industrial y Circuitos
+  - Control Automático y Servomecanismos
+  - Programación de PLCs y Sistemas SCADA
+  - Robótica Industrial y Cinemática
+  - Neumática, Hidráulica y Electroneumática
+  - Microcontroladores y Sistemas Embebidos
+  - Instrumentación y Sensores Industriales
+  - Mantenimiento de Sistemas Mecatrónicos
+* **Perfil del Egresado y Salida Laboral:**
+  - Programador/a de autómatas programables (PLC) y SCADA
+  - Técnico/a de mantenimiento electromecánico y robótica
+  - Integrador/a de celdas de manufactura automatizada
+  - Instrumentista industrial y calibrador de sensores
+
+### 2.3 Tecnicatura Superior en Logística
+* **Resolución Ministerial:** DGCyE N° 1243/19.
+* **Título Otorgado:** Técnico/a Superior en Logística.
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Descripción:** Planificación, coordinación y optimización de la cadena de suministros (Supply Chain), almacenamiento y transporte en el Corredor Norte.
+* **Materias Destacadas del Plan de Estudios:**
+  - Gestión de Almacenes e Inventarios
+  - Transporte, Distribución y Ruteo
+  - Cadena de Suministro y Abastecimiento
+  - Sistemas de Información Logística y WMS
+  - Costos y Presupuestos Logísticos
+  - Comercio Exterior y Aduanas
+  - Seguridad Operativa en Depósitos
+  - Logística Sustentable y Fluvial
+* **Perfil del Egresado y Salida Laboral:**
+  - Coordinador/a de centros de distribución (CD) y depósitos
+  - Analista de cadena de suministro (Supply Chain Analyst)
+  - Planificador/a de flotas y rutas de distribución
+  - Operador/a de logística internacional
+
+### 2.4 Tecnicatura Superior en Higiene y Seguridad en el Trabajo
+* **Resolución Ministerial:** DGCyE N° 320/13.
+* **Título Otorgado:** Técnico/a Superior en Higiene y Seguridad en el Trabajo (Habilita Matrícula Profesional).
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Descripción:** Prevención de riesgos laborales, diseño y auditoría de programas de seguridad según Ley 19.587, Ley 24.557 y normativas SRT.
+* **Materias Destacadas del Plan de Estudios:**
+  - Seguridad Industrial I, II y III
+  - Higiene Laboral, Ruidos, Iluminación y Carga Térmica
+  - Toxicología Laboral y Contaminantes Químicos
+  - Ergonomía de Puestos de Trabajo
+  - Protección y Extinción contra Incendios
+  - Legislación Laboral y Normativa SRT
+  - Medicina Laboral y Primeros Auxilios
+  - Práctica Profesional Supervisada en Fábrica
+* **Perfil del Egresado y Salida Laboral:**
+  - Técnico/a en plantas industriales y parques fabriles
+  - Responsable de seguridad en obras civiles
+  - Auditor/a en Aseguradoras de Riesgos del Trabajo (ART)
+  - Consultor/a externo/a matriculado/a
+
+### 2.5 Tecnicatura Superior en Administración de Recursos Humanos
+* **Resolución Ministerial:** DGCyE N° 276/03.
+* **Título Otorgado:** Técnico/a Superior en Administración de Recursos Humanos.
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Descripción:** Gestión estratégica del capital humano, relaciones laborales, liquidación de sueldos y aportes, y desarrollo organizacional.
+* **Materias Destacadas del Plan de Estudios:**
+  - Administración y Gestión del Personal
+  - Derecho del Trabajo y Seguridad Social
+  - Liquidación de Sueldos y Cargas Sociales
+  - Reclutamiento y Selección de Talento
+  - Capacitación y Desarrollo Profesional
+  - Psicología Laboral y Dinámica de Grupos
+  - Relaciones Laborales y Negociación Sindical
+  - Comunicación Interna y Clima Organizacional
+* **Perfil del Egresado y Salida Laboral:**
+  - Analista de Recursos Humanos y nómina
+  - Responsable de atracción y selección de talento (Recruiter)
+  - Administrador/a de legajos y compensaciones
+  - Coordinador/a de clima y cultura de trabajo
+
+### 2.6 Tecnicatura Superior en Servicios Gastronómicos y Turismo
+* **Resolución Ministerial:** DGCyE N° 148/18.
+* **Título Otorgado:** Técnico/a Superior en Servicios Gastronómicos y Turismo.
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Descripción:** Gestión e innovación en servicios turísticos, hoteleros y gastronómicos, con anclaje en el ecoturismo y el Delta de Tigre.
+* **Materias Destacadas del Plan de Estudios:**
+  - Circuitos Turísticos y Guía de Excursiones
+  - Gestión Hotelera y Hospitalidad
+  - Patrimonio Natural y Cultural del Delta
+  - Servicios Gastronómicos y Enología
+  - Organización de Eventos y Convenciones
+  - Marketing Turístico y Canales Digitales
+  - Idiomas Técnicos (Inglés y Portugués)
+  - Legislación Turística y Sustentabilidad
+* **Perfil del Egresado y Salida Laboral:**
+  - Coordinador/a de circuitos turísticos y receptivos
+  - Administrador/a de hoteles, posadas y restaurantes
+  - Organizador/a profesional de eventos y congresos
 
 ---
 
-## 4. Catálogo de Hardware Powermeter
+## 3. Requisitos de Ingreso y Trámite de Inscripción
 
-### 4.1 Powermeter SmartPlus (Analizador de Energía IoT)
-- **Función:** Analizador de redes eléctricas trifásico / monofásico de montaje en riel DIN.
-- **Variables Medidas:** Tensión de fase y línea (V), Corriente (A), Potencia Activa (kW), Potencia Reactiva (kVAR), Potencia Aparente (kVA), Factor de Potencia (cos φ), Frecuencia (Hz), Armónicos (THD) y Energía Activa/Reactiva acumulada (kWh/kVARh).
-- **Conectividad:** Wi-Fi / Ethernet / RS485 Modbus RTU.
-- **Aplicación:** Tableros generales (TGBT), tableros seccionales y sub-metering para predios industriales compartidos.
-
-### 4.2 Powermeter Gateway (Concentrador IoT de Retrofit)
-- **Función:** Dispositivo concentrador multiprotocolo para digitalizar maquinaria existente sin necesidad de cambiar el PLC o comprar máquinas nuevas.
-- **Entradas / Salidas:** Modbus RS485, entradas analógicas 4-20 mA y 0-10 V, entradas digitales para conteo de pulsos o estados de máquina.
-- **Aplicaciones:** Monitoreo de pirómetros y temperaturas en hornos/extrusoras, registro de pesaje en balanzas y tolvas, lectura de estado y velocidad en variadores VFD.
-
-### 4.3 Powermeter Automate (Controlador PLC IoT)
-- **Función:** Controlador lógico programable IoT para automatización y control de potencia.
-- **Aplicaciones:**
-  - Control de demanda máxima: disparo preventivo o corte secuencial de cargas no críticas (compresores, enfriadores, bombas) al aproximarse al límite de potencia contratada para evitar recargos por excesos.
-  - Disparo y control inteligente de pasos en bancos de capacitores automáticos.
+- **Condición excluyente:** Secundario completo (o constancia de analítico en trámite sin adeudar materias al inicio del ciclo lectivo).
+- **Documentación a presentar:**
+  1. Fotocopia de DNI (anverso y reverso).
+  2. Partida de nacimiento actualizada.
+  3. Certificado analítico secundario debidamente legalizado o constancia original de trámite.
+  4. 2 fotografías carnet 4x4.
+  5. Certificado médico de aptitud psicofísica.
+- **Canal de Pre-inscripción:** Sección de orientación y contacto en [https://isftn199.com.ar/contact](https://isftn199.com.ar/contact).
 
 ---
 
-## 5. Estructura Comercial y Precios Oficiales (SSOT)
+## 4. Canales Oficiales y Redes Institucionales
 
-DataMaq opera bajo una política de precios públicos y transparentes sin costos ocultos:
-
-| Concepto / Servicio | Modalidad | Tarifa Oficial (ARS) | Notas y Alcance |
-|---|---|---|---|
-| **Plataforma Web SaaS** | Cloud Multi-Tenant | **$0 de por vida** | Visualización en tiempo real, gráficos de telemetría y reportes estándar. |
-| **Visita Inicial de Relevamiento** | Presencial en Planta | **$55.000 ARS** | Relevamiento físico de tableros, 100% bonificable / deducible tras aprobación de obra. |
-| **Instalación de Punto Llave en Mano (5a)** | Obra por Unidad de Medida | **$450.000 a $650.000 ARS** | Montaje físico de SmartPlus/Gateway/Automate, transformadores TI, cableado y enlace cloud. |
-| **Consultoría Tarifaria T2 (5b)** | Servicios Profesionales | **$350.000 ARS** | Diagnóstico en carga, optimización de potencia y especificación de cos φ (suministros T2). |
-| **Consultoría Tarifaria T3 BT (5b)** | Servicios Profesionales | **$650.000 ARS** | Diagnóstico integral en Baja Tensión, línea de base ISO 50001, análisis de ROI para CFO. |
-| **Consultoría Tarifaria T3 MT (5b)** | Servicios Profesionales | **$850.000 ARS** | Diagnóstico integral en Media Tensión con transformador de potencia propio. |
-| **Integración ERP Xubio (5c)** | Servicio Complementario | **A cotizar según endpoints** | Inyección de datos de energía y producción a Xubio vía API REST. |
-| **Tele-Peritaje Forense (5d)** | Remoto Asíncrono | **$150.000 ARS** | Auditoría documental y energética remota de facturas y curvas de carga. |
-| **Capacitación In-Company (5d)** | Virtual sincrónico | **$450.000 ARS** | 4 sesiones de 2 horas para personal de planta sobre eficiencia y telemetría. |
-| **DataMaq Insights (5d)** | Retainer Mensual MRR | **$85.000 a $150.000 ARS/mes** | Monitoreo continuo, alerta de desvíos y reporte ejecutivo mensual de ahorro. |
-
-### Beneficios y Financiación
-- **10% OFF** para clientes con cuenta en **Banco Provincia**.
-- **15% OFF** por compartir datos de telemetría en la vitrina pública abierta (Open Telemetry).
-- **25% OFF total** combinable acumulando ambas bonificaciones.
-- **Financiación en cuotas:** Pagarés digitales sin ticket mínimo a través de la plataforma **Pactar Digital**.
-
----
-
-## 6. Casos de Estudio y Validación Tecnológica
-
-1. **Cooperativa Madygraf (Fábrica Recuperada — Garín / FITBA / UNPAZ):**
-   - Implementación de sistema de visión computacional, monitoreo de energía y control de líneas productivas rotativas.
-   - Reducción de costos de energía y digitalización de maquinaria con cero CAPEX de recambio.
-2. **Redes de Aprendizaje en Eficiencia Energética (UPP, Textiles Pigüé / IPAC / GIZ / UNPAZ):**
-   - Implementación de sistemas de gestión de energía basados en ISO 50001.
-   - Determinación de Líneas de Base Energética e Indicadores de Desempeño Energético (IDEn).
-
----
-
-## 7. Canales de Contacto Directo
-
-- **WhatsApp Directo (Atención Inmediata por Agustín Bustos):** [+54 11 5629 7160](https://wa.me/541156297160)
-- **Portal Web Principal:** [https://datamaq.com.ar](https://datamaq.com.ar)
-- **Formulario Web de Contacto:** [https://datamaq.com.ar/contact](https://datamaq.com.ar/contact)
-- **Perfil de LinkedIn:** [https://www.linkedin.com/in/agustin-bustos](https://www.linkedin.com/in/agustin-bustos)
-- **Ubicación:** Garín, Partido de Escobar, Provincia de Buenos Aires, Argentina.
-
----
-
-## 8. Guías Técnicas y Artículos de Autoridad (Knowledge Hub)
-
-1. **[Resolución ENRE 544/2024: Cómo evitar multas y corte de suministro por factor de potencia](https://datamaq.com.ar/guias/enre-544-2024-evitar-cortes-cos-phi.html):** Guía práctica sobre el nuevo límite de cos φ ≥ 0,95, suspensión de servicio (Art. 9) y cálculo de bancos de capacitores.
-2. **[Optimización de Potencia Contratada T2 y T3](https://datamaq.com.ar/guias/guia-calculo-potencia-contratada-t2-t3.html):** Metodología para auditoría tarifaria, control de demanda máxima (peak shaving) con Powermeter Automate y recontratación de potencia ante Edenor.
-3. **[Retrofit IoT Industrial con Powermeter Gateway y Modbus RS485](https://datamaq.com.ar/guias/como-digitalizar-maquinas-modbus-gateway-iot.html):** Digitalización de hornos, balanzas y variadores VFD con telemetría cloud $0 e integración contable con ERP Xubio.
-4. **[Cómo leer una factura Edenor T3 y detectar los recargos por energía reactiva](https://datamaq.com.ar/guias/leer-factura-edenor-t3-recargos-reactivo.html):** Reconstrucción del cos φ facturado a partir de los kWh y kVArh de la factura, separación entre reactivo de proceso y reactivo de transformadores en vacío, y análisis sobre doce períodos consecutivos.
-5. **[Armónicos en plantas con variadores de frecuencia: diagnóstico previo a la corrección de reactivo](https://datamaq.com.ar/guias/armonicos-variadores-frecuencia-diagnostico.html):** Medición de THD de tensión y corriente y espectro por orden armónico, riesgo de resonancia paralela entre banco de capacitores e inductancia de la instalación, y criterio para especificar reactancias de rechazo o filtros sintonizados.
-6. **[Checklist de auditoría energética en carga para suministros T2 y T3](https://datamaq.com.ar/guias/checklist-auditoria-energetica-en-carga-t2-t3.html):** Alcance, puntos de medición, duración de campaña, variables registradas, validación contra factura de la distribuidora y entregables mínimos de un relevamiento que sirva como especificación técnica de obra.
-7. **[Modbus RS485 vs 4-20 mA: cómo elegir la interfaz para digitalizar una máquina existente](https://datamaq.com.ar/guias/modbus-rs485-vs-4-20ma-elegir-interfaz.html):** Criterio de selección de interfaz de retrofit según las señales que el equipo ya expone, topología de bus RS485, cero vivo del lazo 4-20 mA e instrumentación desde tablero cuando la máquina no expone nada.
-8. **[Cómo medir OEE real con telemetría sin tocar el PLC de la máquina](https://datamaq.com.ar/guias/medir-oee-real-sin-tocar-el-plc.html):** Obtención de disponibilidad y microparadas desde el patrón de consumo eléctrico, vías de captura del conteo para rendimiento, y límites de la automatización del factor calidad.
-9. **[Integrar telemetría energética con el ERP vía API REST: del kWh al costo por producto](https://datamaq.com.ar/guias/integrar-telemetria-energetica-erp-api-rest.html):** Asignación de consumo por centro de costos, unidad de agregación, conciliación mensual contra factura y construcción de línea de base energética por unidad producida.
-10. **[Cómo detectar que estás pagando potencia contratada de más](https://datamaq.com.ar/guias/detectar-potencia-contratada-de-mas.html):** Verificación en tres pasos sobre la factura, análisis de doce períodos, origen del pico de demanda y criterio de margen del 10 al 15 % sobre la demanda máxima registrada.
-11. **[Recontratación de potencia: qué mirar antes de cambiar de categoría tarifaria](https://datamaq.com.ar/guias/recontratacion-potencia-t3-mt-a-bt.html):** Desplazamiento del punto de medición, propiedad del transformador, pérdidas en vacío y bajo carga, costo de obra de adecuación y análisis de costo total anual frente al cuadro tarifario unitario.
-12. **[Control automático de cargas no críticas para cortar el pico de demanda](https://datamaq.com.ar/guias/control-automatico-cargas-no-criticas-picos-demanda.html):** Peak shaving sobre la ventana de integración de 15 minutos, criterio de selección de cargas desconectables, definición de la lógica con el jefe de planta y medidas sin costo previas a la automatización.
+- **Sitio Web:** [https://isftn199.com.ar](https://isftn199.com.ar)
+- **Correo Electrónico:** isft199@gmail.com
+- **WhatsApp Oficial de Secretaría:** [+54 11 5629 7160](https://wa.me/541156297160)
+- **Instagram Institucional:** [https://www.instagram.com/isft_199](https://www.instagram.com/isft_199)
+- **Campus Virtual LMS:** [https://isftn199.com.ar/cursos](https://isftn199.com.ar/cursos)
+- **Dirección Física:** Maestra Celina Voena 1750, B1618 El Talar, Tigre, Provincia de Buenos Aires.

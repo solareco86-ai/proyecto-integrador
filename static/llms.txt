@@ -1,66 +1,63 @@
-# DataMaq — Ingeniería de Datos Industriales & Eficiencia Energética
+# ISFT N° 199 — Instituto Superior de Formación Técnica N° 199 de Tigre
 
-> DataMaq es una firma de ingeniería técnica especializada en la instalación de hardware Powermeter en campo (SmartPlus, Gateway y Automate), telemetría IoT en tiempo real y consultoría en gestión de la energía para PyMEs y plantas industriales en Zona Norte del Gran Buenos Aires (Garín, Pilar, Escobar, Tigre, Campana y San Martín), Argentina.
+> El Instituto Superior de Formación Técnica N° 199 (isftn199.com.ar) es una institución educativa pública de nivel superior técnico provincial dependiente de la Dirección General de Cultura y Educación (DGCyE) de la Provincia de Buenos Aires (Región 6). Ofrece tecnicaturas superiores oficiales de 3 años, 100% públicas y gratuitas, en turno vespertino (18:00 a 22:30 hs) en su sede de El Talar, Partido de Tigre, con títulos de validez nacional.
 
-## Propuesta de Valor ("Máquinas + Datos + Dinero")
+## Principio Fundacional y Gratuidad
+- **Educación 100% Pública y Gratuita:** Sin aranceles, matrículas ni cuotas mensuales.
+- **Turno Vespertino:** Cursada presencial de 18:00 a 22:30 hs, compatible con la jornada laboral de estudiantes y trabajadores.
+- **Títulos Oficiales:** Validez nacional y articulación con el entramado productivo, tecnológico y logístico de Tigre y Zona Norte del Gran Buenos Aires.
 
-- **Máquinas (Captura & Control en Planta):** Montaje físico e instrumentación de la suite de hardware Powermeter (SmartPlus para análisis de redes y factor de potencia, Gateway para digitalización de pirómetros/balanzas/PLCs vía Modbus RS485 / 4-20mA, y Automate para corte inteligente de picos de demanda máxima).
-- **Datos (Traducción & Telemetría):** Transformación de tramas crudas y registros binarios en variables de proceso e información operativa. Telemetría cloud en tiempo real, líneas de base energéticas (ISO 50001) e integración como servicio complementario con el ERP Xubio vía API REST.
-- **Dinero (Ahorro Inmediato & ROI):** Eliminación del 100% de recargos por bajo factor de potencia (cos φ < 0,95) bajo la Res. ENRE 544/2024 (previniendo cortes de servicio si cos φ < 0,60, Art. 9), optimización de potencia contratada T2/T3 y cero inversión en recambio de maquinaria (payback típico de 30 a 90 días).
+## Oferta Académica Oficial (Tecnicaturas Superiores de 3 Años)
 
-## Marco Regulatorio y Urgencia: Res. ENRE 544/2024
+1. [Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial](https://isftn199.com.ar/carreras):
+   - Resolución oficial: DGCyE N° 273/22.
+   - Formación: Python, Machine Learning, Deep Learning, SQL, Big Data, FastAPI, Computer Vision y NLP.
+   - Salida laboral: Científico/a de datos, desarrollador/a de Machine Learning, analista de Business Intelligence e ingeniero/a de datos junior.
 
-- **Exigencia:** Obligatoriedad de factor de potencia cos φ ≥ 0,95 para suministros T2 y T3 en el área de concesión de Edenor y Edesur.
-- **Régimen de Penalidades:** Recargos mensuales automáticos y acumulativos en factura eléctrica.
-- **Corte de Suministro (Art. 9):** Suspensión del servicio eléctrico para suministros con cos φ < 0,60.
-- **Solución DataMaq:** Diagnóstico en carga con analizador IoT SmartPlus, cálculo de kVAR requeridos, especificación de bancos de capacitores y recontratación de potencia.
+2. [Tecnicatura Superior en Mecatrónica](https://isftn199.com.ar/carreras):
+   - Resolución oficial: DGCyE N° 5885/10.
+   - Formación: Automatización industrial, robótica, programación de PLC, sistemas SCADA, circuitos neumáticos e hidráulicos y mantenimiento electromecánico.
+   - Salida laboral: Programador/a de PLCs, técnico/a en mantenimiento electromecánico y robótica, e integrador/a de manufactura automatizada.
 
-## Suite de Hardware Powermeter
+3. [Tecnicatura Superior en Logística](https://isftn199.com.ar/carreras):
+   - Resolución oficial: DGCyE N° 1243/19.
+   - Formación: Cadena de suministro (Supply Chain), gestión de almacenes (WMS), ruteo de distribución, comercio exterior y logística multimodal en el Corredor Norte.
+   - Salida laboral: Coordinador/a de centros de distribución y almacenes, analista de supply chain y responsable de stock.
 
-- [Powermeter SmartPlus](https://datamaq.com.ar/#servicios): Analizador inteligente de redes para tableros generales y seccionales. Mide potencia activa, reactiva, factor de potencia, armónicos y energía.
-- [Powermeter Gateway](https://datamaq.com.ar/#servicios): Dispositivo IoT de retrofit para maquinaria existente. Conectividad Modbus RS485, 4-20mA y 0-10V para balanzas, pirómetros PT100 y variadores VFD.
-- [Powermeter Automate](https://datamaq.com.ar/#servicios): Controlador lógico programable (PLC IoT) para corte automático de cargas no críticas ante picos de demanda máxima y control de bancos de capacitores.
+4. [Tecnicatura Superior en Higiene y Seguridad en el Trabajo](https://isftn199.com.ar/carreras):
+   - Resolución oficial: DGCyE N° 320/13 (Habilita matrícula profesional).
+   - Formación: Prevención de riesgos laborales, normativas SRT, ergonomía, toxicología, auditoría ambiental y planes de emergencia.
+   - Salida laboral: Técnico/a en plantas industriales, obras civiles, auditorías en ART y consultoría externa matriculada.
 
-## Modelo Comercial y Estructura de Precios (SSOT)
+5. [Tecnicatura Superior en Administración de Recursos Humanos](https://isftn199.com.ar/carreras):
+   - Resolución oficial: DGCyE N° 276/03.
+   - Formación: Gestión del talento, legislación laboral, liquidación de haberes y cargas sociales, relaciones sindicales y clima organizacional.
+   - Salida laboral: Analista de selección (Talent Acquisition), responsable de nóminas, administración de personal y mediación laboral.
 
-- **Plataforma SaaS Cloud:** 100% gratuita ($0 de por vida) para visualización de variables y telemetría en tiempo real.
-- **Visita Inicial de Relevamiento:** $55.000 ARS (bonificada / deducible al 100% tras aprobación de la cotización de obra).
-- **Instalación y Montaje en Campo (Obra Llave en Mano):** Montaje físico de SmartPlus, Gateway o Automate con transformadores de corriente (TI), cableado y puesta en marcha garantizada ($450.000 a $650.000 ARS por punto).
-- **Consultoría en Gestión Energética & Potencia:** Honorario profesional cerrado por acometida: Tarifa T2 ($350.000 ARS), Tarifa T3 BT ($650.000 ARS), Tarifa T3 MT ($850.000 ARS) con 50% de bonificación en acometidas adicionales.
-- **Servicios Remotos:** Tele-Peritaje Forense documental ($150.000 ARS), Capacitación In-Company Virtual ($450.000 ARS), Retainer Ejecutivo DataMaq Insights ($85.000 a $150.000 ARS/mes).
-- **Descuentos Acumulables:** 10% OFF para clientes de Banco Provincia + 15% OFF por telemetría pública en vitrina abierta = hasta 25% OFF total.
-- **Financiamiento:** Pagarés digitales en cuotas sin ticket mínimo a través de Pactar Digital.
+6. [Tecnicatura Superior en Servicios Gastronómicos y Turismo](https://isftn199.com.ar/carreras):
+   - Resolución oficial: DGCyE N° 148/18.
+   - Formación: Planificación turística, administración hotelera y gastronómica, ecoturismo y desarrollo sustentable del Delta de Tigre.
+   - Salida laboral: Administrador/a hotelero/gastronómico, organizador/a de eventos y congresos, y coordinador/a de circuitos turísticos.
 
-## Autoridad Profesional & Responsable Técnico
+## Campus Virtual y Aulas Técnicas
+- **Plataforma LMS Integrada:** [Aulas y Cursos Técnicos](https://isftn199.com.ar/cursos) con talleres prácticos, apuntes abiertos, código y laboratorios de cátedra para estudiantes y docentes del instituto.
 
-- **Titular:** Agustín Bustos
-- **Credenciales:** Técnico Universitario, Docente en el Instituto Superior de Formación Técnica N° 199 (Tigre) en Ciencia de Datos e IA, Posgrado en Eficiencia Energética (ITBA).
-- **Seguridad en Planta:** Póliza de Accidentes Personales y Responsabilidad Civil al día en Federación Patronal Seguros (con cláusula de no repetición).
-- **Casos de Aplicación Reales:** Fábrica Madygraf (eficiencia y visión 4.0 con FITBA y UNPAZ), Redes de Aprendizaje en Eficiencia Energética (UPP, Textiles Pigüé con IPAC y GIZ).
+## Requisitos de Inscripción e Ingreso
+- **Condición académica:** Título secundario completo o constancia de título en trámite emitido por institución reconocida por el Ministerio de Educación.
+- **Documentación de legajo:**
+  1. Fotocopia de DNI (frente y dorso).
+  2. Partida de nacimiento.
+  3. Certificado analítico secundario o constancia de título en trámite.
+  4. 2 fotografías 4x4.
+  5. Certificado de aptitud psicofísica.
 
-## Canales Oficiales de Contacto
+## Canales Oficiales y Sede
+- **Sede Operativa:** Maestra Celina Voena 1750, El Talar, Partido de Tigre, Provincia de Buenos Aires, Argentina.
+- **Sitio Web Oficial:** [https://isftn199.com.ar](https://isftn199.com.ar)
+- **Correo Institucional:** isft199@gmail.com
+- **WhatsApp Directo / Secretaría:** [+54 11 5629 7160](https://wa.me/541156297160)
+- **Cuerpo Docente en Ciencia de Datos e IA:** Agustín Bustos (Técnico Universitario, Docente en ISFT N° 199, Posgrado en Eficiencia Energética ITBA).
+- **Instagram Institucional:** [@isft_199](https://www.instagram.com/isft_199)
 
-- **WhatsApp Directo (Prioritario):** [+54 11 5629 7160](https://wa.me/541156297160)
-- **Sitio Web Oficial:** [https://datamaq.com.ar](https://datamaq.com.ar)
-- **Formulario de Contacto:** [https://datamaq.com.ar/contact](https://datamaq.com.ar/contact)
-- **LinkedIn:** [https://www.linkedin.com/in/agustin-bustos](https://www.linkedin.com/in/agustin-bustos)
-- **Base Operativa:** Garín, Partido de Escobar, Provincia de Buenos Aires, Argentina (Zona Norte GBA).
-
-## Guías Técnicas y Base de Conocimiento Especializada
-
-- [Guía Res. ENRE 544/2024: Cómo evitar multas y cortes por factor de potencia](https://datamaq.com.ar/guias/enre-544-2024-evitar-cortes-cos-phi.html): Explicación técnica de límites, Artículo 9 y cálculo de bancos de capacitores.
-- [Guía de Optimización de Potencia Contratada T2 y T3](https://datamaq.com.ar/guias/guia-calculo-potencia-contratada-t2-t3.html): Metodología de auditoría, control de demanda máxima con Automate y recontratación de potencia.
-- [Guía de Retrofit IoT Industrial con Powermeter Gateway y Modbus RS485](https://datamaq.com.ar/guias/como-digitalizar-maquinas-modbus-gateway-iot.html): Conectividad de pirómetros, balanzas y variadores VFD a telemetría cloud $0 y ERP Xubio.
-
-- [Cómo leer una factura Edenor T3 y detectar los recargos por energía reactiva](https://datamaq.com.ar/guias/leer-factura-edenor-t3-recargos-reactivo.html): Reconstrucción del cos φ facturado a partir de los kWh y kVArh de la factura, separación entre reactivo de proceso y reactivo de transformadores en vacío, y análisis sobre doce períodos consecutivos.
-- [Armónicos en plantas con variadores de frecuencia: diagnóstico previo a la corrección de reactivo](https://datamaq.com.ar/guias/armonicos-variadores-frecuencia-diagnostico.html): Medición de THD de tensión y corriente y espectro por orden armónico, riesgo de resonancia paralela entre banco de capacitores e inductancia de la instalación, y criterio para especificar reactancias de rechazo o filtros sintonizados.
-- [Checklist de auditoría energética en carga para suministros T2 y T3](https://datamaq.com.ar/guias/checklist-auditoria-energetica-en-carga-t2-t3.html): Alcance, puntos de medición, duración de campaña, variables registradas, validación contra factura de la distribuidora y entregables mínimos de un relevamiento que sirva como especificación técnica de obra.
-- [Modbus RS485 vs 4-20 mA: cómo elegir la interfaz para digitalizar una máquina existente](https://datamaq.com.ar/guias/modbus-rs485-vs-4-20ma-elegir-interfaz.html): Criterio de selección de interfaz de retrofit según las señales que el equipo ya expone, topología de bus RS485, cero vivo del lazo 4-20 mA e instrumentación desde tablero cuando la máquina no expone nada.
-- [Cómo medir OEE real con telemetría sin tocar el PLC de la máquina](https://datamaq.com.ar/guias/medir-oee-real-sin-tocar-el-plc.html): Obtención de disponibilidad y microparadas desde el patrón de consumo eléctrico, vías de captura del conteo para rendimiento, y límites de la automatización del factor calidad.
-- [Integrar telemetría energética con el ERP vía API REST: del kWh al costo por producto](https://datamaq.com.ar/guias/integrar-telemetria-energetica-erp-api-rest.html): Asignación de consumo por centro de costos, unidad de agregación, conciliación mensual contra factura y construcción de línea de base energética por unidad producida.
-- [Cómo detectar que estás pagando potencia contratada de más](https://datamaq.com.ar/guias/detectar-potencia-contratada-de-mas.html): Verificación en tres pasos sobre la factura, análisis de doce períodos, origen del pico de demanda y criterio de margen del 10 al 15 % sobre la demanda máxima registrada.
-- [Recontratación de potencia: qué mirar antes de cambiar de categoría tarifaria](https://datamaq.com.ar/guias/recontratacion-potencia-t3-mt-a-bt.html): Desplazamiento del punto de medición, propiedad del transformador, pérdidas en vacío y bajo carga, costo de obra de adecuación y análisis de costo total anual frente al cuadro tarifario unitario.
-- [Control automático de cargas no críticas para cortar el pico de demanda](https://datamaq.com.ar/guias/control-automatico-cargas-no-criticas-picos-demanda.html): Peak shaving sobre la ventana de integración de 15 minutos, criterio de selección de cargas desconectables, definición de la lógica con el jefe de planta y medidas sin costo previas a la automatización.
-## Documentación Completa y Especificaciones Técnicas
-
-- [llms-full.txt](https://datamaq.com.ar/llms-full.txt): Base de conocimiento extendida con especificaciones de hardware, diagramas de conexión Modbus RS485, fórmulas de penalidades eléctricas y manuales de integración de APIs.
+## Documentación Completa y Especificaciones
+- [llms-full.txt](https://isftn199.com.ar/llms-full.txt): Base de conocimiento curricular extendida con planes de estudio detallados, materias y perfil del egresado.
