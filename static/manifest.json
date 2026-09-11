@@ -3,9 +3,14 @@
   "name": "ISFT N° 199 - Instituto Superior de Formación Técnica",
   "icons": [
     {
-      "src": "/static/favicon.svg",
-      "type": "image/svg+xml",
-      "sizes": "any"
+      "src": "/static/favicon.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/static/media/logo-isft199.webp",
+      "type": "image/webp",
+      "sizes": "184x189"
     }
   ],
   "start_url": "/",

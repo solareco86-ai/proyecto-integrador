@@ -1,6 +1,7 @@
 {% macro head_seo(request, seo_data, brand, page_type='website', robots='index,follow') %}
     <meta charset='UTF-8'>
-    <link rel='icon' href='{{ request.url_for('static', path='favicon.svg') }}' type='image/svg+xml'>
+    <link rel='icon' href='{{ request.url_for('static', path='favicon.png') }}' type='image/png'>
+    <link rel='icon' href='{{ request.url_for('static', path='favicon.ico') }}' sizes='any'>
     <link rel='manifest' href='{{ request.url_for('static', path='manifest.json') }}'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>{{ seo_data.title }}</title>
@@ -71,7 +72,7 @@
                 "@type": "Organization",
                 "name": "{{ seo_data.site_name }}",
                 "url": "{{ seo_data.canonical_url }}",
-                "logo": "{{ request.url_for('static', path='favicon.svg') }}",
+                "logo": "{{ request.url_for('static', path='media/logo-isft199.webp') }}",
                 "telephone": "+{{ config.WHATSAPP_PHONE }}",
                 "email": "{{ brand.contactEmail }}",
                 {% if brand.address %}
