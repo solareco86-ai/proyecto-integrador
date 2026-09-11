@@ -120,6 +120,7 @@ from src.infrastructure.fastapi.routes.guia_routes import router as guia_router
 from src.infrastructure.fastapi.routes.industry_routes import router as industry_router
 from src.infrastructure.fastapi.routes.landing_routes import router as landing_router
 from src.infrastructure.fastapi.routes.main_routes import router as main_router
+from src.infrastructure.fastapi.routes.noticias_routes import router as noticias_router
 from src.infrastructure.fastapi.routes.panel_comunicados_routes import router as panel_comunicados_router
 from src.infrastructure.fastapi.routes.panel_eventos_routes import router as panel_eventos_router
 from src.infrastructure.fastapi.routes.panel_noticias_routes import router as panel_noticias_router
@@ -140,4 +141,5 @@ app.include_router(landing_router)
 app.include_router(course_router)
 app.include_router(caso_router)
 app.include_router(guia_router)
+app.include_router(noticias_router)
 app.include_router(seo_router)  # Debe ir último: sus rutas /{provincia} y /{provincia}/{municipio} son catch-all

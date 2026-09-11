@@ -5,15 +5,19 @@ from typing import Any
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
+from sqlalchemy.exc import OperationalError
 
 from src.adapters.presenters.content_presenter import present_contenido
 from src.application.data_service import DataService
 from src.application.dtos import ContenidoModel, IndustriaModel
+from src.application.use_cases.content.list_noticias import ListNoticiasUseCase
+from src.domain.content.repositories import NoticiaRepository
 from src.infrastructure.fastapi.dependencies import (
     get_contenido,
     get_cursos_service,
     get_geografia,
     get_industrias,
+    get_noticia_repository,
     templates,
 )
 from src.infrastructure.fastapi.metrics import registry
@@ -123,6 +127,7 @@ async def sitemap(
     geografia: dict[str, Any] = Depends(get_geografia),
     industrias_data: IndustriaModel = Depends(get_industrias),
     cursos_service: DataService = Depends(get_cursos_service),
+    noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
 ):
     base_url = config.BASE_URL.rstrip("/")
     lastmod = _content_lastmod()
@@ -236,6 +241,24 @@ async def sitemap(
                 "priority": "0.9",
             }
         )
+
+    urls.append({"loc": f"{base_url}/noticias", "lastmod": lastmod, "changefreq": "weekly", "priority": "0.6"})
+    try:
+        noticias = await ListNoticiasUseCase(repository=noticia_repository).execute()
+    except OperationalError:
+        # Entornos sin la migración de contenido institucional aplicada (p. ej. tests
+        # o desarrollo local sin DB): el sitemap no debe romperse por esto.
+        noticias = []
+    for noticia in noticias:
+        if noticia.publicada and noticia.slug:
+            urls.append(
+                {
+                    "loc": f"{base_url}/noticias/{noticia.slug}",
+                    "lastmod": (noticia.updated_at or noticia.created_at or lastmod),
+                    "changefreq": "monthly",
+                    "priority": "0.5",
+                }
+            )
 
     return templates.TemplateResponse(
         request=request, name="sitemap.xml", context={"urls": urls}, media_type="application/xml"

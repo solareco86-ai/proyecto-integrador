@@ -6,6 +6,7 @@ from src.application.dtos.content_management_dto import CrearNoticiaInput, Edita
 from src.application.use_cases.content.create_noticia import CreateNoticiaUseCase
 from src.application.use_cases.content.delete_noticia import DeleteNoticiaUseCase
 from src.application.use_cases.content.get_noticia import GetNoticiaUseCase
+from src.application.use_cases.content.get_noticia_by_slug import GetNoticiaBySlugUseCase
 from src.application.use_cases.content.list_noticias import ListNoticiasUseCase
 from src.application.use_cases.content.update_noticia import UpdateNoticiaUseCase
 from src.domain.common.exceptions import EntityNotFoundError
@@ -195,3 +196,23 @@ async def test_update_noticia_resuelve_colision_de_slug_excluyendose_a_si_misma(
 
     assert actualizada.slug == "noticia-existente-2"
     assert repo.data[otra.id].slug == "noticia-existente"
+
+
+# --- Página pública de Noticias (5C) ---
+
+
+@pytest.mark.asyncio
+async def test_get_noticia_by_slug_devuelve_la_entidad():
+    repo = InMemoryNoticiaRepo()
+    creada = await CreateNoticiaUseCase(repository=repo).execute(CrearNoticiaInput(titulo="Acto", cuerpo="Cuerpo"))
+
+    encontrada = await GetNoticiaBySlugUseCase(repository=repo).execute(creada.slug)
+
+    assert encontrada == creada
+
+
+@pytest.mark.asyncio
+async def test_get_noticia_by_slug_devuelve_none_si_no_existe():
+    repo = InMemoryNoticiaRepo()
+
+    assert await GetNoticiaBySlugUseCase(repository=repo).execute("no-existe") is None

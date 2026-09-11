@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
+        <span class="c-cursos-hero__badge">Institucional</span>
+        <h1 class="c-cursos-hero__title">{{ noticia.titulo }}</h1>
+        {% if noticia.created_at %}
+        <p class="c-cursos-hero__subtitle">{{ noticia.created_at[:10] }}</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="c-curso-detail-section">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
+        <article class="c-curso-detail__content">
+            <p>{{ noticia.cuerpo }}</p>
+        </article>
+        <a href="/noticias" class="c-curso-card__cta">Ver todas las noticias</a>
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "NewsArticle",
+      "headline": "{{ noticia.titulo | replace('\"', '\\\"') }}",
+      "articleBody": "{{ noticia.cuerpo | replace('\"', '\\\"') }}",
+      "url": "{{ seo.canonical_url }}",
+      {% if noticia.created_at %}"datePublished": "{{ noticia.created_at }}",{% endif %}
+      {% if noticia.updated_at %}"dateModified": "{{ noticia.updated_at }}",{% endif %}
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ brand.brandName }}",
+        "logo": "{{ request.url_for('static', path='media/logo-isft199.webp') }}"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "{{ request.url_for('root') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Noticias",
+          "item": "{{ request.url_for('listado_noticias') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ noticia.titulo | replace('\"', '\\\"') }}",
+          "item": "{{ seo.canonical_url }}"
+        }
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/noticias', 'icon_name': 'journal-bookmark-fill', 'label': 'Noticias'}, {'href': '/carreras', 'icon_name': 'mortarboard-fill', 'label': 'Carreras'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

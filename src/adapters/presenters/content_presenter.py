@@ -1,6 +1,8 @@
+from dataclasses import asdict
 from typing import Any
 
 from src.application.dtos import CasoModel, ContenidoModel, CourseModel, GuiaModel
+from src.domain.content.entities import Noticia
 
 
 def present_contenido(contenido: ContenidoModel) -> dict[str, Any]:
@@ -42,4 +44,11 @@ def present_guia(guia: GuiaModel) -> dict[str, Any]:
     data = guia.model_dump()
     if not data.get("og_image"):
         data["og_image"] = "/static/og-default.webp"
+    return data
+
+
+def present_noticia(noticia: Noticia) -> dict[str, Any]:
+    """Prepara una noticia para su presentación pública, sin exponer autor_id."""
+    data = asdict(noticia)
+    data.pop("autor_id", None)
     return data

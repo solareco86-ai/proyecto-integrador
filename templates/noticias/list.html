@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
+        <span class="c-cursos-hero__badge">Institucional</span>
+        <h1 class="c-cursos-hero__title">Noticias</h1>
+        <p class="c-cursos-hero__subtitle">Novedades institucionales del ISFT N° 199.</p>
+    </div>
+</section>
+
+<section class="c-cursos-grid-section">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
+        {% if noticias %}
+            <div class="c-cursos-grid">
+                {% for noticia in noticias %}
+                    <article class="c-curso-card">
+                        <div class="c-curso-card__content">
+                            <h2 class="c-curso-card__title">
+                                <a href="{{ url_for('detalle_noticia', slug=noticia.slug) }}">{{ noticia.titulo }}</a>
+                            </h2>
+                            <p class="c-curso-card__description">{{ noticia.cuerpo[:180] }}{% if noticia.cuerpo|length > 180 %}…{% endif %}</p>
+                            <div class="c-curso-card__footer">
+                                <span class="c-curso-card__meta-item">{{ noticia.created_at[:10] if noticia.created_at else "" }}</span>
+                                <a href="{{ url_for('detalle_noticia', slug=noticia.slug) }}" class="c-curso-card__cta">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="c-cursos-empty">
+                <p>Todavía no hay noticias publicadas.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ request.url_for('root') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Noticias",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/noticias', 'icon_name': 'journal-bookmark-fill', 'label': 'Noticias'}, {'href': '/carreras', 'icon_name': 'mortarboard-fill', 'label': 'Carreras'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}
