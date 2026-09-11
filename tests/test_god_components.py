@@ -303,6 +303,7 @@ _KNOWN_GOD_FUNCTIONS: frozenset[str] = frozenset(
         "src/infrastructure/gateways/email_notification_gateway.py::notify_lead",
         "src/infrastructure/gateways/telegram_notification_gateway.py::notify_lead",
         "src/infrastructure/gateways/telegram_notification_gateway.py::parse_device_info",
+        "src/infrastructure/fastapi/app.py::http_exception_handler",
     }
 )
 

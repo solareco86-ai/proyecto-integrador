@@ -398,6 +398,9 @@ _KNOWN_MICRO_FILES: frozenset[str] = frozenset(
         "src/domain/value_objects/contact_info.py",
         "src/domain/value_objects/slug.py",
         "src/domain/repositories/lead_repository.py",
+        "src/application/use_cases/content/delete_noticia.py",
+        "src/application/use_cases/content/delete_evento.py",
+        "src/application/use_cases/content/delete_comunicado.py",
     }
 )
 
