@@ -1,6 +1,7 @@
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from sqlalchemy.exc import OperationalError
 
 from src.adapters.presenters.content_presenter import present_contenido, present_noticia
 from src.application.dtos import ContenidoModel
@@ -23,7 +24,12 @@ async def listado_noticias(
     brand_data = presented["brand"]
     content_data = presented["content"]
 
-    todas = await ListNoticiasUseCase(repository=noticia_repository).execute()
+    try:
+        todas = await ListNoticiasUseCase(repository=noticia_repository).execute()
+    except OperationalError:
+        # Entorno sin la migración de contenido institucional aplicada (p. ej.
+        # desarrollo local sin DB): se muestra como si no hubiera contenido publicado.
+        todas = []
     noticias = [present_noticia(n) for n in todas if n.publicada]
 
     seo: dict[str, Any] = {
@@ -53,7 +59,10 @@ async def detalle_noticia(
     contenido: ContenidoModel = Depends(get_contenido),
     noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
 ):
-    noticia = await GetNoticiaBySlugUseCase(repository=noticia_repository).execute(slug)
+    try:
+        noticia = await GetNoticiaBySlugUseCase(repository=noticia_repository).execute(slug)
+    except OperationalError:
+        noticia = None
     if noticia is None or not noticia.publicada:
         raise HTTPException(status_code=404, detail="Noticia no encontrada")
 

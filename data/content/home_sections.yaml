@@ -299,6 +299,12 @@ navbar:
     label: Carreras
   - href: /cursos
     label: Campus Virtual
+  - href: /noticias
+    label: Noticias
+  - href: /eventos
+    label: Eventos
+  - href: /comunicados
+    label: Comunicados
   - href: '#ingreso'
     label: Ingreso
   - href: '#faq'

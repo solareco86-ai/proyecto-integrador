@@ -1,6 +1,7 @@
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from sqlalchemy.exc import OperationalError
 
 from src.adapters.presenters.content_presenter import present_contenido, present_evento
 from src.application.dtos import ContenidoModel
@@ -25,7 +26,12 @@ async def listado_eventos(
 
     # ListEventosUseCase ya delega en el repositorio, que ordena por
     # fecha_evento ASC (criterio ya establecido en el proyecto).
-    todos = await ListEventosUseCase(repository=evento_repository).execute()
+    try:
+        todos = await ListEventosUseCase(repository=evento_repository).execute()
+    except OperationalError:
+        # Entorno sin la migración de contenido institucional aplicada (p. ej.
+        # desarrollo local sin DB): se muestra como si no hubiera contenido publicado.
+        todos = []
     eventos = [present_evento(e) for e in todos if e.publicada]
 
     seo: dict[str, Any] = {
@@ -55,7 +61,10 @@ async def detalle_evento(
     contenido: ContenidoModel = Depends(get_contenido),
     evento_repository: EventoRepository = Depends(get_evento_repository),
 ):
-    evento = await GetEventoBySlugUseCase(repository=evento_repository).execute(slug)
+    try:
+        evento = await GetEventoBySlugUseCase(repository=evento_repository).execute(slug)
+    except OperationalError:
+        evento = None
     if evento is None or not evento.publicada:
         raise HTTPException(status_code=404, detail="Evento no encontrado")
 
