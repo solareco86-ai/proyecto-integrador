@@ -6,6 +6,7 @@ from src.application.dtos.content_management_dto import CrearEventoInput, Editar
 from src.application.use_cases.content.create_evento import CreateEventoUseCase
 from src.application.use_cases.content.delete_evento import DeleteEventoUseCase
 from src.application.use_cases.content.get_evento import GetEventoUseCase
+from src.application.use_cases.content.get_evento_by_slug import GetEventoBySlugUseCase
 from src.application.use_cases.content.list_eventos import ListEventosUseCase
 from src.application.use_cases.content.update_evento import UpdateEventoUseCase
 from src.domain.common.exceptions import EntityNotFoundError
@@ -281,3 +282,25 @@ async def test_persistencia_guarda_y_recupera_publicada_correctamente():
 
     assert recuperado is not None
     assert recuperado.publicada is True
+
+
+# --- Página pública de Eventos (5D) ---
+
+
+@pytest.mark.asyncio
+async def test_get_evento_by_slug_devuelve_la_entidad():
+    repo = InMemoryEventoRepo()
+    creado = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(titulo="Acto", descripcion="Descripción", fecha_evento="2026-12-15T18:00:00")
+    )
+
+    encontrado = await GetEventoBySlugUseCase(repository=repo).execute(creado.slug)
+
+    assert encontrado == creado
+
+
+@pytest.mark.asyncio
+async def test_get_evento_by_slug_devuelve_none_si_no_existe():
+    repo = InMemoryEventoRepo()
+
+    assert await GetEventoBySlugUseCase(repository=repo).execute("no-existe") is None

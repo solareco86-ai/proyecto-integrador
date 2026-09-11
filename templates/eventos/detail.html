@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
+        <span class="c-cursos-hero__badge">Institucional</span>
+        <h1 class="c-cursos-hero__title">{{ evento.titulo }}</h1>
+        <p class="c-cursos-hero__subtitle">
+            {% if evento.fecha_evento %}{{ evento.fecha_evento[8:10] }}/{{ evento.fecha_evento[5:7] }}/{{ evento.fecha_evento[0:4] }} · {{ evento.fecha_evento[11:16] }} hs{% endif %}
+            {% if evento.lugar %} · {{ evento.lugar }}{% endif %}
+        </p>
+    </div>
+</section>
+
+<section class="c-curso-detail-section">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
+        <article class="c-curso-detail__content">
+            <p>{{ evento.descripcion }}</p>
+        </article>
+        <a href="/eventos" class="c-curso-card__cta">Ver todos los eventos</a>
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Event",
+      "name": "{{ evento.titulo | replace('\"', '\\\"') }}",
+      "description": "{{ evento.descripcion | replace('\"', '\\\"') }}",
+      "url": "{{ seo.canonical_url }}",
+      {% if evento.fecha_evento %}"startDate": "{{ evento.fecha_evento }}",{% endif %}
+      {% if evento.lugar %}
+      "location": {
+        "@type": "Place",
+        "name": "{{ evento.lugar | replace('\"', '\\\"') }}"
+      },
+      {% endif %}
+      "organizer": {
+        "@type": "Organization",
+        "name": "{{ brand.brandName }}",
+        "logo": "{{ request.url_for('static', path='media/logo-isft199.webp') }}"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "{{ request.url_for('root') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Eventos",
+          "item": "{{ request.url_for('listado_eventos') }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ evento.titulo | replace('\"', '\\\"') }}",
+          "item": "{{ seo.canonical_url }}"
+        }
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/eventos', 'icon_name': 'journal-bookmark-fill', 'label': 'Eventos'}, {'href': '/noticias', 'icon_name': 'journal-bookmark-fill', 'label': 'Noticias'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

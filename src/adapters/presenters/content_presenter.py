@@ -2,7 +2,7 @@ from dataclasses import asdict
 from typing import Any
 
 from src.application.dtos import CasoModel, ContenidoModel, CourseModel, GuiaModel
-from src.domain.content.entities import Noticia
+from src.domain.content.entities import Evento, Noticia
 
 
 def present_contenido(contenido: ContenidoModel) -> dict[str, Any]:
@@ -50,5 +50,12 @@ def present_guia(guia: GuiaModel) -> dict[str, Any]:
 def present_noticia(noticia: Noticia) -> dict[str, Any]:
     """Prepara una noticia para su presentación pública, sin exponer autor_id."""
     data = asdict(noticia)
+    data.pop("autor_id", None)
+    return data
+
+
+def present_evento(evento: Evento) -> dict[str, Any]:
+    """Prepara un evento para su presentación pública, sin exponer autor_id."""
+    data = asdict(evento)
     data.pop("autor_id", None)
     return data

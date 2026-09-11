@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/dock.html' as dock_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header() }}
+{% endblock %}
+
+{% block main_content %}
+<section class="c-cursos-hero">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
+        <span class="c-cursos-hero__badge">Institucional</span>
+        <h1 class="c-cursos-hero__title">Eventos</h1>
+        <p class="c-cursos-hero__subtitle">Actividades y eventos institucionales del ISFT N° 199.</p>
+    </div>
+</section>
+
+<section class="c-cursos-grid-section">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
+        {% if eventos %}
+            <div class="c-cursos-grid">
+                {% for evento in eventos %}
+                    <article class="c-curso-card">
+                        <div class="c-curso-card__content">
+                            <div class="c-curso-card__meta">
+                                {% if evento.fecha_evento %}
+                                <span class="c-curso-card__badge">{{ evento.fecha_evento[8:10] }}/{{ evento.fecha_evento[5:7] }}/{{ evento.fecha_evento[0:4] }}</span>
+                                {% endif %}
+                                {% if evento.lugar %}
+                                <span class="c-curso-card__meta-item">
+                                    <i class="bi bi-geo-alt"></i> {{ evento.lugar }}
+                                </span>
+                                {% endif %}
+                            </div>
+                            <h2 class="c-curso-card__title">
+                                <a href="{{ url_for('detalle_evento', slug=evento.slug) }}">{{ evento.titulo }}</a>
+                            </h2>
+                            <p class="c-curso-card__description">{{ evento.descripcion[:180] }}{% if evento.descripcion|length > 180 %}…{% endif %}</p>
+                            <div class="c-curso-card__footer">
+                                {% if evento.fecha_evento %}
+                                <span class="c-curso-card__meta-item">{{ evento.fecha_evento[11:16] }} hs</span>
+                                {% endif %}
+                                <a href="{{ url_for('detalle_evento', slug=evento.slug) }}" class="c-curso-card__cta">Ver evento</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="c-cursos-empty">
+                <p>Todavía no hay eventos publicados.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ request.url_for('root') }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Eventos",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block dock %}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/eventos', 'icon_name': 'journal-bookmark-fill', 'label': 'Eventos'}, {'href': '/noticias', 'icon_name': 'journal-bookmark-fill', 'label': 'Noticias'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}

@@ -10,11 +10,13 @@ from sqlalchemy.exc import OperationalError
 from src.adapters.presenters.content_presenter import present_contenido
 from src.application.data_service import DataService
 from src.application.dtos import ContenidoModel, IndustriaModel
+from src.application.use_cases.content.list_eventos import ListEventosUseCase
 from src.application.use_cases.content.list_noticias import ListNoticiasUseCase
-from src.domain.content.repositories import NoticiaRepository
+from src.domain.content.repositories import EventoRepository, NoticiaRepository
 from src.infrastructure.fastapi.dependencies import (
     get_contenido,
     get_cursos_service,
+    get_evento_repository,
     get_geografia,
     get_industrias,
     get_noticia_repository,
@@ -128,6 +130,7 @@ async def sitemap(
     industrias_data: IndustriaModel = Depends(get_industrias),
     cursos_service: DataService = Depends(get_cursos_service),
     noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
+    evento_repository: EventoRepository = Depends(get_evento_repository),
 ):
     base_url = config.BASE_URL.rstrip("/")
     lastmod = _content_lastmod()
@@ -255,6 +258,22 @@ async def sitemap(
                 {
                     "loc": f"{base_url}/noticias/{noticia.slug}",
                     "lastmod": (noticia.updated_at or noticia.created_at or lastmod),
+                    "changefreq": "monthly",
+                    "priority": "0.5",
+                }
+            )
+
+    urls.append({"loc": f"{base_url}/eventos", "lastmod": lastmod, "changefreq": "weekly", "priority": "0.6"})
+    try:
+        eventos = await ListEventosUseCase(repository=evento_repository).execute()
+    except OperationalError:
+        eventos = []
+    for evento in eventos:
+        if evento.publicada and evento.slug:
+            urls.append(
+                {
+                    "loc": f"{base_url}/eventos/{evento.slug}",
+                    "lastmod": (evento.updated_at or evento.created_at or lastmod),
                     "changefreq": "monthly",
                     "priority": "0.5",
                 }
