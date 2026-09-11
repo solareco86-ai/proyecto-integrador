@@ -114,6 +114,7 @@ class Evento:
     fecha_evento: str
     lugar: str | None = None
     autor_id: str | None = None
+    publicada: bool = False
     slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
@@ -126,8 +127,13 @@ class Evento:
         fecha_evento: str,
         lugar: str | None = None,
         autor_id: str | None = None,
+        publicada: bool = False,
     ) -> "Evento":
-        """Crea una instancia de Evento con un id, slug base y created_at nuevos."""
+        """Crea una instancia de Evento con un id, slug base y created_at nuevos.
+
+        A diferencia de Noticia, el contenido nuevo NO se publica por
+        defecto: debe prepararse en el panel y publicarse explícitamente.
+        """
         return cls(
             id=str(uuid4()),
             titulo=titulo,
@@ -135,6 +141,7 @@ class Evento:
             fecha_evento=fecha_evento,
             lugar=lugar,
             autor_id=autor_id,
+            publicada=publicada,
             slug=slugify(titulo),
             created_at=datetime.now(UTC).isoformat(),
         )
@@ -146,6 +153,7 @@ class Comunicado:
     titulo: str
     cuerpo: str
     autor_id: str | None = None
+    publicada: bool = False
     slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
@@ -156,13 +164,19 @@ class Comunicado:
         titulo: str,
         cuerpo: str,
         autor_id: str | None = None,
+        publicada: bool = False,
     ) -> "Comunicado":
-        """Crea una instancia de Comunicado con un id, slug base y created_at nuevos."""
+        """Crea una instancia de Comunicado con un id, slug base y created_at nuevos.
+
+        A diferencia de Noticia, el contenido nuevo NO se publica por
+        defecto: debe prepararse en el panel y publicarse explícitamente.
+        """
         return cls(
             id=str(uuid4()),
             titulo=titulo,
             cuerpo=cuerpo,
             autor_id=autor_id,
+            publicada=publicada,
             slug=slugify(titulo),
             created_at=datetime.now(UTC).isoformat(),
         )

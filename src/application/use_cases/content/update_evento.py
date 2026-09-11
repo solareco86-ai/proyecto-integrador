@@ -37,6 +37,7 @@ class UpdateEventoUseCase:
             descripcion=input.descripcion,
             fecha_evento=input.fecha_evento,
             lugar=input.lugar,
+            publicada=input.publicada,
             slug=slug,
             updated_at=datetime.now(UTC).isoformat(),
         )

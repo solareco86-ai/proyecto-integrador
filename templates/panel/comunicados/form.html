@@ -22,6 +22,11 @@
         <textarea name="cuerpo" rows="8" required class="panel-field__input panel-field__textarea">{{ cuerpo }}</textarea>
     </label>
 
+    <label class="panel-checkbox-field">
+        <input type="checkbox" name="publicada" {% if publicada %}checked{% endif %}>
+        <span>Publicado (visible en el sitio público)</span>
+    </label>
+
     <div class="panel-form__actions">
         <button type="submit" class="panel-button panel-button--primary">{% if modo == "editar" %}Guardar cambios{% else %}Guardar comunicado{% endif %}</button>
         <a href="/panel/comunicados" class="panel-button panel-button--secondary">Cancelar</a>

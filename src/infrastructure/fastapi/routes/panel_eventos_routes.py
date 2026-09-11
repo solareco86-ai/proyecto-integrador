@@ -73,6 +73,7 @@ async def form_nuevo_evento(
             "descripcion": "",
             "fecha_evento": "",
             "lugar": "",
+            "publicada": False,
             "modo": "crear",
             "evento_id": None,
         },
@@ -86,6 +87,7 @@ async def crear_evento(
     descripcion: str = Form(""),
     fecha_evento: str = Form(""),
     lugar: str = Form(""),
+    publicada: str | None = Form(None),
     usuario: Usuario = Depends(require_authority),
     evento_repository: EventoRepository = Depends(get_evento_repository),
 ) -> HTMLResponse | RedirectResponse:
@@ -94,6 +96,7 @@ async def crear_evento(
     descripcion_limpia = descripcion.strip()
     fecha_evento_limpia = fecha_evento.strip()
     lugar_limpio = lugar.strip() or None
+    publicada_bool = publicada is not None
 
     error = _validar(titulo_limpio, descripcion_limpia, fecha_evento_limpia)
     if error:
@@ -109,6 +112,7 @@ async def crear_evento(
                 "descripcion": descripcion,
                 "fecha_evento": fecha_evento,
                 "lugar": lugar,
+                "publicada": publicada_bool,
                 "modo": "crear",
                 "evento_id": None,
             },
@@ -123,6 +127,7 @@ async def crear_evento(
             fecha_evento=fecha_evento_limpia,
             lugar=lugar_limpio,
             autor_id=usuario.id,
+            publicada=publicada_bool,
         )
     )
 
@@ -155,6 +160,7 @@ async def form_editar_evento(
             # datetime-local espera "YYYY-MM-DDTHH:MM" (sin segundos); el dominio guarda ISO completo.
             "fecha_evento": evento.fecha_evento[:16],
             "lugar": evento.lugar or "",
+            "publicada": evento.publicada,
             "modo": "editar",
             "evento_id": evento.id,
         },
@@ -169,6 +175,7 @@ async def editar_evento(
     descripcion: str = Form(""),
     fecha_evento: str = Form(""),
     lugar: str = Form(""),
+    publicada: str | None = Form(None),
     usuario: Usuario = Depends(require_authority),
     evento_repository: EventoRepository = Depends(get_evento_repository),
 ) -> HTMLResponse | RedirectResponse:
@@ -177,6 +184,7 @@ async def editar_evento(
     descripcion_limpia = descripcion.strip()
     fecha_evento_limpia = fecha_evento.strip()
     lugar_limpio = lugar.strip() or None
+    publicada_bool = publicada is not None
 
     error = _validar(titulo_limpio, descripcion_limpia, fecha_evento_limpia)
     if error:
@@ -192,6 +200,7 @@ async def editar_evento(
                 "descripcion": descripcion,
                 "fecha_evento": fecha_evento,
                 "lugar": lugar,
+                "publicada": publicada_bool,
                 "modo": "editar",
                 "evento_id": evento_id,
             },
@@ -207,6 +216,7 @@ async def editar_evento(
                 descripcion=descripcion_limpia,
                 fecha_evento=fecha_evento_limpia,
                 lugar=lugar_limpio,
+                publicada=publicada_bool,
             )
         )
     except EntityNotFoundError:

@@ -411,6 +411,67 @@ async def test_post_editar_fecha_pasada_es_valida():
     assert repo.data[evento.id].fecha_evento == _FECHA_PASADA
 
 
+@pytest.mark.asyncio
+async def test_post_editar_permite_publicada_false_a_true():
+    usuario = _usuario()
+    evento = Evento.create(
+        titulo="Título original",
+        descripcion="Descripción original",
+        fecha_evento=_FECHA_ORIGINAL,
+        publicada=False,
+    )
+    repo = _configurar(usuario, InMemoryEventoRepo([evento]))
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get(f"/panel/eventos/{evento.id}/editar")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            f"/panel/eventos/{evento.id}/editar",
+            data={
+                "titulo": "Título original",
+                "descripcion": "Descripción original",
+                "fecha_evento": _FECHA_ORIGINAL,
+                "publicada": "on",
+                "csrf_token": csrf_token,
+            },
+        )
+
+    assert repo.data[evento.id].publicada is True
+
+
+@pytest.mark.asyncio
+async def test_post_editar_permite_publicada_true_a_false():
+    usuario = _usuario()
+    evento = Evento.create(
+        titulo="Título original",
+        descripcion="Descripción original",
+        fecha_evento=_FECHA_ORIGINAL,
+        publicada=True,
+    )
+    repo = _configurar(usuario, InMemoryEventoRepo([evento]))
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get(f"/panel/eventos/{evento.id}/editar")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            f"/panel/eventos/{evento.id}/editar",
+            data={
+                "titulo": "Título original",
+                "descripcion": "Descripción original",
+                "fecha_evento": _FECHA_ORIGINAL,
+                "csrf_token": csrf_token,
+            },
+        )
+
+    assert repo.data[evento.id].publicada is False
+
+
 # --- Validaciones (mismas reglas que crear) ---
 
 

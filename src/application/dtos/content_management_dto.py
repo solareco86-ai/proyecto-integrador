@@ -37,6 +37,7 @@ class CrearEventoInput:
     fecha_evento: str
     lugar: str | None = None
     autor_id: str | None = None
+    publicada: bool = False
 
 
 @dataclass(frozen=True)
@@ -48,6 +49,7 @@ class EditarEventoInput:
     descripcion: str
     fecha_evento: str
     lugar: str | None = None
+    publicada: bool = False
 
 
 @dataclass(frozen=True)
@@ -57,6 +59,7 @@ class CrearComunicadoInput:
     titulo: str
     cuerpo: str
     autor_id: str | None = None
+    publicada: bool = False
 
 
 @dataclass(frozen=True)
@@ -66,3 +69,4 @@ class EditarComunicadoInput:
     id: str
     titulo: str
     cuerpo: str
+    publicada: bool = False

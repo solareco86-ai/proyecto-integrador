@@ -281,6 +281,46 @@ async def test_post_editar_updated_at_se_actualiza():
     assert repo.data[comunicado.id].updated_at is not None
 
 
+@pytest.mark.asyncio
+async def test_post_editar_permite_publicada_false_a_true():
+    usuario = _usuario()
+    comunicado = Comunicado.create(titulo="Título original", cuerpo="Cuerpo original", publicada=False)
+    repo = _configurar(usuario, InMemoryComunicadoRepo([comunicado]))
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get(f"/panel/comunicados/{comunicado.id}/editar")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            f"/panel/comunicados/{comunicado.id}/editar",
+            data={"titulo": "Título original", "cuerpo": "Cuerpo original", "publicada": "on", "csrf_token": csrf_token},
+        )
+
+    assert repo.data[comunicado.id].publicada is True
+
+
+@pytest.mark.asyncio
+async def test_post_editar_permite_publicada_true_a_false():
+    usuario = _usuario()
+    comunicado = Comunicado.create(titulo="Título original", cuerpo="Cuerpo original", publicada=True)
+    repo = _configurar(usuario, InMemoryComunicadoRepo([comunicado]))
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get(f"/panel/comunicados/{comunicado.id}/editar")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            f"/panel/comunicados/{comunicado.id}/editar",
+            data={"titulo": "Título original", "cuerpo": "Cuerpo original", "csrf_token": csrf_token},
+        )
+
+    assert repo.data[comunicado.id].publicada is False
+
+
 # --- Validaciones (mismas reglas que crear) ---
 
 

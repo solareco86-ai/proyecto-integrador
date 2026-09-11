@@ -63,6 +63,7 @@ async def form_nuevo_comunicado(
             "error": None,
             "titulo": "",
             "cuerpo": "",
+            "publicada": False,
             "modo": "crear",
             "comunicado_id": None,
         },
@@ -74,12 +75,14 @@ async def crear_comunicado(
     request: Request,
     titulo: str = Form(""),
     cuerpo: str = Form(""),
+    publicada: str | None = Form(None),
     usuario: Usuario = Depends(require_authority),
     comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
 ) -> HTMLResponse | RedirectResponse:
     """Crea un comunicado nuevo a partir del formulario. autor_id siempre sale de la sesión."""
     titulo_limpio = titulo.strip()
     cuerpo_limpio = cuerpo.strip()
+    publicada_bool = publicada is not None
 
     error = _validar(titulo_limpio, cuerpo_limpio)
     if error:
@@ -93,6 +96,7 @@ async def crear_comunicado(
                 "error": error,
                 "titulo": titulo,
                 "cuerpo": cuerpo,
+                "publicada": publicada_bool,
                 "modo": "crear",
                 "comunicado_id": None,
             },
@@ -105,6 +109,7 @@ async def crear_comunicado(
             titulo=titulo_limpio,
             cuerpo=cuerpo_limpio,
             autor_id=usuario.id,
+            publicada=publicada_bool,
         )
     )
 
@@ -134,6 +139,7 @@ async def form_editar_comunicado(
             "error": None,
             "titulo": comunicado.titulo,
             "cuerpo": comunicado.cuerpo,
+            "publicada": comunicado.publicada,
             "modo": "editar",
             "comunicado_id": comunicado.id,
         },
@@ -146,12 +152,14 @@ async def editar_comunicado(
     comunicado_id: str,
     titulo: str = Form(""),
     cuerpo: str = Form(""),
+    publicada: str | None = Form(None),
     usuario: Usuario = Depends(require_authority),
     comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
 ) -> HTMLResponse | RedirectResponse:
     """Edita un comunicado existente. autor_id, id y created_at nunca se toman del body."""
     titulo_limpio = titulo.strip()
     cuerpo_limpio = cuerpo.strip()
+    publicada_bool = publicada is not None
 
     error = _validar(titulo_limpio, cuerpo_limpio)
     if error:
@@ -165,6 +173,7 @@ async def editar_comunicado(
                 "error": error,
                 "titulo": titulo,
                 "cuerpo": cuerpo,
+                "publicada": publicada_bool,
                 "modo": "editar",
                 "comunicado_id": comunicado_id,
             },
@@ -174,7 +183,9 @@ async def editar_comunicado(
     use_case = UpdateComunicadoUseCase(repository=comunicado_repository)
     try:
         await use_case.execute(
-            EditarComunicadoInput(id=comunicado_id, titulo=titulo_limpio, cuerpo=cuerpo_limpio)
+            EditarComunicadoInput(
+                id=comunicado_id, titulo=titulo_limpio, cuerpo=cuerpo_limpio, publicada=publicada_bool
+            )
         )
     except EntityNotFoundError:
         raise HTTPException(status_code=404, detail="Comunicado no encontrado")

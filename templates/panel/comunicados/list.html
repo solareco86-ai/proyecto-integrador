@@ -24,6 +24,7 @@
                 <th scope="col">Título</th>
                 <th scope="col">Cuerpo</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -37,6 +38,13 @@
                     {{ comunicado.created_at[8:10] }}/{{ comunicado.created_at[5:7] }}/{{ comunicado.created_at[0:4] }} {{ comunicado.created_at[11:16] }}
                     {% else %}
                     —
+                    {% endif %}
+                </td>
+                <td>
+                    {% if comunicado.publicada %}
+                    <span class="panel-badge panel-badge--publicada">Publicado</span>
+                    {% else %}
+                    <span class="panel-badge panel-badge--borrador">Borrador</span>
                     {% endif %}
                 </td>
                 <td class="panel-table__actions">

@@ -24,6 +24,7 @@
                 <th scope="col">Título</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Lugar</th>
+                <th scope="col">Estado</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -39,6 +40,13 @@
                     {% endif %}
                 </td>
                 <td>{{ evento.lugar or "—" }}</td>
+                <td>
+                    {% if evento.publicada %}
+                    <span class="panel-badge panel-badge--publicada">Publicado</span>
+                    {% else %}
+                    <span class="panel-badge panel-badge--borrador">Borrador</span>
+                    {% endif %}
+                </td>
                 <td class="panel-table__actions">
                     <a href="/panel/eventos/{{ evento.id }}/editar" class="panel-button panel-button--secondary">Editar</a>
                     <a href="/panel/eventos/{{ evento.id }}/eliminar" class="panel-button panel-button--danger">Eliminar</a>

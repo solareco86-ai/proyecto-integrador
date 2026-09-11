@@ -181,3 +181,103 @@ async def test_update_evento_resuelve_colision_de_slug_excluyendose_a_si_mismo()
 
     assert actualizado.slug == "evento-existente-2"
     assert repo.data[otro.id].slug == "evento-existente"
+
+
+# --- Publicado/a (5B) ---
+
+
+@pytest.mark.asyncio
+async def test_create_evento_no_publicado_por_defecto():
+    repo = InMemoryEventoRepo()
+    evento = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(titulo="Acto", descripcion="Descripción", fecha_evento="2026-12-15T18:00:00")
+    )
+
+    assert evento.publicada is False
+
+
+@pytest.mark.asyncio
+async def test_create_evento_publicado_explicito():
+    repo = InMemoryEventoRepo()
+    evento = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(
+            titulo="Acto", descripcion="Descripción", fecha_evento="2026-12-15T18:00:00", publicada=True
+        )
+    )
+
+    assert evento.publicada is True
+
+
+@pytest.mark.asyncio
+async def test_update_evento_permite_cambiar_publicada_a_true():
+    repo = InMemoryEventoRepo()
+    creado = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(titulo="Original", descripcion="X", fecha_evento="2026-01-01T10:00:00")
+    )
+    assert creado.publicada is False
+
+    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+        EditarEventoInput(
+            id=creado.id,
+            titulo="Original",
+            descripcion="X",
+            fecha_evento="2026-01-01T10:00:00",
+            publicada=True,
+        )
+    )
+
+    assert actualizado.publicada is True
+    assert repo.data[creado.id].publicada is True
+
+
+@pytest.mark.asyncio
+async def test_update_evento_permite_cambiar_publicada_a_false():
+    repo = InMemoryEventoRepo()
+    creado = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(
+            titulo="Original", descripcion="X", fecha_evento="2026-01-01T10:00:00", publicada=True
+        )
+    )
+
+    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+        EditarEventoInput(
+            id=creado.id,
+            titulo="Original",
+            descripcion="X",
+            fecha_evento="2026-01-01T10:00:00",
+            publicada=False,
+        )
+    )
+
+    assert actualizado.publicada is False
+
+
+@pytest.mark.asyncio
+async def test_list_eventos_conserva_estado_publicada():
+    repo = InMemoryEventoRepo()
+    create = CreateEventoUseCase(repository=repo)
+    await create.execute(
+        CrearEventoInput(titulo="Publicado", descripcion="D1", fecha_evento="2026-01-01T10:00:00", publicada=True)
+    )
+    await create.execute(CrearEventoInput(titulo="Borrador", descripcion="D2", fecha_evento="2026-02-01T10:00:00"))
+
+    listado = await ListEventosUseCase(repository=repo).execute()
+
+    estados = {e.titulo: e.publicada for e in listado}
+    assert estados["Publicado"] is True
+    assert estados["Borrador"] is False
+
+
+@pytest.mark.asyncio
+async def test_persistencia_guarda_y_recupera_publicada_correctamente():
+    repo = InMemoryEventoRepo()
+    creado = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(
+            titulo="Acto", descripcion="Descripción", fecha_evento="2026-12-15T18:00:00", publicada=True
+        )
+    )
+
+    recuperado = await GetEventoUseCase(repository=repo).execute(creado.id)
+
+    assert recuperado is not None
+    assert recuperado.publicada is True

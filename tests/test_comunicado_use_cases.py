@@ -163,3 +163,83 @@ async def test_update_comunicado_resuelve_colision_de_slug_excluyendose_a_si_mis
 
     assert actualizado.slug == "comunicado-existente-2"
     assert repo.data[otro.id].slug == "comunicado-existente"
+
+
+# --- Publicado/a (5B) ---
+
+
+@pytest.mark.asyncio
+async def test_create_comunicado_no_publicado_por_defecto():
+    repo = InMemoryComunicadoRepo()
+    comunicado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Aviso", cuerpo="Contenido")
+    )
+
+    assert comunicado.publicada is False
+
+
+@pytest.mark.asyncio
+async def test_create_comunicado_publicado_explicito():
+    repo = InMemoryComunicadoRepo()
+    comunicado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Aviso", cuerpo="Contenido", publicada=True)
+    )
+
+    assert comunicado.publicada is True
+
+
+@pytest.mark.asyncio
+async def test_update_comunicado_permite_cambiar_publicada_a_true():
+    repo = InMemoryComunicadoRepo()
+    creado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Original", cuerpo="X")
+    )
+    assert creado.publicada is False
+
+    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+        EditarComunicadoInput(id=creado.id, titulo="Original", cuerpo="X", publicada=True)
+    )
+
+    assert actualizado.publicada is True
+    assert repo.data[creado.id].publicada is True
+
+
+@pytest.mark.asyncio
+async def test_update_comunicado_permite_cambiar_publicada_a_false():
+    repo = InMemoryComunicadoRepo()
+    creado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Original", cuerpo="X", publicada=True)
+    )
+
+    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+        EditarComunicadoInput(id=creado.id, titulo="Original", cuerpo="X", publicada=False)
+    )
+
+    assert actualizado.publicada is False
+
+
+@pytest.mark.asyncio
+async def test_list_comunicados_conserva_estado_publicada():
+    repo = InMemoryComunicadoRepo()
+    create = CreateComunicadoUseCase(repository=repo)
+    await create.execute(CrearComunicadoInput(titulo="Publicado", cuerpo="1", publicada=True))
+    await create.execute(CrearComunicadoInput(titulo="Borrador", cuerpo="2"))
+
+    listado = await ListComunicadosUseCase(repository=repo).execute()
+
+    estados = {c.titulo: c.publicada for c in listado}
+    assert estados["Publicado"] is True
+    assert estados["Borrador"] is False
+
+
+@pytest.mark.asyncio
+async def test_persistencia_guarda_y_recupera_publicada_correctamente():
+    repo = InMemoryComunicadoRepo()
+    creado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Aviso", cuerpo="Contenido", publicada=True)
+    )
+
+    recuperado = await GetComunicadoUseCase(repository=repo).execute(creado.id)
+
+    assert recuperado is not None
+    assert recuperado.publicada is True

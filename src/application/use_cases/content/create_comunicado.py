@@ -19,6 +19,7 @@ class CreateComunicadoUseCase:
             titulo=input.titulo,
             cuerpo=input.cuerpo,
             autor_id=input.autor_id,
+            publicada=input.publicada,
         )
         slug_unico = await self._resolver_slug_unico(comunicado.slug)
         if slug_unico != comunicado.slug:

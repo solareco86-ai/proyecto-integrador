@@ -35,6 +35,7 @@ class UpdateComunicadoUseCase:
             existente,
             titulo=input.titulo,
             cuerpo=input.cuerpo,
+            publicada=input.publicada,
             slug=slug,
             updated_at=datetime.now(UTC).isoformat(),
         )

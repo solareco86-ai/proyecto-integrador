@@ -32,6 +32,11 @@
         <input type="text" name="lugar" value="{{ lugar }}" class="panel-field__input">
     </label>
 
+    <label class="panel-checkbox-field">
+        <input type="checkbox" name="publicada" {% if publicada %}checked{% endif %}>
+        <span>Publicado (visible en el sitio público)</span>
+    </label>
+
     <div class="panel-form__actions">
         <button type="submit" class="panel-button panel-button--primary">{% if modo == "editar" %}Guardar cambios{% else %}Guardar evento{% endif %}</button>
         <a href="/panel/eventos" class="panel-button panel-button--secondary">Cancelar</a>

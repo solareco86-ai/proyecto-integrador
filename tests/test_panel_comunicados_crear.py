@@ -211,6 +211,44 @@ async def test_post_autor_id_enviado_por_el_cliente_es_ignorado():
     assert comunicado_creado.autor_id != "id-falso-inventado-por-el-cliente"
 
 
+@pytest.mark.asyncio
+async def test_post_publicada_no_marcada_queda_como_borrador():
+    usuario = _usuario()
+    repo = _configurar(usuario)
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get("/panel/comunicados/nuevo")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            "/panel/comunicados/nuevo",
+            data={"titulo": "Título", "cuerpo": "Cuerpo", "csrf_token": csrf_token},
+        )
+
+    comunicado_creado = next(iter(repo.data.values()))
+    assert comunicado_creado.publicada is False
+
+
+@pytest.mark.asyncio
+async def test_post_publicada_marcada_queda_publicado():
+    usuario = _usuario()
+    repo = _configurar(usuario)
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get("/panel/comunicados/nuevo")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            "/panel/comunicados/nuevo",
+            data={"titulo": "Título", "cuerpo": "Cuerpo", "publicada": "on", "csrf_token": csrf_token},
+        )
+
+    comunicado_creado = next(iter(repo.data.values()))
+    assert comunicado_creado.publicada is True
+
+
 # --- Validaciones ---
 
 

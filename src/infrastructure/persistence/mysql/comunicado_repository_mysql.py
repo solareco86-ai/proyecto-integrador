@@ -13,8 +13,8 @@ from src.infrastructure.settings.logger import setup_logger
 logger = setup_logger(config.LOGGER_NAME, debug=config.DEBUG)
 
 _INSERT_SQL = text("""
-    INSERT INTO comunicados (id, titulo, cuerpo, autor_id, slug, created_at, updated_at)
-    VALUES (:id, :titulo, :cuerpo, :autor_id, :slug, :created_at, :updated_at)
+    INSERT INTO comunicados (id, titulo, cuerpo, autor_id, publicada, slug, created_at, updated_at)
+    VALUES (:id, :titulo, :cuerpo, :autor_id, :publicada, :slug, :created_at, :updated_at)
 """)
 
 _SELECT_BY_ID_SQL = text("SELECT * FROM comunicados WHERE id = :id")
@@ -23,7 +23,7 @@ _SELECT_ALL_SQL = text("SELECT * FROM comunicados ORDER BY created_at DESC")
 
 _UPDATE_SQL = text("""
     UPDATE comunicados
-    SET titulo = :titulo, cuerpo = :cuerpo, slug = :slug, updated_at = :updated_at
+    SET titulo = :titulo, cuerpo = :cuerpo, publicada = :publicada, slug = :slug, updated_at = :updated_at
     WHERE id = :id
 """)
 
@@ -96,6 +96,7 @@ class ComunicadoRepositorySQL(ComunicadoRepository):
             "titulo": comunicado.titulo,
             "cuerpo": comunicado.cuerpo,
             "autor_id": comunicado.autor_id,
+            "publicada": comunicado.publicada,
             "slug": comunicado.slug,
             "created_at": created_at,
             "updated_at": _parse_datetime(comunicado.updated_at),
@@ -108,6 +109,7 @@ class ComunicadoRepositorySQL(ComunicadoRepository):
             titulo=row["titulo"],
             cuerpo=row["cuerpo"],
             autor_id=row["autor_id"],
+            publicada=bool(row["publicada"]),
             slug=row["slug"],
             created_at=_format_datetime(row["created_at"]),
             updated_at=_format_datetime(row["updated_at"]),

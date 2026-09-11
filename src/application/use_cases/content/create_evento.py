@@ -21,6 +21,7 @@ class CreateEventoUseCase:
             fecha_evento=input.fecha_evento,
             lugar=input.lugar,
             autor_id=input.autor_id,
+            publicada=input.publicada,
         )
         slug_unico = await self._resolver_slug_unico(evento.slug)
         if slug_unico != evento.slug:

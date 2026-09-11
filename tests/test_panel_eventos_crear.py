@@ -304,6 +304,55 @@ async def test_post_lugar_vacio_se_guarda_como_none():
     assert evento_creado.lugar is None
 
 
+@pytest.mark.asyncio
+async def test_post_publicada_no_marcada_queda_como_borrador():
+    usuario = _usuario()
+    repo = _configurar(usuario)
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get("/panel/eventos/nuevo")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            "/panel/eventos/nuevo",
+            data={
+                "titulo": "Título",
+                "descripcion": "Descripción",
+                "fecha_evento": _FECHA_VALIDA,
+                "csrf_token": csrf_token,
+            },
+        )
+
+    evento_creado = next(iter(repo.data.values()))
+    assert evento_creado.publicada is False
+
+
+@pytest.mark.asyncio
+async def test_post_publicada_marcada_queda_publicado():
+    usuario = _usuario()
+    repo = _configurar(usuario)
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
+        await _login(ac, usuario)
+        form_response = await ac.get("/panel/eventos/nuevo")
+        csrf_token = _extraer_csrf_token(form_response.text)
+
+        await ac.post(
+            "/panel/eventos/nuevo",
+            data={
+                "titulo": "Título",
+                "descripcion": "Descripción",
+                "fecha_evento": _FECHA_VALIDA,
+                "publicada": "on",
+                "csrf_token": csrf_token,
+            },
+        )
+
+    evento_creado = next(iter(repo.data.values()))
+    assert evento_creado.publicada is True
+
+
 # --- Validaciones ---
 
 
