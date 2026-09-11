@@ -6,6 +6,7 @@ from src.application.dtos.content_management_dto import CrearComunicadoInput, Ed
 from src.application.use_cases.content.create_comunicado import CreateComunicadoUseCase
 from src.application.use_cases.content.delete_comunicado import DeleteComunicadoUseCase
 from src.application.use_cases.content.get_comunicado import GetComunicadoUseCase
+from src.application.use_cases.content.get_comunicado_by_slug import GetComunicadoBySlugUseCase
 from src.application.use_cases.content.list_comunicados import ListComunicadosUseCase
 from src.application.use_cases.content.update_comunicado import UpdateComunicadoUseCase
 from src.domain.common.exceptions import EntityNotFoundError
@@ -243,3 +244,25 @@ async def test_persistencia_guarda_y_recupera_publicada_correctamente():
 
     assert recuperado is not None
     assert recuperado.publicada is True
+
+
+# --- Página pública de Comunicados (5E) ---
+
+
+@pytest.mark.asyncio
+async def test_get_comunicado_by_slug_devuelve_la_entidad():
+    repo = InMemoryComunicadoRepo()
+    creado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Aviso", cuerpo="Contenido")
+    )
+
+    encontrado = await GetComunicadoBySlugUseCase(repository=repo).execute(creado.slug)
+
+    assert encontrado == creado
+
+
+@pytest.mark.asyncio
+async def test_get_comunicado_by_slug_devuelve_none_si_no_existe():
+    repo = InMemoryComunicadoRepo()
+
+    assert await GetComunicadoBySlugUseCase(repository=repo).execute("no-existe") is None

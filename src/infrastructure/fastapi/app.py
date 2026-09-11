@@ -114,6 +114,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 from src.infrastructure.fastapi.routes.auth_routes import router as auth_router
 from src.infrastructure.fastapi.routes.carreras_routes import router as carreras_router
 from src.infrastructure.fastapi.routes.caso_routes import router as caso_router
+from src.infrastructure.fastapi.routes.comunicados_routes import router as comunicados_router
 from src.infrastructure.fastapi.routes.contact_routes import router as contact_router
 from src.infrastructure.fastapi.routes.course_routes import router as course_router
 from src.infrastructure.fastapi.routes.eventos_routes import router as eventos_router
@@ -144,4 +145,5 @@ app.include_router(caso_router)
 app.include_router(guia_router)
 app.include_router(noticias_router)
 app.include_router(eventos_router)
+app.include_router(comunicados_router)
 app.include_router(seo_router)  # Debe ir último: sus rutas /{provincia} y /{provincia}/{municipio} son catch-all

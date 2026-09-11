@@ -10,10 +10,12 @@ from sqlalchemy.exc import OperationalError
 from src.adapters.presenters.content_presenter import present_contenido
 from src.application.data_service import DataService
 from src.application.dtos import ContenidoModel, IndustriaModel
+from src.application.use_cases.content.list_comunicados import ListComunicadosUseCase
 from src.application.use_cases.content.list_eventos import ListEventosUseCase
 from src.application.use_cases.content.list_noticias import ListNoticiasUseCase
-from src.domain.content.repositories import EventoRepository, NoticiaRepository
+from src.domain.content.repositories import ComunicadoRepository, EventoRepository, NoticiaRepository
 from src.infrastructure.fastapi.dependencies import (
+    get_comunicado_repository,
     get_contenido,
     get_cursos_service,
     get_evento_repository,
@@ -131,6 +133,7 @@ async def sitemap(
     cursos_service: DataService = Depends(get_cursos_service),
     noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
     evento_repository: EventoRepository = Depends(get_evento_repository),
+    comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
 ):
     base_url = config.BASE_URL.rstrip("/")
     lastmod = _content_lastmod()
@@ -274,6 +277,22 @@ async def sitemap(
                 {
                     "loc": f"{base_url}/eventos/{evento.slug}",
                     "lastmod": (evento.updated_at or evento.created_at or lastmod),
+                    "changefreq": "monthly",
+                    "priority": "0.5",
+                }
+            )
+
+    urls.append({"loc": f"{base_url}/comunicados", "lastmod": lastmod, "changefreq": "weekly", "priority": "0.6"})
+    try:
+        comunicados = await ListComunicadosUseCase(repository=comunicado_repository).execute()
+    except OperationalError:
+        comunicados = []
+    for comunicado in comunicados:
+        if comunicado.publicada and comunicado.slug:
+            urls.append(
+                {
+                    "loc": f"{base_url}/comunicados/{comunicado.slug}",
+                    "lastmod": (comunicado.updated_at or comunicado.created_at or lastmod),
                     "changefreq": "monthly",
                     "priority": "0.5",
                 }
