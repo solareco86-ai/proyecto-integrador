@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión · Panel ISFT N° 199</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/src/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/Panel.css') }}">
+</head>
+<body class="panel-body panel-body--login">
+    <main class="panel-login">
+        <form method="post" action="/panel/login" class="panel-login__form">
+            <h1 class="panel-login__title">ISFT N° 199</h1>
+            <p class="panel-login__subtitle">Panel de autoridades</p>
+
+            {% if error %}
+            <p class="panel-alert panel-alert--error" role="alert">{{ error }}</p>
+            {% endif %}
+
+            <label class="panel-field">
+                <span class="panel-field__label">Email</span>
+                <input type="email" name="email" required autofocus class="panel-field__input">
+            </label>
+
+            <label class="panel-field">
+                <span class="panel-field__label">Contraseña</span>
+                <input type="password" name="password" required class="panel-field__input">
+            </label>
+
+            <button type="submit" class="panel-button panel-button--primary panel-login__submit">Ingresar</button>
+        </form>
+    </main>
+</body>
+</html>

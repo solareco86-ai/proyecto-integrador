@@ -1,0 +1,439 @@
+/* ==========================================================================
+   PANEL DE AUTORIDADES — CSS plano, independiente del pipeline de Tailwind.
+   Reutiliza las custom properties de static/css/src/tokens.css (enlazado
+   por separado en los templates de templates/panel/*), sin modificarlo.
+   No usar clases utilitarias de Tailwind acá: este archivo no pasa por
+   `npm run build:css`.
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+.panel-body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--dm-bg-0);
+    color: var(--dm-text-0);
+    font-family: var(--ui-font-family-base);
+    font-size: var(--ui-font-size-body);
+    line-height: var(--ui-line-height-body);
+}
+
+/* --- Header --- */
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: var(--ui-space-4);
+    padding: var(--ui-space-3) var(--ui-space-5);
+    background: var(--dm-surface-0);
+    border-bottom: 1px solid var(--dm-border-0);
+}
+
+.panel-header__burger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: var(--dm-text-0);
+}
+
+.panel-header__brand {
+    font-weight: var(--ui-font-weight-title);
+    color: var(--dm-text-0);
+}
+
+.panel-header__user {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--ui-space-3);
+}
+
+.panel-header__username {
+    color: var(--dm-text-muted);
+    font-size: var(--ui-font-size-label);
+}
+
+.panel-header__logout-form {
+    margin: 0;
+}
+
+/* --- Layout (sidebar + contenido) --- */
+
+.panel-layout {
+    display: flex;
+    min-height: calc(100vh - 4rem);
+}
+
+.panel-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--dm-surface-0);
+    border-right: 1px solid var(--dm-border-0);
+    padding: var(--ui-space-4) 0;
+}
+
+.panel-sidebar__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.panel-sidebar__link {
+    display: block;
+    padding: var(--ui-space-3) var(--ui-space-5);
+    color: var(--dm-text-muted);
+    text-decoration: none;
+}
+
+.panel-sidebar__link:hover {
+    background: var(--dm-surface-1);
+    color: var(--dm-text-0);
+}
+
+.panel-sidebar__link--active {
+    color: var(--dm-text-0);
+    border-left: 3px solid var(--dm-data-cyan);
+    background: var(--dm-surface-1);
+}
+
+.panel-main {
+    flex: 1;
+    padding: var(--ui-space-6);
+}
+
+/* --- Sidebar responsive: CSS-only, sin JavaScript --- */
+
+.panel-sidebar-toggle {
+    /* El checkbox está oculto (hidden en el HTML); solo se usa como estado. */
+}
+
+/* --- Título y subtítulo de página --- */
+
+.panel-page-title {
+    font-size: var(--ui-font-size-title);
+    line-height: var(--ui-line-height-title);
+    margin: 0 0 var(--ui-space-2);
+}
+
+.panel-page-subtitle {
+    color: var(--dm-text-muted);
+    margin: 0 0 var(--ui-space-6);
+}
+
+/* --- Tarjetas del dashboard --- */
+
+.panel-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--ui-space-5);
+}
+
+.panel-card {
+    background: var(--dm-surface-0);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-md);
+    padding: var(--ui-space-5);
+}
+
+.panel-card__title {
+    margin: 0 0 var(--ui-space-2);
+    font-size: 1.1rem;
+}
+
+.panel-card__text {
+    margin: 0;
+    color: var(--dm-text-muted);
+    font-size: var(--ui-font-size-label);
+}
+
+/* --- Encabezado de página con acción --- */
+
+.panel-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ui-space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--ui-space-5);
+}
+
+.panel-page-header .panel-page-title {
+    margin: 0;
+}
+
+/* --- Tabla administrativa (listados) --- */
+
+.panel-table-wrapper {
+    overflow-x: auto;
+}
+
+.panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--dm-surface-0);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-md);
+    overflow: hidden;
+}
+
+.panel-table th,
+.panel-table td {
+    text-align: left;
+    padding: var(--ui-space-3) var(--ui-space-4);
+    border-bottom: 1px solid var(--dm-border-0);
+    font-size: var(--ui-font-size-label);
+}
+
+.panel-table th {
+    color: var(--dm-text-muted);
+    font-weight: var(--ui-font-weight-title);
+}
+
+.panel-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.panel-table__actions {
+    display: flex;
+    gap: var(--ui-space-3);
+}
+
+/* --- Badges de estado --- */
+
+.panel-badge {
+    display: inline-block;
+    padding: .15rem .6rem;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+.panel-badge--publicada {
+    background: rgba(var(--dm-status-green-rgb), .18);
+    color: var(--dm-status-green);
+}
+
+.panel-badge--borrador {
+    background: rgba(var(--dm-text-muted-rgb), .18);
+    color: var(--dm-text-muted);
+}
+
+/* --- Estado vacío --- */
+
+.panel-empty-state {
+    color: var(--dm-text-muted);
+    padding: var(--ui-space-6);
+    text-align: center;
+    background: var(--dm-surface-0);
+    border: 1px dashed var(--dm-border-1);
+    border-radius: var(--ui-radius-md);
+}
+
+/* --- Elementos deshabilitados / "Próximamente" (sin JS, no navegables) --- */
+
+.panel-button--disabled,
+.panel-link-disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: var(--dm-text-muted);
+}
+
+/* --- Botones --- */
+
+.panel-button {
+    display: inline-block;
+    padding: var(--ui-space-2) var(--ui-space-4);
+    border-radius: var(--ui-radius-sm);
+    border: 1px solid var(--dm-border-1);
+    background: var(--dm-surface-1);
+    color: var(--dm-text-0);
+    font-size: var(--ui-font-size-label);
+    cursor: pointer;
+}
+
+.panel-button--primary {
+    background: var(--dm-data-cyan);
+    border-color: var(--dm-data-cyan);
+    color: var(--dm-text-0);
+}
+
+.panel-button--secondary {
+    background: transparent;
+}
+
+.panel-button--danger {
+    background: transparent;
+    border-color: rgba(220, 38, 38, .4);
+    color: #fecaca;
+}
+
+.panel-button:hover {
+    filter: brightness(1.1);
+}
+
+a.panel-button {
+    text-decoration: none;
+}
+
+/* --- Confirmación de eliminación --- */
+
+.panel-confirm {
+    max-width: 640px;
+    background: var(--dm-surface-0);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-md);
+    padding: var(--ui-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-4);
+}
+
+/* --- Login --- */
+
+.panel-body--login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-login {
+    width: 100%;
+    max-width: 360px;
+    padding: var(--ui-space-5);
+}
+
+.panel-login__form {
+    background: var(--dm-surface-0);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-md);
+    padding: var(--ui-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-4);
+}
+
+.panel-login__title {
+    margin: 0;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.panel-login__subtitle {
+    margin: 0 0 var(--ui-space-2);
+    color: var(--dm-text-muted);
+    text-align: center;
+    font-size: var(--ui-font-size-label);
+}
+
+.panel-login__submit {
+    width: 100%;
+    padding: var(--ui-space-3);
+}
+
+/* --- Campos de formulario --- */
+
+.panel-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-2);
+}
+
+.panel-field__label {
+    font-size: var(--ui-font-size-label);
+    color: var(--dm-text-muted);
+}
+
+.panel-field__input {
+    padding: var(--ui-space-3);
+    border-radius: var(--ui-radius-sm);
+    border: 1px solid var(--dm-border-1);
+    background: var(--dm-bg-1);
+    color: var(--dm-text-0);
+    font-size: var(--ui-font-size-body);
+    font-family: inherit;
+}
+
+.panel-field__textarea {
+    resize: vertical;
+    min-height: 8rem;
+}
+
+.panel-checkbox-field {
+    display: flex;
+    align-items: center;
+    gap: var(--ui-space-2);
+    font-size: var(--ui-font-size-label);
+    color: var(--dm-text-0);
+}
+
+/* --- Formularios de contenido (noticias/eventos/comunicados) --- */
+
+.panel-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-4);
+    max-width: 640px;
+    background: var(--dm-surface-0);
+    border: 1px solid var(--dm-border-0);
+    border-radius: var(--ui-radius-md);
+    padding: var(--ui-space-6);
+}
+
+.panel-form__actions {
+    display: flex;
+    gap: var(--ui-space-3);
+    flex-wrap: wrap;
+}
+
+/* --- Alertas --- */
+
+.panel-alert {
+    margin: 0 0 var(--ui-space-4);
+    padding: var(--ui-space-3);
+    border-radius: var(--ui-radius-sm);
+    font-size: var(--ui-font-size-label);
+}
+
+.panel-alert--error {
+    background: rgba(220, 38, 38, .15);
+    border: 1px solid rgba(220, 38, 38, .4);
+    color: #fecaca;
+}
+
+.panel-alert--success {
+    background: rgba(var(--dm-status-green-rgb), .15);
+    border: 1px solid rgba(var(--dm-status-green-rgb), .4);
+    color: var(--dm-status-green);
+}
+
+/* ==========================================================================
+   RESPONSIVE — sidebar colapsable en mobile, 100% CSS (checkbox + :checked)
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+    .panel-header__burger {
+        display: inline-block;
+    }
+
+    .panel-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: var(--z-index-offcanvas, 1050);
+        transform: translateX(-100%);
+        transition: transform .2s ease;
+        box-shadow: var(--ui-shadow-md);
+    }
+
+    #panel-sidebar-toggle:checked ~ .panel-layout .panel-sidebar {
+        transform: translateX(0);
+    }
+
+    .panel-main {
+        padding: var(--ui-space-4);
+    }
+}

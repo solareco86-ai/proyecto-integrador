@@ -1,0 +1,54 @@
+{% extends "panel/base.html" %}
+
+{% block title %}Comunicados{% endblock %}
+
+{% block panel_content %}
+<div class="panel-page-header">
+    <h1 class="panel-page-title">Comunicados</h1>
+    <a href="/panel/comunicados/nuevo" class="panel-button panel-button--primary">Nuevo comunicado</a>
+</div>
+
+{% if ok == "creado" %}
+<p class="panel-alert panel-alert--success" role="status">Comunicado creado correctamente.</p>
+{% elif ok == "editado" %}
+<p class="panel-alert panel-alert--success" role="status">Comunicado editado correctamente.</p>
+{% elif ok == "eliminado" %}
+<p class="panel-alert panel-alert--success" role="status">Comunicado eliminado correctamente.</p>
+{% endif %}
+
+{% if comunicados %}
+<div class="panel-table-wrapper">
+    <table class="panel-table">
+        <thead>
+            <tr>
+                <th scope="col">Título</th>
+                <th scope="col">Cuerpo</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comunicado in comunicados %}
+            <tr>
+                <td>{{ comunicado.titulo }}</td>
+                <td>{{ comunicado.cuerpo[:120] }}{% if comunicado.cuerpo|length > 120 %}…{% endif %}</td>
+                <td>
+                    {% if comunicado.created_at %}
+                    {{ comunicado.created_at[8:10] }}/{{ comunicado.created_at[5:7] }}/{{ comunicado.created_at[0:4] }} {{ comunicado.created_at[11:16] }}
+                    {% else %}
+                    —
+                    {% endif %}
+                </td>
+                <td class="panel-table__actions">
+                    <a href="/panel/comunicados/{{ comunicado.id }}/editar" class="panel-button panel-button--secondary">Editar</a>
+                    <a href="/panel/comunicados/{{ comunicado.id }}/eliminar" class="panel-button panel-button--danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="panel-empty-state">Todavía no hay comunicados cargados.</p>
+{% endif %}
+{% endblock %}

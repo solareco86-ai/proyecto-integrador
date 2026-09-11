@@ -1,5 +1,13 @@
 """Fixtures compartidas para los tests de datamaq.com.ar."""
 
+import os
+
+# SECRET_KEY de prueba, aislada del entorno real: se setea ANTES de que
+# cualquier test module importe `src.infrastructure.settings.config` (que la
+# exige con fail-fast cuando DEBUG=False, como es el caso en la suite de
+# tests). No es una clave real ni se usa fuera de este proceso de test.
+os.environ.setdefault("SECRET_KEY", "test-only-secret-key-not-for-production-use")
+
 import pytest
 
 from src.application.dtos import ContenidoModel

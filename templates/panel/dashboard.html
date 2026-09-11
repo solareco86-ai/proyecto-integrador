@@ -1,0 +1,23 @@
+{% extends "panel/base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block panel_content %}
+<h1 class="panel-page-title">Bienvenido/a, {{ usuario.nombre }}</h1>
+<p class="panel-page-subtitle">Desde acá vas a poder administrar el contenido institucional del sitio.</p>
+
+<section class="panel-cards">
+    <article class="panel-card">
+        <h2 class="panel-card__title">Noticias</h2>
+        <p class="panel-card__text">Próximamente vas a poder crear, editar y eliminar noticias.</p>
+    </article>
+    <article class="panel-card">
+        <h2 class="panel-card__title">Eventos</h2>
+        <p class="panel-card__text">Próximamente vas a poder crear, editar y eliminar eventos.</p>
+    </article>
+    <article class="panel-card">
+        <h2 class="panel-card__title">Comunicados</h2>
+        <p class="panel-card__text">Próximamente vas a poder crear, editar y eliminar comunicados.</p>
+    </article>
+</section>
+{% endblock %}

@@ -10,6 +10,7 @@ tmp/
 node_modules/
 .claude/
 data/leads.db
+data/panel_test.db
 /var/
 .aider*
 docs/estrategia_inversion_2026/*

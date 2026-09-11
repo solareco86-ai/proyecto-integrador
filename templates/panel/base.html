@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Panel{% endblock %} · ISFT N° 199</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/src/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/Panel.css') }}">
+</head>
+<body class="panel-body">
+    <input type="checkbox" id="panel-sidebar-toggle" class="panel-sidebar-toggle" hidden>
+
+    <header class="panel-header">
+        <label for="panel-sidebar-toggle" class="panel-header__burger" aria-label="Abrir menú">☰</label>
+        <span class="panel-header__brand">ISFT N° 199 · Panel</span>
+        <div class="panel-header__user">
+            {% if usuario %}
+            <span class="panel-header__username">{{ usuario.nombre }}</span>
+            <form method="post" action="/panel/logout" class="panel-header__logout-form">
+                <button type="submit" class="panel-button panel-button--secondary">Cerrar sesión</button>
+            </form>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="panel-layout">
+        <nav class="panel-sidebar" aria-label="Navegación del panel">
+            <ul class="panel-sidebar__list">
+                <li><a href="/panel" class="panel-sidebar__link{% if seccion_activa == 'inicio' %} panel-sidebar__link--active{% endif %}">Inicio</a></li>
+                <li><a href="/panel/noticias" class="panel-sidebar__link{% if seccion_activa == 'noticias' %} panel-sidebar__link--active{% endif %}">Noticias</a></li>
+                <li><a href="/panel/eventos" class="panel-sidebar__link{% if seccion_activa == 'eventos' %} panel-sidebar__link--active{% endif %}">Eventos</a></li>
+                <li><a href="/panel/comunicados" class="panel-sidebar__link{% if seccion_activa == 'comunicados' %} panel-sidebar__link--active{% endif %}">Comunicados</a></li>
+            </ul>
+        </nav>
+
+        <main class="panel-main">
+            {% block panel_content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

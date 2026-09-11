@@ -1,0 +1,20 @@
+{% extends "panel/base.html" %}
+
+{% block title %}Eliminar noticia{% endblock %}
+
+{% block panel_content %}
+<h1 class="panel-page-title">Eliminar noticia</h1>
+
+<div class="panel-confirm">
+    <p>¿Confirmás que querés eliminar la noticia <strong>"{{ noticia.titulo }}"</strong>?</p>
+    <p class="panel-alert panel-alert--error" role="alert">Esta acción es permanente y no se puede deshacer.</p>
+
+    <div class="panel-form__actions">
+        <form method="post" action="/panel/noticias/{{ noticia.id }}/eliminar">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit" class="panel-button panel-button--danger">Sí, eliminar</button>
+        </form>
+        <a href="/panel/noticias" class="panel-button panel-button--secondary">Cancelar</a>
+    </div>
+</div>
+{% endblock %}

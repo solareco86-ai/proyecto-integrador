@@ -1,0 +1,35 @@
+{% extends "panel/base.html" %}
+
+{% block title %}{% if modo == "editar" %}Editar noticia{% else %}Nueva noticia{% endif %}{% endblock %}
+
+{% block panel_content %}
+<h1 class="panel-page-title">{% if modo == "editar" %}Editar noticia{% else %}Nueva noticia{% endif %}</h1>
+
+<form method="post" action="{% if modo == 'editar' %}/panel/noticias/{{ noticia_id }}/editar{% else %}/panel/noticias/nueva{% endif %}" class="panel-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    {% if error %}
+    <p class="panel-alert panel-alert--error" role="alert">{{ error }}</p>
+    {% endif %}
+
+    <label class="panel-field">
+        <span class="panel-field__label">Título</span>
+        <input type="text" name="titulo" value="{{ titulo }}" maxlength="200" required autofocus class="panel-field__input">
+    </label>
+
+    <label class="panel-field">
+        <span class="panel-field__label">Cuerpo</span>
+        <textarea name="cuerpo" rows="8" required class="panel-field__input panel-field__textarea">{{ cuerpo }}</textarea>
+    </label>
+
+    <label class="panel-checkbox-field">
+        <input type="checkbox" name="publicada" {% if publicada %}checked{% endif %}>
+        <span>Publicada (visible en el sitio público)</span>
+    </label>
+
+    <div class="panel-form__actions">
+        <button type="submit" class="panel-button panel-button--primary">{% if modo == "editar" %}Guardar cambios{% else %}Guardar noticia{% endif %}</button>
+        <a href="/panel/noticias" class="panel-button panel-button--secondary">Cancelar</a>
+    </div>
+</form>
+{% endblock %}
