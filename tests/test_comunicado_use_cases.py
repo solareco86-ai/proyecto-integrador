@@ -23,6 +23,9 @@ class InMemoryComunicadoRepo(ComunicadoRepository):
     async def get_by_id(self, comunicado_id: str) -> Comunicado | None:
         return self.data.get(comunicado_id)
 
+    async def get_by_slug(self, slug: str) -> Comunicado | None:
+        return next((x for x in self.data.values() if x.slug == slug), None)
+
     async def list_all(self) -> list[Comunicado]:
         return list(self.data.values())
 
@@ -92,3 +95,71 @@ async def test_delete_comunicado_es_idempotente():
     repo = InMemoryComunicadoRepo()
     # No debe lanzar excepción aunque el id no exista
     await DeleteComunicadoUseCase(repository=repo).execute("no-existe")
+
+
+# --- Slug (5A) ---
+
+
+@pytest.mark.asyncio
+async def test_create_comunicado_genera_slug_a_partir_del_titulo():
+    repo = InMemoryComunicadoRepo()
+    comunicado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Aviso Importante", cuerpo="Cuerpo")
+    )
+
+    assert comunicado.slug == "aviso-importante"
+
+
+@pytest.mark.asyncio
+async def test_create_comunicado_resuelve_colision_de_slug_con_sufijo():
+    repo = InMemoryComunicadoRepo()
+    use_case = CreateComunicadoUseCase(repository=repo)
+    primero = await use_case.execute(CrearComunicadoInput(titulo="Aviso General", cuerpo="1"))
+    segundo = await use_case.execute(CrearComunicadoInput(titulo="Aviso General", cuerpo="2"))
+
+    assert primero.slug == "aviso-general"
+    assert segundo.slug == "aviso-general-2"
+
+
+@pytest.mark.asyncio
+async def test_update_comunicado_regenera_slug_si_cambia_el_titulo():
+    repo = InMemoryComunicadoRepo()
+    creado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Original", cuerpo="X")
+    )
+
+    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+        EditarComunicadoInput(id=creado.id, titulo="Título Nuevo", cuerpo="X")
+    )
+
+    assert actualizado.slug == "titulo-nuevo"
+
+
+@pytest.mark.asyncio
+async def test_update_comunicado_mantiene_slug_si_el_titulo_no_cambia():
+    repo = InMemoryComunicadoRepo()
+    creado = await CreateComunicadoUseCase(repository=repo).execute(
+        CrearComunicadoInput(titulo="Original", cuerpo="X")
+    )
+    slug_original = creado.slug
+
+    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+        EditarComunicadoInput(id=creado.id, titulo="Original", cuerpo="Cuerpo editado")
+    )
+
+    assert actualizado.slug == slug_original
+
+
+@pytest.mark.asyncio
+async def test_update_comunicado_resuelve_colision_de_slug_excluyendose_a_si_mismo():
+    repo = InMemoryComunicadoRepo()
+    use_case_create = CreateComunicadoUseCase(repository=repo)
+    otro = await use_case_create.execute(CrearComunicadoInput(titulo="Comunicado Existente", cuerpo="A"))
+    propio = await use_case_create.execute(CrearComunicadoInput(titulo="Otro Título", cuerpo="B"))
+
+    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+        EditarComunicadoInput(id=propio.id, titulo="Comunicado Existente", cuerpo="B")
+    )
+
+    assert actualizado.slug == "comunicado-existente-2"
+    assert repo.data[otro.id].slug == "comunicado-existente"

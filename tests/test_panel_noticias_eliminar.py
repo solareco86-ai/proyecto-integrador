@@ -37,6 +37,9 @@ class InMemoryNoticiaRepo(NoticiaRepository):
     async def get_by_id(self, noticia_id: str) -> Noticia | None:
         return self.data.get(noticia_id)
 
+    async def get_by_slug(self, slug: str) -> Noticia | None:
+        return next((x for x in self.data.values() if x.slug == slug), None)
+
     async def list_all(self) -> list[Noticia]:
         return list(self.data.values())
 

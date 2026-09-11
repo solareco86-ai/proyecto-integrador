@@ -13,17 +13,18 @@ from src.infrastructure.settings.logger import setup_logger
 logger = setup_logger(config.LOGGER_NAME, debug=config.DEBUG)
 
 _INSERT_SQL = text("""
-    INSERT INTO eventos (id, titulo, descripcion, fecha_evento, lugar, autor_id, created_at, updated_at)
-    VALUES (:id, :titulo, :descripcion, :fecha_evento, :lugar, :autor_id, :created_at, :updated_at)
+    INSERT INTO eventos (id, titulo, descripcion, fecha_evento, lugar, autor_id, slug, created_at, updated_at)
+    VALUES (:id, :titulo, :descripcion, :fecha_evento, :lugar, :autor_id, :slug, :created_at, :updated_at)
 """)
 
 _SELECT_BY_ID_SQL = text("SELECT * FROM eventos WHERE id = :id")
+_SELECT_BY_SLUG_SQL = text("SELECT * FROM eventos WHERE slug = :slug")
 _SELECT_ALL_SQL = text("SELECT * FROM eventos ORDER BY fecha_evento ASC")
 
 _UPDATE_SQL = text("""
     UPDATE eventos
     SET titulo = :titulo, descripcion = :descripcion, fecha_evento = :fecha_evento,
-        lugar = :lugar, updated_at = :updated_at
+        lugar = :lugar, slug = :slug, updated_at = :updated_at
     WHERE id = :id
 """)
 
@@ -53,6 +54,12 @@ class EventoRepositorySQL(EventoRepository):
     async def get_by_id(self, evento_id: str) -> Evento | None:
         async with self._engine.connect() as conn:
             result = await conn.execute(_SELECT_BY_ID_SQL, {"id": evento_id})
+            row = result.mappings().first()
+            return self._to_entity(row) if row is not None else None
+
+    async def get_by_slug(self, slug: str) -> Evento | None:
+        async with self._engine.connect() as conn:
+            result = await conn.execute(_SELECT_BY_SLUG_SQL, {"slug": slug})
             row = result.mappings().first()
             return self._to_entity(row) if row is not None else None
 
@@ -93,6 +100,7 @@ class EventoRepositorySQL(EventoRepository):
             "fecha_evento": fecha_evento,
             "lugar": evento.lugar,
             "autor_id": evento.autor_id,
+            "slug": evento.slug,
             "created_at": created_at,
             "updated_at": _parse_datetime(evento.updated_at),
         }
@@ -106,6 +114,7 @@ class EventoRepositorySQL(EventoRepository):
             fecha_evento=_format_datetime(row["fecha_evento"]) or "",
             lugar=row["lugar"],
             autor_id=row["autor_id"],
+            slug=row["slug"],
             created_at=_format_datetime(row["created_at"]),
             updated_at=_format_datetime(row["updated_at"]),
         )

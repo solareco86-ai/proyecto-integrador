@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from uuid import uuid4
 
+from src.domain.common.slugify import slugify
 from src.domain.common.value_objects import Slug
 
 
@@ -75,6 +76,7 @@ class Noticia:
     cuerpo: str
     autor_id: str | None = None
     publicada: bool = True
+    slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
 
@@ -86,13 +88,20 @@ class Noticia:
         autor_id: str | None = None,
         publicada: bool = True,
     ) -> "Noticia":
-        """Crea una instancia de Noticia con un id y created_at nuevos."""
+        """Crea una instancia de Noticia con un id, slug base y created_at nuevos.
+
+        El slug generado acá es determinístico (a partir del título); la
+        resolución de colisiones contra otros registros existentes es
+        responsabilidad del caso de uso de creación/edición, que sí tiene
+        acceso al repositorio.
+        """
         return cls(
             id=str(uuid4()),
             titulo=titulo,
             cuerpo=cuerpo,
             autor_id=autor_id,
             publicada=publicada,
+            slug=slugify(titulo),
             created_at=datetime.now(UTC).isoformat(),
         )
 
@@ -105,6 +114,7 @@ class Evento:
     fecha_evento: str
     lugar: str | None = None
     autor_id: str | None = None
+    slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
 
@@ -117,7 +127,7 @@ class Evento:
         lugar: str | None = None,
         autor_id: str | None = None,
     ) -> "Evento":
-        """Crea una instancia de Evento con un id y created_at nuevos."""
+        """Crea una instancia de Evento con un id, slug base y created_at nuevos."""
         return cls(
             id=str(uuid4()),
             titulo=titulo,
@@ -125,6 +135,7 @@ class Evento:
             fecha_evento=fecha_evento,
             lugar=lugar,
             autor_id=autor_id,
+            slug=slugify(titulo),
             created_at=datetime.now(UTC).isoformat(),
         )
 
@@ -135,6 +146,7 @@ class Comunicado:
     titulo: str
     cuerpo: str
     autor_id: str | None = None
+    slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
 
@@ -145,12 +157,13 @@ class Comunicado:
         cuerpo: str,
         autor_id: str | None = None,
     ) -> "Comunicado":
-        """Crea una instancia de Comunicado con un id y created_at nuevos."""
+        """Crea una instancia de Comunicado con un id, slug base y created_at nuevos."""
         return cls(
             id=str(uuid4()),
             titulo=titulo,
             cuerpo=cuerpo,
             autor_id=autor_id,
+            slug=slugify(titulo),
             created_at=datetime.now(UTC).isoformat(),
         )
 

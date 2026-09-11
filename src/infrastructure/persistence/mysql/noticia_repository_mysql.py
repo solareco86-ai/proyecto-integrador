@@ -13,16 +13,17 @@ from src.infrastructure.settings.logger import setup_logger
 logger = setup_logger(config.LOGGER_NAME, debug=config.DEBUG)
 
 _INSERT_SQL = text("""
-    INSERT INTO noticias (id, titulo, cuerpo, autor_id, publicada, created_at, updated_at)
-    VALUES (:id, :titulo, :cuerpo, :autor_id, :publicada, :created_at, :updated_at)
+    INSERT INTO noticias (id, titulo, cuerpo, autor_id, publicada, slug, created_at, updated_at)
+    VALUES (:id, :titulo, :cuerpo, :autor_id, :publicada, :slug, :created_at, :updated_at)
 """)
 
 _SELECT_BY_ID_SQL = text("SELECT * FROM noticias WHERE id = :id")
+_SELECT_BY_SLUG_SQL = text("SELECT * FROM noticias WHERE slug = :slug")
 _SELECT_ALL_SQL = text("SELECT * FROM noticias ORDER BY created_at DESC")
 
 _UPDATE_SQL = text("""
     UPDATE noticias
-    SET titulo = :titulo, cuerpo = :cuerpo, publicada = :publicada, updated_at = :updated_at
+    SET titulo = :titulo, cuerpo = :cuerpo, publicada = :publicada, slug = :slug, updated_at = :updated_at
     WHERE id = :id
 """)
 
@@ -52,6 +53,12 @@ class NoticiaRepositorySQL(NoticiaRepository):
     async def get_by_id(self, noticia_id: str) -> Noticia | None:
         async with self._engine.connect() as conn:
             result = await conn.execute(_SELECT_BY_ID_SQL, {"id": noticia_id})
+            row = result.mappings().first()
+            return self._to_entity(row) if row is not None else None
+
+    async def get_by_slug(self, slug: str) -> Noticia | None:
+        async with self._engine.connect() as conn:
+            result = await conn.execute(_SELECT_BY_SLUG_SQL, {"slug": slug})
             row = result.mappings().first()
             return self._to_entity(row) if row is not None else None
 
@@ -90,6 +97,7 @@ class NoticiaRepositorySQL(NoticiaRepository):
             "cuerpo": noticia.cuerpo,
             "autor_id": noticia.autor_id,
             "publicada": noticia.publicada,
+            "slug": noticia.slug,
             "created_at": created_at,
             "updated_at": _parse_datetime(noticia.updated_at),
         }
@@ -102,6 +110,7 @@ class NoticiaRepositorySQL(NoticiaRepository):
             cuerpo=row["cuerpo"],
             autor_id=row["autor_id"],
             publicada=bool(row["publicada"]),
+            slug=row["slug"],
             created_at=_format_datetime(row["created_at"]),
             updated_at=_format_datetime(row["updated_at"]),
         )

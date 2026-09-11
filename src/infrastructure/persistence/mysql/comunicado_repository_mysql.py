@@ -13,16 +13,17 @@ from src.infrastructure.settings.logger import setup_logger
 logger = setup_logger(config.LOGGER_NAME, debug=config.DEBUG)
 
 _INSERT_SQL = text("""
-    INSERT INTO comunicados (id, titulo, cuerpo, autor_id, created_at, updated_at)
-    VALUES (:id, :titulo, :cuerpo, :autor_id, :created_at, :updated_at)
+    INSERT INTO comunicados (id, titulo, cuerpo, autor_id, slug, created_at, updated_at)
+    VALUES (:id, :titulo, :cuerpo, :autor_id, :slug, :created_at, :updated_at)
 """)
 
 _SELECT_BY_ID_SQL = text("SELECT * FROM comunicados WHERE id = :id")
+_SELECT_BY_SLUG_SQL = text("SELECT * FROM comunicados WHERE slug = :slug")
 _SELECT_ALL_SQL = text("SELECT * FROM comunicados ORDER BY created_at DESC")
 
 _UPDATE_SQL = text("""
     UPDATE comunicados
-    SET titulo = :titulo, cuerpo = :cuerpo, updated_at = :updated_at
+    SET titulo = :titulo, cuerpo = :cuerpo, slug = :slug, updated_at = :updated_at
     WHERE id = :id
 """)
 
@@ -52,6 +53,12 @@ class ComunicadoRepositorySQL(ComunicadoRepository):
     async def get_by_id(self, comunicado_id: str) -> Comunicado | None:
         async with self._engine.connect() as conn:
             result = await conn.execute(_SELECT_BY_ID_SQL, {"id": comunicado_id})
+            row = result.mappings().first()
+            return self._to_entity(row) if row is not None else None
+
+    async def get_by_slug(self, slug: str) -> Comunicado | None:
+        async with self._engine.connect() as conn:
+            result = await conn.execute(_SELECT_BY_SLUG_SQL, {"slug": slug})
             row = result.mappings().first()
             return self._to_entity(row) if row is not None else None
 
@@ -89,6 +96,7 @@ class ComunicadoRepositorySQL(ComunicadoRepository):
             "titulo": comunicado.titulo,
             "cuerpo": comunicado.cuerpo,
             "autor_id": comunicado.autor_id,
+            "slug": comunicado.slug,
             "created_at": created_at,
             "updated_at": _parse_datetime(comunicado.updated_at),
         }
@@ -100,6 +108,7 @@ class ComunicadoRepositorySQL(ComunicadoRepository):
             titulo=row["titulo"],
             cuerpo=row["cuerpo"],
             autor_id=row["autor_id"],
+            slug=row["slug"],
             created_at=_format_datetime(row["created_at"]),
             updated_at=_format_datetime(row["updated_at"]),
         )

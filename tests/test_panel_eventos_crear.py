@@ -37,6 +37,9 @@ class InMemoryEventoRepo(EventoRepository):
     async def get_by_id(self, evento_id: str) -> Evento | None:
         return self.data.get(evento_id)
 
+    async def get_by_slug(self, slug: str) -> Evento | None:
+        return next((x for x in self.data.values() if x.slug == slug), None)
+
     async def list_all(self) -> list[Evento]:
         return sorted(self.data.values(), key=lambda e: e.fecha_evento)
 

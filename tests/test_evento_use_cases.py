@@ -23,6 +23,9 @@ class InMemoryEventoRepo(EventoRepository):
     async def get_by_id(self, evento_id: str) -> Evento | None:
         return self.data.get(evento_id)
 
+    async def get_by_slug(self, slug: str) -> Evento | None:
+        return next((x for x in self.data.values() if x.slug == slug), None)
+
     async def list_all(self) -> list[Evento]:
         return list(self.data.values())
 
@@ -100,3 +103,81 @@ async def test_delete_evento_es_idempotente():
     repo = InMemoryEventoRepo()
     # No debe lanzar excepción aunque el id no exista
     await DeleteEventoUseCase(repository=repo).execute("no-existe")
+
+
+# --- Slug (5A) ---
+
+
+@pytest.mark.asyncio
+async def test_create_evento_genera_slug_a_partir_del_titulo():
+    repo = InMemoryEventoRepo()
+    evento = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(titulo="Acto de Fin de Año", descripcion="Descripción", fecha_evento="2026-12-15T18:00:00")
+    )
+
+    assert evento.slug == "acto-de-fin-de-ano"
+
+
+@pytest.mark.asyncio
+async def test_create_evento_resuelve_colision_de_slug_con_sufijo():
+    repo = InMemoryEventoRepo()
+    use_case = CreateEventoUseCase(repository=repo)
+    primero = await use_case.execute(
+        CrearEventoInput(titulo="Jornada Abierta", descripcion="D1", fecha_evento="2026-01-01T10:00:00")
+    )
+    segundo = await use_case.execute(
+        CrearEventoInput(titulo="Jornada Abierta", descripcion="D2", fecha_evento="2026-02-01T10:00:00")
+    )
+
+    assert primero.slug == "jornada-abierta"
+    assert segundo.slug == "jornada-abierta-2"
+
+
+@pytest.mark.asyncio
+async def test_update_evento_regenera_slug_si_cambia_el_titulo():
+    repo = InMemoryEventoRepo()
+    creado = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(titulo="Original", descripcion="X", fecha_evento="2026-01-01T10:00:00")
+    )
+
+    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+        EditarEventoInput(id=creado.id, titulo="Título Nuevo", descripcion="X", fecha_evento="2026-01-01T10:00:00")
+    )
+
+    assert actualizado.slug == "titulo-nuevo"
+
+
+@pytest.mark.asyncio
+async def test_update_evento_mantiene_slug_si_el_titulo_no_cambia():
+    repo = InMemoryEventoRepo()
+    creado = await CreateEventoUseCase(repository=repo).execute(
+        CrearEventoInput(titulo="Original", descripcion="X", fecha_evento="2026-01-01T10:00:00")
+    )
+    slug_original = creado.slug
+
+    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+        EditarEventoInput(id=creado.id, titulo="Original", descripcion="Y", fecha_evento="2026-01-01T10:00:00")
+    )
+
+    assert actualizado.slug == slug_original
+
+
+@pytest.mark.asyncio
+async def test_update_evento_resuelve_colision_de_slug_excluyendose_a_si_mismo():
+    repo = InMemoryEventoRepo()
+    use_case_create = CreateEventoUseCase(repository=repo)
+    otro = await use_case_create.execute(
+        CrearEventoInput(titulo="Evento Existente", descripcion="A", fecha_evento="2026-01-01T10:00:00")
+    )
+    propio = await use_case_create.execute(
+        CrearEventoInput(titulo="Otro Título", descripcion="B", fecha_evento="2026-02-01T10:00:00")
+    )
+
+    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+        EditarEventoInput(
+            id=propio.id, titulo="Evento Existente", descripcion="B", fecha_evento="2026-02-01T10:00:00"
+        )
+    )
+
+    assert actualizado.slug == "evento-existente-2"
+    assert repo.data[otro.id].slug == "evento-existente"

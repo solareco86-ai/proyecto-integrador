@@ -37,6 +37,9 @@ class InMemoryComunicadoRepo(ComunicadoRepository):
     async def get_by_id(self, comunicado_id: str) -> Comunicado | None:
         return self.data.get(comunicado_id)
 
+    async def get_by_slug(self, slug: str) -> Comunicado | None:
+        return next((x for x in self.data.values() if x.slug == slug), None)
+
     async def list_all(self) -> list[Comunicado]:
         return list(self.data.values())
 

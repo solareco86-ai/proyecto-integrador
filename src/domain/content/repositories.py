@@ -19,6 +19,11 @@ class NoticiaRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    async def get_by_slug(self, slug: str) -> Noticia | None:
+        """Busca una noticia por su slug. Devuelve None si no existe."""
+        raise NotImplementedError
+
+    @abstractmethod
     async def list_all(self) -> list[Noticia]:
         """Devuelve todas las noticias almacenadas."""
         raise NotImplementedError
@@ -52,6 +57,11 @@ class EventoRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    async def get_by_slug(self, slug: str) -> Evento | None:
+        """Busca un evento por su slug. Devuelve None si no existe."""
+        raise NotImplementedError
+
+    @abstractmethod
     async def list_all(self) -> list[Evento]:
         """Devuelve todos los eventos almacenados."""
         raise NotImplementedError
@@ -82,6 +92,11 @@ class ComunicadoRepository(ABC):
     @abstractmethod
     async def get_by_id(self, comunicado_id: str) -> Comunicado | None:
         """Busca un comunicado por su id. Devuelve None si no existe."""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_by_slug(self, slug: str) -> Comunicado | None:
+        """Busca un comunicado por su slug. Devuelve None si no existe."""
         raise NotImplementedError
 
     @abstractmethod

@@ -23,6 +23,9 @@ class InMemoryNoticiaRepo(NoticiaRepository):
     async def get_by_id(self, noticia_id: str) -> Noticia | None:
         return self.data.get(noticia_id)
 
+    async def get_by_slug(self, slug: str) -> Noticia | None:
+        return next((x for x in self.data.values() if x.slug == slug), None)
+
     async def list_all(self) -> list[Noticia]:
         return list(self.data.values())
 
@@ -127,3 +130,68 @@ async def test_delete_noticia_es_idempotente():
 
     # No debe lanzar excepción aunque el id no exista
     await use_case.execute("no-existe")
+
+
+# --- Slug (5A) ---
+
+
+@pytest.mark.asyncio
+async def test_create_noticia_genera_slug_a_partir_del_titulo():
+    repo = InMemoryNoticiaRepo()
+    noticia = await CreateNoticiaUseCase(repository=repo).execute(
+        CrearNoticiaInput(titulo="Inscripción Abierta 2027", cuerpo="Cuerpo")
+    )
+
+    assert noticia.slug == "inscripcion-abierta-2027"
+
+
+@pytest.mark.asyncio
+async def test_create_noticia_resuelve_colision_de_slug_con_sufijo():
+    repo = InMemoryNoticiaRepo()
+    use_case = CreateNoticiaUseCase(repository=repo)
+    primera = await use_case.execute(CrearNoticiaInput(titulo="Acto Institucional", cuerpo="Cuerpo 1"))
+    segunda = await use_case.execute(CrearNoticiaInput(titulo="Acto Institucional", cuerpo="Cuerpo 2"))
+
+    assert primera.slug == "acto-institucional"
+    assert segunda.slug == "acto-institucional-2"
+
+
+@pytest.mark.asyncio
+async def test_update_noticia_regenera_slug_si_cambia_el_titulo():
+    repo = InMemoryNoticiaRepo()
+    creada = await CreateNoticiaUseCase(repository=repo).execute(CrearNoticiaInput(titulo="Original", cuerpo="X"))
+
+    actualizada = await UpdateNoticiaUseCase(repository=repo).execute(
+        EditarNoticiaInput(id=creada.id, titulo="Título Nuevo", cuerpo="X")
+    )
+
+    assert actualizada.slug == "titulo-nuevo"
+
+
+@pytest.mark.asyncio
+async def test_update_noticia_mantiene_slug_si_el_titulo_no_cambia():
+    repo = InMemoryNoticiaRepo()
+    creada = await CreateNoticiaUseCase(repository=repo).execute(CrearNoticiaInput(titulo="Original", cuerpo="X"))
+    slug_original = creada.slug
+
+    actualizada = await UpdateNoticiaUseCase(repository=repo).execute(
+        EditarNoticiaInput(id=creada.id, titulo="Original", cuerpo="Cuerpo editado")
+    )
+
+    assert actualizada.slug == slug_original
+
+
+@pytest.mark.asyncio
+async def test_update_noticia_resuelve_colision_de_slug_excluyendose_a_si_misma():
+    repo = InMemoryNoticiaRepo()
+    use_case_create = CreateNoticiaUseCase(repository=repo)
+    otra = await use_case_create.execute(CrearNoticiaInput(titulo="Noticia Existente", cuerpo="A"))
+    propia = await use_case_create.execute(CrearNoticiaInput(titulo="Otro Título", cuerpo="B"))
+
+    # Editar el título de "propia" para que colisione con el slug de "otra".
+    actualizada = await UpdateNoticiaUseCase(repository=repo).execute(
+        EditarNoticiaInput(id=propia.id, titulo="Noticia Existente", cuerpo="B")
+    )
+
+    assert actualizada.slug == "noticia-existente-2"
+    assert repo.data[otra.id].slug == "noticia-existente"
