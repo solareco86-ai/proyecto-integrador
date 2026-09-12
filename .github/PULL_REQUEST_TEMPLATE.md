@@ -12,7 +12,7 @@
 
 ## Checklist antes de pedir revisión
 
-- [ ] Mi rama sigue la convención `alumno/<nombre>/<tarea>` o `content/<tarea>` o `feat/<tarea>`
+- [ ] Mi rama sigue la convención `alumno/<usuario-github>/<tarea>`
 - [ ] El pre-push hook pasó sin errores (linter + tests) en mi máquina
 - [ ] El título del PR usa Conventional Commits: `tipo(scope): descripción`
 - [ ] No hay archivos innecesarios incluidos (`.env`, `__pycache__`, etc.)
