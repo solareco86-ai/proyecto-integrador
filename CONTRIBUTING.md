@@ -37,10 +37,7 @@
 ```
 main          ← Producción (isftn199.com.ar). Solo el Profesor hace merge aquí.
  └── develop  ← Integración. Base de trabajo de todos los colaboradores.
-       └── alumno/<nombre>/<tarea>  ← Rama personal de cada alumno.
-       └── feat/<descripcion>       ← Funcionalidades nuevas (código).
-       └── content/<descripcion>    ← Contenido del campus (lecciones, YAML).
-       └── fix/<descripcion>        ← Corrección de errores.
+       └── alumno/<usuario-github>/<tarea>  ← Rama personal de cada alumno.
 ```
 
 ### Reglas de protección
@@ -57,15 +54,17 @@ main          ← Producción (isftn199.com.ar). Solo el Profesor hace merge aqu
 
 ## 3. Convención de Nombres de Ramas
 
-Todas las ramas se crean **desde `develop`**, nunca desde `main`.
+Todas las ramas se crean **desde `develop`**, nunca desde `main`. Para mantener la
+trazabilidad académica, la rama identifica al alumno que realiza el aporte; el tipo
+de cambio se expresa en los commits y en el título del Pull Request (ver sección 6).
 
-| Tipo | Patrón | Ejemplo |
+| Trabajo | Patrón | Ejemplo |
 |---|---|---|
-| Rama personal de alumno | `alumno/<nombre>/<tarea-kebab-case>` | `alumno/vero-juarez/leccion-3-opencv` |
-| Nueva funcionalidad (código) | `feat/<descripcion-kebab-case>` | `feat/buscador-cursos` |
-| Nuevo contenido (lecciones/cursos) | `content/<descripcion-kebab-case>` | `content/curso-opencv-morfologia` |
-| Corrección de error | `fix/<descripcion-kebab-case>` | `fix/quiz-respuestas-erroneas` |
-| Mantenimiento y configs | `chore/<descripcion-kebab-case>` | `chore/actualizar-dependencias` |
+| Cualquier aporte de un alumno | `alumno/<usuario-github>/<tarea-kebab-case>` | `alumno/vero-juarez/leccion-3-opencv` |
+
+Esta convención se aplica por igual a funcionalidades, contenido, correcciones,
+refactors, tests, mantenimiento y documentación. Por ejemplo, una corrección usa
+una rama `alumno/vero-juarez/corregir-respuestas-quiz` y commits de tipo `fix`.
 
 ---
 
@@ -75,7 +74,7 @@ Todas las ramas se crean **desde `develop`**, nunca desde `main`.
 ┌─────────────────────────────────────────────────────────────┐
 │ Inicio de clase                                             │
 │  git checkout develop && git pull origin develop            │
-│  git checkout -b alumno/<tu-nombre>/<tarea-de-hoy>          │
+│  git checkout -b alumno/<tu-usuario-github>/<tarea-de-hoy>  │
 └───────────────────────────┬─────────────────────────────────┘
                             │
                             ▼ (trabajás durante la clase)
@@ -83,7 +82,7 @@ Todas las ramas se crean **desde `develop`**, nunca desde `main`.
 │ Al finalizar la clase                                       │
 │  git add .                                                  │
 │  git commit -m "tipo(scope): descripción breve"             │
-│  git push origin alumno/<tu-nombre>/<tarea>                 │
+│  git push origin alumno/<tu-usuario-github>/<tarea>         │
 │  → Abrir Pull Request hacia develop en GitHub               │
 └───────────────────────────┬─────────────────────────────────┘
                             │
