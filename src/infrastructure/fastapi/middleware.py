@@ -1,4 +1,4 @@
-import logging
+from src.infrastructure.settings.logger import get_logger
 import time
 import uuid
 from collections import defaultdict
@@ -11,7 +11,7 @@ from starlette.middleware.base import RequestResponseEndpoint
 from src.infrastructure.fastapi.csp import build_csp
 from src.infrastructure.settings import config
 
-logger = logging.getLogger(config.LOGGER_NAME)
+logger = get_logger(config.LOGGER_NAME)
 
 # --- Request ID ---
 

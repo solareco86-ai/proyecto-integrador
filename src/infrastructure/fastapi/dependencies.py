@@ -26,9 +26,11 @@ from src.infrastructure.persistence.mysql.lead_repository_mysql import LeadRepos
 from src.infrastructure.persistence.mysql.noticia_repository_mysql import NoticiaRepositorySQL
 from src.infrastructure.persistence.mysql.usuario_repository_mysql import UsuarioRepositorySQL
 from src.infrastructure.settings import config
-from src.infrastructure.settings.logger import setup_logger
+from src.infrastructure.settings.logger import get_logger
 
-logger = setup_logger(config.LOGGER_NAME, debug=config.DEBUG)
+# Usar el logger centralizado (no llamar a setup_logger aquí para evitar
+# duplicar configuración en varios módulos).
+logger = get_logger(config.LOGGER_NAME, debug=config.DEBUG)
 
 # --- Instancias compartidas ---
 

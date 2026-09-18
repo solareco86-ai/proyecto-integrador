@@ -1,4 +1,3 @@
-import logging
 from datetime import UTC, datetime
 from uuid import uuid4
 
@@ -6,12 +5,10 @@ from src.application.dtos.lead_dto import ContactSubmitPayload
 from src.domain.entities.lead import Lead
 from src.domain.value_objects.contact_info import ContactInfo
 
-logger = logging.getLogger(__name__)
-
 
 def payload_to_lead(payload: ContactSubmitPayload) -> Lead:
     """Traduce el payload de entrada del formulario en una entidad de dominio Lead."""
-    logger.debug("[lead_mapper] Mapeando ContactSubmitPayload a Lead")
+    # Mapper puro: no realizar efectos secundarios (logging) desde la capa de aplicación
 
     lead = Lead(
         id=uuid4(),
@@ -39,10 +36,4 @@ def payload_to_lead(payload: ContactSubmitPayload) -> Lead:
         lead_source=payload.leadSource,
     )
 
-    logger.debug(
-        "[lead_mapper] Lead generado: id=%s, canales=%s, page=%s",
-        str(lead.id),
-        lead.preferred_contact_channel,
-        lead.page_location,
-    )
     return lead

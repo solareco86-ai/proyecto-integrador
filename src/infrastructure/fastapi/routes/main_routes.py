@@ -1,4 +1,4 @@
-import logging
+from src.infrastructure.settings.logger import get_logger
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -27,7 +27,7 @@ from src.infrastructure.fastapi.metrics import registry
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.infrastructure.settings import config
 
-logger = logging.getLogger(config.LOGGER_NAME)
+logger = get_logger(config.LOGGER_NAME)
 
 router = APIRouter()
 
