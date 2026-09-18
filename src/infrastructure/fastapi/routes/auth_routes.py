@@ -6,7 +6,12 @@ from src.application.gateways.password_hasher_gateway import PasswordHasherGatew
 from src.application.use_cases.auth.authenticate_usuario import AuthenticateUsuarioUseCase
 from src.domain.auth.repositories import UsuarioRepository
 from src.domain.common.exceptions import CredencialesInvalidasError
-from src.infrastructure.fastapi.dependencies import get_current_user, get_password_hasher, get_usuario_repository, templates
+from src.infrastructure.fastapi.dependencies import (
+    get_current_user,
+    get_password_hasher,
+    get_usuario_repository,
+    templates,
+)
 
 router = APIRouter(prefix="/panel", tags=["auth"])
 

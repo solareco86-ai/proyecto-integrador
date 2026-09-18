@@ -1,7 +1,6 @@
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from sqlalchemy.exc import OperationalError
 
 from src.adapters.presenters.content_presenter import present_contenido, present_noticia
 from src.application.dtos import ContenidoModel
@@ -26,7 +25,7 @@ async def listado_noticias(
 
     try:
         todas = await ListNoticiasUseCase(repository=noticia_repository).execute()
-    except OperationalError:
+    except Exception:
         # Entorno sin la migración de contenido institucional aplicada (p. ej.
         # desarrollo local sin DB): se muestra como si no hubiera contenido publicado.
         todas = []
@@ -61,7 +60,7 @@ async def detalle_noticia(
 ):
     try:
         noticia = await GetNoticiaBySlugUseCase(repository=noticia_repository).execute(slug)
-    except OperationalError:
+    except Exception:
         noticia = None
     if noticia is None or not noticia.publicada:
         raise HTTPException(status_code=404, detail="Noticia no encontrada")
