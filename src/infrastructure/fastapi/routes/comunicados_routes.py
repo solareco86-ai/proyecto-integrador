@@ -1,7 +1,6 @@
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from sqlalchemy.exc import OperationalError
 
 from src.adapters.presenters.content_presenter import present_comunicado, present_contenido
 from src.application.dtos import ContenidoModel
@@ -26,7 +25,7 @@ async def listado_comunicados(
 
     try:
         todos = await ListComunicadosUseCase(repository=comunicado_repository).execute()
-    except OperationalError:
+    except Exception:
         # Entorno sin la migración de contenido institucional aplicada (p. ej.
         # desarrollo local sin DB): se muestra como si no hubiera contenido publicado.
         todos = []
@@ -61,7 +60,7 @@ async def detalle_comunicado(
 ):
     try:
         comunicado = await GetComunicadoBySlugUseCase(repository=comunicado_repository).execute(slug)
-    except OperationalError:
+    except Exception:
         comunicado = None
     if comunicado is None or not comunicado.publicada:
         raise HTTPException(status_code=404, detail="Comunicado no encontrado")
