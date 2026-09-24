@@ -11,7 +11,8 @@ async def test_cursos_default_solo_publicos():
         response = await ac.get("/cursos")
 
     assert response.status_code == 200
-    assert "Instalaciones y Aplicaciones de la Energía" in response.text
+    assert "Técnicas de Procesamiento Digital de Imágenes" in response.text
+    assert "Instalaciones y Aplicaciones de la Energía" not in response.text
     assert "Lenguajes Electrónicos: Nivel Básico" not in response.text
 
 

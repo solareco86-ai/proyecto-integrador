@@ -13,7 +13,7 @@ async def test_cursos_catalog_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "Aulas y Materiales de Cátedra en Línea" in response.text or "Campus Virtual" in response.text
-    assert "Instalaciones y Aplicaciones de la Energía" in response.text
+    assert "Técnicas de Procesamiento Digital de Imágenes" in response.text
 
 
 @pytest.mark.asyncio
@@ -70,8 +70,9 @@ async def test_sitemap_includes_courses():
 
     assert response.status_code == 200
     assert "https://datamaq.com.ar/cursos" in response.text
-    assert "https://datamaq.com.ar/cursos/instalaciones-aplicaciones-energia" in response.text
+    assert "https://datamaq.com.ar/cursos/procesamiento-imagenes-python-opencv" in response.text
     # Cursos académicos para alumnos no se indexan en sitemap
+    assert "https://datamaq.com.ar/cursos/instalaciones-aplicaciones-energia" not in response.text
     assert "https://datamaq.com.ar/cursos/fastapi-intermedio" not in response.text
     assert "https://datamaq.com.ar/cursos/fastapi-avanzado" not in response.text
 
@@ -96,7 +97,7 @@ async def test_instructor_detail_rendered():
     assert "text/html" in response.headers["content-type"]
     assert "Agustin Bustos" in response.text
     assert "Ciencia de Datos" in response.text
-    assert "Instalaciones y Aplicaciones de la Energía" in response.text
+    assert "Técnicas de Procesamiento Digital de Imágenes" in response.text
 
 
 @pytest.mark.asyncio
@@ -113,7 +114,7 @@ async def test_invalid_instructor_returns_404():
 async def test_energia_course_catalog_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos")
+        response = await ac.get("/cursos?view=all")
 
     assert response.status_code == 200
     assert "Instalaciones y Aplicaciones de la Energía" in response.text

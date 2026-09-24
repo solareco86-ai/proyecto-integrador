@@ -9,6 +9,7 @@ og_image: "/static/media/cursos/og-instalaciones-aplicaciones-energia.webp"
 og_image_width: 1376
 og_image_height: 768
 instructor_id: "agustin-bustos"
+academic_only: true
 sections:
   # --- SECCIÓN A ---
   - id: "sec-energia-a"
