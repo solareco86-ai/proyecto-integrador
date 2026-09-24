@@ -13,6 +13,21 @@ og_image_height: 630
 instructor_id: "agustin-bustos"
 
 sections:
+  - id: "sec-pdi-0"
+    title: "Sección 0: Preparación del Entorno de Desarrollo"
+    description: "Configuración del entorno virtual de Python y gestión de dependencias con requirements.txt antes de instalar OpenCV."
+    chapters:
+      - id: "chap-pdi-cap-0"
+        title: "Cap 0: Entorno Virtual y Dependencias"
+        description: "Creación del entorno virtual con .venv, activación y gestión de dependencias mediante requirements.txt."
+        items:
+          - type: "lesson"
+            id: "les-pdi-0-1"
+            slug: "entorno-virtual-requirements"
+            title: "0.1 Entorno virtual (.venv) y gestión de dependencias con requirements.txt"
+            duration: "15 min"
+            content_file: "cap-0-1-entorno-virtual-requirements.md"
+
   - id: "sec-pdi-1"
     title: "Sección 1: Fundamentos de Visión por Computadora y Operaciones Básicas"
     description: "Introducción a OpenCV, representación de imágenes como matrices de NumPy, manipulación de espacios de color y transformaciones geométricas."

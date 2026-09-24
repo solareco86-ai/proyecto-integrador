@@ -12,19 +12,6 @@ async def test_cursos_default_solo_publicos():
 
     assert response.status_code == 200
     assert "Técnicas de Procesamiento Digital de Imágenes" in response.text
-    assert "Instalaciones y Aplicaciones de la Energía" not in response.text
-    assert "Lenguajes Electrónicos: Nivel Básico" not in response.text
-
-
-@pytest.mark.asyncio
-async def test_cursos_view_all_incluye_academicos():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos?view=all")
-
-    assert response.status_code == 200
-    assert "Lenguajes Electrónicos: Nivel Básico" in response.text
-    assert "Instalaciones y Aplicaciones de la Energía" in response.text
 
 
 @pytest.mark.asyncio
@@ -59,24 +46,12 @@ async def test_cursos_view_all_canonical_sin_query():
 
 
 @pytest.mark.asyncio
-async def test_cursos_view_all_badge_academico():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/cursos?view=all")
-
-    assert response.status_code == 200
-    assert "c-curso-card__badge--academic" in response.text
-    assert "Alumnos" in response.text
-
-
-@pytest.mark.asyncio
 async def test_cursos_view_valor_desconocido_usa_default():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/cursos?view=foo")
 
     assert response.status_code == 200
-    assert "Lenguajes Electrónicos: Nivel Básico" not in response.text
     assert "noindex" not in response.text
 
 

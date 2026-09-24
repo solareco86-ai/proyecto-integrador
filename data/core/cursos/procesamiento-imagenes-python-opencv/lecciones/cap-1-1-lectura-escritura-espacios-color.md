@@ -48,3 +48,31 @@ imagen_recombinada = cv2.merge([b, g, r])
 ```
 
 > **Consejo Práctico:** Al trabajar con OpenCV y Matplotlib en notebooks Jupyter, recuerda siempre usar `cv2.cvtColor(img, cv2.COLOR_BGR2RGB)` antes de llamar a `plt.imshow()`, de lo contrario las tonalidades azules y rojas aparecerán invertidas.
+
+### ¿Qué es realmente el objeto `imagen`?
+
+En Python, **todo es un objeto**, y en este caso concreto `imagen` es una instancia de la clase **`numpy.ndarray`** (si el archivo se leyó correctamente).
+
+OpenCV en Python no utiliza una clase propia llamada `Image`, sino que representa las imágenes como matrices multidimensionales de NumPy:
+
+```python
+import cv2
+
+imagen = cv2.imread("entrada.jpg")
+
+print(type(imagen))
+# <class 'numpy.ndarray'>
+
+print(isinstance(imagen, object))
+# True
+```
+
+**Características del objeto `imagen`:**
+
+* **Atributos:**
+  * `imagen.shape`: Devuelve una tupla con las dimensiones `(alto, ancho, canales)`. Por ejemplo, `(1080, 1920, 3)`.
+  * `imagen.dtype`: Tipo de dato de los píxeles (habitualmente `uint8`, valores de 0 a 255).
+  * `imagen.size`: Cantidad total de elementos (alto × ancho × canales).
+* **Métodos:** Permite realizar operaciones vectorizadas, rebanados (*slicing*), transformaciones matemáticas directas y manipulaciones de canales.
+
+> **Detalle a tener en cuenta:** Si la ruta es incorrecta o el archivo no existe, `cv2.imread()` no lanza un error, sino que devuelve `None` (que en Python también es un objeto, instancia de `NoneType`). Por eso es común verificar `if imagen is not None:` antes de procesarla.
