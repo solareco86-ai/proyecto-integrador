@@ -28,6 +28,9 @@
             <div class="c-cursos-grid">
                 {% for evento in eventos %}
                     <article class="c-curso-card">
+                        {% if evento.imagen %}
+                        <img src="/static/uploads/{{ evento.imagen }}" alt="{{ evento.titulo }}" class="tw:w-full tw:rounded-t-lg tw:aspect-video tw:object-cover" loading="lazy" decoding="async">
+                        {% endif %}
                         <div class="c-curso-card__content">
                             <div class="c-curso-card__meta">
                                 {% if evento.fecha_evento %}

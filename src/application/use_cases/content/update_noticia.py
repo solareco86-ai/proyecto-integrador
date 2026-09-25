@@ -4,6 +4,7 @@ from dataclasses import replace
 from datetime import UTC, datetime
 
 from src.application.dtos.content_management_dto import EditarNoticiaInput
+from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.common.slugify import slugify
 from src.domain.content.entities import Noticia
@@ -13,8 +14,9 @@ from src.domain.content.repositories import NoticiaRepository
 class UpdateNoticiaUseCase:
     """Edita una noticia existente. Lanza EntityNotFoundError si no existe."""
 
-    def __init__(self, repository: NoticiaRepository) -> None:
+    def __init__(self, repository: NoticiaRepository, image_gateway: ImageStorageGateway) -> None:
         self._repository = repository
+        self._image_gateway = image_gateway
 
     async def execute(self, input: EditarNoticiaInput) -> Noticia:
         """Busca la noticia, aplica los cambios y persiste la actualización.
@@ -22,6 +24,14 @@ class UpdateNoticiaUseCase:
         El slug no es editable directamente: se regenera a partir del nuevo
         título solo cuando el título cambia, resolviendo colisiones contra
         otros registros (excluyéndose a sí misma).
+
+        Manejo de imagen: `input.imagen` (una ruta ya guardada por
+        `ImageStorageGateway`, responsabilidad de la ruta HTTP) reemplaza la
+        imagen actual; `input.quitar_imagen` la quita explícitamente; si
+        ninguna de las dos se indica, la imagen existente se conserva. El
+        archivo anterior solo se elimina físicamente *después* de persistir
+        con éxito la actualización, para no perder ambas imágenes si algo
+        falla a mitad de camino.
         """
         existente = await self._repository.get_by_id(input.id)
         if existente is None:
@@ -31,6 +41,14 @@ class UpdateNoticiaUseCase:
         if input.titulo != existente.titulo:
             slug = await self._resolver_slug_unico(slugify(input.titulo), excluir_id=existente.id)
 
+        imagen_anterior = existente.imagen
+        if input.quitar_imagen:
+            nueva_imagen = None
+        elif input.imagen is not None:
+            nueva_imagen = input.imagen
+        else:
+            nueva_imagen = imagen_anterior
+
         actualizada = replace(
             existente,
             titulo=input.titulo,
@@ -38,8 +56,13 @@ class UpdateNoticiaUseCase:
             publicada=input.publicada,
             slug=slug,
             updated_at=datetime.now(UTC).isoformat(),
+            imagen=nueva_imagen,
         )
         await self._repository.update(actualizada)
+
+        if imagen_anterior is not None and imagen_anterior != nueva_imagen:
+            await self._image_gateway.delete(imagen_anterior)
+
         return actualizada
 
     async def _resolver_slug_unico(self, slug_base: str, excluir_id: str) -> str:

@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from src.application.dtos.content_management_dto import CrearNoticiaInput, EditarNoticiaInput
+from src.application.gateways.image_storage_gateway import ImageStorageGateway, ImageValidationError
 from src.application.use_cases.content.create_noticia import CreateNoticiaUseCase
 from src.application.use_cases.content.delete_noticia import DeleteNoticiaUseCase
 from src.application.use_cases.content.get_noticia import GetNoticiaUseCase
@@ -11,7 +12,61 @@ from src.domain.auth.entities import Usuario
 from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.content.repositories import NoticiaRepository
 from src.infrastructure.fastapi.csrf import get_or_create_csrf_token, verify_csrf
-from src.infrastructure.fastapi.dependencies import get_noticia_repository, require_authority, templates
+from src.infrastructure.fastapi.dependencies import get_image_storage_gateway, get_noticia_repository, require_authority, templates
+
+_CATEGORIA_IMAGEN = "noticias"
+
+
+async def _guardar_imagen_si_corresponde(
+    imagen: UploadFile | None, image_gateway: ImageStorageGateway
+) -> tuple[str | None, str | None]:
+    """Valida y guarda una imagen opcional subida desde el formulario.
+
+    Devuelve (ruta_relativa, error). `imagen` sin nombre de archivo se
+    interpreta como "no se seleccionó ningún archivo" (comportamiento normal
+    de un <input type="file"> vacío en un formulario multipart).
+    """
+    if imagen is None or not imagen.filename:
+        return None, None
+    contenido = await imagen.read()
+    try:
+        ruta = await image_gateway.save(_CATEGORIA_IMAGEN, imagen.filename, imagen.content_type, contenido)
+    except ImageValidationError as exc:
+        return None, str(exc)
+    return ruta, None
+
+
+def _form_error_response(
+    request: Request,
+    *,
+    usuario: Usuario,
+    error: str,
+    titulo: str,
+    cuerpo: str,
+    publicada: bool,
+    modo: str,
+    noticia_id: str | None,
+    imagen_actual: str | None,
+) -> HTMLResponse:
+    """Construye la respuesta 422 que reabre el formulario con el error y los datos ya ingresados."""
+    return templates.TemplateResponse(
+        request=request,
+        name="panel/noticias/form.html",
+        context={
+            "usuario": usuario,
+            "seccion_activa": "noticias",
+            "csrf_token": get_or_create_csrf_token(request),
+            "error": error,
+            "titulo": titulo,
+            "cuerpo": cuerpo,
+            "publicada": publicada,
+            "modo": modo,
+            "noticia_id": noticia_id,
+            "imagen_actual": imagen_actual,
+        },
+        status_code=422,
+    )
+
 
 router = APIRouter(prefix="/panel", dependencies=[Depends(require_authority)], tags=["panel-noticias"])
 
@@ -66,6 +121,7 @@ async def form_nueva_noticia(
             "publicada": True,
             "modo": "crear",
             "noticia_id": None,
+            "imagen_actual": None,
         },
     )
 
@@ -76,8 +132,10 @@ async def crear_noticia(
     titulo: str = Form(""),
     cuerpo: str = Form(""),
     publicada: str | None = Form(None),
+    imagen: UploadFile | None = File(None),
     usuario: Usuario = Depends(require_authority),
     noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
+    image_gateway: ImageStorageGateway = Depends(get_image_storage_gateway),
 ) -> HTMLResponse | RedirectResponse:
     """Crea una noticia nueva a partir del formulario. autor_id siempre sale de la sesión."""
     titulo_limpio = titulo.strip()
@@ -85,22 +143,21 @@ async def crear_noticia(
     publicada_bool = publicada is not None
 
     error = _validar(titulo_limpio, cuerpo_limpio)
+    ruta_imagen: str | None = None
+    if not error:
+        ruta_imagen, error = await _guardar_imagen_si_corresponde(imagen, image_gateway)
+
     if error:
-        return templates.TemplateResponse(
-            request=request,
-            name="panel/noticias/form.html",
-            context={
-                "usuario": usuario,
-                "seccion_activa": "noticias",
-                "csrf_token": get_or_create_csrf_token(request),
-                "error": error,
-                "titulo": titulo,
-                "cuerpo": cuerpo,
-                "publicada": publicada_bool,
-                "modo": "crear",
-                "noticia_id": None,
-            },
-            status_code=422,
+        return _form_error_response(
+            request,
+            usuario=usuario,
+            error=error,
+            titulo=titulo,
+            cuerpo=cuerpo,
+            publicada=publicada_bool,
+            modo="crear",
+            noticia_id=None,
+            imagen_actual=None,
         )
 
     use_case = CreateNoticiaUseCase(repository=noticia_repository)
@@ -110,6 +167,7 @@ async def crear_noticia(
             cuerpo=cuerpo_limpio,
             autor_id=usuario.id,
             publicada=publicada_bool,
+            imagen=ruta_imagen,
         )
     )
 
@@ -142,6 +200,7 @@ async def form_editar_noticia(
             "publicada": noticia.publicada,
             "modo": "editar",
             "noticia_id": noticia.id,
+            "imagen_actual": noticia.imagen,
         },
     )
 
@@ -153,34 +212,41 @@ async def editar_noticia(
     titulo: str = Form(""),
     cuerpo: str = Form(""),
     publicada: str | None = Form(None),
+    imagen: UploadFile | None = File(None),
+    quitar_imagen: str | None = Form(None),
     usuario: Usuario = Depends(require_authority),
     noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
+    image_gateway: ImageStorageGateway = Depends(get_image_storage_gateway),
 ) -> HTMLResponse | RedirectResponse:
     """Edita una noticia existente. autor_id, id y created_at nunca se toman del body."""
     titulo_limpio = titulo.strip()
     cuerpo_limpio = cuerpo.strip()
     publicada_bool = publicada is not None
+    quitar_imagen_bool = quitar_imagen is not None
+
+    noticia_actual = await GetNoticiaUseCase(repository=noticia_repository).execute(noticia_id)
+    if noticia_actual is None:
+        raise HTTPException(status_code=404, detail="Noticia no encontrada")
 
     error = _validar(titulo_limpio, cuerpo_limpio)
+    ruta_imagen: str | None = None
+    if not error:
+        ruta_imagen, error = await _guardar_imagen_si_corresponde(imagen, image_gateway)
+
     if error:
-        return templates.TemplateResponse(
-            request=request,
-            name="panel/noticias/form.html",
-            context={
-                "usuario": usuario,
-                "seccion_activa": "noticias",
-                "csrf_token": get_or_create_csrf_token(request),
-                "error": error,
-                "titulo": titulo,
-                "cuerpo": cuerpo,
-                "publicada": publicada_bool,
-                "modo": "editar",
-                "noticia_id": noticia_id,
-            },
-            status_code=422,
+        return _form_error_response(
+            request,
+            usuario=usuario,
+            error=error,
+            titulo=titulo,
+            cuerpo=cuerpo,
+            publicada=publicada_bool,
+            modo="editar",
+            noticia_id=noticia_id,
+            imagen_actual=noticia_actual.imagen,
         )
 
-    use_case = UpdateNoticiaUseCase(repository=noticia_repository)
+    use_case = UpdateNoticiaUseCase(repository=noticia_repository, image_gateway=image_gateway)
     try:
         await use_case.execute(
             EditarNoticiaInput(
@@ -188,6 +254,8 @@ async def editar_noticia(
                 titulo=titulo_limpio,
                 cuerpo=cuerpo_limpio,
                 publicada=publicada_bool,
+                imagen=ruta_imagen,
+                quitar_imagen=quitar_imagen_bool,
             )
         )
     except EntityNotFoundError:
@@ -227,6 +295,7 @@ async def eliminar_noticia(
     noticia_id: str,
     usuario: Usuario = Depends(require_authority),
     noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
+    image_gateway: ImageStorageGateway = Depends(get_image_storage_gateway),
 ) -> RedirectResponse:
     """Elimina una noticia existente. DeleteNoticiaUseCase es idempotente, por eso se
     verifica existencia antes con GetNoticiaUseCase para poder responder 404."""
@@ -234,6 +303,6 @@ async def eliminar_noticia(
     if noticia is None:
         raise HTTPException(status_code=404, detail="Noticia no encontrada")
 
-    await DeleteNoticiaUseCase(repository=noticia_repository).execute(noticia_id)
+    await DeleteNoticiaUseCase(repository=noticia_repository, image_gateway=image_gateway).execute(noticia_id)
 
     return RedirectResponse(url="/panel/noticias?ok=eliminada", status_code=303)

@@ -369,6 +369,13 @@ a.panel-button {
     color: var(--dm-text-0);
 }
 
+.panel-field__image-preview {
+    max-width: 220px;
+    border-radius: var(--ui-radius-sm);
+    display: block;
+    margin-bottom: var(--ui-space-2);
+}
+
 /* --- Formularios de contenido (noticias/eventos/comunicados) --- */
 
 .panel-form {

@@ -28,6 +28,9 @@
             <div class="c-cursos-grid">
                 {% for comunicado in comunicados %}
                     <article class="c-curso-card">
+                        {% if comunicado.imagen %}
+                        <img src="/static/uploads/{{ comunicado.imagen }}" alt="{{ comunicado.titulo }}" class="tw:w-full tw:rounded-t-lg tw:aspect-video tw:object-cover" loading="lazy" decoding="async">
+                        {% endif %}
                         <div class="c-curso-card__content">
                             <h2 class="c-curso-card__title">
                                 <a href="{{ url_for('detalle_comunicado', slug=comunicado.slug) }}">{{ comunicado.titulo }}</a>

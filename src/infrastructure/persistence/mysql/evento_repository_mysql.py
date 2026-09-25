@@ -13,8 +13,10 @@ from src.infrastructure.settings.logger import setup_logger
 logger = setup_logger(config.LOGGER_NAME, debug=config.DEBUG)
 
 _INSERT_SQL = text("""
-    INSERT INTO eventos (id, titulo, descripcion, fecha_evento, lugar, autor_id, publicada, slug, created_at, updated_at)
-    VALUES (:id, :titulo, :descripcion, :fecha_evento, :lugar, :autor_id, :publicada, :slug, :created_at, :updated_at)
+    INSERT INTO eventos
+        (id, titulo, descripcion, fecha_evento, lugar, autor_id, publicada, slug, created_at, updated_at, imagen)
+    VALUES
+        (:id, :titulo, :descripcion, :fecha_evento, :lugar, :autor_id, :publicada, :slug, :created_at, :updated_at, :imagen)
 """)
 
 _SELECT_BY_ID_SQL = text("SELECT * FROM eventos WHERE id = :id")
@@ -24,7 +26,8 @@ _SELECT_ALL_SQL = text("SELECT * FROM eventos ORDER BY fecha_evento ASC")
 _UPDATE_SQL = text("""
     UPDATE eventos
     SET titulo = :titulo, descripcion = :descripcion, fecha_evento = :fecha_evento,
-        lugar = :lugar, publicada = :publicada, slug = :slug, updated_at = :updated_at
+        lugar = :lugar, publicada = :publicada, slug = :slug, updated_at = :updated_at,
+        imagen = :imagen
     WHERE id = :id
 """)
 
@@ -104,6 +107,7 @@ class EventoRepositorySQL(EventoRepository):
             "slug": evento.slug,
             "created_at": created_at,
             "updated_at": _parse_datetime(evento.updated_at),
+            "imagen": evento.imagen,
         }
 
     @staticmethod
@@ -119,6 +123,7 @@ class EventoRepositorySQL(EventoRepository):
             slug=row["slug"],
             created_at=_format_datetime(row["created_at"]),
             updated_at=_format_datetime(row["updated_at"]),
+            imagen=row["imagen"],
         )
 
 

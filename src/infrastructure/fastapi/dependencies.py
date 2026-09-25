@@ -12,6 +12,7 @@ from starlette.types import Scope
 
 from src.application.data_service import DataService
 from src.application.dtos import ContenidoModel, LandingContentModel
+from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.application.gateways.notification_gateway import NotificationGateway
 from src.application.gateways.password_hasher_gateway import PasswordHasherGateway
 from src.domain.auth.entities import Usuario
@@ -20,6 +21,7 @@ from src.domain.content.repositories import ComunicadoRepository, EventoReposito
 from src.domain.repositories.lead_repository import LeadRepository
 from src.infrastructure.gateways.bcrypt_password_hasher import BcryptPasswordHasher
 from src.infrastructure.gateways.email_notification_gateway import EmailNotificationGateway
+from src.infrastructure.gateways.local_image_storage_gateway import LocalImageStorageGateway
 from src.infrastructure.persistence.mysql.comunicado_repository_mysql import ComunicadoRepositorySQL
 from src.infrastructure.persistence.mysql.evento_repository_mysql import EventoRepositorySQL
 from src.infrastructure.persistence.mysql.lead_repository_mysql import LeadRepositorySQL
@@ -112,6 +114,10 @@ def get_evento_repository() -> EventoRepository:
 
 def get_comunicado_repository() -> ComunicadoRepository:
     return ComunicadoRepositorySQL()
+
+
+def get_image_storage_gateway() -> ImageStorageGateway:
+    return LocalImageStorageGateway(base_dir=os.path.join(config.STATIC_DIR, "uploads"))
 
 
 async def get_current_user(

@@ -28,6 +28,9 @@
             <div class="c-cursos-grid">
                 {% for noticia in noticias %}
                     <article class="c-curso-card">
+                        {% if noticia.imagen %}
+                        <img src="/static/uploads/{{ noticia.imagen }}" alt="{{ noticia.titulo }}" class="tw:w-full tw:rounded-t-lg tw:aspect-video tw:object-cover" loading="lazy" decoding="async">
+                        {% endif %}
                         <div class="c-curso-card__content">
                             <h2 class="c-curso-card__title">
                                 <a href="{{ url_for('detalle_noticia', slug=noticia.slug) }}">{{ noticia.titulo }}</a>

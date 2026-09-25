@@ -65,6 +65,7 @@ class NoticiaModel(Base):
     slug: Mapped[str | None] = mapped_column(String(220), nullable=True, unique=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False, index=True)
     updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    imagen: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
 
 class EventoModel(Base):
@@ -82,6 +83,7 @@ class EventoModel(Base):
     slug: Mapped[str | None] = mapped_column(String(220), nullable=True, unique=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False, index=True)
     updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    imagen: Mapped[str | None] = mapped_column(String(255), nullable=True)
 
 
 class ComunicadoModel(Base):
@@ -97,3 +99,4 @@ class ComunicadoModel(Base):
     slug: Mapped[str | None] = mapped_column(String(220), nullable=True, unique=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=func.now(), nullable=False, index=True)
     updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    imagen: Mapped[str | None] = mapped_column(String(255), nullable=True)

@@ -27,6 +27,9 @@
 <section class="c-curso-detail-section">
     <div class="tw:container tw:mx-auto tw:px-4 tw:pb-24">
         <article class="c-curso-detail__content">
+            {% if comunicado.imagen %}
+            <img src="/static/uploads/{{ comunicado.imagen }}" alt="{{ comunicado.titulo }}" class="tw:w-full tw:rounded-lg tw:mb-6" loading="lazy" decoding="async">
+            {% endif %}
             <p>{{ comunicado.cuerpo }}</p>
         </article>
         <a href="/comunicados" class="c-curso-card__cta">Ver todos los comunicados</a>

@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from src.application.dtos.content_management_dto import CrearComunicadoInput, EditarComunicadoInput
+from src.application.gateways.image_storage_gateway import ImageStorageGateway, ImageValidationError
 from src.application.use_cases.content.create_comunicado import CreateComunicadoUseCase
 from src.application.use_cases.content.delete_comunicado import DeleteComunicadoUseCase
 from src.application.use_cases.content.get_comunicado import GetComunicadoUseCase
@@ -11,7 +12,61 @@ from src.domain.auth.entities import Usuario
 from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.content.repositories import ComunicadoRepository
 from src.infrastructure.fastapi.csrf import get_or_create_csrf_token, verify_csrf
-from src.infrastructure.fastapi.dependencies import get_comunicado_repository, require_authority, templates
+from src.infrastructure.fastapi.dependencies import get_comunicado_repository, get_image_storage_gateway, require_authority, templates
+
+_CATEGORIA_IMAGEN = "comunicados"
+
+
+async def _guardar_imagen_si_corresponde(
+    imagen: UploadFile | None, image_gateway: ImageStorageGateway
+) -> tuple[str | None, str | None]:
+    """Valida y guarda una imagen opcional subida desde el formulario.
+
+    Devuelve (ruta_relativa, error). `imagen` sin nombre de archivo se
+    interpreta como "no se seleccionó ningún archivo" (comportamiento normal
+    de un <input type="file"> vacío en un formulario multipart).
+    """
+    if imagen is None or not imagen.filename:
+        return None, None
+    contenido = await imagen.read()
+    try:
+        ruta = await image_gateway.save(_CATEGORIA_IMAGEN, imagen.filename, imagen.content_type, contenido)
+    except ImageValidationError as exc:
+        return None, str(exc)
+    return ruta, None
+
+
+def _form_error_response(
+    request: Request,
+    *,
+    usuario: Usuario,
+    error: str,
+    titulo: str,
+    cuerpo: str,
+    publicada: bool,
+    modo: str,
+    comunicado_id: str | None,
+    imagen_actual: str | None,
+) -> HTMLResponse:
+    """Construye la respuesta 422 que reabre el formulario con el error y los datos ya ingresados."""
+    return templates.TemplateResponse(
+        request=request,
+        name="panel/comunicados/form.html",
+        context={
+            "usuario": usuario,
+            "seccion_activa": "comunicados",
+            "csrf_token": get_or_create_csrf_token(request),
+            "error": error,
+            "titulo": titulo,
+            "cuerpo": cuerpo,
+            "publicada": publicada,
+            "modo": modo,
+            "comunicado_id": comunicado_id,
+            "imagen_actual": imagen_actual,
+        },
+        status_code=422,
+    )
+
 
 router = APIRouter(prefix="/panel", dependencies=[Depends(require_authority)], tags=["panel-comunicados"])
 
@@ -66,6 +121,7 @@ async def form_nuevo_comunicado(
             "publicada": False,
             "modo": "crear",
             "comunicado_id": None,
+            "imagen_actual": None,
         },
     )
 
@@ -76,8 +132,10 @@ async def crear_comunicado(
     titulo: str = Form(""),
     cuerpo: str = Form(""),
     publicada: str | None = Form(None),
+    imagen: UploadFile | None = File(None),
     usuario: Usuario = Depends(require_authority),
     comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
+    image_gateway: ImageStorageGateway = Depends(get_image_storage_gateway),
 ) -> HTMLResponse | RedirectResponse:
     """Crea un comunicado nuevo a partir del formulario. autor_id siempre sale de la sesión."""
     titulo_limpio = titulo.strip()
@@ -85,22 +143,21 @@ async def crear_comunicado(
     publicada_bool = publicada is not None
 
     error = _validar(titulo_limpio, cuerpo_limpio)
+    ruta_imagen: str | None = None
+    if not error:
+        ruta_imagen, error = await _guardar_imagen_si_corresponde(imagen, image_gateway)
+
     if error:
-        return templates.TemplateResponse(
-            request=request,
-            name="panel/comunicados/form.html",
-            context={
-                "usuario": usuario,
-                "seccion_activa": "comunicados",
-                "csrf_token": get_or_create_csrf_token(request),
-                "error": error,
-                "titulo": titulo,
-                "cuerpo": cuerpo,
-                "publicada": publicada_bool,
-                "modo": "crear",
-                "comunicado_id": None,
-            },
-            status_code=422,
+        return _form_error_response(
+            request,
+            usuario=usuario,
+            error=error,
+            titulo=titulo,
+            cuerpo=cuerpo,
+            publicada=publicada_bool,
+            modo="crear",
+            comunicado_id=None,
+            imagen_actual=None,
         )
 
     use_case = CreateComunicadoUseCase(repository=comunicado_repository)
@@ -110,6 +167,7 @@ async def crear_comunicado(
             cuerpo=cuerpo_limpio,
             autor_id=usuario.id,
             publicada=publicada_bool,
+            imagen=ruta_imagen,
         )
     )
 
@@ -142,6 +200,7 @@ async def form_editar_comunicado(
             "publicada": comunicado.publicada,
             "modo": "editar",
             "comunicado_id": comunicado.id,
+            "imagen_actual": comunicado.imagen,
         },
     )
 
@@ -153,38 +212,50 @@ async def editar_comunicado(
     titulo: str = Form(""),
     cuerpo: str = Form(""),
     publicada: str | None = Form(None),
+    imagen: UploadFile | None = File(None),
+    quitar_imagen: str | None = Form(None),
     usuario: Usuario = Depends(require_authority),
     comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
+    image_gateway: ImageStorageGateway = Depends(get_image_storage_gateway),
 ) -> HTMLResponse | RedirectResponse:
     """Edita un comunicado existente. autor_id, id y created_at nunca se toman del body."""
     titulo_limpio = titulo.strip()
     cuerpo_limpio = cuerpo.strip()
     publicada_bool = publicada is not None
+    quitar_imagen_bool = quitar_imagen is not None
+
+    comunicado_actual = await GetComunicadoUseCase(repository=comunicado_repository).execute(comunicado_id)
+    if comunicado_actual is None:
+        raise HTTPException(status_code=404, detail="Comunicado no encontrado")
 
     error = _validar(titulo_limpio, cuerpo_limpio)
+    ruta_imagen: str | None = None
+    if not error:
+        ruta_imagen, error = await _guardar_imagen_si_corresponde(imagen, image_gateway)
+
     if error:
-        return templates.TemplateResponse(
-            request=request,
-            name="panel/comunicados/form.html",
-            context={
-                "usuario": usuario,
-                "seccion_activa": "comunicados",
-                "csrf_token": get_or_create_csrf_token(request),
-                "error": error,
-                "titulo": titulo,
-                "cuerpo": cuerpo,
-                "publicada": publicada_bool,
-                "modo": "editar",
-                "comunicado_id": comunicado_id,
-            },
-            status_code=422,
+        return _form_error_response(
+            request,
+            usuario=usuario,
+            error=error,
+            titulo=titulo,
+            cuerpo=cuerpo,
+            publicada=publicada_bool,
+            modo="editar",
+            comunicado_id=comunicado_id,
+            imagen_actual=comunicado_actual.imagen,
         )
 
-    use_case = UpdateComunicadoUseCase(repository=comunicado_repository)
+    use_case = UpdateComunicadoUseCase(repository=comunicado_repository, image_gateway=image_gateway)
     try:
         await use_case.execute(
             EditarComunicadoInput(
-                id=comunicado_id, titulo=titulo_limpio, cuerpo=cuerpo_limpio, publicada=publicada_bool
+                id=comunicado_id,
+                titulo=titulo_limpio,
+                cuerpo=cuerpo_limpio,
+                publicada=publicada_bool,
+                imagen=ruta_imagen,
+                quitar_imagen=quitar_imagen_bool,
             )
         )
     except EntityNotFoundError:
@@ -224,6 +295,7 @@ async def eliminar_comunicado(
     comunicado_id: str,
     usuario: Usuario = Depends(require_authority),
     comunicado_repository: ComunicadoRepository = Depends(get_comunicado_repository),
+    image_gateway: ImageStorageGateway = Depends(get_image_storage_gateway),
 ) -> RedirectResponse:
     """Elimina un comunicado existente. DeleteComunicadoUseCase es idempotente, por eso se
     verifica existencia antes con GetComunicadoUseCase para poder responder 404."""
@@ -231,6 +303,8 @@ async def eliminar_comunicado(
     if comunicado is None:
         raise HTTPException(status_code=404, detail="Comunicado no encontrado")
 
-    await DeleteComunicadoUseCase(repository=comunicado_repository).execute(comunicado_id)
+    await DeleteComunicadoUseCase(repository=comunicado_repository, image_gateway=image_gateway).execute(
+        comunicado_id
+    )
 
     return RedirectResponse(url="/panel/comunicados?ok=eliminado", status_code=303)

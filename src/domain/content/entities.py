@@ -79,6 +79,7 @@ class Noticia:
     slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
+    imagen: str | None = None
 
     @classmethod
     def create(
@@ -118,6 +119,7 @@ class Evento:
     slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
+    imagen: str | None = None
 
     @classmethod
     def create(
@@ -157,6 +159,7 @@ class Comunicado:
     slug: str | None = None
     created_at: str | None = None
     updated_at: str | None = None
+    imagen: str | None = None
 
     @classmethod
     def create(
