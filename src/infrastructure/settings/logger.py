@@ -41,3 +41,12 @@ def setup_logger(name: str = "app", debug: bool = False) -> logging.Logger:
         l.addHandler(h)
 
     return l
+
+
+def get_logger(name: str = "app", debug: bool = False) -> logging.Logger:
+    """Convenience wrapper que devuelve un logger configurado desde el módulo central.
+
+    Llamar a `get_logger(__name__)` desde otros módulos mantiene un único
+    `import logging` (en este fichero) mientras ofrecemos una API simple.
+    """
+    return setup_logger(name=name, debug=debug)

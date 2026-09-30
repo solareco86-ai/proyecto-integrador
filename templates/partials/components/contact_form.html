@@ -16,7 +16,7 @@
     <p class="c-contact__progress-text">{{ data.progress_text }}</p>
     <p class="c-contact__privacy-note">{{ data.privacy_note }}</p>
 </div>
-<form class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false">
+<form class="tw:grid tw:grid-cols-1 tw:gap-4" novalidate="" aria-busy="false" data-validation-messages='{{ data.validation_messages | tojson }}'>
     <!-- Campo señuelo Honeypot anti-spam (invisible para usuarios reales) -->
     <div class="tw:hidden" aria-hidden="true" style="display: none !important;">
         <label for="website_url_hp">Dejá este campo vacío</label>
@@ -27,22 +27,30 @@
         <div class="c-contact__step-panel {{ 'is-hidden' if not loop.first else '' }}">
             <h3 class="c-contact__step-title">{{ loop.index }}. {{ step.title }}</h3>
             {% for field in step.fields %}
-            <div>
-                <label class="c-contact__label" for="{{ field.id }}">{{ field.label }}</label>
+            <div class="c-contact__field {{ 'is-required' if field.required else '' }}" data-field-id="{{ field.id }}" data-required="{{ 'true' if field.required else 'false' }}">
+                <label class="c-contact__label" for="{{ field.id }}">{{ field.label }}{% if field.required %} <span class="c-contact__required-mark" aria-hidden="true">*</span>{% endif %}</label>
                 {% if field.type == 'textarea' %}
-                <textarea id="{{ field.id }}" name="{{ field.id }}" class="c-contact__input" rows="4" aria-describedby="{{ field.id }}-helper"></textarea>
+                <textarea id="{{ field.id }}" name="{{ field.id }}" class="c-contact__input" rows="4" {% if field.required %}required aria-required="true"{% endif %} aria-invalid="false" aria-describedby="{{ field.id }}-helper"></textarea>
                 {% elif field.type == 'select' %}
-                <select id="{{ field.id }}" name="{{ field.id }}" class="c-contact__input" aria-invalid="false" aria-describedby="{{ field.id }}-helper">
+                <select id="{{ field.id }}" name="{{ field.id }}" class="c-contact__input" {% if field.required %}required aria-required="true"{% endif %} aria-invalid="false" aria-describedby="{{ field.id }}-helper">
+                    {% if field.required %}
+                    <option value="" disabled selected>Seleccioná una opción</option>
+                    {% endif %}
                     {% for option in field.options %}
                     <option value="{{ option.value }}">{{ option.label }}</option>
                     {% endfor %}
                 </select>
                 {% else %}
-                <input id="{{ field.id }}" name="{{ field.id }}" type="text" class="c-contact__input" autocomplete="{{ field.autocomplete }}" maxlength="80" aria-invalid="false" aria-describedby="{{ field.id }}-helper">
+                <input id="{{ field.id }}" name="{{ field.id }}" type="text" class="c-contact__input" autocomplete="{{ field.autocomplete }}" maxlength="80" {% if field.required %}required aria-required="true"{% endif %} aria-invalid="false" aria-describedby="{{ field.id }}-helper">
                 {% endif %}
-                <small id="{{ field.id }}-helper" class="c-contact__helper">{{ data.optional_text }}</small>
+                <small id="{{ field.id }}-helper" class="c-contact__helper {{ 'c-contact__helper--conditional' if field.helper_text else '' }}">{{ field.helper_text if field.helper_text else (data.required_text if field.required else data.optional_text) }}</small>
+                <p class="c-contact__field-error" id="{{ field.id }}-error" role="alert" hidden></p>
             </div>
             {% endfor %}
+            {% if loop.last %}
+            <p class="c-contact__channel-note">{{ data.contact_channel_note }}</p>
+            <p class="c-contact__field-error" id="contact_channel-error" role="alert" hidden></p>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

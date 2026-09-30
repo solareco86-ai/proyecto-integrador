@@ -94,7 +94,10 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
     done
 
     if [ "$HEALTH_OK" != true ]; then
-        echo "ERROR: El health-check falló después de ${MAX_WAIT}s. Ejecutando rollback a $PREVIOUS_COMMIT..."
+        echo "ERROR: El health-check falló después de ${MAX_WAIT}s."
+        echo "==> Logs recientes del servicio $DEPLOY_SERVICE_NAME (últimas 30 líneas):"
+        sudo journalctl -u "$DEPLOY_SERVICE_NAME" -n 30 --no-pager || true
+        echo "==> Ejecutando rollback a $PREVIOUS_COMMIT..."
         git reset --hard "$PREVIOUS_COMMIT"
         echo "==> Reiniciando servicio $DEPLOY_SERVICE_NAME con versión anterior..."
         sudo systemctl restart "$DEPLOY_SERVICE_NAME"

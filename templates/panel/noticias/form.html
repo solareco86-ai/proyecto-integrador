@@ -5,7 +5,7 @@
 {% block panel_content %}
 <h1 class="panel-page-title">{% if modo == "editar" %}Editar noticia{% else %}Nueva noticia{% endif %}</h1>
 
-<form method="post" action="{% if modo == 'editar' %}/panel/noticias/{{ noticia_id }}/editar{% else %}/panel/noticias/nueva{% endif %}" class="panel-form">
+<form method="post" action="{% if modo == 'editar' %}/panel/noticias/{{ noticia_id }}/editar{% else %}/panel/noticias/nueva{% endif %}" enctype="multipart/form-data" class="panel-form">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 
     {% if error %}
@@ -25,6 +25,22 @@
     <label class="panel-checkbox-field">
         <input type="checkbox" name="publicada" {% if publicada %}checked{% endif %}>
         <span>Publicada (visible en el sitio público)</span>
+    </label>
+
+    {% if modo == "editar" and imagen_actual %}
+    <div class="panel-field">
+        <span class="panel-field__label">Imagen actual</span>
+        <img src="/static/uploads/{{ imagen_actual }}" alt="Imagen actual de la noticia" class="panel-field__image-preview">
+        <label class="panel-checkbox-field">
+            <input type="checkbox" name="quitar_imagen">
+            <span>Quitar imagen actual</span>
+        </label>
+    </div>
+    {% endif %}
+
+    <label class="panel-field">
+        <span class="panel-field__label">{% if modo == "editar" and imagen_actual %}Reemplazar imagen (opcional){% else %}Imagen (opcional){% endif %}</span>
+        <input type="file" name="imagen" accept="image/jpeg,image/png,image/webp" class="panel-field__input">
     </label>
 
     <div class="panel-form__actions">

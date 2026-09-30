@@ -22,8 +22,8 @@ class CreateComunicadoUseCase:
             publicada=input.publicada,
         )
         slug_unico = await self._resolver_slug_unico(comunicado.slug)
-        if slug_unico != comunicado.slug:
-            comunicado = replace(comunicado, slug=slug_unico)
+        if slug_unico != comunicado.slug or input.imagen is not None:
+            comunicado = replace(comunicado, slug=slug_unico, imagen=input.imagen)
         await self._repository.save(comunicado)
         return comunicado
 

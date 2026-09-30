@@ -163,7 +163,14 @@ else
 fi
 
 echo "==> [9/9] Ejecutando suite de pruebas con cobertura (pytest)..."
-if ! $PYTHON -m pytest --cov=src --cov-fail-under=85 tests/ -q; then
+PYTEST_OPTS=("--cov=src" "--cov-fail-under=85" "tests/" "-q")
+if $PYTHON -c "import xdist" &> /dev/null; then
+    NPROC=$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)
+    echo "⚡ pytest-xdist detectado: acelerando suite con $NPROC hilos en paralelo..."
+    PYTEST_OPTS=("-n" "$NPROC" "${PYTEST_OPTS[@]}")
+fi
+
+if ! $PYTHON -m pytest "${PYTEST_OPTS[@]}"; then
     echo "❌ ERROR: Fallaron las pruebas o la cobertura es inferior al 85%."
     exit 1
 fi

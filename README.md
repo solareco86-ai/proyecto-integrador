@@ -105,7 +105,7 @@ La plataforma implementa un pipeline desacoplado y resiliente para la recepción
 1. **Formularios de Consulta y Preinscripción (`/contact`, `#ingreso`):**
    - **Gestión Unificada:** Las consultas se consolidan con **deduplicación** por email y teléfono: si el aspirante ya realizó una consulta previa, se preserva el historial cronológico de orientación académica.
    - **Registro de Auditoría:** Cada consulta se almacena íntegra en la base de datos con metadatos completos (carrera de interés, situación de estudios secundarios, timestamps).
-   - **Notificación por Correo Electrónico:** Despacho vía SMTP a la Secretaría del instituto (`isft199@gmail.com`) para su seguimiento administrativo.
+   - **Notificación por Correo Electrónico:** Despacho vía SMTP a la Secretaría del instituto (`isft199@abc.gob.ar`) para su seguimiento administrativo.
    - **Alerta Instantánea en Telegram:** Notificación en tiempo real con datos de contacto y enlace directo a chat de WhatsApp institucional.
 
 2. **Canales Directos de Orientación (WhatsApp, Teléfono y Correo):**

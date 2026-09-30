@@ -72,6 +72,9 @@ async def override_get_contenido():
                 "privacy_note": "Test",
                 "error_message": "Test",
                 "optional_text": "Test",
+                "required_text": "Test",
+                "contact_channel_note": "Test",
+                "validation_messages": {},
                 "steps": [],
             },
             "assistance_modes": {
@@ -206,12 +209,15 @@ async def test_localidad_canonical_is_https():
 
 @pytest.mark.asyncio  # type: ignore
 async def test_service_cards_use_heading_tags():
+    """Verifica que las tarjetas de contenido de la Home institucional (Noticias/Eventos/
+    Comunicados, Carreras, Estudiantes, Sedes) usen headings semánticos <h3>, ya sin las
+    tarjetas de "servicios" comerciales de DataMaq."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/")
 
     assert response.status_code == 200
-    assert 'c-home-service-card__title"' in response.text
+    assert 'c-inst-card__title"' in response.text
     assert "<h3" in response.text
 
 
@@ -298,7 +304,7 @@ async def test_json_ld_cursos_and_breadcrumbs():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         # 1. Validar Detalle del Curso (Course, BreadcrumbList)
-        response_detail = await ac.get("/cursos/fastapi-intermedio")
+        response_detail = await ac.get("/cursos/procesamiento-imagenes-python-opencv")
         assert response_detail.status_code == 200
         json_lds_detail = parse_json_ld_blocks(response_detail.text)
 
@@ -307,11 +313,11 @@ async def test_json_ld_cursos_and_breadcrumbs():
 
         assert course is not None, "Falta JSON-LD de tipo Course en el detalle del curso"
         assert breadcrumbs_detail is not None, "Falta JSON-LD de tipo BreadcrumbList en el detalle del curso"
-        assert "FastAPI" in course.get("name", "")
+        assert "Procesamiento Digital de Imágenes" in course.get("name", "")
         assert len(breadcrumbs_detail.get("itemListElement", [])) == 3
 
         # 2. Validar Lección (BreadcrumbList)
-        response_lesson = await ac.get("/cursos/fastapi-intermedio/instalacion-distribucion-python-pyenv")
+        response_lesson = await ac.get("/cursos/procesamiento-imagenes-python-opencv/entorno-virtual-requirements")
         assert response_lesson.status_code == 200
         json_lds_lesson = parse_json_ld_blocks(response_lesson.text)
 
@@ -319,7 +325,7 @@ async def test_json_ld_cursos_and_breadcrumbs():
         assert breadcrumbs_lesson is not None, "Falta JSON-LD de tipo BreadcrumbList en la página de lección"
         assert len(breadcrumbs_lesson.get("itemListElement", [])) == 3
         # Comprobar que el tercer elemento es la lección actual
-        assert "Instalación de una Distribución de Python con pyenv" in breadcrumbs_lesson["itemListElement"][2]["name"]
+        assert "Entorno virtual" in breadcrumbs_lesson["itemListElement"][2]["name"]
 
 
 from src.infrastructure.settings import config

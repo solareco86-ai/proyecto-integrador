@@ -24,8 +24,8 @@ class CreateEventoUseCase:
             publicada=input.publicada,
         )
         slug_unico = await self._resolver_slug_unico(evento.slug)
-        if slug_unico != evento.slug:
-            evento = replace(evento, slug=slug_unico)
+        if slug_unico != evento.slug or input.imagen is not None:
+            evento = replace(evento, slug=slug_unico, imagen=input.imagen)
         await self._repository.save(evento)
         return evento
 

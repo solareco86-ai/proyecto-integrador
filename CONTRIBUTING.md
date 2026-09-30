@@ -110,6 +110,7 @@ Un Pull Request **no será revisado** si no cumple estos requisitos:
 - [ ] **La rama sigue la convención de nombres** (sección 3).
 - [ ] **El título del PR usa Conventional Commits** (ver sección 6).
 - [ ] **El PR tiene una descripción** que explique qué se hizo y por qué.
+- [ ] **Variables de entorno:** Si se introducen nuevas variables requeridas, están agregadas a `.env.example` y se avisó para su aprovisionamiento en el VPS antes del merge.
 
 ---
 

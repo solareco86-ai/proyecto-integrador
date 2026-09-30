@@ -70,7 +70,7 @@ Cualquier modificación que impacte en producción debe ser autorizada por el us
 * Rotación de logs de aplicación y Nginx mediante `logrotate`.
 
 ### 3.3 Gestión y Deduplicación de Contactos en Roundcube
-* **Libreta Canónica:** Ubicada en la tabla `roundcube.contacts` bajo la cuenta institucional `isft199@gmail.com` (`user_id=1`).
+* **Libreta Canónica:** Ubicada en la tabla `roundcube.contacts` bajo la cuenta institucional `isft199@abc.gob.ar` (`user_id=1`).
 * **Formato vCard 3.0:** Cada registro contiene `name`, `email`, `phone`, `organization` y `notes` con el histórico de consultas.
 * **Integración Webhook:** `www-datamaq` despacha consultas a `datamaq-hub.service` (`http://127.0.0.1:8013/api/v1/leads/ingest`), que resuelve la deduplicación y actualiza la libreta de Roundcube.
 

@@ -1,11 +1,9 @@
-import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
-from sqlalchemy.exc import OperationalError
 
 from src.adapters.presenters.content_presenter import present_contenido
 from src.application.data_service import DataService
@@ -27,8 +25,9 @@ from src.infrastructure.fastapi.dependencies import (
 from src.infrastructure.fastapi.metrics import registry
 from src.infrastructure.fastapi.utils.seo import canonical_url
 from src.infrastructure.settings import config
+from src.infrastructure.settings.logger import get_logger
 
-logger = logging.getLogger(config.LOGGER_NAME)
+logger = get_logger(config.LOGGER_NAME)
 
 router = APIRouter()
 
@@ -251,7 +250,7 @@ async def sitemap(
     urls.append({"loc": f"{base_url}/noticias", "lastmod": lastmod, "changefreq": "weekly", "priority": "0.6"})
     try:
         noticias = await ListNoticiasUseCase(repository=noticia_repository).execute()
-    except OperationalError:
+    except Exception:
         # Entornos sin la migración de contenido institucional aplicada (p. ej. tests
         # o desarrollo local sin DB): el sitemap no debe romperse por esto.
         noticias = []
@@ -269,7 +268,7 @@ async def sitemap(
     urls.append({"loc": f"{base_url}/eventos", "lastmod": lastmod, "changefreq": "weekly", "priority": "0.6"})
     try:
         eventos = await ListEventosUseCase(repository=evento_repository).execute()
-    except OperationalError:
+    except Exception:
         eventos = []
     for evento in eventos:
         if evento.publicada and evento.slug:
@@ -285,7 +284,7 @@ async def sitemap(
     urls.append({"loc": f"{base_url}/comunicados", "lastmod": lastmod, "changefreq": "weekly", "priority": "0.6"})
     try:
         comunicados = await ListComunicadosUseCase(repository=comunicado_repository).execute()
-    except OperationalError:
+    except Exception:
         comunicados = []
     for comunicado in comunicados:
         if comunicado.publicada and comunicado.slug:
