@@ -7,6 +7,7 @@
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/InstitucionalHome.css') }}?v={{ static_version() }}">
 {% endblock %}
 
 {% block header %}
@@ -14,6 +15,7 @@
 {% endblock %}
 
 {% block main_content %}
+<div class="c-inst-home c-inst-newsish">
 <section class="c-cursos-hero">
     <div class="tw:container tw:mx-auto tw:px-4 tw:py-12 tw:text-center">
         <span class="c-cursos-hero__badge">Institucional</span>
@@ -63,6 +65,7 @@
         {% endif %}
     </div>
 </section>
+</div>
 
 <script type="application/ld+json">
 {

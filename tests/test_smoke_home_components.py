@@ -12,7 +12,11 @@ from src.infrastructure.fastapi.app import app
 
 @pytest.mark.asyncio
 async def test_home_renders_with_all_key_sections():
-    """Verifica que la home contiene todos los componentes clave post-refactorización."""
+    """Verifica que la Home institucional ISFT N° 199 contiene sus secciones reales
+    (Hero, Noticias/Eventos/Comunicados, Carreras, Estudiantes, Ingresantes, Sedes,
+    FAQ, Contacto), y que NO se reintrodujeron los componentes comerciales de DataMaq
+    (proof strip, process, casos, cursos comerciales), que ahora viven exclusivamente
+    en las páginas DataMaq/SEO servidas por datamaq_landing.html."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/")
@@ -21,36 +25,39 @@ async def test_home_renders_with_all_key_sections():
     html = response.text
 
     # Hero
-    assert "Formación técnica de excelencia" in html or "ISFT N° 199" in html
-    assert "Educación Pública Superior" in html
+    assert "ISFT N° 199" in html
+    assert "100% gratuitas" in html
 
-    # Proof strip
-    assert "c-home-proof-strip" in html
-    assert "Educación Superior Técnica Gratuita" in html
-    assert "Campus Virtual Integrado" in html
+    # Noticias / Eventos / Comunicados
+    assert "Noticias, eventos y comunicados" in html
 
-    # Servicios / Ejes Formativos
-    assert "Ciencia de Datos" in html or "Mecatrónica" in html
+    # Nuestras carreras
+    assert "Nuestras carreras" in html
+    assert "Mecatrónica" in html
+    assert "Turismo" in html
+    assert "Hotelería" in html
 
-    # Process
-    assert "c-home-process" in html
-    assert "Elegí tu Carrera" in html or "Preinscripción" in html
-
-    # Profile / Docentes
-    assert "Docentes con trayectoria" in html or "Cuerpo Docente" in html
-
-    # Casos section
-    assert "c-home-casos" in html
-
-    # Cursos section
-    assert "c-home-cursos" in html
+    # Información para estudiantes
+    assert "Información para estudiantes" in html
     assert "Campus Virtual" in html
+
+    # Ingresantes
+    assert "Ingresantes" in html
+
+    # Sedes
+    assert "Nuestras sedes" in html
 
     # FAQ
     assert "c-home-faq" in html
 
-    # Contact
+    # Contacto
     assert "Inscripciones y Consultas Institucionales" in html
+
+    # No debe reaparecer contenido comercial DataMaq en la Home institucional
+    assert "c-home-proof-strip" not in html
+    assert "c-home-process" not in html
+    assert "c-home-casos" not in html
+    assert "c-home-cursos" not in html
 
 
 
@@ -101,16 +108,23 @@ async def test_home_json_ld_valid():
 
 @pytest.mark.asyncio
 async def test_service_automatizacion_linked_to_caso():
-    """Verifica que el servicio de automatización linkea al caso MadyGraf."""
+    """Verifica que el caso MadyGraf sigue accesible desde una página DataMaq/SEO real
+    (datamaq_landing.html), ya que la Home institucional ISFT N° 199 ya no muestra
+    contenido comercial de DataMaq. La sección de casos de éxito de DataMaq se conserva
+    íntegra en /industria/{slug}.html, /{provincia} y /{provincia}/{municipio}."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/")
+        response = await ac.get("/industria/grafica.html")
+        home_response = await ac.get("/")
 
     assert response.status_code == 200
     html = response.text
 
     # El caso_slug "madygraf-eficiencia-y-vision-40" debe estar referenciado
     assert "madygraf-eficiencia-y-vision-40" in html
+
+    # La Home institucional no debe enlazar este caso comercial
+    assert "madygraf-eficiencia-y-vision-40" not in home_response.text
 
 
 @pytest.mark.asyncio

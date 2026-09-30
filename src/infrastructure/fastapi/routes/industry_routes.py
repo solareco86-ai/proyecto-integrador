@@ -66,4 +66,4 @@ async def pagina_industria(
         "casos": cursos_service.get_casos(),
         "guias": cursos_service.get_guias(),
     }
-    return templates.TemplateResponse(request=request, name="index.html", context=context)
+    return templates.TemplateResponse(request=request, name="datamaq_landing.html", context=context)

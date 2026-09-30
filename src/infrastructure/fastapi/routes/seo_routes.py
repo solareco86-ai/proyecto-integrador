@@ -72,7 +72,7 @@ async def pagina_provincia(
         "casos": cursos_service.get_casos(),
         "guias": cursos_service.get_guias(),
     }
-    return templates.TemplateResponse(request=request, name="index.html", context=context)
+    return templates.TemplateResponse(request=request, name="datamaq_landing.html", context=context)
 
 
 @router.get("/{provincia}/{municipio}")
@@ -135,7 +135,7 @@ async def pagina_municipio(
         "casos": cursos_service.get_casos(),
         "guias": cursos_service.get_guias(),
     }
-    return templates.TemplateResponse(request=request, name="index.html", context=context)
+    return templates.TemplateResponse(request=request, name="datamaq_landing.html", context=context)
 
 
 @router.get("/{provincia}/{municipio}/{localidad}.html")

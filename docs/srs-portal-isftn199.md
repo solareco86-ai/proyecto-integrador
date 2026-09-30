@@ -35,7 +35,7 @@
 * **Alianzas Clave:** DGCyE PBA, empresas e industrias del Parque Industrial de Tigre y Zona Norte del GBA.
 * **Actividades Clave:** Difusión de oferta académica, inscripción y orientación de ingresantes, dictado de cátedras técnicas y prácticas profesionalizantes.
 * **Recursos Clave:** Repositorio institucional auditado con herramientas AST, contenidos curriculares abiertos y despliegue continuo automatizado en VPS.
-* **Canales Oficiales:** Portal web (`isftn199.com.ar`), correo institucional (`isft199@gmail.com`), WhatsApp de secretaría (+54 11 5629 7160).
+* **Canales Oficiales:** Portal web (`isftn199.com.ar`), correo institucional (`isft199@abc.gob.ar`), WhatsApp de secretaría (+54 11 5629 7160).
 
 ---
 

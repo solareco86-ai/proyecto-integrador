@@ -1,0 +1,985 @@
+/* ==========================================================================
+   PRUEBA VISUAL LOCAL — Identidad institucional ISFT N° 199.
+   Hoja plana e independiente del pipeline de Tailwind (no pasa por
+   `npm run build:css`), igual que Panel.css. Se carga después de index.css
+   para poder sobrescribir por cascada sin tocar tokens.css ni el build.
+   ========================================================================== */
+
+:root {
+    --inst-verde: #0f7a4c;
+    --inst-verde-oscuro: #0b5e3a;
+    --inst-celeste: #1e88c7;
+    --inst-azul: #145a94;
+    --inst-blanco: #ffffff;
+    --inst-gris-100: #f4f7f9;
+    --inst-gris-150: #e9edf0;
+    --inst-gris-200: #e6ebee;
+    --inst-gris-300: #d3dbe0;
+    --inst-texto: #1c2a30;
+    --inst-texto-muted: #55676e;
+    --inst-radius: 1rem;
+    --inst-shadow: 0 6px 20px rgba(20, 40, 50, 0.08);
+}
+
+/* --- Header institucional (afecta todo el sitio: es un partial global) --- */
+.c-home-header {
+    background: var(--inst-blanco) !important;
+    border-bottom: 1px solid var(--inst-gris-300) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+.c-home-header__brand-copy {
+    color: var(--inst-azul) !important;
+    font-weight: 800;
+}
+.c-inst-header__subtitle {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--inst-texto-muted);
+    letter-spacing: .01em;
+    line-height: 1.15;
+}
+.c-home-header__nav-link {
+    color: var(--inst-texto) !important;
+}
+.c-home-header__nav-link::after {
+    background: var(--inst-verde) !important;
+}
+.c-home-header__nav-link:hover {
+    color: var(--inst-verde) !important;
+}
+.c-home-header__icon-link {
+    color: var(--inst-azul) !important;
+    background: var(--inst-gris-100) !important;
+    border-color: var(--inst-gris-300) !important;
+}
+.c-home-header__cta {
+    background: var(--inst-verde) !important;
+    border-color: var(--inst-verde) !important;
+    color: #fff !important;
+}
+.c-home-header__cta:hover {
+    background: var(--inst-verde-oscuro) !important;
+}
+
+/* --- Dropdown "Estudiantes" (desktop, hover + foco, sin JS) --- */
+.c-inst-dropdown {
+    position: relative;
+    display: inline-flex;
+}
+.c-inst-dropdown__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+}
+.c-inst-dropdown__caret {
+    display: inline-flex;
+    font-size: .7rem;
+    transition: transform .18s ease;
+}
+.c-inst-dropdown__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: .9rem;
+    min-width: 240px;
+    background: var(--inst-blanco);
+    border: 1px solid var(--inst-gris-300);
+    border-radius: .65rem;
+    box-shadow: var(--inst-shadow);
+    padding: .5rem;
+    list-style: none;
+    z-index: 20;
+}
+.c-inst-dropdown:hover .c-inst-dropdown__menu,
+.c-inst-dropdown:focus-within .c-inst-dropdown__menu {
+    display: block;
+}
+.c-inst-dropdown:hover .c-inst-dropdown__caret,
+.c-inst-dropdown:focus-within .c-inst-dropdown__caret {
+    transform: rotate(180deg);
+}
+.c-inst-dropdown__menu li a {
+    display: block;
+    padding: .48rem .75rem;
+    border-radius: .45rem;
+    color: var(--inst-texto);
+    text-decoration: none;
+    font-size: .9rem;
+}
+.c-inst-dropdown__menu li a:hover,
+.c-inst-dropdown__menu li a:focus-visible {
+    background: var(--inst-gris-100);
+    color: var(--inst-verde);
+}
+
+/* --- Ítem de nav no funcional todavía ("Profesores") --- */
+.c-inst-nav-link--disabled {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    opacity: .65;
+    cursor: default;
+}
+.c-inst-badge-mini {
+    font-size: .62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    background: var(--inst-gris-200);
+    color: var(--inst-texto-muted);
+    border-radius: 999px;
+    padding: .15rem .5rem;
+}
+
+/* --- Menú responsive del header (checkbox hack, sin JS) --- */
+.c-inst-nav-toggle {
+    display: none;
+}
+.c-inst-nav-toggle-label {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: .6rem;
+    border: 1px solid var(--inst-gris-300);
+    background: var(--inst-gris-100);
+    color: var(--inst-azul);
+    cursor: pointer;
+    font-size: 1.35rem;
+    line-height: 1;
+}
+.c-home-header__mobile-nav {
+    display: none;
+}
+@media (max-width: 991.98px) {
+    .c-inst-nav-toggle-label {
+        display: inline-flex;
+    }
+    .c-inst-nav-toggle:checked ~ .c-home-header__mobile-nav {
+        display: block;
+    }
+    .c-home-header__mobile-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--inst-blanco);
+        border-bottom: 1px solid var(--inst-gris-300);
+        box-shadow: var(--inst-shadow);
+        padding: .5rem 1rem 1rem;
+        display: none;
+    }
+    .c-home-header__mobile-nav a {
+        display: block;
+        padding: .65rem .25rem;
+        color: var(--inst-texto);
+        text-decoration: none;
+        border-bottom: 1px solid var(--inst-gris-200);
+        font-size: .95rem;
+    }
+    .c-home-header__mobile-nav a:last-child {
+        border-bottom: none;
+    }
+    .c-home-header__inner {
+        position: relative;
+        flex-wrap: wrap;
+    }
+    .c-inst-mobile-nav__group-title {
+        display: block;
+        padding: .65rem .25rem 0;
+        font-size: .8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        color: var(--inst-verde);
+    }
+    .c-home-header__mobile-nav a.c-inst-mobile-nav__sublink {
+        padding-left: 1rem;
+        font-size: .9rem;
+        color: var(--inst-texto-muted);
+    }
+    .c-home-header__mobile-nav .c-inst-nav-link--disabled {
+        display: flex;
+        padding: .65rem .25rem;
+        border-bottom: 1px solid var(--inst-gris-200);
+    }
+}
+
+/* --- Footer institucional (afecta todo el sitio) --- */
+.c-home-footer {
+    background: var(--inst-gris-100) !important;
+    color: var(--inst-texto) !important;
+    border-top: 1px solid var(--inst-gris-300);
+}
+/* El padding-bottom original (6-7rem) reservaba espacio para el FAB de
+   WhatsApp de la landing comercial, ya removido de las páginas
+   institucionales. Se reduce para evitar el hueco vacío bajo el footer. */
+.c-home-footer[data-v-236fef00] {
+    padding-top: 1.75rem !important;
+    padding-bottom: 2rem !important;
+}
+.c-home-footer__divider[data-v-236fef00] {
+    margin: 1rem 0;
+}
+.c-home-footer__brand,
+.c-home-footer__nav-title span,
+.c-home-footer__legal {
+    color: var(--inst-texto) !important;
+}
+.c-home-footer__description,
+.c-home-footer__note,
+.c-home-footer__contact-item {
+    color: var(--inst-texto-muted) !important;
+}
+.c-home-footer__links-container a,
+.c-home-footer__lower-links a {
+    color: var(--inst-azul) !important;
+}
+.c-home-footer__divider {
+    border-color: var(--inst-gris-300) !important;
+}
+.c-inst-footer__logo {
+    height: 48px;
+    width: auto;
+    margin-bottom: .75rem;
+}
+
+/* --- Footer institucional: marca + 4 columnas (Institucional / Estudiantes /
+   Contacto / Redes oficiales), reemplazando la vieja estructura Navegación/
+   Cobertura/Industrias heredada del sitio comercial --- */
+.c-home-footer__upper[data-v-236fef00] {
+    grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+    .c-home-footer__upper[data-v-236fef00] {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (min-width: 992px) {
+    /* Compacta el gap heredado (4rem) de la grilla de 2 columnas del diseño
+       anterior, que quedaba excesivo con las 5 columnas actuales. */
+    .c-home-footer__upper[data-v-236fef00] {
+        gap: 1.75rem 2.25rem;
+    }
+}
+@media (min-width: 1024px) {
+    .c-home-footer__upper[data-v-236fef00] {
+        grid-template-columns: 1.6fr repeat(4, 1fr);
+    }
+}
+.c-inst-footer__col {
+    display: grid;
+    gap: .6rem;
+    align-content: start;
+}
+.c-inst-footer__links {
+    display: grid;
+    gap: .45rem;
+}
+.c-inst-footer__links a {
+    color: var(--inst-texto-muted);
+    font-size: .85rem;
+    text-decoration: none;
+}
+.c-inst-footer__links a:hover {
+    color: var(--inst-verde);
+    text-decoration: underline;
+}
+.c-inst-footer__contacto-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    color: var(--inst-texto-muted) !important;
+    font-size: .85rem;
+    margin: 0;
+    text-decoration: none;
+}
+.c-inst-footer__contacto-hint {
+    display: block;
+    width: 100%;
+    font-size: .75rem;
+    opacity: .8;
+    margin-left: 1.55rem;
+}
+.c-inst-footer__social {
+    display: flex;
+    gap: 1rem;
+    margin-top: .2rem;
+}
+.c-inst-footer__social a {
+    color: var(--inst-verde) !important;
+    font-size: .85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+.c-inst-footer__social a:hover {
+    text-decoration: underline;
+}
+.c-inst-footer__social-link {
+    color: var(--inst-verde);
+    font-weight: 600;
+    text-decoration: none;
+}
+.c-inst-footer__social-link:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Cuerpo de la Home institucional — todo scopeado bajo .c-inst-home para
+   no afectar el resto del sitio (noticias/eventos/comunicados/carreras
+   conservan su tema actual).
+   ========================================================================== */
+
+.c-inst-home {
+    background: var(--inst-blanco);
+    color: var(--inst-texto);
+}
+
+.c-inst-section {
+    padding: 3.5rem 0;
+}
+.c-inst-section--alt {
+    background: var(--inst-gris-100);
+}
+.c-inst-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+.c-inst-eyebrow {
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--inst-verde);
+    margin-bottom: .5rem;
+}
+.c-inst-title {
+    font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+    font-weight: 800;
+    color: var(--inst-texto);
+    margin: 0 0 .6rem;
+}
+.c-inst-subtitle {
+    color: var(--inst-texto-muted);
+    max-width: 60ch;
+    margin: 0 auto 2rem;
+}
+.c-inst-head--center {
+    text-align: center;
+}
+
+/* --- Hero --- */
+.c-inst-hero {
+    background: linear-gradient(135deg, var(--inst-azul) 0%, var(--inst-celeste) 55%, var(--inst-verde) 130%);
+    color: #fff;
+    padding: 3.5rem 0;
+}
+.c-inst-hero__grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+}
+.c-inst-hero__badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .35);
+    padding: .35rem .85rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.c-inst-hero__title {
+    font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+}
+.c-inst-hero__subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, .92);
+    max-width: 56ch;
+    margin: 0 0 1.5rem;
+}
+.c-inst-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .85rem;
+}
+.c-inst-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: .8rem 1.5rem;
+    border-radius: .7rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: .95rem;
+    transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+    border: 2px solid transparent;
+}
+.c-inst-btn--primary {
+    background: var(--inst-blanco);
+    color: var(--inst-azul);
+}
+.c-inst-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--inst-shadow);
+}
+.c-inst-btn--outline {
+    background: transparent;
+    border-color: rgba(255, 255, 255, .7);
+    color: #fff;
+}
+.c-inst-btn--outline:hover {
+    background: rgba(255, 255, 255, .12);
+}
+.c-inst-btn--solid-green {
+    background: var(--inst-verde);
+    color: #fff;
+}
+.c-inst-btn--solid-green:hover {
+    background: var(--inst-verde-oscuro);
+}
+.c-inst-hero__note {
+    margin-top: 1.25rem;
+    font-size: .85rem;
+    color: rgba(255, 255, 255, .85);
+}
+.c-inst-hero__media {
+    background: rgba(255, 255, 255, .12);
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: var(--inst-radius);
+    padding: 1.25rem;
+    text-align: center;
+}
+.c-inst-hero__media img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* --- Grillas de tarjetas genéricas --- */
+.c-inst-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+.c-inst-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+.c-inst-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+.c-inst-card {
+    background: var(--inst-blanco);
+    border: 1px solid var(--inst-gris-300);
+    border-radius: var(--inst-radius);
+    box-shadow: var(--inst-shadow);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.c-inst-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(20, 40, 50, .14);
+}
+.c-inst-card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: .65rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--inst-gris-100);
+    color: var(--inst-verde);
+    font-size: 1.3rem;
+}
+.c-inst-card__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--inst-texto);
+    margin: 0;
+}
+.c-inst-card__text {
+    color: var(--inst-texto-muted);
+    font-size: .92rem;
+    margin: 0;
+    flex: 1;
+}
+.c-inst-card__cta {
+    font-weight: 700;
+    color: var(--inst-azul);
+    font-size: .88rem;
+}
+
+/* --- Noticias / Eventos / Comunicados --- */
+.c-inst-content-card {
+    background: var(--inst-blanco);
+    border: 1px solid var(--inst-gris-300);
+    border-radius: var(--inst-radius);
+    overflow: hidden;
+    box-shadow: var(--inst-shadow);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+.c-inst-content-card__image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    background: var(--inst-gris-200);
+}
+.c-inst-content-card__placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--inst-gris-200), var(--inst-gris-100));
+    color: var(--inst-celeste);
+    font-size: 2rem;
+}
+.c-inst-content-card__body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex: 1;
+}
+.c-inst-content-card__category {
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--inst-verde);
+}
+.c-inst-content-card__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--inst-texto);
+    margin: 0;
+}
+
+/* --- Carreras (teaser de Home): alturas equilibradas y espaciado más ajustado --- */
+.c-inst-carrera-card {
+    text-align: center;
+    align-items: center;
+    padding: 1.15rem 1.25rem;
+    gap: .45rem;
+    justify-content: center;
+}
+.c-inst-carrera-card .c-inst-card__title {
+    font-size: .95rem;
+    line-height: 1.35;
+}
+.c-inst-carrera-card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--inst-verde), var(--inst-celeste));
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin: 0 auto;
+}
+
+/* --- Ingresantes --- */
+.c-inst-ingresantes {
+    background: linear-gradient(120deg, var(--inst-verde-oscuro), var(--inst-verde));
+    color: #fff;
+    text-align: center;
+    border-radius: var(--inst-radius);
+    padding: 3rem 1.5rem;
+}
+.c-inst-ingresantes .c-inst-title {
+    color: #fff;
+}
+.c-inst-ingresantes .c-inst-subtitle {
+    color: rgba(255, 255, 255, .9);
+}
+.c-inst-ingresantes__cta {
+    background: #fff;
+    color: var(--inst-verde-oscuro);
+}
+.c-inst-ingresantes__cta:hover {
+    background: var(--inst-gris-100);
+}
+
+/* --- Listado completo de carreras (/carreras) --- */
+.c-inst-carreras-hero {
+    background: linear-gradient(135deg, var(--inst-azul) 0%, var(--inst-celeste) 60%, var(--inst-verde) 140%);
+    color: #fff;
+    padding: 3rem 0;
+    text-align: center;
+}
+.c-inst-carreras-hero .c-inst-title,
+.c-inst-carreras-hero .c-inst-subtitle {
+    color: #fff;
+}
+.c-inst-carreras-hero .c-inst-subtitle {
+    color: rgba(255, 255, 255, .92);
+    margin-left: auto;
+    margin-right: auto;
+}
+.c-inst-carrera-full {
+    text-align: left;
+    align-items: stretch;
+}
+.c-inst-carrera-full__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    margin-bottom: .25rem;
+}
+.c-inst-badge {
+    display: inline-block;
+    background: rgba(15, 122, 76, .1);
+    color: var(--inst-verde);
+    border: 1px solid rgba(15, 122, 76, .25);
+    border-radius: 999px;
+    padding: .25rem .7rem;
+    font-size: .72rem;
+    font-weight: 700;
+}
+.c-inst-badge--pendiente {
+    background: rgba(30, 136, 199, .1);
+    color: var(--inst-celeste);
+    border-color: rgba(30, 136, 199, .3);
+}
+.c-inst-carrera-full__meta {
+    font-size: .78rem;
+    color: var(--inst-texto-muted);
+    font-weight: 600;
+}
+.c-inst-carrera-full__resolucion {
+    font-size: .75rem;
+    color: var(--inst-azul);
+    font-family: monospace;
+    margin: .2rem 0 0;
+}
+.c-inst-carrera-full__nota {
+    font-size: .78rem;
+    color: var(--inst-celeste);
+    font-style: italic;
+    margin: .25rem 0 0;
+}
+.c-inst-carrera-full__materias {
+    list-style: none;
+    margin: .5rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+.c-inst-carrera-full__materias li {
+    font-size: .82rem;
+    color: var(--inst-texto);
+    display: flex;
+    gap: .4rem;
+}
+.c-inst-carrera-full__materias li::before {
+    content: "✓";
+    color: var(--inst-verde);
+    font-weight: 700;
+}
+.c-inst-carrera-full__footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--inst-gris-200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+}
+.c-inst-requisitos-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: var(--inst-gris-100);
+    color: var(--inst-verde);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin: 0 auto 1rem;
+}
+
+/* --- Sedes --- */
+.c-inst-sede-card__icon {
+    color: var(--inst-celeste);
+    font-size: 1.4rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 991.98px) {
+    .c-inst-hero__grid {
+        grid-template-columns: 1fr;
+    }
+    .c-inst-grid--3,
+    .c-inst-grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 575.98px) {
+    .c-inst-grid--3,
+    .c-inst-grid--4 {
+        grid-template-columns: 1fr;
+    }
+    .c-inst-section {
+        padding: 2.25rem 0;
+    }
+    .c-inst-hero {
+        padding: 2.25rem 0;
+    }
+    .c-inst-hero__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* ==========================================================================
+   Sobrescritura de fondos oscuros heredados del tema anterior (compilados en
+   static/css/index.css, que no se edita a mano). Este archivo se carga
+   después de index.css, por lo que estas reglas ganan por cascada usando
+   exactamente los mismos selectores. Solo colores/fondos: no se toca la
+   estructura ni la funcionalidad del FAQ ni del formulario de contacto.
+   ========================================================================== */
+
+/* --- FAQ ("Preguntas frecuentes sobre la cursada"), scopeado a #faq --- */
+#faq.c-home-faq[data-v-236fef00] {
+    background: var(--inst-gris-100);
+}
+#faq .c-home-eyebrow[data-v-236fef00] {
+    background: rgba(15, 122, 76, .1);
+    color: var(--inst-verde);
+}
+#faq .c-home-section-title[data-v-236fef00] {
+    color: var(--inst-azul);
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    line-height: 1.25;
+}
+#faq .c-home-section-copy[data-v-236fef00] {
+    color: var(--inst-texto-muted);
+    margin-top: .4rem;
+}
+#faq .c-home-section-head[data-v-236fef00] {
+    margin-bottom: 1.1rem;
+}
+#faq.c-home-faq[data-v-236fef00] {
+    padding-block: 2.75rem !important;
+}
+#faq .c-home-faq__item[data-v-c938c92c] {
+    border: 1px solid var(--inst-gris-300);
+    border-radius: 1rem;
+    background: var(--inst-blanco);
+    box-shadow: var(--inst-shadow);
+}
+#faq .c-home-faq__summary[data-v-c938c92c] {
+    color: var(--inst-texto);
+}
+#faq .c-home-faq__toggle[data-v-c938c92c] {
+    color: var(--inst-verde);
+}
+#faq .c-home-faq__answer[data-v-c938c92c] {
+    color: var(--inst-texto-muted);
+}
+
+/* --- Contacto / Inscripciones ("Inscripciones y Consultas Institucionales"), scopeado a #contacto --- */
+#contacto.c-contact {
+    background: var(--inst-gris-100);
+}
+.app-shell--home[data-v-236fef00] #contacto .c-contact__card {
+    background: var(--inst-blanco) !important;
+    border: 1px solid var(--inst-gris-300) !important;
+    box-shadow: var(--inst-shadow) !important;
+}
+.app-shell--home[data-v-236fef00] #contacto .c-contact__title {
+    color: var(--inst-azul) !important;
+}
+.app-shell--home[data-v-236fef00] #contacto .c-contact__subtitle {
+    color: var(--inst-texto-muted) !important;
+}
+.app-shell--home[data-v-236fef00] #contacto .form-label,
+#contacto .c-contact__label {
+    color: var(--inst-texto-muted);
+}
+.app-shell--home[data-v-236fef00] #contacto .form-control,
+#contacto .c-contact__input {
+    background: var(--inst-blanco);
+    border-color: var(--inst-gris-300);
+    color: var(--inst-texto);
+}
+#contacto .c-contact__stepper-item {
+    border-color: var(--inst-gris-300);
+    background: var(--inst-gris-100);
+    color: var(--inst-texto-muted);
+}
+#contacto .c-contact__stepper-dot {
+    border-color: var(--inst-celeste);
+    background: rgba(30, 136, 199, .12);
+    color: var(--inst-celeste);
+}
+#contacto .c-contact__stepper-item.is-active .c-contact__stepper-dot {
+    border-color: var(--inst-verde);
+    background: var(--inst-verde);
+    color: #fff;
+}
+#contacto .c-contact__progress-track {
+    background: var(--inst-gris-200);
+}
+#contacto .c-contact__progress-fill {
+    background: linear-gradient(90deg, var(--inst-celeste), var(--inst-verde));
+}
+#contacto .c-contact__progress-text,
+#contacto .c-contact__privacy-note,
+#contacto .c-contact__helper,
+#contacto .c-contact__email-label {
+    color: var(--inst-texto-muted);
+}
+#contacto .c-contact__step-title,
+#contacto .c-contact__email-title {
+    color: var(--inst-azul);
+}
+#contacto .c-contact__email-card {
+    background: var(--inst-gris-100);
+    border: 1px solid var(--inst-gris-300);
+}
+#contacto .c-contact__email-link {
+    color: var(--inst-verde);
+}
+#contacto .c-contact__btn--primary {
+    background: var(--inst-verde);
+    box-shadow: none;
+}
+#contacto .c-contact__btn--primary:hover {
+    background: var(--inst-verde-oscuro);
+}
+
+/* ==========================================================================
+   Noticias / Eventos / Comunicados — mismo lenguaje visual institucional,
+   con fondo gris ligeramente más marcado que el de FAQ (--inst-gris-100).
+   Todo scopeado bajo .c-inst-newsish para no afectar /cursos, /casos, etc.,
+   que reutilizan las mismas clases heredadas (.c-cursos-hero, .c-curso-card...)
+   y permanecen intencionalmente fuera del alcance de esta etapa.
+   ========================================================================== */
+.c-inst-newsish {
+    background: var(--inst-gris-150);
+}
+.c-inst-newsish .c-cursos-hero {
+    background: linear-gradient(135deg, var(--inst-azul) 0%, var(--inst-celeste) 60%, var(--inst-verde) 140%);
+    border-bottom: none;
+}
+.c-inst-newsish .c-cursos-hero__badge {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .16);
+    border-color: rgba(255, 255, 255, .35);
+}
+.c-inst-newsish .c-cursos-hero__title {
+    color: #fff;
+}
+.c-inst-newsish .c-cursos-hero__subtitle {
+    color: rgba(255, 255, 255, .92);
+}
+.c-inst-newsish .c-cursos-grid-section {
+    background-color: var(--inst-gris-150);
+}
+.c-inst-newsish .c-cursos-empty {
+    background: var(--inst-blanco);
+    border: 1px solid var(--inst-gris-300);
+    border-style: solid;
+    box-shadow: var(--inst-shadow);
+    color: var(--inst-texto-muted);
+}
+.c-inst-newsish .c-curso-card {
+    background-color: var(--inst-blanco);
+    border-color: var(--inst-gris-300);
+    box-shadow: var(--inst-shadow);
+}
+.c-inst-newsish .c-curso-card__badge {
+    color: var(--inst-celeste);
+    background-color: rgba(30, 136, 199, .1);
+    border-color: rgba(30, 136, 199, .3);
+}
+.c-inst-newsish .c-curso-card__title,
+.c-inst-newsish .c-curso-card__title a {
+    color: var(--inst-azul);
+}
+.c-inst-newsish .c-curso-card__description {
+    color: var(--inst-texto-muted);
+}
+.c-inst-newsish .c-curso-card__meta-item {
+    color: var(--inst-texto-muted);
+}
+.c-inst-newsish .c-curso-card__footer {
+    border-top-color: var(--inst-gris-200);
+}
+.c-inst-newsish .c-curso-card__cta {
+    background-color: var(--inst-verde);
+    color: #fff;
+}
+.c-inst-newsish .c-curso-card__cta:hover {
+    background-color: var(--inst-verde-oscuro);
+}
+.c-inst-newsish .c-curso-detail__content {
+    color: var(--inst-texto);
+}
+.c-inst-newsish .c-curso-detail__content p {
+    color: var(--inst-texto);
+}
+
+/* --- Campus Virtual (/cursos): elementos propios además de los ya cubiertos
+   por las reglas .c-inst-newsish de arriba (hero/tarjetas/estado vacío) --- */
+.c-inst-newsish .tw\:bg-dm-surface {
+    background-color: var(--inst-blanco) !important;
+}
+.c-inst-newsish .tw\:border-dm-border {
+    border-color: var(--inst-gris-300) !important;
+}
+.c-inst-newsish .tw\:bg-dm-bg {
+    background-color: var(--inst-gris-100) !important;
+}
+.c-inst-newsish .tw\:text-dm-text-muted {
+    color: var(--inst-texto-muted) !important;
+}
+.c-inst-newsish .c-curso-card__instructor-name {
+    color: var(--inst-azul) !important;
+}
+.c-inst-newsish .c-curso-card__instructor-role {
+    color: var(--inst-texto-muted) !important;
+}
+.c-inst-newsish .c-curso-card__badge--academic {
+    color: var(--inst-texto-muted);
+}
+
+/* --- Contacto (/contact): hero propio de esa página --- */
+.c-inst-home .c-contact-hero__title {
+    color: var(--inst-azul);
+}
+.c-inst-home .c-contact-hero__subtitle {
+    color: var(--inst-texto-muted);
+}

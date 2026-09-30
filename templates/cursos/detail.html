@@ -6,6 +6,7 @@
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand, page_type='article') }}
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/InstitucionalHome.css') }}?v={{ static_version() }}">
 {% endblock %}
 
 {% block header %}

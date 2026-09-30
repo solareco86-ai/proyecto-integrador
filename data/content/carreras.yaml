@@ -179,36 +179,69 @@ carreras:
   - Especialista en Liquidación de Haberes y Nómina
   - Coordinador/a de Capacitación y Desarrollo Organizacional
   - Consultor/a en Clima y Cultura de Trabajo
-- id: turismo-y-hoteleria
-  slug: turismo-y-hoteleria
-  title: Tecnicatura Superior en Servicios Gastronómicos, Turismo y Hotelería
-  titulo_otorgado: Técnico/a Superior en Servicios Gastronómicos y Turismo
+- id: turismo
+  slug: turismo
+  title: Tecnicatura Superior en Turismo
+  titulo_otorgado: Técnico/a Superior en Turismo
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
-  resolucion: Resolución DGCyE N° 148/18
+  resolucion: Resolución N° 2686/20
   badge: Desarrollo Local Tigre
-  icon: bi-compass
-  description_short: Planificación y gestión de servicios turísticos, hoteleros y
-    gastronómicos, con énfasis en el ecoturismo y el desarrollo del Delta de Tigre.
-  description_long: Orienta a los profesionales hacia la gestión innovadora de empresas
-    y servicios turísticos, promoviendo el turismo sustentable, la preservación del
-    patrimonio biocultural de las islas de Tigre y la hospitalidad de estándar internacional.
-  perfil_egresado: El/la egresado/a diseña circuitos y experiencias turísticas, administra
-    establecimientos de hospedaje y gastronomía, coordina eventos corporativos y recreativos,
-    y promueve el turismo receptivo del municipio.
+  icon: bi-airplane
+  description_short: Planificación, organización y gestión de servicios turísticos,
+    con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
+  description_long: Formación orientada a diseñar experiencias turísticas sostenibles
+    y a trabajar en el desarrollo del turismo local y regional, aplicando marketing,
+    comunicación y tecnología turística junto a proyectos de impacto local.
+  perfil_egresado: Profesional con una sólida formación en gestión, atención y promoción
+    turística, comprometido con la cultura, el desarrollo sustentable y el turismo
+    responsable.
   materias_destacadas:
-  - Circuitos Turísticos y Guía de Excursiones
-  - Gestión Hotelera y Hospitalidad
-  - Patrimonio Natural y Cultural del Delta
-  - Servicios Gastronómicos y Enología
-  - Organización de Eventos y Convenciones
-  - Marketing Turístico y Canales Digitales
-  - Inglés y Portugués Técnico para Turismo
-  - Legislación Turística y Sustentabilidad
+  - Geografía
+  - Historia del Turismo
+  - Introducción al Turismo
+  - Gestión de Empresas Turísticas
+  - Legislación y Marketing Turístico
+  - Recursos Culturales
+  - Turismo Sustentable
+  - Portugués
   salida_laboral:
-  - Coordinador/a de Servicios y Circuitos Turísticos
-  - Administrador/a de Hoteles, Cabañas y Resorts
-  - Organizador/a Profesional de Eventos y Congresos
-  - Agente de Viajes y Operador/a Receptivo
-  - Guía Especializado/a en Ecoturismo en el Delta
+  - Guía o Coordinador/a de Turismo
+  - Asesor/a o Agente de Viajes
+  - Técnico/a en Promoción y Desarrollo Turístico
+  - Gestor/a de Proyectos Culturales y Sustentables
+  - Consultor/a o Emprendedor/a en servicios turísticos
+- id: hoteleria
+  slug: hoteleria
+  title: Tecnicatura Superior en Hotelería
+  titulo_otorgado: Técnico/a Superior en Hotelería
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  resolucion: Resolución N° 2685/20
+  badge: Desarrollo Local Tigre
+  icon: bi-building
+  description_short: Gestión de servicios hoteleros y de alojamiento, coordinación
+    de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
+  description_long: Prepara para organizar, dirigir y optimizar establecimientos
+    hoteleros y turísticos, aportando calidad, creatividad y hospitalidad, con
+    estrategias de marketing y optimización de recursos gastronómicos y turísticos.
+  perfil_egresado: Profesional orientado al servicio, con formación en gestión,
+    administración y atención al cliente, comprometido con la sustentabilidad,
+    la inclusión y la calidad en la experiencia turística.
+  materias_destacadas:
+  - Administración Hotelera
+  - Turismo y Hospitalidad
+  - Marketing
+  - Recursos Humanos
+  - Gastronomía
+  - Contabilidad
+  - Gestión de Calidad
+  - Sustentabilidad
+  salida_laboral:
+  - Recepcionista o Coordinador/a de Reservas
+  - Encargado/a de Piso o Supervisor/a de Servicios
+  - Jefe/a de Recepción o de Alimentos y Bebidas
+  - Gerente/a de Hotel o Emprendedor/a turístico
+  - Asesor/a en gestión hotelera o calidad de servicios

@@ -224,48 +224,65 @@ contact:
     de ingreso o consultar a Secretaría.
   cta: Enviar Consulta
   alt_email:
-    email: isft199@gmail.com
+    email: isft199@abc.gob.ar
     label: Correo institucional
     title: Escribinos directamente
   progress_text: Paso 1 de 3
   privacy_note: Tus datos se gestionan de forma confidencial exclusivamente para fines
     informativos y académicos.
-  error_message: Servicio temporalmente no disponible. Podés escribirnos a isft199@gmail.com.
+  error_message: Servicio temporalmente no disponible. Podés escribirnos a isft199@abc.gob.ar.
   optional_text: Opcional
+  required_text: Obligatorio
+  contact_channel_note: Completá al menos uno de los dos datos de contacto (correo
+    o teléfono) para que Secretaría pueda responderte.
+  validation_messages:
+    contacto-nombre: Completá tu nombre y apellido para continuar.
+    contacto-servicio: Seleccioná una tecnicatura para continuar.
+    contacto-tarifa: Seleccioná tu situación de estudios secundarios para continuar.
+    contact_channel: Ingresá un correo electrónico o un teléfono para poder contactarte.
   steps:
   - title: Datos del Aspirante
     fields:
     - autocomplete: name
       id: contacto-nombre
       label: Nombre y apellido completo
+      required: true
     - autocomplete: organization
       id: contacto-empresa
       label: Colegio secundario o lugar de trabajo
+      required: false
     - autocomplete: organization-title
       id: contacto-cargo
       label: Año de egreso secundario u ocupación
+      required: false
   - title: Carrera de Interés
     fields:
     - id: contacto-servicio
       label: ¿En qué tecnicatura te interesa inscribirte?
+      required: true
       options:
-      - label: Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
-        value: ciencia-de-datos-ia
-      - label: Tecnicatura Superior en Mecatrónica
-        value: mecatronica
+      - label: Tecnicatura Superior en Turismo
+        value: turismo
+      - label: Tecnicatura Superior en Hotelería
+        value: hoteleria
       - label: Tecnicatura Superior en Logística
         value: logistica
       - label: Tecnicatura Superior en Higiene y Seguridad en el Trabajo
         value: higiene-y-seguridad
-      - label: Tecnicatura Superior en Administración de Recursos Humanos
+      - label: Tecnicatura Superior en Administración de los Recursos Humanos
         value: recursos-humanos
-      - label: Tecnicatura Superior en Servicios Gastronómicos y Turismo
-        value: turismo-y-hoteleria
+      - label: Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
+        value: ciencia-de-datos-ia
+      - label: Tecnicatura Superior en Energía Eléctrica y digitalización
+        value: energia-electrica
+      - label: Tecnicatura Superior en Mecatrónica
+        value: mecatronica
       - label: Otra consulta general / Alumno regular
         value: otra-consulta
       type: select
     - id: contacto-tarifa
       label: Situación de estudios secundarios
+      required: true
       options:
       - label: Secundario completo (con título o constancia)
         value: secundario-completo
@@ -281,14 +298,19 @@ contact:
     - id: contacto-comentario
       label: ¿Tenés alguna duda o consulta específica?
       type: textarea
+      required: false
   - title: Canales de Contacto
     fields:
     - autocomplete: email
       id: contacto-email
       label: Correo electrónico
+      required: false
+      helper_text: Obligatorio si no ingresás teléfono.
     - autocomplete: tel
       id: contacto-telefono
       label: Teléfono o WhatsApp
+      required: false
+      helper_text: Obligatorio si no ingresás correo.
 legal:
   text: La información publicada es oficial y de carácter orientativo, sujeta a las
     disposiciones y normativas vigentes de la Dirección General de Cultura y Educación
