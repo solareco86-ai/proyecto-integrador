@@ -97,12 +97,15 @@ async def test_q8_home_renders_ejes_academicos() -> None:
     assert "Educación Pública Superior" in html
 
 
-# --- Q9: el HTML del select renderiza la opción de Ciencia de Datos e IA ---
+# --- Q9: el HTML del select renderiza la opción de Ciencia de Datos e IA.
+# El formulario multi-paso completo se retiró de la Home (queda un bloque de
+# contacto resumido con CTA a /contact); el <select> real vive exclusivamente
+# en /contact, así que la verificación se hace ahí. ---
 @pytest.mark.asyncio
 async def test_q9_select_renders_ciencia_de_datos() -> None:
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/")
+        response = await ac.get("/contact")
 
     assert response.status_code == 200
     assert 'value="ciencia-de-datos-ia"' in response.text
