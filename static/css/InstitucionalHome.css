@@ -607,6 +607,17 @@
     margin: 0 auto;
 }
 
+/* --- Carreras: jerarquía visual reforzada (sección principal del instituto) --- */
+.c-inst-section--carreras-featured {
+    padding: 4.5rem 0;
+    background: linear-gradient(180deg, var(--inst-gris-100) 0%, var(--inst-blanco) 100%);
+    border-top: 4px solid var(--inst-verde);
+    border-bottom: 1px solid var(--inst-gris-200);
+}
+.c-inst-title--featured {
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+}
+
 /* --- Ingresantes --- */
 .c-inst-ingresantes {
     background: linear-gradient(120deg, var(--inst-verde-oscuro), var(--inst-verde));

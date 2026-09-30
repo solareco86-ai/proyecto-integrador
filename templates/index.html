@@ -3,8 +3,6 @@
 {% import 'partials/components/header.html' as header_macro %}
 {% import 'partials/components/footer.html' as footer_macro %}
 {% import 'partials/components/faq_item.html' as faq_macro %}
-{% import 'partials/components/contact_form.html' as contact_macro %}
-{% import 'partials/components/contact_section.html' as contact_section_macro %}
 {% import 'partials/components/section_wrapper.html' as section_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 {% import 'partials/components/icon.html' as icon_macro %}
@@ -42,6 +40,39 @@
         </div>
     </section>
 
+    {# ============ NUESTRAS CARRERAS (sección principal, mayor jerarquía) ============ #}
+    {# El ancla id="estudiantes" se conserva acá: el submenú "Estudiantes" del header
+       (/#estudiantes) enlazaba antes a un bloque de tarjetas redundante (Campus Virtual,
+       Carreras, Contacto, FAQ) cuyos accesos ya existen en el propio header. Se fusionó
+       esa sección; el ancla sigue funcionando y lleva a la oferta académica. #}
+    {% set carreras_home = [
+        {'nombre': 'Tecnicatura Superior en Turismo', 'href': '/carreras/turismo'},
+        {'nombre': 'Tecnicatura Superior en Hotelería', 'href': '/carreras/hoteleria'},
+        {'nombre': 'Tecnicatura Superior en Logística', 'href': '/carreras/logistica'},
+        {'nombre': 'Tecnicatura Superior en Higiene y Seguridad en el Trabajo', 'href': '/carreras/higiene-y-seguridad'},
+        {'nombre': 'Tecnicatura Superior en Administración de los Recursos Humanos', 'href': '/carreras/recursos-humanos'},
+        {'nombre': 'Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial', 'href': '/carreras/ciencia-de-datos-ia'},
+        {'nombre': 'Tecnicatura Superior en Energía Eléctrica', 'href': '/carreras'},
+    ] %}
+    <section class="c-inst-section c-inst-section--carreras-featured" id="estudiantes" aria-labelledby="carreras-title">
+        <div class="c-inst-container">
+            <div class="c-inst-head--center">
+                <span class="c-inst-eyebrow">Oferta académica</span>
+                <h2 id="carreras-title" class="c-inst-title c-inst-title--featured">Nuestras carreras</h2>
+                <p class="c-inst-subtitle">Tecnicaturas superiores públicas y gratuitas, con título oficial de validez nacional. Elegí la tuya para ver el plan de estudios completo.</p>
+            </div>
+            <div class="c-inst-grid c-inst-grid--4">
+                {% for carrera in carreras_home %}
+                <a href="{{ carrera.href }}" class="c-inst-card c-inst-carrera-card">
+                    <span class="c-inst-carrera-card__icon">{{ icon_macro.bootstrap_icon('check2-circle') }}</span>
+                    <h3 class="c-inst-card__title">{{ carrera.nombre }}</h3>
+                    <span class="c-inst-card__cta">Ver carrera →</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
     {# ============ NOTICIAS / EVENTOS / COMUNICADOS ============ #}
     <section class="c-inst-section" aria-labelledby="contenido-destacado-title">
         <div class="c-inst-container">
@@ -69,78 +100,6 @@
                     <p class="c-inst-card__text">Avisos y comunicados oficiales para la comunidad educativa.</p>
                     <span class="c-inst-card__cta">Ver comunicados →</span>
                 </a>
-            </div>
-        </div>
-    </section>
-
-    {# ============ NUESTRAS CARRERAS ============ #}
-    {% set carreras_home = [
-        {'nombre': 'Tecnicatura Superior en Turismo', 'href': '/carreras/turismo'},
-        {'nombre': 'Tecnicatura Superior en Hotelería', 'href': '/carreras/hoteleria'},
-        {'nombre': 'Tecnicatura Superior en Logística', 'href': '/carreras/logistica'},
-        {'nombre': 'Tecnicatura Superior en Higiene y Seguridad en el Trabajo', 'href': '/carreras/higiene-y-seguridad'},
-        {'nombre': 'Tecnicatura Superior en Administración de los Recursos Humanos', 'href': '/carreras/recursos-humanos'},
-        {'nombre': 'Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial', 'href': '/carreras/ciencia-de-datos-ia'},
-        {'nombre': 'Tecnicatura Superior en Energía Eléctrica', 'href': '/carreras'},
-    ] %}
-    <section class="c-inst-section c-inst-section--alt" aria-labelledby="carreras-title">
-        <div class="c-inst-container">
-            <div class="c-inst-head--center">
-                <span class="c-inst-eyebrow">Oferta académica</span>
-                <h2 id="carreras-title" class="c-inst-title">Nuestras carreras</h2>
-                <p class="c-inst-subtitle">Tecnicaturas superiores públicas y gratuitas, con título oficial de validez nacional.</p>
-            </div>
-            <div class="c-inst-grid c-inst-grid--4">
-                {% for carrera in carreras_home %}
-                <a href="{{ carrera.href }}" class="c-inst-card c-inst-carrera-card">
-                    <span class="c-inst-carrera-card__icon">{{ icon_macro.bootstrap_icon('check2-circle') }}</span>
-                    <h3 class="c-inst-card__title">{{ carrera.nombre }}</h3>
-                    <span class="c-inst-card__cta">Ver carrera →</span>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    {# ============ INFORMACIÓN PARA ESTUDIANTES ============ #}
-    <section class="c-inst-section" id="estudiantes" aria-labelledby="estudiantes-title">
-        <div class="c-inst-container">
-            <div class="c-inst-head--center">
-                <span class="c-inst-eyebrow">Comunidad educativa</span>
-                <h2 id="estudiantes-title" class="c-inst-title">Información para estudiantes</h2>
-            </div>
-            <div class="c-inst-grid c-inst-grid--4">
-                <a href="/cursos" class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('terminal-fill') }}</span>
-                    <h3 class="c-inst-card__title">Campus Virtual</h3>
-                    <p class="c-inst-card__text">Aulas técnicas, apuntes y recursos de cátedra.</p>
-                </a>
-                <a href="/carreras" class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('bar-chart-line-fill') }}</span>
-                    <h3 class="c-inst-card__title">Carreras</h3>
-                    <p class="c-inst-card__text">Plan de estudios y detalle de cada tecnicatura.</p>
-                </a>
-                <a href="/contact" class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('telephone-forward-fill') }}</span>
-                    <h3 class="c-inst-card__title">Contacto</h3>
-                    <p class="c-inst-card__text">Consultas de secretaría e inscripción.</p>
-                </a>
-                <a href="/#faq" class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('chevron-down') }}</span>
-                    <h3 class="c-inst-card__title">Preguntas frecuentes</h3>
-                    <p class="c-inst-card__text">Dudas comunes sobre cursada e ingreso.</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    {# ============ INGRESANTES ============ #}
-    <section class="c-inst-section" id="ingreso" aria-labelledby="ingresantes-title">
-        <div class="c-inst-container">
-            <div class="c-inst-ingresantes">
-                <h2 id="ingresantes-title" class="c-inst-title">Ingresantes</h2>
-                <p class="c-inst-subtitle">Comenzá tu formación en el ISFT N.º 199</p>
-                <a href="/contact" class="c-inst-btn c-inst-ingresantes__cta">Quiero información</a>
             </div>
         </div>
     </section>
@@ -181,10 +140,41 @@
     </div>
     {% endcall %}
 
-    {# ============ CONTACTO (conserva el ancla real /#contacto) ============ #}
-    {% call contact_section_macro.contact_section(content.contact) %}
-    {{ contact_macro.contact_form(content.contact) }}
-    {% endcall %}
+    {# ============ CONTACTO RESUMIDO (conserva /#contacto; también asume el ancla
+       id="ingreso" que antes llevaba a la sección "Ingresantes" con el CTA "Quiero
+       información" → /contact, para no romper el botón secundario del hero ni el
+       submenú "Estudiantes" del header. El formulario multi-paso completo, con su
+       lógica y validación intactas, sigue viviendo exclusivamente en /contact). #}
+    <section class="c-inst-section c-inst-section--alt" id="contacto" aria-labelledby="contacto-resumen-title">
+        <div class="c-inst-container">
+            <span id="ingreso" aria-hidden="true"></span>
+            <div class="c-inst-head--center">
+                <span class="c-inst-eyebrow">Contacto</span>
+                <h2 id="contacto-resumen-title" class="c-inst-title">{{ content.contact.title }}</h2>
+                <p class="c-inst-subtitle">{{ content.contact.subtitle }}</p>
+            </div>
+            <div class="c-inst-grid c-inst-grid--3">
+                <div class="c-inst-card">
+                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('telephone-forward-fill') }}</span>
+                    <h3 class="c-inst-card__title">Atención telefónica</h3>
+                    <p class="c-inst-card__text">11 4736-0013<br>Lunes a viernes de 19:00 a 22:30 hs.</p>
+                </div>
+                <div class="c-inst-card">
+                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('envelope-fill') }}</span>
+                    <h3 class="c-inst-card__title">Correo institucional</h3>
+                    <p class="c-inst-card__text">{{ brand.contactEmail }}</p>
+                </div>
+                <div class="c-inst-card">
+                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('geo-alt-fill') }}</span>
+                    <h3 class="c-inst-card__title">Sede Central</h3>
+                    <p class="c-inst-card__text">{{ brand.baseOperativa }}</p>
+                </div>
+            </div>
+            <div class="c-inst-head--center" style="margin-top:2rem;">
+                <a href="/contact" class="c-inst-btn c-inst-btn--solid-green">Ir al formulario de contacto</a>
+            </div>
+        </div>
+    </section>
 
 </div>
 
