@@ -4,37 +4,60 @@
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4">
         <!-- Fila Superior: Info, Links y CTA -->
         <div data-v-236fef00="" class="c-home-footer__upper">
-            <!-- Columna 1: Marca y Contacto -->
+            <!-- Columna 0: Marca (logo, nombre, descripción institucional, ubicación) -->
             <div data-v-236fef00="" class="c-home-footer__col-brand">
+                <img src="/static/media/logo-isft199.webp" alt="Logo ISFT N° 199" class="c-inst-footer__logo">
                 <p data-v-236fef00="" class="c-home-footer__brand">{{ brand.brandName }}</p>
                 <p data-v-236fef00="" class="c-home-footer__description">{{ brand.footerDescription }}</p>
                 <div data-v-236fef00="" class="c-home-footer__contact-info">
                     <span data-v-236fef00="" class="c-home-footer__contact-item">
                         {{ icon_macro.bootstrap_icon('geo-alt-fill') }} {{ brand.baseOperativa }}
                     </span>
-                    <a data-v-236fef00="" href="#" class="c-home-footer__contact-item c-home-footer__link-email js-email-protect" data-u="ifst199alumnos" data-d="gmail.com" aria-label="Enviar correo electrónico a ifst199alumnos@gmail.com">
-                        {{ icon_macro.bootstrap_icon('envelope-fill') }} <span class="js-email-display">ifst199alumnos [en] gmail.com</span>
-                    </a>
                 </div>
             </div>
-            
-            <!-- Columna 2: Navegación Central -->
-            <div data-v-236fef00="" class="c-home-footer__col-nav">
-                {% for group in footer.navigation_groups %}
-                <details data-v-236fef00="" class="c-home-footer__nav-group {% if group.title == 'Cobertura' %}c-home-footer__nav-group--cobertura{% endif %}">
-                    <summary data-v-236fef00="" class="c-home-footer__nav-title">
-                        <span>{{ group.title }}</span>
-                        <span data-v-236fef00="" class="c-home-footer__nav-icon">
-                            {{ icon_macro.bootstrap_icon('chevron-down') }}
-                        </span>
-                    </summary>
-                    <div data-v-236fef00="" class="c-home-footer__links-container">
-                        {% for link in group.links %}
-                        <a href="{{ link.href }}">{{ link.label }}</a>
-                        {% endfor %}
-                    </div>
-                </details>
-                {% endfor %}
+
+            <!-- Columna 1: Institucional -->
+            <div class="c-inst-footer__col">
+                <span class="c-home-footer__nav-title"><span>Institucional</span></span>
+                <div class="c-inst-footer__links">
+                    <a href="/">Inicio</a>
+                    <a href="/carreras">Carreras</a>
+                    <a href="/noticias">Noticias</a>
+                    <a href="/eventos">Eventos</a>
+                    <a href="/comunicados">Comunicados</a>
+                </div>
+            </div>
+
+            <!-- Columna 2: Estudiantes -->
+            <div class="c-inst-footer__col">
+                <span class="c-home-footer__nav-title"><span>Estudiantes</span></span>
+                <div class="c-inst-footer__links">
+                    <a href="/cursos">Campus Virtual</a>
+                    <a href="/#estudiantes">Información para estudiantes</a>
+                    <a href="/#faq">Preguntas frecuentes</a>
+                    <a href="/#ingreso">Ingresantes</a>
+                </div>
+            </div>
+
+            <!-- Columna 3: Contacto -->
+            <div class="c-inst-footer__col">
+                <span class="c-home-footer__nav-title"><span>Contacto</span></span>
+                <p class="c-inst-footer__contacto-item">
+                    {{ icon_macro.bootstrap_icon('telephone-forward-fill') }} 4736-0013
+                    <span class="c-inst-footer__contacto-hint">Lunes a viernes de 19 a 21 hs</span>
+                </p>
+                <a href="#" class="c-inst-footer__contacto-item c-home-footer__link-email js-email-protect" data-u="isft199" data-d="abc.gob.ar" aria-label="Enviar correo electrónico a isft199@abc.gob.ar">
+                    {{ icon_macro.bootstrap_icon('envelope-fill') }} <span class="js-email-display">isft199 [en] abc.gob.ar</span>
+                </a>
+            </div>
+
+            <!-- Columna 4: Redes oficiales -->
+            <div class="c-inst-footer__col">
+                <span class="c-home-footer__nav-title"><span>Redes oficiales</span></span>
+                <div class="c-inst-footer__social">
+                    <a href="https://www.facebook.com/isft199" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="https://www.instagram.com/isft.199" target="_blank" rel="noopener noreferrer">Instagram</a>
+                </div>
             </div>
         </div>
 

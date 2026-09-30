@@ -19,6 +19,7 @@ def test_contact_payload_accepts_lead_source():
         {
             "name": "Agustín",
             "comment": "Quiero la auditoría energética",
+            "email": "agustin@example.com",
             "leadSource": LEAD_SOURCE,
         }
     )
@@ -26,7 +27,9 @@ def test_contact_payload_accepts_lead_source():
 
 
 def test_contact_payload_lead_source_defaults_none():
-    payload = ContactSubmitPayload.model_validate({"name": "Agustín", "comment": "Hola"})
+    payload = ContactSubmitPayload.model_validate(
+        {"name": "Agustín", "comment": "Hola", "email": "agustin@example.com"}
+    )
     assert payload.leadSource is None
 
 

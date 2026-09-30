@@ -1,32 +1,72 @@
 {% import 'partials/components/icon.html' as icon_macro %}
 {% macro header(nav_links=[]) %}
+{# Estructura de navegación institucional (Carreras / Estudiantes desplegable / Noticias /
+   Eventos / Comunicados / Profesores / Contacto). Es intencionalmente independiente de
+   `nav_links` (la lista plana de data/content/home_sections.yaml): esta es una reorganización
+   puramente visual del header, no un cambio de datos. #}
+{% set estudiantes_links = [
+    {'href': '/cursos', 'label': 'Campus Virtual'},
+    {'href': '/#estudiantes', 'label': 'Información para estudiantes'},
+    {'href': '/#faq', 'label': 'Preguntas frecuentes'},
+    {'href': '/#ingreso', 'label': 'Información para ingresantes'},
+] %}
 <header data-v-236fef00="" class="c-home-header" role="banner">
     <div data-v-236fef00="" class="tw:container tw:mx-auto tw:px-4 c-home-header__inner">
         <a data-v-236fef00="" href="/" class="c-home-header__brand tw:flex tw:items-center tw:gap-2.5 tw:text-dm-text-0 tw:decoration-0" aria-label="ISFT N° 199, inicio">
             <img data-v-236fef00="" src="/static/media/logo-isft199.webp" alt="Logo ISFT N° 199" class="c-home-header__brand-logo" width="184" height="189" loading="eager" decoding="async">
-            <span data-v-236fef00="" class="c-home-header__brand-copy">ISFT N° 199</span>
+            <span data-v-236fef00="">
+                <span data-v-236fef00="" class="c-home-header__brand-copy">ISFT N° 199</span>
+                <span class="c-inst-header__subtitle">Instituto Superior de Formación Técnica N.º 199</span>
+            </span>
         </a>
         <nav data-v-236fef00="" class="c-home-header__nav tw:hidden tw:lg:flex" aria-label="Navegación principal">
-            {% for link in nav_links %}
-            <a data-v-236fef00="" href="{{ link.href }}" class="c-home-header__nav-link">{{ link.label }}</a>
-            {% endfor %}
-            {% if not nav_links %}
-            <a data-v-236fef00="" href="/carreras" class="c-home-header__nav-link">Carreras</a>
-            <a data-v-236fef00="" href="/cursos" class="c-home-header__nav-link">Campus Virtual</a>
-            <a data-v-236fef00="" href="/noticias" class="c-home-header__nav-link">Noticias</a>
-            <a data-v-236fef00="" href="/eventos" class="c-home-header__nav-link">Eventos</a>
-            <a data-v-236fef00="" href="/comunicados" class="c-home-header__nav-link">Comunicados</a>
-            <a data-v-236fef00="" href="/#ingreso" class="c-home-header__nav-link">Ingreso</a>
-            <a data-v-236fef00="" href="/#faq" class="c-home-header__nav-link">FAQ</a>
-            <a data-v-236fef00="" href="/contact" class="c-home-header__nav-link">Contacto</a>
-            {% endif %}
+            <a href="/carreras" class="c-home-header__nav-link">Carreras</a>
+
+            <div class="c-inst-dropdown">
+                <button type="button" class="c-home-header__nav-link c-inst-dropdown__trigger" aria-haspopup="true" aria-expanded="false">
+                    Estudiantes
+                    <span class="c-inst-dropdown__caret">{{ icon_macro.bootstrap_icon('chevron-down') }}</span>
+                </button>
+                <ul class="c-inst-dropdown__menu" role="menu">
+                    {% for link in estudiantes_links %}
+                    <li role="none"><a role="menuitem" href="{{ link.href }}">{{ link.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <a href="/noticias" class="c-home-header__nav-link">Noticias</a>
+            <a href="/eventos" class="c-home-header__nav-link">Eventos</a>
+            <a href="/comunicados" class="c-home-header__nav-link">Comunicados</a>
+
+            <span class="c-home-header__nav-link c-inst-nav-link--disabled" aria-disabled="true" title="Próximamente">
+                Profesores
+                <span class="c-inst-badge-mini">Próximamente</span>
+            </span>
+
+            <a href="/contact" class="c-home-header__nav-link">Contacto</a>
         </nav>
         <div data-v-236fef00="" class="c-home-header__actions">
             <a data-v-236fef00="" href="/contact" class="c-home-header__icon-link tw:lg:hidden" aria-label="Inscripción y Consultas" title="Contacto">
                 {{ icon_macro.bootstrap_icon('telephone-forward-fill') }}
             </a>
             <a data-v-236fef00="" href="/contact" class="tw:btn-primary c-home-header__cta tw:hidden tw:lg:inline-flex">Inscripción</a>
+            <input type="checkbox" id="c-inst-nav-toggle" class="c-inst-nav-toggle" aria-hidden="true">
+            <label for="c-inst-nav-toggle" class="c-inst-nav-toggle-label tw:lg:hidden" aria-label="Abrir menú de navegación">☰</label>
         </div>
+        <nav class="c-home-header__mobile-nav" aria-label="Navegación principal (móvil)">
+            <a href="/carreras">Carreras</a>
+
+            <span class="c-inst-mobile-nav__group-title">Estudiantes</span>
+            {% for link in estudiantes_links %}
+            <a href="{{ link.href }}" class="c-inst-mobile-nav__sublink">{{ link.label }}</a>
+            {% endfor %}
+
+            <a href="/noticias">Noticias</a>
+            <a href="/eventos">Eventos</a>
+            <a href="/comunicados">Comunicados</a>
+            <span class="c-inst-nav-link--disabled" aria-disabled="true">Profesores <span class="c-inst-badge-mini">Próximamente</span></span>
+            <a href="/contact">Contacto</a>
+        </nav>
     </div>
 </header>
 {% endmacro %}

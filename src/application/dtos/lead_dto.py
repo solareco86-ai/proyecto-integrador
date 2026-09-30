@@ -1,6 +1,6 @@
 """DTOs de Pydantic para el subdominio de leads y contacto."""
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, model_validator
 
 
 class OptionModel(BaseModel):
@@ -14,6 +14,8 @@ class FieldModel(BaseModel):
     autocomplete: str | None = None
     type: str | None = "text"  # "text", "textarea", "select"
     options: list[OptionModel] | None = None
+    required: bool = False
+    helper_text: str | None = None
 
 
 class StepModel(BaseModel):
@@ -38,6 +40,9 @@ class ContactModel(BaseModel):
     privacy_note: str
     error_message: str
     optional_text: str
+    required_text: str
+    contact_channel_note: str
+    validation_messages: dict[str, str]
     steps: list[StepModel]
 
 
@@ -49,7 +54,7 @@ class ContactSubmitPayload(BaseModel):
     phone: str | None = Field(None, max_length=30)
     company: str | None = Field(None, max_length=120)
     geographicLocation: str | None = Field(None, max_length=200)
-    comment: str = Field(..., min_length=1, max_length=3000)
+    comment: str = Field("", max_length=3000)
     preferredContactChannel: str | None = "whatsapp"
     pageLocation: str | None = Field(None, max_length=500)
     trafficSource: str | None = Field(None, max_length=500)
@@ -63,6 +68,14 @@ class ContactSubmitPayload(BaseModel):
     captchaToken: str | None = None
     leadSource: str | None = Field(None, max_length=80)
     website_url_hp: str | None = Field(None, max_length=120)  # Campo Honeypot anti-spam
+
+    @model_validator(mode="after")
+    def requiere_email_o_telefono(self) -> "ContactSubmitPayload":
+        # El honeypot completo se descarta antes de esta validación (ver submit_contact),
+        # por lo que esta regla no afecta la detección de spam.
+        if not (self.email or (self.phone and self.phone.strip())):
+            raise ValueError("Debés informar un correo electrónico o un teléfono de contacto.")
+        return self
 
 
 class WhatsAppClickPayload(BaseModel):

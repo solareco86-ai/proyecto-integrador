@@ -1,0 +1,355 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/service_card.html' as service_macro %}
+{% import 'partials/components/faq_item.html' as faq_macro %}
+{% import 'partials/components/contact_form.html' as contact_macro %}
+{% import 'partials/components/contact_section.html' as contact_section_macro %}
+{% import 'partials/components/profile.html' as profile_macro %}
+{% import 'partials/components/proof_strip.html' as proof_strip_macro %}
+{% import 'partials/components/process.html' as process_macro %}
+{% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
+{% import 'partials/components/planes.html' as planes_macro %}
+{% import 'partials/components/hero.html' as hero_macro %}
+{% import 'partials/components/section_wrapper.html' as section_macro %}
+{% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+{% import 'partials/components/icon.html' as icon_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+{% endblock %}
+
+{% block header %}
+{{ header_macro.header(content.navbar.links) }}
+{% endblock %}
+
+{% block main_content %}
+{{ hero_macro.hero(request, content.hero, hero_title, hero_subtitle) }}
+
+{{ proof_strip_macro.proof_strip(content.proof_strip) }}
+
+{% if industria_nombre %}
+<section class="c-context-section" aria-labelledby="contexto-industria-title">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-6 tw:lg:py-8">
+        {% if landing_industria %}
+        <h2 id="contexto-industria-title" class="c-context-section__title">{{ landing_industria.title }}</h2>
+        {% for paragraph in landing_industria.paragraphs %}
+        <p class="c-context-section__text">{{ paragraph }}</p>
+        {% endfor %}
+        {% if landing_industria.bullets %}
+        <ul class="c-context-section__list">
+            {% for bullet in landing_industria.bullets %}
+            <li>{{ bullet }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% else %}
+        <h2 id="contexto-industria-title" class="c-context-section__title">Soluciones para {{ industria_nombre }}</h2>
+        <p class="c-context-section__text">La {{ industria_nombre }} puede aprovechar el monitoreo de calidad de energía y la automatización industrial para mejorar la eficiencia, anticipar fallas y cumplir con requisitos de trazabilidad.</p>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+{% if hub_type %}
+<section class="c-context-section" aria-labelledby="hub-title">
+    <div class="tw:container tw:mx-auto tw:px-4 tw:py-6 tw:lg:py-8">
+        <h2 id="hub-title" class="c-context-section__title">{{ hub_title }}</h2>
+        <p class="c-context-section__text">{{ hub_subtitle }}</p>
+        {% if hub_type == 'provincia' %}
+            {% for muni in municipios %}
+            <section style="margin-top: 1.5rem;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">{{ muni.nombre }}</h3>
+                <ul class="c-context-section__list">
+                    {% for loc in muni.localidades %}
+                    <li><a href="{{ loc.url }}">{{ loc.nombre }}</a></li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endfor %}
+        {% elif hub_type == 'municipio' %}
+            <ul class="c-context-section__list" style="margin-top: 1rem;">
+                {% for loc in localidades %}
+                <li><a href="{{ loc.url }}">{{ loc.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "{{ seo.title }}",
+  "description": "{{ seo.description }}",
+  "url": "{{ seo.canonical_url }}"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ config.BASE_URL }}/"
+    }{% if hub_type == 'municipio' %},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ provincia }}",
+      "item": "{{ config.BASE_URL }}/{{ provincia_slug }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ municipio }}",
+      "item": "{{ config.BASE_URL }}/{{ provincia_slug }}/{{ municipio_slug }}"
+    }
+    {% else %},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ provincia }}",
+      "item": "{{ seo.canonical_url }}"
+    }
+    {% endif %}
+  ]
+}
+</script>
+{% endif %}
+
+{% call section_macro.section_wrapper('servicios', content.services.title, content.services.eyebrow, content.services.description, 'c-home-services') %}
+
+<div data-v-236fef00="" class="c-home-services__grid">
+{% for card in content.services.cards %}
+{% set card_icon = 'lightning-charge-fill' if card.id == 'calidad-energia' else ('terminal-fill' if card.id == 'retrofit-iot' else ('bar-chart-line-fill' if card.id == 'consultoria-gestion-energia' else 'arrow-left-right')) %}
+{% set card_cta_url = ('https://wa.me/' ~ config.WHATSAPP_PHONE ~ '?text=Hola%20Agust%C3%ADn%2C%20quisiera%20consultar%20por%20' ~ card.title | urlencode) if config.WHATSAPP_PHONE else '/contact' %}
+{{ service_macro.service_card(card_icon, card.title, card.description, card.problem, card.key_points, card.proof, card.caso_slug, card.cta, card_cta_url, card.modality, content.assistance_modes) }}
+{% endfor %}
+</div>
+
+{% endcall %}
+
+{{ planes_macro.planes(content.planes, config.WHATSAPP_PHONE, planes) }}
+
+{{ process_macro.process(content.process) }}
+
+{{ profile_macro.profile(request, brand, content.profile) }}
+
+{% if casos %}
+<section id="casos" class="section-mobile c-home-casos" aria-labelledby="casos-title">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="c-home-section-head">
+            <span class="c-home-eyebrow">{{ content.cases.badge }}</span>
+            <h2 id="casos-title" class="c-home-section-title">{{ content.cases.title }}</h2>
+            <p class="c-home-section-copy">{{ content.cases.subtitle }}</p>
+        </div>
+        <div class="c-home-casos__grid">
+            {% for caso in casos %}
+            <article class="c-home-caso-card c-home-panel">
+                <span class="c-home-eyebrow">{{ caso.industry }}</span>
+                <h3 class="c-home-caso-card__title">
+                    <a href="/casos/{{ caso.slug }}">{{ caso.title }}</a>
+                </h3>
+                <p class="c-home-caso-card__summary">{{ caso.summary }}</p>
+                <p class="c-home-caso-card__location">{{ caso.location }}</p>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="c-home-section-cta">
+            <a href="/casos" class="tw:btn-outline">Ver todos los casos</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if guias %}
+<section id="guias" class="section-mobile c-home-casos" aria-labelledby="guias-title">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="c-home-section-head">
+            <span class="c-home-eyebrow">{{ content.guias.badge }}</span>
+            <h2 id="guias-title" class="c-home-section-title">{{ content.guias.title }}</h2>
+            <p class="c-home-section-copy">{{ content.guias.subtitle }}</p>
+        </div>
+        <div class="c-home-casos__grid">
+            {% for guia in guias[:6] %}
+            <article class="c-home-caso-card c-home-panel">
+                <span class="c-home-eyebrow">{{ guia.category }}</span>
+                <h3 class="c-home-caso-card__title">
+                    <a href="/guias/{{ guia.slug }}">{{ guia.title }}</a>
+                </h3>
+                <p class="c-home-caso-card__summary">{{ guia.summary }}</p>
+                <p class="c-home-caso-card__location">{{ guia.reading_time }}</p>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="c-home-section-cta">
+            <a href="/guias" class="tw:btn-outline">Ver todas las guías</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if cursos %}
+<section id="cursos" class="section-mobile c-home-cursos" aria-labelledby="cursos-title">
+    <div class="tw:container tw:mx-auto tw:px-4">
+        <div class="c-home-section-head">
+            <span class="c-home-eyebrow">{{ content.courses.badge }}</span>
+            <h2 id="cursos-title" class="c-home-section-title">{{ content.courses.title }}</h2>
+            <p class="c-home-section-copy">{{ content.courses.subtitle }}</p>
+        </div>
+        <div class="c-home-cursos__grid">
+            {% set featured_cursos = cursos | selectattr('featured') | list %}
+            {% set other_cursos = cursos | rejectattr('featured') | list %}
+            {% set sorted_cursos = featured_cursos + other_cursos %}
+            {% for curso in sorted_cursos[:6] %}
+            <article class="c-home-curso-card c-home-panel">
+                <span class="c-home-eyebrow">{{ curso.level }}</span>
+                <h3 class="c-home-curso-card__title">
+                    <a href="/cursos/{{ curso.slug }}">{{ curso.title }}</a>
+                </h3>
+                <p class="c-home-curso-card__description">{{ curso.description_short }}</p>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="c-home-section-cta">
+            <a href="/cursos" class="tw:btn-outline">Ver todos los cursos</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% call section_macro.section_wrapper('faq', content.faq.title, content.faq.eyebrow, None, 'c-home-faq') %}
+
+<div data-v-c938c92c="" data-v-236fef00="" class="c-home-faq__stack">
+{% for item in content.faq.questions %}
+{{ faq_macro.faq_item(item.question, item.answer, loop.first) }}
+{% endfor %}
+</div>
+
+{% endcall %}
+{% call contact_section_macro.contact_section(content.contact) %}
+{{ contact_macro.contact_form(content.contact) }}
+{% endcall %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in content.faq.questions %}
+    {
+      "@type": "Question",
+      "name": "{{ item.question | replace('"', '\\"') }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ item.answer | replace('"', '\\"') }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% if not industria_nombre and not hub_type %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{ brand.brandName }}",
+  "image": "{{ seo.og_image }}",
+  "url": "{{ seo.canonical_url }}",
+  "telephone": "+{{ config.WHATSAPP_PHONE }}",
+  "email": "{{ brand.contactEmail }}",
+  {% if brand.address %}
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ brand.address.streetAddress }}",
+    "postalCode": "{{ brand.address.postalCode }}",
+    "addressLocality": "{{ brand.address.addressLocality }}",
+    "addressRegion": "{{ brand.address.addressRegion }}",
+    "addressCountry": "{{ brand.address.addressCountry }}"
+  },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query={{ (brand.address.addressLocality + ', ' + brand.address.addressRegion) | urlencode }}",
+  {% endif %}
+  {% if brand.geo %}
+  "geo": { "@type": "GeoCoordinates", "latitude": {{ brand.geo.lat }}, "longitude": {{ brand.geo.lng }} },
+  {% endif %}
+  {% if brand.openingHours %}"openingHours": "{{ brand.openingHours }}",{% endif %}
+  {% if brand.sameAs %}"sameAs": [{% for url in brand.sameAs %}"{{ url }}"{% if not loop.last %},{% endif %}{% endfor %}],{% endif %}
+  "areaServed": "AR",
+  "description": "{{ seo.description }}",
+  "makesOffer": [
+    {% for card in content.services.cards %}
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "{{ card.title | replace('"', '\\"') }}",
+        "description": "{{ card.description | replace('"', '\\"') }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+{% if industria_nombre %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Reconversión productiva 4.0 para {{ industria_nombre }}",
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ brand.brandName }}",
+    "url": "https://datamaq.com.ar"
+  },
+  "areaServed": "AR",
+  "description": "{{ seo.description }}"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "{{ config.BASE_URL }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Industria {{ industria_nombre }}",
+      "item": "{{ seo.canonical_url }}"
+    }
+  ]
+}
+</script>
+{% endif %}
+{% endblock %}
+
+{% block fab %}
+{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
+{% endblock %}
+
+{% block dock %}
+{# Dock inferior retirado para máxima legibilidad y área útil en móviles #}
+{% endblock %}
+
+{% block footer %}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{% endblock %}
+
+{% block cookie_banner %}
+{{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="{{ url_for("static", path="js/app.js") }}?v={{ static_version() }}"></script>
+{% endblock %}

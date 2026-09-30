@@ -64,7 +64,7 @@
 | **Clic en WhatsApp** | Web (`wa.me` / FAB) | Telegram + GA4 + Ads | *No aplica (sin identidad validada)* | MySQL (`datamaq_leads.leads`) | Sí (30 días localStorage) |
 | **Clic en Email / Teléfono** | Web (`mailto:` / `tel:`) | Telegram + GA4 + Clarity | *No aplica (sin identidad validada)* | MySQL (`datamaq_leads.leads`) | Sí (30 días localStorage) |
 | **Copia de Email / Tel** | Web (Portapapeles) | Telegram + GA4 + Clarity | *No aplica (sin identidad validada)* | MySQL (`datamaq_leads.leads`) | Sí (30 días localStorage) |
-| **Envío Directo Outlook / Webmail** | Aspirante / Interesado | Buzón `isft199@gmail.com` | **Roundcube** (`contacts` manual / webmail) | Manual / Ingest Hub | Correlación analítica por IP/Geo/Hora |
+| **Envío Directo Outlook / Webmail** | Aspirante / Interesado | Buzón `isft199@abc.gob.ar` | **Roundcube** (`contacts` manual / webmail) | Manual / Ingest Hub | Correlación analítica por IP/Geo/Hora |
 
 ---
 

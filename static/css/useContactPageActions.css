@@ -164,6 +164,42 @@
     margin-top: .25rem;
 }
 
+.c-contact__required-mark {
+    color: rgb(var(--dm-accent-orange-rgb));
+}
+
+.c-contact__field.is-required .c-contact__helper {
+    color: rgba(var(--dm-accent-orange-rgb), .85);
+    font-weight: 600;
+}
+
+.c-contact__helper--conditional {
+    color: rgba(var(--dm-accent-orange-rgb), .85);
+    font-weight: 600;
+}
+
+.c-contact__field-error {
+    display: block;
+    font-size: .78rem;
+    font-weight: 600;
+    color: #e35353;
+    margin-top: .35rem;
+}
+
+.c-contact__field-error[hidden] {
+    display: none;
+}
+
+.c-contact__field.has-error .c-contact__input {
+    border-color: #e35353;
+}
+
+.c-contact__channel-note {
+    font-size: .78rem;
+    color: rgba(var(--dm-text-0-rgb), .65);
+    margin: -.4rem 0 .2rem;
+}
+
 /* ─── Acciones ─── */
 .c-contact__actions {
     display: flex;

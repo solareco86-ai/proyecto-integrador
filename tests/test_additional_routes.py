@@ -58,6 +58,9 @@ async def override_get_contenido():
                     "privacy_note": "Test",
                     "error_message": "Test",
                     "optional_text": "Test",
+                    "required_text": "Test",
+                    "contact_channel_note": "Test",
+                    "validation_messages": {},
                     "steps": [],
                 },
                 "assistance_modes": {

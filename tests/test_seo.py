@@ -72,6 +72,9 @@ async def override_get_contenido():
                 "privacy_note": "Test",
                 "error_message": "Test",
                 "optional_text": "Test",
+                "required_text": "Test",
+                "contact_channel_note": "Test",
+                "validation_messages": {},
                 "steps": [],
             },
             "assistance_modes": {
@@ -206,12 +209,15 @@ async def test_localidad_canonical_is_https():
 
 @pytest.mark.asyncio  # type: ignore
 async def test_service_cards_use_heading_tags():
+    """Verifica que las tarjetas de contenido de la Home institucional (Noticias/Eventos/
+    Comunicados, Carreras, Estudiantes, Sedes) usen headings semánticos <h3>, ya sin las
+    tarjetas de "servicios" comerciales de DataMaq."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/")
 
     assert response.status_code == 200
-    assert 'c-home-service-card__title"' in response.text
+    assert 'c-inst-card__title"' in response.text
     assert "<h3" in response.text
 
 

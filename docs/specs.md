@@ -104,12 +104,12 @@ El sistema opera como una plataforma integral de comunicación académica y peda
 
 ### 5.1 Flujo de Formularios Completos (`POST /api/v1/contact`)
 1. **SSOT (Libreta de Contactos y Consultas):**
-   - Los datos del contacto se unifican en `roundcube.contacts` en MySQL para la cuenta `isft199@gmail.com`.
+   - Los datos del contacto se unifican en `roundcube.contacts` en MySQL para la cuenta `isft199@abc.gob.ar`.
    - **Deduplicación:** Se busca coincidencia por `email` o teléfono antes de la persistencia. Si ya existe, se actualiza la vCard 3.0 (`name`, `email`, `phone`, `organization`, `note`) concatenando el nuevo mensaje para preservar el historial del aspirante.
 2. **Respaldo Inmutable (MySQL `datamaq_leads`):**
    - Transacción atómica en `LeadRepositorySQL` que persiste la entidad `Lead` con todos los parámetros analíticos (`utm_source`, `utm_medium`, `utm_campaign`, `gclid`, `page_location`, `user_agent`, timestamp).
 3. **Despacho por Correo Electrónico (SMTP):**
-   - Notificación estructurada enviada al buzón institucional `isft199@gmail.com`.
+   - Notificación estructurada enviada al buzón institucional `isft199@abc.gob.ar`.
 4. **Alerta en Telegram:**
    - Mensaje con formato enriquecido en Telegram Bot API con botón de enlace directo a chat de WhatsApp (`wa.me/...`).
 

@@ -3,6 +3,7 @@
 import pytest
 
 from src.application.dtos.content_management_dto import CrearNoticiaInput, EditarNoticiaInput
+from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.application.use_cases.content.create_noticia import CreateNoticiaUseCase
 from src.application.use_cases.content.delete_noticia import DeleteNoticiaUseCase
 from src.application.use_cases.content.get_noticia import GetNoticiaUseCase
@@ -12,6 +13,20 @@ from src.application.use_cases.content.update_noticia import UpdateNoticiaUseCas
 from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.content.entities import Noticia
 from src.domain.content.repositories import NoticiaRepository
+
+
+class FakeImageStorageGateway(ImageStorageGateway):
+    """Doble en memoria: no toca disco. Registra las rutas eliminadas para poder aserirlas."""
+
+    def __init__(self) -> None:
+        self.eliminadas: list[str] = []
+
+    async def save(self, category: str, filename: str, content_type: str | None, file_bytes: bytes) -> str:
+        return f"{category}/fake-generado.jpg"
+
+    async def delete(self, ruta_relativa: str | None) -> None:
+        if ruta_relativa is not None:
+            self.eliminadas.append(ruta_relativa)
 
 
 class InMemoryNoticiaRepo(NoticiaRepository):
@@ -94,7 +109,7 @@ async def test_update_noticia_aplica_cambios():
     repo = InMemoryNoticiaRepo()
     creada = await CreateNoticiaUseCase(repository=repo).execute(CrearNoticiaInput(titulo="Original", cuerpo="X"))
 
-    actualizada = await UpdateNoticiaUseCase(repository=repo).execute(
+    actualizada = await UpdateNoticiaUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarNoticiaInput(id=creada.id, titulo="Editado", cuerpo="Y", publicada=False)
     )
 
@@ -108,7 +123,7 @@ async def test_update_noticia_aplica_cambios():
 @pytest.mark.asyncio
 async def test_update_noticia_inexistente_lanza_error():
     repo = InMemoryNoticiaRepo()
-    use_case = UpdateNoticiaUseCase(repository=repo)
+    use_case = UpdateNoticiaUseCase(repository=repo, image_gateway=FakeImageStorageGateway())
 
     with pytest.raises(EntityNotFoundError):
         await use_case.execute(EditarNoticiaInput(id="no-existe", titulo="X", cuerpo="Y"))
@@ -119,7 +134,7 @@ async def test_delete_noticia_elimina_existente():
     repo = InMemoryNoticiaRepo()
     creada = await CreateNoticiaUseCase(repository=repo).execute(CrearNoticiaInput(titulo="A", cuerpo="B"))
 
-    await DeleteNoticiaUseCase(repository=repo).execute(creada.id)
+    await DeleteNoticiaUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(creada.id)
 
     assert creada.id not in repo.data
 
@@ -127,7 +142,7 @@ async def test_delete_noticia_elimina_existente():
 @pytest.mark.asyncio
 async def test_delete_noticia_es_idempotente():
     repo = InMemoryNoticiaRepo()
-    use_case = DeleteNoticiaUseCase(repository=repo)
+    use_case = DeleteNoticiaUseCase(repository=repo, image_gateway=FakeImageStorageGateway())
 
     # No debe lanzar excepción aunque el id no exista
     await use_case.execute("no-existe")
@@ -162,7 +177,7 @@ async def test_update_noticia_regenera_slug_si_cambia_el_titulo():
     repo = InMemoryNoticiaRepo()
     creada = await CreateNoticiaUseCase(repository=repo).execute(CrearNoticiaInput(titulo="Original", cuerpo="X"))
 
-    actualizada = await UpdateNoticiaUseCase(repository=repo).execute(
+    actualizada = await UpdateNoticiaUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarNoticiaInput(id=creada.id, titulo="Título Nuevo", cuerpo="X")
     )
 
@@ -175,7 +190,7 @@ async def test_update_noticia_mantiene_slug_si_el_titulo_no_cambia():
     creada = await CreateNoticiaUseCase(repository=repo).execute(CrearNoticiaInput(titulo="Original", cuerpo="X"))
     slug_original = creada.slug
 
-    actualizada = await UpdateNoticiaUseCase(repository=repo).execute(
+    actualizada = await UpdateNoticiaUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarNoticiaInput(id=creada.id, titulo="Original", cuerpo="Cuerpo editado")
     )
 
@@ -190,7 +205,7 @@ async def test_update_noticia_resuelve_colision_de_slug_excluyendose_a_si_misma(
     propia = await use_case_create.execute(CrearNoticiaInput(titulo="Otro Título", cuerpo="B"))
 
     # Editar el título de "propia" para que colisione con el slug de "otra".
-    actualizada = await UpdateNoticiaUseCase(repository=repo).execute(
+    actualizada = await UpdateNoticiaUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarNoticiaInput(id=propia.id, titulo="Noticia Existente", cuerpo="B")
     )
 

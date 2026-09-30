@@ -7,9 +7,11 @@
 {% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
 {% import 'partials/components/dock.html' as dock_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+{% import 'partials/components/icon.html' as icon_macro %}
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/InstitucionalHome.css') }}?v={{ static_version() }}">
 {% endblock %}
 
 {% block header %}
@@ -17,15 +19,46 @@
 {% endblock %}
 
 {% block main_content %}
+<div class="c-inst-home">
 <section class="c-contact-hero" aria-labelledby="contact-hero-title">
     <div class="tw:container tw:mx-auto tw:px-4 tw:py-8 tw:lg:py-12">
         <h1 id="contact-hero-title" class="c-contact-hero__title">{{ contact_hero.title }}</h1>
         <p class="c-contact-hero__subtitle">{{ contact_hero.subtitle }}</p>
     </div>
 </section>
+
+<section class="c-inst-section">
+    <div class="c-inst-container c-inst-grid c-inst-grid--3">
+        <div class="c-inst-card">
+            <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('telephone-forward-fill') }}</span>
+            <h3 class="c-inst-card__title">Atención telefónica</h3>
+            <p class="c-inst-card__text">4736-0013<br>Lunes a viernes de 19 a 21 hs</p>
+        </div>
+        <div class="c-inst-card">
+            <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('envelope-fill') }}</span>
+            <h3 class="c-inst-card__title">Correos institucionales</h3>
+            <p class="c-inst-card__text">
+                isft199@abc.gob.ar<br>
+                isft199alumnos@gmail.com<br>
+                isft199inscripciones@gmail.com<br>
+                isft199preceptoria@gmail.com
+            </p>
+        </div>
+        <div class="c-inst-card">
+            <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('geo-alt-fill') }}</span>
+            <h3 class="c-inst-card__title">Redes oficiales</h3>
+            <p class="c-inst-card__text">
+                <a href="https://www.facebook.com/isft199" target="_blank" rel="noopener noreferrer" class="c-inst-footer__social-link">Facebook: facebook.com/isft199</a><br>
+                <a href="https://www.instagram.com/isft.199/" target="_blank" rel="noopener noreferrer" class="c-inst-footer__social-link">Instagram: isft.199</a>
+            </p>
+        </div>
+    </div>
+</section>
+
 {% call contact_section_macro.contact_section(content.contact) %}
 {{ contact_macro.contact_form(content.contact) }}
 {% endcall %}
+</div>
 
 <script type="application/ld+json">
 {
@@ -37,13 +70,15 @@
       "description": "{{ seo.description | replace('"', '\\"') }}",
       "url": "{{ seo.canonical_url }}",
       "mainEntity": {
-        "@type": "Organization",
+        "@type": "EducationalOrganization",
         "name": "{{ brand.brandName }}",
-        "url": "https://datamaq.com.ar",
+        "url": "{{ config.BASE_URL }}",
         "email": "{{ brand.contactEmail }}",
+        "telephone": "+54 11 4736-0013",
         "contactPoint": {
           "@type": "ContactPoint",
-          "contactType": "Soporte técnico y ventas",
+          "contactType": "Secretaría e inscripciones",
+          "telephone": "+54 11 4736-0013",
           "email": "{{ brand.contactEmail }}",
           "areaServed": "AR",
           "availableLanguage": "Spanish"
@@ -73,7 +108,6 @@
 {% endblock %}
 
 {% block fab %}
-{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
 {% endblock %}
 
 {% block dock %}

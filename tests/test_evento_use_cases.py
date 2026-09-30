@@ -3,6 +3,7 @@
 import pytest
 
 from src.application.dtos.content_management_dto import CrearEventoInput, EditarEventoInput
+from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.application.use_cases.content.create_evento import CreateEventoUseCase
 from src.application.use_cases.content.delete_evento import DeleteEventoUseCase
 from src.application.use_cases.content.get_evento import GetEventoUseCase
@@ -12,6 +13,20 @@ from src.application.use_cases.content.update_evento import UpdateEventoUseCase
 from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.content.entities import Evento
 from src.domain.content.repositories import EventoRepository
+
+
+class FakeImageStorageGateway(ImageStorageGateway):
+    """Doble en memoria: no toca disco. Registra las rutas eliminadas para poder aserirlas."""
+
+    def __init__(self) -> None:
+        self.eliminadas: list[str] = []
+
+    async def save(self, category: str, filename: str, content_type: str | None, file_bytes: bytes) -> str:
+        return f"{category}/fake-generado.jpg"
+
+    async def delete(self, ruta_relativa: str | None) -> None:
+        if ruta_relativa is not None:
+            self.eliminadas.append(ruta_relativa)
 
 
 class InMemoryEventoRepo(EventoRepository):
@@ -75,7 +90,7 @@ async def test_update_evento_aplica_cambios():
         CrearEventoInput(titulo="Original", descripcion="X", fecha_evento="2026-01-01T10:00:00")
     )
 
-    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+    actualizado = await UpdateEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarEventoInput(
             id=creado.id,
             titulo="Editado",
@@ -94,7 +109,7 @@ async def test_update_evento_aplica_cambios():
 async def test_update_evento_inexistente_lanza_error():
     repo = InMemoryEventoRepo()
     with pytest.raises(EntityNotFoundError):
-        await UpdateEventoUseCase(repository=repo).execute(
+        await UpdateEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
             EditarEventoInput(id="no-existe", titulo="X", descripcion="Y", fecha_evento="2026-01-01T10:00:00")
         )
 
@@ -103,7 +118,7 @@ async def test_update_evento_inexistente_lanza_error():
 async def test_delete_evento_es_idempotente():
     repo = InMemoryEventoRepo()
     # No debe lanzar excepción aunque el id no exista
-    await DeleteEventoUseCase(repository=repo).execute("no-existe")
+    await DeleteEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute("no-existe")
 
 
 # --- Slug (5A) ---
@@ -141,7 +156,7 @@ async def test_update_evento_regenera_slug_si_cambia_el_titulo():
         CrearEventoInput(titulo="Original", descripcion="X", fecha_evento="2026-01-01T10:00:00")
     )
 
-    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+    actualizado = await UpdateEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarEventoInput(id=creado.id, titulo="Título Nuevo", descripcion="X", fecha_evento="2026-01-01T10:00:00")
     )
 
@@ -156,7 +171,7 @@ async def test_update_evento_mantiene_slug_si_el_titulo_no_cambia():
     )
     slug_original = creado.slug
 
-    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+    actualizado = await UpdateEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarEventoInput(id=creado.id, titulo="Original", descripcion="Y", fecha_evento="2026-01-01T10:00:00")
     )
 
@@ -174,7 +189,7 @@ async def test_update_evento_resuelve_colision_de_slug_excluyendose_a_si_mismo()
         CrearEventoInput(titulo="Otro Título", descripcion="B", fecha_evento="2026-02-01T10:00:00")
     )
 
-    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+    actualizado = await UpdateEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarEventoInput(
             id=propio.id, titulo="Evento Existente", descripcion="B", fecha_evento="2026-02-01T10:00:00"
         )
@@ -217,7 +232,7 @@ async def test_update_evento_permite_cambiar_publicada_a_true():
     )
     assert creado.publicada is False
 
-    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+    actualizado = await UpdateEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarEventoInput(
             id=creado.id,
             titulo="Original",
@@ -240,7 +255,7 @@ async def test_update_evento_permite_cambiar_publicada_a_false():
         )
     )
 
-    actualizado = await UpdateEventoUseCase(repository=repo).execute(
+    actualizado = await UpdateEventoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarEventoInput(
             id=creado.id,
             titulo="Original",

@@ -3,6 +3,7 @@
 import pytest
 
 from src.application.dtos.content_management_dto import CrearComunicadoInput, EditarComunicadoInput
+from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.application.use_cases.content.create_comunicado import CreateComunicadoUseCase
 from src.application.use_cases.content.delete_comunicado import DeleteComunicadoUseCase
 from src.application.use_cases.content.get_comunicado import GetComunicadoUseCase
@@ -12,6 +13,20 @@ from src.application.use_cases.content.update_comunicado import UpdateComunicado
 from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.content.entities import Comunicado
 from src.domain.content.repositories import ComunicadoRepository
+
+
+class FakeImageStorageGateway(ImageStorageGateway):
+    """Doble en memoria: no toca disco. Registra las rutas eliminadas para poder aserirlas."""
+
+    def __init__(self) -> None:
+        self.eliminadas: list[str] = []
+
+    async def save(self, category: str, filename: str, content_type: str | None, file_bytes: bytes) -> str:
+        return f"{category}/fake-generado.jpg"
+
+    async def delete(self, ruta_relativa: str | None) -> None:
+        if ruta_relativa is not None:
+            self.eliminadas.append(ruta_relativa)
 
 
 class InMemoryComunicadoRepo(ComunicadoRepository):
@@ -73,7 +88,7 @@ async def test_update_comunicado_aplica_cambios():
         CrearComunicadoInput(titulo="Original", cuerpo="X")
     )
 
-    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+    actualizado = await UpdateComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarComunicadoInput(id=creado.id, titulo="Editado", cuerpo="Y")
     )
 
@@ -86,7 +101,7 @@ async def test_update_comunicado_aplica_cambios():
 async def test_update_comunicado_inexistente_lanza_error():
     repo = InMemoryComunicadoRepo()
     with pytest.raises(EntityNotFoundError):
-        await UpdateComunicadoUseCase(repository=repo).execute(
+        await UpdateComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
             EditarComunicadoInput(id="no-existe", titulo="X", cuerpo="Y")
         )
 
@@ -95,7 +110,7 @@ async def test_update_comunicado_inexistente_lanza_error():
 async def test_delete_comunicado_es_idempotente():
     repo = InMemoryComunicadoRepo()
     # No debe lanzar excepción aunque el id no exista
-    await DeleteComunicadoUseCase(repository=repo).execute("no-existe")
+    await DeleteComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute("no-existe")
 
 
 # --- Slug (5A) ---
@@ -129,7 +144,7 @@ async def test_update_comunicado_regenera_slug_si_cambia_el_titulo():
         CrearComunicadoInput(titulo="Original", cuerpo="X")
     )
 
-    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+    actualizado = await UpdateComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarComunicadoInput(id=creado.id, titulo="Título Nuevo", cuerpo="X")
     )
 
@@ -144,7 +159,7 @@ async def test_update_comunicado_mantiene_slug_si_el_titulo_no_cambia():
     )
     slug_original = creado.slug
 
-    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+    actualizado = await UpdateComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarComunicadoInput(id=creado.id, titulo="Original", cuerpo="Cuerpo editado")
     )
 
@@ -158,7 +173,7 @@ async def test_update_comunicado_resuelve_colision_de_slug_excluyendose_a_si_mis
     otro = await use_case_create.execute(CrearComunicadoInput(titulo="Comunicado Existente", cuerpo="A"))
     propio = await use_case_create.execute(CrearComunicadoInput(titulo="Otro Título", cuerpo="B"))
 
-    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+    actualizado = await UpdateComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarComunicadoInput(id=propio.id, titulo="Comunicado Existente", cuerpo="B")
     )
 
@@ -197,7 +212,7 @@ async def test_update_comunicado_permite_cambiar_publicada_a_true():
     )
     assert creado.publicada is False
 
-    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+    actualizado = await UpdateComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarComunicadoInput(id=creado.id, titulo="Original", cuerpo="X", publicada=True)
     )
 
@@ -212,7 +227,7 @@ async def test_update_comunicado_permite_cambiar_publicada_a_false():
         CrearComunicadoInput(titulo="Original", cuerpo="X", publicada=True)
     )
 
-    actualizado = await UpdateComunicadoUseCase(repository=repo).execute(
+    actualizado = await UpdateComunicadoUseCase(repository=repo, image_gateway=FakeImageStorageGateway()).execute(
         EditarComunicadoInput(id=creado.id, titulo="Original", cuerpo="X", publicada=False)
     )
 

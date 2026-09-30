@@ -8,7 +8,7 @@ from src.infrastructure.fastapi.app import app
 def test_data_service_carreras_catalog():
     data_svc = DataService(data_dir="data")
     carreras = data_svc.get_carreras()
-    assert len(carreras) == 6
+    assert len(carreras) == 7
 
     slugs = [c.slug for c in carreras]
     assert "ciencia-de-datos-ia" in slugs
@@ -16,7 +16,9 @@ def test_data_service_carreras_catalog():
     assert "logistica" in slugs
     assert "higiene-y-seguridad" in slugs
     assert "recursos-humanos" in slugs
-    assert "turismo-y-hoteleria" in slugs
+    assert "turismo" in slugs
+    assert "hoteleria" in slugs
+    assert "turismo-y-hoteleria" not in slugs
 
 
 def test_data_service_carrera_by_slug():
@@ -37,13 +39,15 @@ async def test_carreras_catalog_page():
 
     assert response.status_code == 200
     html = response.text
-    assert "Oferta Académica & Tecnicaturas Superiores" in html
+    # El "&" del hero se emite como entidad HTML (&amp;), no como carácter crudo.
+    assert "Oferta Académica &amp; Tecnicaturas Superiores" in html
     assert "Ciencia de Datos e Inteligencia Artificial" in html
     assert "Mecatrónica" in html
     assert "Logística" in html
     assert "Higiene y Seguridad" in html
     assert "Recursos Humanos" in html
     assert "Turismo" in html
+    assert "Hotelería" in html
 
 
 @pytest.mark.asyncio

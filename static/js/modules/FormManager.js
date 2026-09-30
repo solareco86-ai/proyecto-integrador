@@ -44,9 +44,32 @@ export class FormManager {
         /** @type {number} */
         this.maxReachedStep = 0;
         /** @type {string} */
-        this.finalCtaText = 'Solicitar Diagnóstico y Cotización';
+        this.finalCtaText = 'Enviar consulta';
+
+        /** @type {Map<string, string>} */
+        this.validationMessages = this._readValidationMessages();
 
         this.init();
+    }
+
+    /**
+     * Lee los mensajes de error de validación inyectados por el servidor
+     * (data-validation-messages en el <form>, serializados como JSON).
+     * @returns {Map<string, string>}
+     */
+    _readValidationMessages() {
+        /** @type {Map<string, string>} */
+        const map = new Map();
+        const raw = this.form.dataset.validationMessages;
+        if (!raw) return map;
+        try {
+            /** @type {Record<string, string>} */
+            const parsed = JSON.parse(raw);
+            Object.entries(parsed).forEach(([key, value]) => map.set(key, value));
+        } catch (_) {
+            // Si el JSON viene corrupto, se sigue con los mensajes por defecto.
+        }
+        return map;
     }
 
     /**
@@ -73,14 +96,119 @@ export class FormManager {
 
     /**
      * Maneja el avance al siguiente paso o el envío final del formulario si está en el último paso.
+     * No avanza ni envía si el paso actual tiene campos obligatorios sin completar.
      * @returns {void}
      */
     handleNextOrSubmit() {
+        if (!this.validateStep(this.currentStep)) {
+            return;
+        }
+
         if (this.currentStep < this.steps.length - 1) {
             this.showStep(this.currentStep + 1);
         } else {
             this.submitForm();
         }
+    }
+
+    /**
+     * Valida los campos obligatorios del paso indicado y, en el último paso,
+     * la regla de grupo "correo o teléfono". Muestra u oculta los mensajes de
+     * error correspondientes sin borrar los datos ya ingresados.
+     * @param {number} index - Índice del paso a validar.
+     * @returns {boolean} true si el paso es válido y puede avanzarse/enviarse.
+     */
+    validateStep(index) {
+        const panel = this.steps[index];
+        if (!panel) return true;
+
+        let isValid = true;
+        const fieldWrappers = Array.from(panel.querySelectorAll('[data-required]'));
+
+        fieldWrappers.forEach((wrapper) => {
+            const required = wrapper.getAttribute('data-required') === 'true';
+            const fieldId = /** @type {HTMLElement} */ (wrapper).dataset.fieldId || '';
+            const input = /** @type {HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null} */ (
+                wrapper.querySelector('#' + fieldId)
+            );
+            const value = input ? input.value.trim() : '';
+
+            if (required && !value) {
+                isValid = false;
+                this._showFieldError(wrapper, fieldId, this._messageFor(fieldId, 'Este campo es obligatorio.'));
+            } else {
+                this._clearFieldError(wrapper);
+            }
+        });
+
+        // Regla de grupo del último paso: al menos un canal de contacto (email o teléfono).
+        if (index === this.steps.length - 1) {
+            const email = /** @type {HTMLInputElement | null} */ (panel.querySelector('#contacto-email'));
+            const phone = /** @type {HTMLInputElement | null} */ (panel.querySelector('#contacto-telefono'));
+            const hasChannel = Boolean((email && email.value.trim()) || (phone && phone.value.trim()));
+            const channelError = /** @type {HTMLElement | null} */ (panel.querySelector('#contact_channel-error'));
+
+            if (!hasChannel) {
+                isValid = false;
+                if (channelError) {
+                    channelError.textContent = this._messageFor(
+                        'contact_channel',
+                        'Ingresá un correo electrónico o un teléfono para poder contactarte.'
+                    );
+                    channelError.hidden = false;
+                }
+            } else if (channelError) {
+                channelError.hidden = true;
+                channelError.textContent = '';
+            }
+        }
+
+        return isValid;
+    }
+
+    /**
+     * Resuelve el mensaje de error a mostrar para un campo, usando el mapa
+     * inyectado por el servidor (data.validation_messages) y un texto de reserva.
+     * @param {string} fieldId
+     * @param {string} fallback
+     * @returns {string}
+     */
+    _messageFor(fieldId, fallback) {
+        return this.validationMessages.get(fieldId) || fallback;
+    }
+
+    /**
+     * Muestra el mensaje de error de un campo y marca su contenedor como inválido.
+     * @param {Element} wrapper
+     * @param {string} fieldId
+     * @param {string} message
+     * @returns {void}
+     */
+    _showFieldError(wrapper, fieldId, message) {
+        wrapper.classList.add('has-error');
+        const errorEl = /** @type {HTMLElement | null} */ (wrapper.querySelector('#' + fieldId + '-error'));
+        if (errorEl) {
+            errorEl.textContent = message;
+            errorEl.hidden = false;
+        }
+        const input = wrapper.querySelector('[aria-invalid]');
+        if (input) input.setAttribute('aria-invalid', 'true');
+    }
+
+    /**
+     * Oculta el mensaje de error de un campo y limpia el estado inválido.
+     * @param {Element} wrapper
+     * @returns {void}
+     */
+    _clearFieldError(wrapper) {
+        wrapper.classList.remove('has-error');
+        const errorEl = /** @type {HTMLElement | null} */ (wrapper.querySelector('.c-contact__field-error'));
+        if (errorEl) {
+            errorEl.textContent = '';
+            errorEl.hidden = true;
+        }
+        const input = wrapper.querySelector('[aria-invalid]');
+        if (input) input.setAttribute('aria-invalid', 'false');
     }
 
     /**
@@ -223,12 +351,12 @@ export class FormManager {
         }
 
         const fullName = `${getVal('contacto-nombre') || getVal('nombre') || getVal('name')} ${getVal('contacto-apellido') || getVal('apellido')}`.trim()
-            || getVal('contacto-nombre') || getVal('nombre') || getVal('name') || 'Contacto Web';
+            || getVal('contacto-nombre') || getVal('nombre') || getVal('name');
 
         /** @type {import('../types.js').ContactSubmitPayload} */
         const data = {
             name: fullName,
-            comment: comment || 'Consulta desde formulario web',
+            comment: comment || '',
             email: getVal('contacto-email') || getVal('email') || null,
             phone: getVal('contacto-telefono') || getVal('telefono') || getVal('phone') || null,
             company: getVal('contacto-empresa') || getVal('empresa') || getVal('company') || null,

@@ -24,6 +24,9 @@ async def test_home_renders_complete_isft199():
 
 @pytest.mark.asyncio
 async def test_home_academic_proof_and_services():
+    """Verifica que la Home institucional comunique gratuidad, horario vespertino
+    y Campus Virtual a través de sus secciones reales (Hero, FAQ, Estudiantes),
+    ya sin la franja "proof strip" comercial de DataMaq."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/")
@@ -31,9 +34,10 @@ async def test_home_academic_proof_and_services():
     assert response.status_code == 200
     html = response.text
 
-    assert "Educación Superior Técnica Gratuita" in html
-    assert "Horario Vespertino (18 a 22:30 hs)" in html
-    assert "Campus Virtual Integrado" in html
+    assert "100% gratuitas" in html
+    assert "vespertino" in html.lower()
+    assert "Campus Virtual" in html
+    assert "c-home-proof-strip" not in html
 
 
 @pytest.mark.asyncio
