@@ -45,6 +45,19 @@ section[id] {
     scroll-margin-top: 5rem;
 }
 
+/* #listado-carreras es una grilla larga y dinámica (altura real muy superior
+   a los 600px de contain-intrinsic-size de la regla general de arriba). Esa
+   subestimación hace que el navegador calcule mal la posición de #requisitos
+   (la sección siguiente) en la navegación inicial por ancla, aterrizando en
+   medio de las tarjetas de carreras y corrigiéndose recién después de más de
+   1s. Se excluye puntualmente de content-visibility para que su altura real
+   se conozca desde el primer render, sin afectar la optimización en el resto
+   de las secciones. */
+#listado-carreras {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
+}
+
 img {
     max-width: 100%;
     height: auto;
