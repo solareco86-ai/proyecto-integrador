@@ -39,6 +39,12 @@ section[id] {
     contain-intrinsic-size: 600px;
 }
 
+/* Evita que el header sticky (position: sticky; top: 0) tape el inicio de
+   una sección al navegar a un ancla (ej. /carreras#requisitos). */
+section[id] {
+    scroll-margin-top: 5rem;
+}
+
 img {
     max-width: 100%;
     height: auto;
