@@ -10,7 +10,7 @@ hero:
     label: Explorar Carreras
   secondaryCta:
     href: '#ingreso'
-    label: Inscripción e Ingreso
+    label: Preinscripción e Ingreso
   responseNote: 'Sede El Talar: Maestra Celina Voena 1750 (Tigre) · Turno vespertino
     (18:00 a 22:30 hs) · Tel. 11 4736-0013'
   benefits:
@@ -25,9 +25,9 @@ hero:
       industria de Zona Norte.
   image:
     alt: Instituto Superior de Formación Técnica N° 199 de Tigre
-    height: 700
-    src: /static/media/hero-energy.svg
-    width: 900
+    height: 189
+    src: /static/media/logo-isft199.webp
+    width: 184
 proof_strip:
   items:
   - label: Educación Superior Técnica Gratuita
@@ -219,7 +219,7 @@ about:
     src: /static/media/logo-isft199.webp
     width: 184
 contact:
-  title: Inscripciones y Consultas Institucionales
+  title: Preinscripción y Consultas Institucionales
   subtitle: Completá el formulario para recibir información sobre las carreras, fechas
     de ingreso o consultar a Secretaría.
   cta: Enviar Consulta
@@ -258,7 +258,7 @@ contact:
   - title: Carrera de Interés
     fields:
     - id: contacto-servicio
-      label: ¿En qué tecnicatura te interesa inscribirte?
+      label: ¿En qué tecnicatura te interesa realizar la preinscripción?
       required: true
       options:
       - label: Tecnicatura Superior en Turismo
