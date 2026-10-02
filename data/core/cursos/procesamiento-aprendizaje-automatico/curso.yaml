@@ -1,0 +1,328 @@
+id: procesamiento-aprendizaje-automatico
+slug: procesamiento-aprendizaje-automatico
+title: Procesamiento de Aprendizaje Automático
+description_short: 'Curso completo en 3 unidades: Fundamentos de desarrollo, Machine
+  Learning y Programación lógica inductiva.'
+description_long: Domina el ciclo completo de Machine Learning desde los fundamentos
+  de desarrollo, control de versiones y APIs, pasando por algoritmos clásicos de clasificación,
+  hasta la programación lógica inductiva y árboles de decisión. Modalidad 100% práctica
+  con laboratorios.
+duration: 60 horas de cursada
+level: Inicial a Avanzado
+language: Español
+price: 0.0
+og_image: /static/media/cursos/og-procesamiento-aprendizaje-automatico.webp
+og_image_width: 1200
+og_image_height: 630
+instructor_id: agustin-bustos
+academic_only: false
+sections:
+- id: unit-1
+  title: 'Unidad 1: Fundamentos'
+  description: Configuración del entorno de trabajo, navegación en consola Bash, gestión
+    de paquetes y buenas prácticas de Git como soporte para agentes.
+  chapters:
+  - id: chap-paa-ini-1
+    title: 'Cap 1: La Terminal y el Entorno de Desarrollo Python'
+    description: Comandos fundamentales de navegación, gestión de dependencias aisladas
+      con venv y resguardo de variables de entorno.
+    items:
+    - type: lesson
+      id: les-paa-ini-1-1
+      slug: paa-ini-terminal-bash-navegacion
+      title: 1.1 Navegación en terminal Bash, rutas y gestión de archivos
+      duration: 25 min
+      content_file: cap-1-1-terminal-bash-navegacion.md
+    - type: lesson
+      id: les-paa-ini-1-2
+      slug: paa-ini-python-entornos-virtuales-venv
+      title: 1.2 Python 3, aislamiento de dependencias y entornos virtuales (venv)
+      duration: 25 min
+      content_file: cap-1-2-python-entornos-virtuales-venv.md
+    - type: lesson
+      id: les-paa-ini-1-3
+      slug: paa-ini-variables-entorno-dotenv
+      title: 1.3 Variables de entorno (.env) y protección de API keys
+      duration: 20 min
+      content_file: cap-1-3-variables-entorno-dotenv.md
+  - id: chap-paa-ini-2
+    title: 'Cap 2: Git como Fundamento del Trabajo con Agentes'
+    description: Control de versiones atómico, lectura de diffs y auditoría de modificaciones
+      generadas por asistentes de código.
+    items:
+    - type: lesson
+      id: les-paa-ini-2-1
+      slug: paa-ini-git-flujo-atomico-diffs
+      title: 2.1 ¿Por qué Git es indispensable con agentes? Lectura e interpretación
+        de git diff
+      duration: 25 min
+      content_file: cap-2-1-git-flujo-atomico-diffs.md
+    - type: lesson
+      id: les-paa-ini-2-2
+      slug: paa-ini-comandos-git-esenciales
+      title: '2.2 Comandos esenciales en consola: status, add interactivo, commit
+        y log'
+      duration: 25 min
+      content_file: cap-2-2-comandos-git-esenciales.md
+    - type: lesson
+      id: les-paa-ini-2-3
+      slug: paa-ini-auditoria-codigo-agentes
+      title: '2.3 Auditoría y control de cambios: verificación antes del commit'
+      duration: 20 min
+      content_file: cap-2-3-auditoria-codigo-agentes.md
+  - id: chap-paa-ini-3
+    title: 'Cap 3: La Tríada de Asistentes: Aider, OpenCode y AGY CLI'
+    description: Configuración y primeros comandos para pair programming con agentes
+      en la terminal de desarrollo.
+    items:
+    - type: lesson
+      id: les-paa-ini-3-1
+      slug: paa-ini-instalacion-setup-agentes
+      title: 3.1 Instalación y configuración de Aider, OpenCode y AGY CLI
+      duration: 25 min
+      content_file: cap-3-1-instalacion-setup-agentes.md
+    - type: lesson
+      id: les-paa-ini-3-2
+      slug: paa-ini-prompts-tecnicos-contexto
+      title: '3.2 Anatomía de una instrucción técnica: contexto, archivos y diffs'
+      duration: 25 min
+      content_file: cap-3-2-prompts-tecnicos-contexto.md
+    - type: lesson
+      id: les-paa-ini-3-3
+      slug: paa-ini-laboratorio-script-aider
+      title: '3.3 Taller práctico: creación y refactor de un script utilitario con
+        Aider'
+      duration: 30 min
+      content_file: cap-3-3-laboratorio-script-aider.md
+  - id: chap-paa-ini-4
+    title: 'Cap 4: De Script de Consola a Servicio Web con FastAPI'
+    description: Protocolo HTTP, esquemas JSON y construcción de endpoints REST asistidos
+      por agentes.
+    items:
+    - type: lesson
+      id: les-paa-ini-4-1
+      slug: paa-ini-fundamentos-http-json
+      title: 4.1 Protocolo HTTP, métodos GET/POST y formato JSON como contrato de
+        datos
+      duration: 20 min
+      content_file: cap-4-1-fundamentos-http-json.md
+    - type: lesson
+      id: les-paa-ini-4-2
+      slug: paa-ini-primer-servidor-fastapi
+      title: '4.2 Primera aplicación FastAPI: Uvicorn y documentación interactiva
+        Swagger'
+      duration: 25 min
+      content_file: cap-4-2-primer-servidor-fastapi.md
+    - type: lesson
+      id: les-paa-ini-4-3
+      slug: paa-ini-endpoint-calculo-opencode
+      title: 4.3 Construcción del endpoint POST /operar asistida por OpenCode
+      duration: 25 min
+      content_file: cap-4-3-endpoint-calculo-opencode.md
+    - type: lesson
+      id: les-paa-ini-4-4
+      slug: paa-ini-reglas-manuales-vs-datos
+      title: 4.4 Del if/else tradicional a la toma de decisiones basada en datos
+      duration: 25 min
+      content_file: cap-4-4-reglas-manuales-vs-datos.md
+- id: unit-2
+  title: 'Unidad 2: Machine Learning'
+  description: Diseño de APIs de inferencia robustas, validación rigurosa de features
+    y administración de modelos en memoria de servidor.
+  chapters:
+  - id: chap-paa-int-1
+    title: 'Cap 1: Arquitectura de Inferencia y Esquemas Pydantic'
+    description: Tipado estricto de entradas y salidas, persistencia con joblib y
+      ciclo de vida de aplicación con lifespan.
+    items:
+    - type: lesson
+      id: les-paa-int-1-1
+      slug: paa-int-pydantic-esquemas-ml
+      title: '1.1 Modelado de features con Pydantic: validación, rangos y tipado'
+      duration: 25 min
+      content_file: cap-1-1-pydantic-esquemas-ml.md
+    - type: lesson
+      id: les-paa-int-1-2
+      slug: paa-int-fastapi-lifespan-modelos
+      title: '1.2 Gestión de memoria en FastAPI: carga del modelo en el lifespan'
+      duration: 25 min
+      content_file: cap-1-2-fastapi-lifespan-modelos.md
+    - type: lesson
+      id: les-paa-int-1-3
+      slug: paa-int-serializacion-joblib
+      title: 1.3 Serialización y persistencia de artefactos con joblib
+      duration: 20 min
+      content_file: cap-1-3-serializacion-joblib.md
+  - id: chap-paa-int-2
+    title: 'Cap 2: Tareas de Aprendizaje y Deducción vs. Inducción'
+    description: Fundamentos teóricos del aprendizaje inductivo contrastados con el
+      razonamiento asistido de modelos de lenguaje.
+    items:
+    - type: lesson
+      id: les-paa-int-2-1
+      slug: paa-int-deduccion-vs-induccion
+      title: 2.1 Razonamiento deductivo del LLM vs. inducción estadística de parámetros
+      duration: 25 min
+      content_file: cap-2-1-deduccion-vs-induccion.md
+    - type: lesson
+      id: les-paa-int-2-2
+      slug: paa-int-subtareas-del-aprendizaje
+      title: '2.2 Subtareas del aprendizaje: partición train/test y prevención de
+        fugas (data leakage)'
+      duration: 25 min
+      content_file: cap-2-2-subtareas-del-aprendizaje.md
+  - id: chap-paa-int-3
+    title: 'Cap 3: Clasificación Probabilística con Naive Bayes'
+    description: Teorema de Bayes, modelado probabilístico y servicio web de inferencia
+      en tiempo real.
+    items:
+    - type: lesson
+      id: les-paa-int-3-1
+      slug: paa-int-teorema-bayes-clasificacion
+      title: '3.1 Teorema de Bayes: probabilidades a priori, verosimilitud y a posteriori'
+      duration: 25 min
+      content_file: cap-3-1-teorema-bayes-clasificacion.md
+    - type: lesson
+      id: les-paa-int-3-2
+      slug: paa-int-endpoint-naive-bayes-opencode
+      title: 3.2 Construcción del endpoint POST /classify/bayes con OpenCode
+      duration: 30 min
+      content_file: cap-3-2-endpoint-naive-bayes-opencode.md
+  - id: chap-paa-int-4
+    title: 'Cap 4: Aprendizaje Basado en Instancias (k-NN)'
+    description: Cálculo vectorial de distancias, normalización de espacio de features
+      y endpoint de vecinos cercanos.
+    items:
+    - type: lesson
+      id: les-paa-int-4-1
+      slug: paa-int-knn-distancias-normalizacion
+      title: '4.1 Algoritmo k-NN: métricas de distancia, estandarización y costo de
+        inferencia'
+      duration: 25 min
+      content_file: cap-4-1-knn-distancias-normalizacion.md
+    - type: lesson
+      id: les-paa-int-4-2
+      slug: paa-int-endpoint-knn-fastapi
+      title: 4.2 Implementación del endpoint POST /classify/knn en FastAPI
+      duration: 25 min
+      content_file: cap-4-2-endpoint-knn-fastapi.md
+  - id: chap-paa-int-5
+    title: 'Cap 5: Evaluación Rigurosa y TDD Asistido por Agentes'
+    description: Medición científica de rendimiento, desarrollo guiado por pruebas
+      con pytest y observabilidad de la API.
+    items:
+    - type: lesson
+      id: les-paa-int-5-1
+      slug: paa-int-metricas-confusion-f1
+      title: 5.1 Matriz de confusión, precisión, recall y F1-Score
+      duration: 25 min
+      content_file: cap-5-1-metricas-confusion-f1.md
+    - type: lesson
+      id: les-paa-int-5-2
+      slug: paa-int-tdd-pytest-aider-agy
+      title: 5.2 Flujo TDD en FastAPI con pytest asistido por Aider y AGY CLI
+      duration: 30 min
+      content_file: cap-5-2-tdd-pytest-aider-agy.md
+    - type: lesson
+      id: les-paa-int-5-3
+      slug: paa-int-endpoint-metricas-observabilidad
+      title: 5.3 Exposición de métricas de rendimiento en el endpoint GET /metrics
+      duration: 20 min
+      content_file: cap-5-3-endpoint-metricas-observabilidad.md
+- id: unit-3
+  title: 'Unidad 3: Programación Lógica'
+  description: Aprendizaje de conceptos, límites de hipótesis y algoritmos de inducción
+    de reglas lógicas explicables.
+  chapters:
+  - id: chap-paa-ava-1
+    title: 'Cap 1: Espacio de Versiones y Aprendizaje de Conceptos'
+    description: Fronteras específicas y generales, algoritmo Candidate-Elimination
+      y refinamiento interactivo vía API.
+    items:
+    - type: lesson
+      id: les-paa-ava-1-1
+      slug: paa-ava-espacio-versiones-ce
+      title: '1.1 Generalización y especialización: algoritmo Candidate-Elimination'
+      duration: 25 min
+      content_file: cap-1-1-espacio-versiones-ce.md
+    - type: lesson
+      id: les-paa-ava-1-2
+      slug: paa-ava-endpoint-version-space-step
+      title: 1.2 Endpoint POST /version-space/step para refinamiento interactivo de
+        hipótesis
+      duration: 25 min
+      content_file: cap-1-2-endpoint-version-space-step.md
+  - id: chap-paa-ava-2
+    title: 'Cap 2: Algoritmos de Reglas Lógicas e Inducción Formal'
+    description: Algoritmo de cobertura secuencial AQ, Programación Lógica Inductiva
+      (FOIL) y endpoints de auditoría.
+    items:
+    - type: lesson
+      id: les-paa-ava-2-1
+      slug: paa-ava-algoritmo-aq-cobertura
+      title: '2.1 Algoritmo AQ y cobertura secuencial: extracción de reglas interpretables'
+      duration: 25 min
+      content_file: cap-2-1-algoritmo-aq-cobertura.md
+    - type: lesson
+      id: les-paa-ava-2-2
+      slug: paa-ava-programacion-logica-inductiva-foil
+      title: '2.2 Programación Lógica Inductiva (FOIL): aprendizaje de relaciones
+        de primer orden'
+      duration: 25 min
+      content_file: cap-2-2-programacion-logica-inductiva-foil.md
+    - type: lesson
+      id: les-paa-ava-2-3
+      slug: paa-ava-endpoint-rules-auditoria
+      title: 2.3 Exposición y auditoría del conjunto de reglas en GET /rules
+      duration: 20 min
+      content_file: cap-2-3-endpoint-rules-auditoria.md
+  - id: chap-paa-ava-3
+    title: 'Cap 3: Árboles de Decisión y Regresión (CART)'
+    description: Métricas de pureza, poda de árboles, explicabilidad en formato JSON
+      y prevención de sobreajuste.
+    items:
+    - type: lesson
+      id: les-paa-ava-3-1
+      slug: paa-ava-entropia-ganancia-gini
+      title: 3.1 Entropía, ganancia de información (ID3/C4.5) e impureza de Gini (CART)
+      duration: 25 min
+      content_file: cap-3-1-entropia-ganancia-gini.md
+    - type: lesson
+      id: les-paa-ava-3-2
+      slug: paa-ava-arboles-regresion-continuos
+      title: 3.2 Árboles de regresión y poda para prevención de overfitting
+      duration: 25 min
+      content_file: cap-3-2-arboles-regresion-continuos.md
+    - type: lesson
+      id: les-paa-ava-3-3
+      slug: paa-ava-exportacion-arbol-json
+      title: '3.3 Trazabilidad y explicabilidad: exportación del árbol en JSON para
+        agentes'
+      duration: 20 min
+      content_file: cap-3-3-exportacion-arbol-json.md
+  - id: chap-paa-ava-4
+    title: 'Cap 4: Protocolos de Contexto (MCP) y Orquestación con Agentes'
+    description: Poda sintáctica con AST, servidores Model Context Protocol y flujo
+      de trabajo autónomo con la tríada de agentes.
+    items:
+    - type: lesson
+      id: les-paa-ava-4-1
+      slug: paa-ava-ast-poda-contexto-agentes
+      title: '4.1 Cómo leen código los agentes: Árboles de Sintaxis Abstracta (AST)
+        y poda de contexto'
+      duration: 25 min
+      content_file: cap-4-1-ast-poda-contexto-agentes.md
+    - type: lesson
+      id: les-paa-ava-4-2
+      slug: paa-ava-servidor-mcp-fastapi
+      title: 4.2 Implementación de un servidor MCP en FastAPI para AGY, OpenCode y
+        Aider
+      duration: 30 min
+      content_file: cap-4-2-servidor-mcp-fastapi.md
+    - type: lesson
+      id: les-paa-ava-4-3
+      slug: paa-ava-proyecto-integrador-agentes
+      title: '4.3 Taller Integrador: Pipeline de inferencia y auditoría orquestado
+        por agentes autónomos'
+      duration: 35 min
+      content_file: cap-4-3-proyecto-integrador-agentes.md
