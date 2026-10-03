@@ -26,6 +26,9 @@ done
 if [ "$DEBUG_MODE" -eq 1 ]; then
   export DEBUG=true
   echo "Modo DEBUG activado (DEBUG=true)"
+elif [ -z "$SECRET_KEY" ] && [ -z "$DEBUG" ]; then
+  export DEBUG=true
+  echo "Modo DEBUG activado automáticamente para desarrollo local (DEBUG=true)"
 fi
 
 # Detener proceso ocupando el puerto configurado

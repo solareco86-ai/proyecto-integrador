@@ -40,6 +40,10 @@ def main() -> None:
             print(f"[ERROR] Argumento no reconocido: {arg}")
             show_help()
 
+    if not os.environ.get("SECRET_KEY") and "DEBUG" not in os.environ:
+        debug_mode = True
+        os.environ["DEBUG"] = "true"
+
     if debug_mode:
         os.environ["DEBUG"] = "true"
         print("[INFO] Modo DEBUG activado (DEBUG=true)")
