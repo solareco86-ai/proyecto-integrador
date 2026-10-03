@@ -26,10 +26,10 @@ sections:
     de paquetes y buenas prácticas de Git como soporte para agentes.
   chapters:
   - id: chap-paa-ini-1
-    title: 'Cap 1: La Terminal y el Entorno de Desarrollo Python'
-    description: Sistemas de consola (GNU/Linux, WSL, Git Bash), navegación en Bash,
-      control de versiones con Git, clonado del proyecto real (energy-ml), aislamiento con
-      venv y variables de entorno.
+    title: 'Cap 1: La Terminal, Git y el Entorno de Trabajo en Python'
+    description: "Aprovisionamiento del entorno de desarrollo: consola Bash (GNU/Linux,
+      WSL, Git Bash), control de versiones con Git, clonado del proyecto real (energy-ml),
+      aislamiento de dependencias con venv y validación con pytest."
     items:
     - type: lesson
       id: les-paa-ini-1-1

@@ -1,4 +1,4 @@
-# Guía de Laboratorio Práctico — Capítulo 1: La Terminal y el Entorno de Desarrollo Python
+# Guía de Laboratorio Práctico — Capítulo 1: La Terminal, Git y el Entorno de Trabajo en Python
 
 **Módulo:** Procesamiento y Aprendizaje Automático Inicial (Nivel 0 — Nivelación)  
 **Slug:** `procesamiento-aprendizaje-automatico-inicial`  
