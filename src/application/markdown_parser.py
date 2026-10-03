@@ -39,7 +39,12 @@ _ALLOWED_TAGS = {
     "span",
     "div",
 }
-_ALLOWED_ATTRS = {"a": {"href", "title"}, "img": {"src", "alt", "title", "width", "height"}}
+_ALLOWED_ATTRS = {
+    "a": {"href", "title"},
+    "img": {"src", "alt", "title", "width", "height"},
+    "code": {"class"},
+    "pre": {"class"},
+}
 
 _TAG_RE = re.compile(r"</?(\w+)[^>]*/?>")
 
@@ -73,7 +78,10 @@ def _sanitize_html(html_text: str) -> str:
             kept: list[str] = []
             for attr_match in re.finditer(r'(\w+)=(?:"([^"]*)"|\'([^\']*)\')', attrs_str):
                 attr_name = attr_match.group(1).lower()
+                val = attr_match.group(2) if attr_match.group(2) is not None else attr_match.group(3)
                 if attr_name in allowed:
+                    if attr_name == "class" and not re.match(r"^[a-zA-Z0-9_\-\s]+$", val):
+                        continue
                     kept.append(attr_match.group(0))
             attrs = " " + " ".join(kept) if kept else ""
             return f"<{tag_name}{attrs}>"

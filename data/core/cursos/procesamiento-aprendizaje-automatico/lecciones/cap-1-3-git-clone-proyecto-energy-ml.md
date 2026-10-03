@@ -99,8 +99,10 @@ Ejecuta el comando `git clone` apuntando a la URL pública del repositorio del c
 git clone https://github.com/datamaq-automation/energy-ml
 ```
 
-Verás una salida similar a:
-```text
+> [!NOTE]
+> **Salida esperada en terminal:** La siguiente información es el reporte automático que genera Git tras la descarga. Es de **solo lectura** (no debes ejecutarla ni copiarla):
+
+```output
 Cloning into 'energy-ml'...
 remote: Enumerating objects: 124, done.
 remote: Counting objects: 100% (124/124), done.

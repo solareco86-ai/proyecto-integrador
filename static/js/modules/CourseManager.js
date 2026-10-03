@@ -334,6 +334,8 @@ export class CourseManager {
             const isOutputBlock = outputLanguages.includes(lang) || 
                 rawText.startsWith('Output:') || 
                 rawText.startsWith('Completed At:') ||
+                rawText.startsWith('Cloning into') ||
+                rawText.startsWith('remote:') ||
                 rawText.startsWith('HTTP/1.1') ||
                 rawText.startsWith('=============================') ||
                 (lang === '' && (rawText.includes('INFO:') || rawText.includes('error:') || rawText.includes('WARN:')));
