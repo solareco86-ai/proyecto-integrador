@@ -10,6 +10,9 @@ description_long: Domina el ciclo completo de Machine Learning desde los fundame
 duration: 60 horas de cursada
 level: Inicial a Avanzado
 language: Español
+case_study_url: https://github.com/datamaq-automation/energy-ml
+case_study_title: "NILM: Identificador de cargas energéticas"
+case_study_description: "Caso de estudio real que implementa conceptos de Machine Learning para monitoreo no intrusivo de cargas eléctricas."
 price: 0.0
 og_image: /static/media/cursos/og-procesamiento-aprendizaje-automatico.webp
 og_image_width: 1200
@@ -113,6 +116,7 @@ sections:
         Swagger'
       duration: 25 min
       content_file: cap-4-2-primer-servidor-fastapi.md
+      case_study_reference: "energy-ml utiliza FastAPI en src/infrastructure/fastapi para servir el endpoint /api/v1/identify-loads, que realiza inferencia de cargas eléctricas en tiempo real."
     - type: lesson
       id: les-paa-ini-4-3
       slug: paa-ini-endpoint-calculo-opencode
@@ -217,6 +221,7 @@ sections:
       title: 5.1 Matriz de confusión, precisión, recall y F1-Score
       duration: 25 min
       content_file: cap-5-1-metricas-confusion-f1.md
+      case_study_reference: "energy-ml evalúa el rendimiento de la identificación de cargas en src/application/cargas/IdentificarCargasUseCase mediante matriz de confusión y métricas de precisión."
     - type: lesson
       id: les-paa-int-5-2
       slug: paa-int-tdd-pytest-aider-agy
@@ -287,6 +292,7 @@ sections:
       title: 3.1 Entropía, ganancia de información (ID3/C4.5) e impureza de Gini (CART)
       duration: 25 min
       content_file: cap-3-1-entropia-ganancia-gini.md
+      case_study_reference: "energy-ml usa DBSCAN (src/infrastructure/sklearn) para agrupar eventos de carga; el árbol de decisión podría exportarse en JSON para auditoría de agentes."
     - type: lesson
       id: les-paa-ava-3-2
       slug: paa-ava-arboles-regresion-continuos

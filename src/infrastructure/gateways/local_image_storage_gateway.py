@@ -4,7 +4,7 @@ import io
 import uuid
 from pathlib import Path
 
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, UnidentifiedImageError  # type: ignore[import-untyped,attr-defined]
 
 from src.application.gateways.image_storage_gateway import ImageStorageGateway, ImageValidationError
 
@@ -120,15 +120,15 @@ class LocalImageStorageGateway(ImageStorageGateway):
         imagen soportada por Pillow.
         """
         try:
-            with Image.open(io.BytesIO(file_bytes)) as img:
-                img.verify()
+            with Image.open(io.BytesIO(file_bytes)) as img:  # type: ignore[misc]
+                img.verify()  # type: ignore[misc]
             # Pillow exige reabrir el buffer tras verify(): el objeto queda
             # inutilizable para lecturas posteriores una vez verificado.
-            with Image.open(io.BytesIO(file_bytes)) as img:
-                formato = img.format
-        except (UnidentifiedImageError, OSError, ValueError) as exc:
+            with Image.open(io.BytesIO(file_bytes)) as img:  # type: ignore[misc]
+                formato: str | None = img.format  # type: ignore[misc]
+        except (UnidentifiedImageError, OSError, ValueError) as exc:  # type: ignore[misc]
             raise ImageValidationError("El archivo no es una imagen válida o está corrupto.") from exc
 
         if formato is None:
             raise ImageValidationError("No se pudo determinar el formato real de la imagen.")
-        return formato
+        return formato  # type: ignore[return-value]

@@ -12,7 +12,12 @@ from src.domain.auth.entities import Usuario
 from src.domain.common.exceptions import EntityNotFoundError
 from src.domain.content.repositories import NoticiaRepository
 from src.infrastructure.fastapi.csrf import get_or_create_csrf_token, verify_csrf
-from src.infrastructure.fastapi.dependencies import get_image_storage_gateway, get_noticia_repository, require_authority, templates
+from src.infrastructure.fastapi.dependencies import (
+    get_image_storage_gateway,
+    get_noticia_repository,
+    require_authority,
+    templates,
+)
 
 _CATEGORIA_IMAGEN = "noticias"
 

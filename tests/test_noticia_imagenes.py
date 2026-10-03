@@ -72,7 +72,7 @@ class TestCreacionConImagen:
     @pytest.mark.asyncio
     async def test_crear_sin_imagen_queda_none(self, tmp_path: Path):
         repo = InMemoryNoticiaRepo()
-        gateway = LocalImageStorageGateway(base_dir=tmp_path / "uploads")
+        _ = LocalImageStorageGateway(base_dir=tmp_path / "uploads")
         noticia = await CreateNoticiaUseCase(repository=repo).execute(
             CrearNoticiaInput(titulo="Sin imagen", cuerpo="Cuerpo")
         )
