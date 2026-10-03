@@ -56,11 +56,12 @@ async def rate_limit_middleware(request: Request, call_next: RequestResponseEndp
 
 def _canonical_parts(request: Request) -> tuple[str, str, str]:
     """
-    Devuelve la versión canónica (scheme, host, path) para la request.
+    Devuelve la versión canónica (scheme, netloc, path) para la request.
 
     Reglas:
       - HTTPS cuando el reverse proxy indica HTTP (vía X-Forwarded-Proto).
       - Sin prefijo www.
+      - Preservar puerto no estándar (ej. :8001 en desarrollo local).
       - Sin trailing slash, salvo que el path sea '/'.
     """
     scheme = request.url.scheme
@@ -77,11 +78,18 @@ def _canonical_parts(request: Request) -> tuple[str, str, str]:
     if host.startswith("www."):
         host = host[4:]
 
+    # Preservar puerto no estándar en netloc
+    port = request.url.port
+    if port and not (scheme == "http" and port == 80) and not (scheme == "https" and port == 443):
+        netloc = f"{host}:{port}"
+    else:
+        netloc = host
+
     # Normalizar trailing slash
     if path != "/" and path.endswith("/"):
         path = path.rstrip("/")
 
-    return scheme, host, path
+    return scheme, netloc, path
 
 
 async def security_headers_middleware(request: Request, call_next: RequestResponseEndpoint) -> Response:
@@ -117,16 +125,16 @@ async def canonical_redirect_middleware(request: Request, call_next: RequestResp
     No redirige peticiones a archivos estáticos ni a la API por motivos de trailing
     slash; sí normaliza scheme/host para todo el tráfico.
     """
-    scheme, host, path = _canonical_parts(request)
+    scheme, netloc, path = _canonical_parts(request)
 
     current_scheme = request.url.scheme
-    current_host = request.url.hostname or ""
+    current_netloc = request.url.netloc
     current_path = request.url.path
 
-    needs_redirect = scheme != current_scheme or host != current_host or path != current_path
+    needs_redirect = scheme != current_scheme or netloc != current_netloc or path != current_path
 
     if needs_redirect:
-        canonical = urlunsplit((scheme, host, path, request.url.query, ""))
+        canonical = urlunsplit((scheme, netloc, path, request.url.query, ""))
         return RedirectResponse(url=canonical, status_code=308)
 
     return await call_next(request)

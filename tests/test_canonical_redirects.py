@@ -31,6 +31,15 @@ async def test_redirect_trailing_slash():
 
 
 @pytest.mark.asyncio  # type: ignore
+async def test_redirect_trailing_slash_preserves_custom_port():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://127.0.0.1:8001") as ac:
+        response = await ac.get("/cursos/procesamiento-aprendizaje-automatico/", follow_redirects=False)
+    assert response.status_code == 308
+    assert response.headers["location"] == "http://127.0.0.1:8001/cursos/procesamiento-aprendizaje-automatico"
+
+
+@pytest.mark.asyncio  # type: ignore
 async def test_redirect_http_to_https_via_forwarded_proto():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
