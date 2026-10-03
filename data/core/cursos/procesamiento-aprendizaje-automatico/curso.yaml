@@ -62,28 +62,25 @@ sections:
       duration: 20 min
       content_file: cap-1-5-variables-entorno-dotenv.md
   - id: chap-paa-ini-2
-    title: 'Cap 2: Git como Fundamento del Trabajo con Agentes'
-    description: Control de versiones atómico, lectura de diffs y auditoría de modificaciones
-      generadas por asistentes de código.
+    title: 'Cap 2: Auditoría de Código y Flujo Atómico de Cambios'
+    description: "Auditoría crítica de código generado por asistentes de IA, lectura analítica de diffs, staging interactivo (git add -p) y flujo atómico de commits."
     items:
     - type: lesson
       id: les-paa-ini-2-1
       slug: paa-ini-git-flujo-atomico-diffs
-      title: 2.1 ¿Por qué Git es indispensable con agentes? Lectura e interpretación
-        de git diff
+      title: "2.1 Lectura e interpretación de git diff: el antídoto a la aceptación ciega de IA"
       duration: 25 min
       content_file: cap-2-1-git-flujo-atomico-diffs.md
     - type: lesson
       id: les-paa-ini-2-2
       slug: paa-ini-comandos-git-esenciales
-      title: '2.2 Comandos esenciales en consola: status, add interactivo, commit
-        y log'
+      title: "2.2 Staging interactivo (git add -p) y discriminación de código alucinado"
       duration: 25 min
       content_file: cap-2-2-comandos-git-esenciales.md
     - type: lesson
       id: les-paa-ini-2-3
       slug: paa-ini-auditoria-codigo-agentes
-      title: '2.3 Auditoría y control de cambios: verificación antes del commit'
+      title: "2.3 Descarte de código inseguro (git restore -p) y commits atómicos auditados"
       duration: 20 min
       content_file: cap-2-3-auditoria-codigo-agentes.md
   - id: chap-paa-ini-3
