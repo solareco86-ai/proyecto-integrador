@@ -54,6 +54,14 @@ async def rate_limit_middleware(request: Request, call_next: RequestResponseEndp
 # --- Canonical Redirect ---
 
 
+def _build_netloc(host: str, port: int | None, scheme: str) -> str:
+    """Construye el netloc preservando puertos no estándar."""
+    is_default = (scheme == "http" and port == 80) or (scheme == "https" and port == 443)
+    if port and not is_default:
+        return f"{host}:{port}"
+    return host
+
+
 def _canonical_parts(request: Request) -> tuple[str, str, str]:
     """
     Devuelve la versión canónica (scheme, netloc, path) para la request.
@@ -79,11 +87,7 @@ def _canonical_parts(request: Request) -> tuple[str, str, str]:
         host = host[4:]
 
     # Preservar puerto no estándar en netloc
-    port = request.url.port
-    if port and not (scheme == "http" and port == 80) and not (scheme == "https" and port == 443):
-        netloc = f"{host}:{port}"
-    else:
-        netloc = host
+    netloc = _build_netloc(host, request.url.port, scheme)
 
     # Normalizar trailing slash
     if path != "/" and path.endswith("/"):
