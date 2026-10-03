@@ -65,6 +65,7 @@ def main() -> None:
         port=port,
         reload=True,
         reload_dirs=["src", "data"],
+        reload_includes=["*.yaml", "*.md"],
     )
 
 

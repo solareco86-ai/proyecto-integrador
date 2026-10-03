@@ -58,4 +58,4 @@ if ! python3 -c "import uvicorn" 2>/dev/null; then
 fi
 
 export PYTHONPATH=$PYTHONPATH:$(pwd)
-python3 -m uvicorn src.infrastructure.fastapi.app:app --reload --reload-dir src --reload-dir data --port "$PORT"
+python3 -m uvicorn src.infrastructure.fastapi.app:app --reload --reload-dir src --reload-dir data --reload-include "*.yaml" --reload-include "*.md" --port "$PORT"
