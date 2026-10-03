@@ -6,7 +6,7 @@
 
 ---
 
-## 3. Sección 1.2: Aislamiento de Dependencias con Python 3 (`venv` y `pip`)
+## 3. Sección 1.3: Aislamiento de Dependencias con Python 3 (`venv` y `pip`)
 
 ### 3.1. Conceptos Clave
 * **¿Por qué aislar entornos?** Evita conflictos entre versiones de librerías instaladas globalmente en el sistema operativo. Cada proyecto mantiene su propio árbol de dependencias aislado.

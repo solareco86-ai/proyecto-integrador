@@ -15,7 +15,7 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 
 ---
 
-## 2. Sección 1.1: Navegación y Manipulación en Terminal (Bash)
+## 2. Sección 1.2: Navegación y Manipulación en Terminal (Bash)
 
 ### 2.1. Conceptos Clave
 * **Ruta Absoluta vs. Relativa:** Una ruta absoluta parte desde el directorio raíz (`/`), mientras que una relativa toma como referencia el directorio de trabajo actual (`.`).
@@ -33,7 +33,7 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 | `mv <origen> <destino>` | Mueve o renombra archivos y directorios. |
 | `rm -rf <directorio>` | Elimina archivos o directorios de forma recursiva y forzada (usar con precaución). |
 
-### 2.3. Ejercicio Práctico 1.1: Creación de la Estructura del Proyecto
+### 2.3. Ejercicio Práctico 1.2: Creación de la Estructura del Proyecto
 Ejecuta la siguiente secuencia de comandos en tu terminal Bash para estructurar el proyecto base:
 
 ```bash

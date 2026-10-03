@@ -27,27 +27,34 @@ sections:
   chapters:
   - id: chap-paa-ini-1
     title: 'Cap 1: La Terminal y el Entorno de Desarrollo Python'
-    description: Comandos fundamentales de navegación, gestión de dependencias aisladas
-      con venv y resguardo de variables de entorno.
+    description: Sistemas y entornos de consola (GNU/Linux, WSL, Git Bash), comandos
+      fundamentales de navegación, gestión de dependencias aisladas con venv y resguardo
+      de variables de entorno.
     items:
     - type: lesson
       id: les-paa-ini-1-1
-      slug: paa-ini-terminal-bash-navegacion
-      title: 1.1 Navegación en terminal Bash, rutas y gestión de archivos
+      slug: paa-ini-entorno-os-gitbash-wsl-linux
+      title: "1.1 El sistema operativo y la consola: GNU/Linux, WSL y Git Bash"
       duration: 25 min
-      content_file: cap-1-1-terminal-bash-navegacion.md
+      content_file: cap-1-1-entorno-os-gitbash-wsl-linux.md
     - type: lesson
       id: les-paa-ini-1-2
-      slug: paa-ini-python-entornos-virtuales-venv
-      title: 1.2 Python 3, aislamiento de dependencias y entornos virtuales (venv)
+      slug: paa-ini-terminal-bash-navegacion
+      title: 1.2 Navegación en terminal Bash, rutas y gestión de archivos
       duration: 25 min
-      content_file: cap-1-2-python-entornos-virtuales-venv.md
+      content_file: cap-1-2-terminal-bash-navegacion.md
     - type: lesson
       id: les-paa-ini-1-3
+      slug: paa-ini-python-entornos-virtuales-venv
+      title: 1.3 Python 3, aislamiento de dependencias y entornos virtuales (venv)
+      duration: 25 min
+      content_file: cap-1-3-python-entornos-virtuales-venv.md
+    - type: lesson
+      id: les-paa-ini-1-4
       slug: paa-ini-variables-entorno-dotenv
-      title: 1.3 Variables de entorno (.env) y protección de API keys
+      title: 1.4 Variables de entorno (.env) y protección de API keys
       duration: 20 min
-      content_file: cap-1-3-variables-entorno-dotenv.md
+      content_file: cap-1-4-variables-entorno-dotenv.md
   - id: chap-paa-ini-2
     title: 'Cap 2: Git como Fundamento del Trabajo con Agentes'
     description: Control de versiones atómico, lectura de diffs y auditoría de modificaciones

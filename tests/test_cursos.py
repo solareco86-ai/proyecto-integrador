@@ -42,6 +42,20 @@ async def test_lesson_rendered():
 
 
 @pytest.mark.asyncio
+async def test_aprendizaje_automatico_entorno_os_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-entorno-os-gitbash-wsl-linux")
+
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "1.1 El sistema operativo y la consola: GNU/Linux, WSL y Git Bash" in response.text
+    assert "Git Bash" in response.text
+    assert "WSL 2" in response.text
+    assert "GNU/Linux" in response.text
+
+
+@pytest.mark.asyncio
 async def test_invalid_course_returns_404():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:

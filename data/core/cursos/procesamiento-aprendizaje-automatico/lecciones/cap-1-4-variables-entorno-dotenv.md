@@ -6,7 +6,7 @@
 
 ---
 
-## 4. Sección 1.3: Variables de Entorno y Protección de Credenciales (`.env`)
+## 4. Sección 1.4: Variables de Entorno y Protección de Credenciales (`.env`)
 
 ### 4.1. Conceptos Clave
 * **Variables de Entorno:** Paredes de memoria que almacenan configuraciones sensibles (como llaves de API o contraseñas de bases de datos) fuera del código fuente.
