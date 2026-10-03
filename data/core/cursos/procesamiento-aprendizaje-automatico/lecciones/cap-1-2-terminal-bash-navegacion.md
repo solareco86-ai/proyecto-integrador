@@ -12,7 +12,8 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 1. Operar con soltura en la interfaz de línea de comandos (Bash), gestionando rutas absolutas y relativas sin depender de exploradores gráficos.
 2. Comprender cómo se mapean los sistemas de archivos entre diferentes plataformas (GNU/Linux nativo, WSL y Git Bash).
 3. Construir y ejecutar scripts en Bash con detección dinámica de entorno, usuario y rutas del sistema.
-4. Crear y organizar la estructura de directorios de trabajo para proyectos de Ciencia de Datos y Machine Learning.
+4. Entender la diferencia entre ejecutar un script como subproceso (`bash script.sh`) o en la sesión actual (`source script.sh`).
+5. Crear y organizar la estructura de directorios de trabajo para proyectos de Ciencia de Datos y Machine Learning.
 
 ---
 
@@ -50,18 +51,18 @@ En un grupo de estudio o equipo de desarrollo, cada integrante puede estar utili
 2. **Git Bash (Windows):** Las unidades de disco de Windows se montan como `/c/Users/<usuario>/Desktop` o `/c/Users/<usuario>/Escritorio`.
 3. **WSL 2 (Windows Subsystem for Linux):** El sistema de archivos de Windows es accesible a través del punto de montaje `/mnt/c/Users/<usuario_windows>/Desktop`.
 
-Para evitar errores manuales de tipeo y garantizar que todos comiencen desde el mismo lugar, crearemos un script en Bash que:
+Para evitar errores manuales de tipeo y garantizar que todos comiencen desde el mismo lugar, utilizaremos un script en Bash que:
 1. Detecta automáticamente la plataforma en ejecución (**Git Bash**, **WSL** o **GNU/Linux Nativo**).
 2. Identifica el nombre de usuario activo.
 3. Localiza el **Escritorio** (*Desktop* o *Escritorio*).
 4. Crea la carpeta de trabajo del curso: `aprendizaje-automatico`.
-5. Estructura los subdirectorios esenciales de un proyecto de Machine Learning (`src`, `data`, `notebooks`).
+5. Estructura los subdirectorios esenciales de un proyecto de Machine Learning (`src`, `data`, `notebooks`, `config`).
 
 ---
 
 ### 2.4. Script Bash: `preparar_entorno.sh`
 
-Copia el siguiente script en tu terminal o guárdalo en un archivo llamado `preparar_entorno.sh`:
+Crea o guarda el siguiente archivo con el nombre `preparar_entorno.sh`:
 
 ```bash
 #!/usr/bin/env bash
@@ -70,8 +71,6 @@ Copia el siguiente script en tu terminal o guárdalo en un archivo llamado `prep
 # Detección de plataforma, usuario y creación del espacio de trabajo
 # ISFT N° 199 — Tecnicatura Superior en Ciencia de Datos e IA
 # ==============================================================================
-
-set -e  # Detener ejecución ante cualquier error inesperado
 
 echo "=========================================================="
 echo "🔍 Iniciando diagnóstico de entorno y espacio de trabajo..."
@@ -94,7 +93,6 @@ if grep -qi "microsoft" /proc/version 2>/dev/null; then
             RUTA_ESCRITORIO="/mnt/c/Users/$WIN_USER/Desktop"
         fi
     else
-        # Fallback al home de Linux en WSL
         RUTA_ESCRITORIO="$HOME/Desktop"
     fi
 
@@ -111,11 +109,12 @@ elif uname -o 2>/dev/null | grep -qi "msys"; then
 else
     PLATAFORMA="GNU/Linux Nativo"
     
-    # En Linux consultamos la configuración XDG o los directorios habituales
     if command -v xdg-user-dir >/dev/null 2>&1; then
         RUTA_ESCRITORIO=$(xdg-user-dir DESKTOP)
     elif [ -d "$HOME/Escritorio" ]; then
         RUTA_ESCRITORIO="$HOME/Escritorio"
+    elif [ -d "$HOME/Desktop" ]; then
+        RUTA_ESCRITORIO="$HOME/Desktop"
     else
         RUTA_ESCRITORIO="$HOME/Desktop"
     fi
@@ -145,64 +144,80 @@ Curso: Procesamiento de Aprendizaje Automático — ISFT N° 199
 Entorno inicializado correctamente desde la consola Bash.
 EOF
 
-# 5. Verificación de la estructura creada
+# 5. Reporte y verificación
 echo ""
 echo "=========================================================="
 echo "✅ ¡Espacio de trabajo creado con éxito!"
 echo "=========================================================="
-cd "$CARPETA_PROYECTO"
-echo "📍 Directorio actual de trabajo:"
-pwd
+echo "📍 Directorio del proyecto:"
+echo "   $CARPETA_PROYECTO"
 echo ""
 echo "📋 Contenido del directorio:"
-ls -la
+ls -la "$CARPETA_PROYECTO"
+echo ""
+
+# Si se ejecutó con 'source', navegamos automáticamente
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    cd "$CARPETA_PROYECTO"
+    echo "📍 Te encuentras en: $(pwd)"
+else
+    echo "👉 Para posicionarte dentro del proyecto en tu terminal, ejecuta:"
+    echo "   cd \"$CARPETA_PROYECTO\""
+fi
 ```
 
 ---
 
-### 2.5. Explicación Detallada de los Comandos Utilizados
+### 2.5. ¿Cómo ejecutar el script y por qué puede cerrarse la terminal?
 
-Comprender qué hace cada línea del script es indispensable para dominar la consola:
+Existen tres formas de interactuar con scripts en la consola y es fundamental entender la diferencia:
 
-1. **`#!/usr/bin/env bash` (*Shebang*):**
-   - Le indica al cargador de programas del sistema operativo que debe ejecutar este script utilizando el intérprete `bash` que se encuentre en el `$PATH` del entorno.
-2. **`set -e`:**
-   - Modo de ejecución segura: si cualquier comando falla arrojando un código de salida distinto de cero, el script se detiene de inmediato evitando estados inconsistentes.
-3. **`whoami` y `$USER` / `$USERNAME`:**
-   - `whoami` consulta la tabla de contraseñas del sistema (`/etc/passwd` o la API de Windows) e imprime el nombre del usuario de la sesión actual.
-   - En Linux nativo y WSL, `$USER` contiene el nombre de usuario UNIX.
-   - En Windows (y en Git Bash), `$USERNAME` contiene el usuario de la cuenta de Windows.
-4. **`grep -qi "microsoft" /proc/version`:**
-   - `/proc/version` es un archivo virtual provisto por el kernel de Linux. En WSL 2, contiene la firma del kernel personalizado de Microsoft (ej. `Linux version 5.15.153.1-microsoft-standard-WSL2`).
-   - La bandera `-q` activa el modo silencioso (*quiet*, sin imprimir texto) y `-i` ignora mayúsculas/minúsculas.
-5. **`cmd.exe /c "echo %USERNAME%"` y `tr -d '\r'` (Interoperabilidad WSL):**
-   - Una de las grandes ventajas de WSL es que permite invocar binarios de Windows desde la consola Linux. Con `cmd.exe` consultamos el nombre del usuario anfitrión de Windows.
-   - Dado que los comandos de Windows finalizan sus líneas con retorno de carro (`\r\n`), `tr -d '\r'` limpia ese carácter invisible para evitar rutas corruptas en Linux.
-6. **`uname -o`:**
-   - El comando `uname` (*Unix Name*) muestra datos del sistema. Con la opción `-o` (*operating system*), en Git Bash devuelve `Msys`, lo que nos permite diferenciarlo de un Linux estándar.
-7. **`xdg-user-dir DESKTOP`:**
-   - En entornos de escritorio GNU/Linux (GNOME, KDE, XFCE), esta utilidad lee la configuración del estándar FreeDesktop (`~/.config/user-dirs.dirs`) para saber exactamente cómo se llama la carpeta del escritorio, resolviendo diferencias entre idiomas (`Desktop` vs. `Escritorio`).
-8. **`mkdir -p "$CARPETA_PROYECTO/..."`:**
-   - La opción `-p` (*parents*) garantiza dos cosas:
-     - Si los directorios superiores no existen, los crea en cadena.
-     - Si el directorio ya existe, **no arroja error**, permitiendo que el script sea *idempotente* (se puede ejecutar múltiples veces sin romper nada).
-   - Siempre se entrecomilla la variable (`"$CARPETA_PROYECTO"`) para soportar rutas con espacios (ej. `/mnt/c/Users/Juan Perez/Desktop`).
-9. **`cat << 'EOF' > ...` (*Here-Document*):**
-   - Permite redirigir un bloque multilínea de texto directamente a un archivo sin necesidad de concatenar múltiples comandos `echo`.
+#### Opción A: Ejecución como subproceso (`bash preparar_entorno.sh`)
+```bash
+bash preparar_entorno.sh
+```
+* **Qué hace:** Abre un subproceso hijo de Bash, ejecuta todas las instrucciones y cuando finaliza, regresa el control a tu terminal principal.
+* Luego de ejecutarlo, te mueves al directorio con el comando sugerido en pantalla:
+  ```bash
+  cd ~/Desktop/aprendizaje-automatico
+  ```
+
+#### Opción B: Ejecución en la sesión actual (`source preparar_entorno.sh`)
+```bash
+source preparar_entorno.sh
+```
+* **Qué hace:** Ejecuta las líneas directamente **dentro de tu terminal actual**. Al finalizar, el comando `cd` te dejará parado directamente dentro de `aprendizaje-automatico/`.
+
+#### ⚠️ ¿Por qué se cierra la terminal si haces doble clic desde el explorador?
+Si haces doble clic sobre el archivo `.sh` desde el explorador de Windows o Linux:
+1. El sistema operativo abre una ventana de terminal temporal exclusivamente para correr el script.
+2. El script corre en milisegundos y finaliza su tarea con éxito.
+3. Como el comando terminó, **el sistema cierra automáticamente la ventana**.
+4. **Regla de oro:** En desarrollo profesional, nunca se hace doble clic a los scripts. **Siempre se abre primero la terminal** (Git Bash, WSL o consola de Linux) y se ejecuta el script desde allí con comandos.
+
+#### ⚠️ La trampa de `set -e` en sesiones interactivas
+En versiones anteriores de scripts se solía incluir `set -e` (*exit on error*). Si ejecutas un script con `set -e` usando `source`, esa bandera queda grabada en tu terminal activa: **cualquier comando posterior que arroje un código distinto de cero (incluso presionar Tab o un `grep` sin resultados) cerrará inmediatamente toda tu sesión de terminal**. Por ello, el script actual omite `set -e` garantizando estabilidad.
 
 ---
 
-### 2.6. Nota sobre WSL 2 y Rendimiento de Disco
+### 2.6. Explicación Detallada de los Comandos Utilizados
 
-En WSL 2, puedes guardar proyectos en el Escritorio de Windows (`/mnt/c/...`) para verlos en el Explorador de Windows. Sin embargo, para proyectos de Machine Learning con miles de archivos pequeños (como librerías dentro del `venv/` o grandes volúmenes de datos), el sistema de archivos nativo de Linux (`/home/<usuario>/`) es entre 5 y 10 veces más rápido que acceder al disco NTFS de Windows a través del puente de red 9P.  
-En etapas posteriores, aprenderás a trabajar directamente dentro de `~/` en WSL y abrir VS Code con `code .`.
+1. **`#!/usr/bin/env bash` (*Shebang*):** Selecciona el intérprete Bash del entorno sin importar su ruta absoluta.
+2. **`whoami` y `$USER` / `$USERNAME`:** Obtiene el usuario activo del sistema operativo.
+3. **`grep -qi "microsoft" /proc/version`:** Inspecciona el archivo virtual del kernel `/proc/version`, que en WSL delata el kernel de Microsoft.
+4. **`cmd.exe /c "echo %USERNAME%"` y `tr -d '\r'`:** Permite a WSL consultar al Windows anfitrión para ubicar su Escritorio real, eliminando los retornos de carro `\r`.
+5. **`uname -o`:** Permite identificar a Git Bash gracias al identificador `Msys`.
+6. **`xdg-user-dir DESKTOP`:** En Linux lee la configuración del estándar FreeDesktop (`~/.config/user-dirs.dirs`), resolviendo diferencias entre idiomas (`Desktop` vs. `Escritorio`).
+7. **`mkdir -p "$CARPETA_PROYECTO/..."`:** Crea directorios recursivamente y de forma idempotente (no falla si ya existen).
+8. **`cat << 'EOF' > ...` (*Here-Document*):** Redirección multilínea para escribir archivos sin encadenar comandos `echo`.
+9. **`[[ "${BASH_SOURCE[0]}" != "${0}" ]]`:** Técnica avanzada que detecta si el script fue llamado mediante `source` (en cuyo caso ejecuta el `cd` en la terminal actual) o como comando externo (en cuyo caso imprime la instrucción `cd`).
 
 ---
 
 ## 3. Checkpoint de Verificación
 
-Antes de avanzar a la configuración de entornos virtuales, comprueba en tu consola:
-- [ ] Has ejecutado el script o los comandos manuales para crear la carpeta `aprendizaje-automatico`.
-- [ ] Al ejecutar `pwd`, la terminal confirma que estás dentro del directorio `aprendizaje-automatico`.
+Antes de avanzar a la clonación del repositorio de Git:
+- [ ] Tu terminal permanece abierta después de ejecutar `bash preparar_entorno.sh` o `source preparar_entorno.sh`.
+- [ ] Has verificado con `pwd` que estás dentro de `aprendizaje-automatico`.
 - [ ] El comando `ls -la` lista las carpetas `src`, `data`, `notebooks`, `config` y los archivos iniciales.
-- [ ] Tu carpeta es visible en tu Escritorio (o en tu explorador de archivos).
+- [ ] La carpeta es visible en tu Escritorio físico.
