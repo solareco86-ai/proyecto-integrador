@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Objetivos de Aprendizaje y Competencias
+## Objetivos de Aprendizaje
 
 Al finalizar este laboratorio, el estudiante será capaz de:
 1. Comprender la función crítica de las variables de entorno en la configuración de proyectos de Machine Learning.
@@ -16,9 +16,7 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 
 ---
 
-## 2. Sección 1.5: Variables de Entorno (`.env`), Resguardo de Credenciales y Verificación de `energy-ml`
-
-### 2.1. Conceptos Clave: El Principio de Secreto y Configuración
+## 1. El Principio de Secreto y Configuración
 
 En proyectos profesionales de Inteligencia Artificial y Machine Learning:
 * **Separación de Código y Configuración:** Las rutas a bases de datos, llaves de API (OpenAI, Anthropic, Gemini), puertos de servidores y modos de depuración varían entre la computadora del alumno y el servidor de producción. Nunca deben escribirse fijas en el código fuente.
@@ -29,7 +27,7 @@ En proyectos profesionales de Inteligencia Artificial y Machine Learning:
 
 ---
 
-### 2.2. Paso a Paso: Configuración de Variables en `energy-ml`
+## 2. Paso a Paso: Configuración de Variables en `energy-ml`
 
 #### Paso 1: Inspeccionar la protección en `.gitignore`
 Antes de crear cualquier archivo con secretos, verifica que el `.gitignore` de `energy-ml` contenga las reglas de protección:
@@ -68,7 +66,7 @@ Encontrarás configuraciones para el entorno de desarrollo, el puerto del servid
 
 ---
 
-### 2.3. Verificación Final: Ejecución de Pruebas de `energy-ml`
+## 3. Verificación Final: Ejecución de Pruebas de `energy-ml`
 
 Para comprobar que la terminal, Git, Python 3, el entorno virtual `venv`, las dependencias de `requirements.txt` y la configuración `.env` están perfectamente articulados, ejecuta la suite de pruebas del proyecto:
 
@@ -88,7 +86,7 @@ Verás una salida confirmando que los tests de dominio, aplicación e inferencia
 
 ---
 
-## 3. Checkpoint de Auditoría del Capítulo 1
+## Checkpoint de Auditoría del Capítulo 1
 
 Antes de comenzar el Capítulo 2 (Trabajo con Agentes de Código), confirma:
 - [ ] Tu terminal está posicionada en `aprendizaje-automatico/energy-ml/`.

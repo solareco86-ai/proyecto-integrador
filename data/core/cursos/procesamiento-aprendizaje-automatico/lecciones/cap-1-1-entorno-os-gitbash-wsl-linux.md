@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Objetivos de Aprendizaje y Competencias
+## Objetivos de Aprendizaje
 
 Al finalizar esta lección, el estudiante será capaz de:
 1. Comprender por qué **GNU/Linux** es el estándar de facto y el sistema operativo objetivo en Ciencia de Datos, Machine Learning y despliegue de modelos.
@@ -16,9 +16,7 @@ Al finalizar esta lección, el estudiante será capaz de:
 
 ---
 
-## 2. Sección 1.1: El Sistema Operativo y la Consola: GNU/Linux, WSL y Git Bash
-
-### 2.1. El Sistema Objetivo: ¿Por qué buscamos un entorno GNU/Linux?
+## 1. El Sistema Objetivo: ¿Por qué buscamos un entorno GNU/Linux?
 
 En el ámbito profesional del Machine Learning, la ingeniería de datos y la automatización con agentes inteligentes:
 * **Estándar en Servidores y Nube:** La totalidad de los servidores de cómputo en la nube, clusters de GPUs (NVIDIA CUDA) y contenedores (Docker/Kubernetes) corren sobre distribuciones GNU/Linux (como Ubuntu Server o Debian).
@@ -27,7 +25,7 @@ En el ámbito profesional del Machine Learning, la ingeniería de datos y la aut
 
 ---
 
-### 2.2. Opciones de Entorno en Estaciones de Trabajo Windows
+## 2. Opciones de Entorno en Estaciones de Trabajo Windows
 
 Cuando los estudiantes inician su formación técnica en computadoras con Microsoft Windows, no es obligatorio reemplazar de inmediato su sistema operativo. Se definen tres alternativas según el nivel de complejidad y compatibilidad:
 
@@ -42,16 +40,16 @@ Cuando los estudiantes inician su formación técnica en computadoras con Micros
 
 ---
 
-### 2.3. Opción 1: Git Bash (Instalación Rápida y Fácil)
+## 3. Opción 1: Git Bash (Instalación Rápida y Fácil)
 
 **Git Bash** es la solución más rápida para estudiantes que necesitan comenzar a trabajar de inmediato sin modificar la configuración del sistema.
 
-#### Características Principales
+### Características Principales
 * Viene incluido dentro del paquete oficial **Git for Windows**.
 * Provee una ventana de emulación de terminal (MinTTY) que ejecuta Bash y utilidades GNU básicas (`ls`, `cat`, `grep`, `mkdir`, `cp`, `mv`, `rm`, `ssh`).
 * Utiliza el ejecutable de Python de Windows (`python.exe`), mapeando rutas de disco como `/c/Users/usuario/`.
 
-#### Paso a Paso de Instalación
+### Paso a Paso de Instalación
 1. Descarga el instalador oficial desde el sitio web: [git-scm.com](https://git-scm.com).
 2. Ejecuta el archivo instalador `.exe`.
 3. En la pantalla **"Choosing the default editor used by Git"**, selecciona *Visual Studio Code* (o *Nano* si prefieres la consola).
@@ -60,7 +58,7 @@ Cuando los estudiantes inician su formación técnica en computadoras con Micros
 6. En **"Choosing the terminal emulator"**, elige *Use MinTTY (the default terminal of MSYS2)*.
 7. Finaliza la instalación.
 
-#### Verificación en Git Bash
+### Verificación en Git Bash
 Abre el acceso directo **Git Bash** desde el Menú Inicio y ejecuta:
 
 ```bash
@@ -73,16 +71,16 @@ git --version
 
 ---
 
-### 2.4. Opción 2: WSL 2 (Instalación Intermedia — Solución Recomendada)
+## 4. Opción 2: WSL 2 (Instalación Intermedia — Solución Recomendada)
 
 **WSL 2** (*Windows Subsystem for Linux*) es la opción profesional recomendada para estudiantes que utilizan Windows, ya que proporciona un sistema operativo GNU/Linux completo dentro de Windows con integración transparente.
 
-#### Ventajas para Ciencia de Datos y Machine Learning
+### Ventajas para Ciencia de Datos y Machine Learning
 * Permite instalar dependencias complejas de C++ y Python mediante `sudo apt install`.
 * Ejecuta exactamente el mismo entorno que se usará en servidores de producción y plataformas en la nube.
 * Se integra directamente con Visual Studio Code a través de la extensión oficial **WSL**.
 
-#### Paso a Paso de Instalación
+### Paso a Paso de Instalación
 1. **Verificar Virtualización en BIOS/UEFI:** Abre el *Administrador de Tareas* de Windows (Ctrl + Shift + Esc), ve a la pestaña *Rendimiento > CPU* y confirma que figure **"Virtualización: Habilitada"**. Si está deshabilitada, actívala en el setup de la BIOS de tu placa madre (Intel VT-x o AMD-V / SVM).
 2. **Instalación de WSL:** Abre **PowerShell** como Administrador (clic derecho > *Ejecutar como administrador*) y escribe:
    ```powershell
@@ -106,7 +104,7 @@ git --version
      ```
      VS Code se abrirá en Windows, pero ejecutando el servidor de desarrollo, las extensiones y el intérprete de Python dentro del entorno Linux.
 
-#### Verificación en WSL
+### Verificación en WSL
 Ejecuta los siguientes comandos dentro de la consola de WSL:
 
 ```bash
@@ -115,14 +113,11 @@ uname -a
 
 # Verificar la distribución instalada
 cat /etc/os-release
-
-# Comprobar el estado de WSL desde PowerShell (en Windows)
-# wsl -l -v
 ```
 
 ---
 
-### 2.5. Opción 3: GNU/Linux Nativo (Objetivo Ideal)
+## 5. Opción 3: GNU/Linux Nativo (Objetivo Ideal)
 
 Para equipos dedicados al desarrollo, laboratorios del instituto o estaciones de entrenamiento con GPUs dedicadas:
 * **Distribuciones Recomendadas:** **Ubuntu Desktop** (22.04 LTS o 24.04 LTS), **Debian GNU/Linux** o **Linux Mint**.
@@ -130,7 +125,7 @@ Para equipos dedicados al desarrollo, laboratorios del instituto o estaciones de
 
 ---
 
-### 2.6. Ejercicio Práctico 1.1: Diagnóstico Automatizado del Entorno
+## 6. Ejercicio Práctico: Diagnóstico Automatizado del Entorno
 
 Abre tu consola (ya sea **Git Bash**, **WSL** o **GNU/Linux nativo**) y copia la siguiente secuencia de comandos para auditar el entorno en el que estás operando:
 
@@ -159,7 +154,7 @@ fi
 
 ---
 
-## 3. Checkpoint de Verificación
+## Checkpoint de Verificación
 
 Antes de avanzar a la siguiente lección, confirma:
 - [ ] Tienes al menos un entorno de consola Bash operativo en tu computadora (**Git Bash** o **WSL 2**).

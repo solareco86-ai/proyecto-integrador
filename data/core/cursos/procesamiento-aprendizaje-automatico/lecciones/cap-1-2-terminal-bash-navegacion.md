@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Objetivos de Aprendizaje y Competencias
+## Objetivos de Aprendizaje
 
 Al finalizar este laboratorio, el estudiante será capaz de:
 1. Operar con soltura en la interfaz de línea de comandos (Bash), gestionando rutas absolutas y relativas sin depender de exploradores gráficos.
@@ -17,9 +17,7 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 
 ---
 
-## 2. Sección 1.2: Navegación y Manipulación en Terminal (Bash)
-
-### 2.1. Conceptos Clave: Rutas y Sistema de Archivos
+## 1. Conceptos Clave: Rutas y Sistema de Archivos
 * **Ruta Absoluta:** Especifica la ubicación completa de un archivo o directorio desde la raíz del sistema de archivos (`/`). Ejemplo: `/home/agustin/Desktop` o `/c/Users/alumno/Desktop`.
 * **Ruta Relativa:** Toma como referencia el directorio de trabajo actual (`.`). El directorio padre se referencia con `..`.
 * **El Directorio Home (`~`):** Representa la carpeta personal del usuario actual (ej. `/home/usuario` en Linux o `/c/Users/usuario` en Git Bash).
@@ -27,7 +25,7 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 
 ---
 
-### 2.2. Comandos Indispensables de Navegación y Archivos
+## 2. Comandos Indispensables de Navegación y Archivos
 
 | Comando | Parámetros Comunes | Descripción |
 | :--- | :--- | :--- |
@@ -44,7 +42,7 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 
 ---
 
-### 2.3. Detección de Entorno y Creación del Espacio de Trabajo
+## 3. Detección de Entorno y Creación del Espacio de Trabajo
 
 En un grupo de estudio o equipo de desarrollo, cada integrante puede estar utilizando un sistema operativo diferente:
 1. **GNU/Linux Nativo:** Las carpetas del usuario residen directamente en `/home/<usuario>/Desktop` o `/home/<usuario>/Escritorio`.
@@ -60,7 +58,7 @@ Para evitar errores manuales de tipeo y garantizar que todos comiencen desde el 
 
 ---
 
-### 2.4. Script Bash: `preparar_entorno.sh`
+## 4. Script Bash: `preparar_entorno.sh`
 
 Crea o guarda el siguiente archivo con el nombre `preparar_entorno.sh`:
 
@@ -168,7 +166,7 @@ fi
 
 ---
 
-### 2.5. ¿Cómo ejecutar el script y por qué puede cerrarse la terminal?
+## 5. ¿Cómo ejecutar el script y por qué puede cerrarse la terminal?
 
 Existen tres formas de interactuar con scripts en la consola y es fundamental entender la diferencia:
 
@@ -200,7 +198,7 @@ En versiones anteriores de scripts se solía incluir `set -e` (*exit on error*).
 
 ---
 
-### 2.6. Explicación Detallada de los Comandos Utilizados
+## 6. Explicación Detallada de los Comandos Utilizados
 
 1. **`#!/usr/bin/env bash` (*Shebang*):** Selecciona el intérprete Bash del entorno sin importar su ruta absoluta.
 2. **`whoami` y `$USER` / `$USERNAME`:** Obtiene el usuario activo del sistema operativo.
@@ -214,7 +212,7 @@ En versiones anteriores de scripts se solía incluir `set -e` (*exit on error*).
 
 ---
 
-## 3. Checkpoint de Verificación
+## Checkpoint de Verificación
 
 Antes de avanzar a la clonación del repositorio de Git:
 - [ ] Tu terminal permanece abierta después de ejecutar `bash preparar_entorno.sh` o `source preparar_entorno.sh`.

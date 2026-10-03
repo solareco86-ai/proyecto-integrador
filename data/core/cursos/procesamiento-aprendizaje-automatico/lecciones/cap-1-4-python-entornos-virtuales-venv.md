@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Objetivos de Aprendizaje y Competencias
+## Objetivos de Aprendizaje
 
 Al finalizar este laboratorio, el estudiante será capaz de:
 1. Comprender la necesidad de aislar dependencias de Python en proyectos de Machine Learning.
@@ -16,16 +16,14 @@ Al finalizar este laboratorio, el estudiante será capaz de:
 
 ---
 
-## 2. Sección 1.4: Aislamiento de Dependencias con Python 3 (`venv` y `pip`) sobre `energy-ml`
-
-### 2.1. Conceptos Clave
+## 1. Conceptos Clave
 * **¿Por qué aislar entornos?** Cada proyecto de Machine Learning requiere versiones específicas de librerías (como NumPy, Scikit-Learn o FastAPI). Instalar paquetes globalmente en el sistema operativo puede generar conflictos de versiones catastróficos entre distintos cursos o aplicaciones.
 * **Entorno Virtual (`venv`):** Directorio autocontenido dentro de la carpeta del proyecto que aloja una copia aislada del ejecutable de Python, los binarios de `pip` y la carpeta `site-packages` donde residen las dependencias instaladas.
 * **El archivo `requirements.txt`:** Contrato formal que enumera todas las bibliotecas de las cuales depende el proyecto `energy-ml` para operar correctamente.
 
 ---
 
-### 2.2. Paso a Paso: Creación e Instalación en `energy-ml`
+## 2. Paso a Paso: Creación e Instalación en `energy-ml`
 
 #### Paso 1: Confirmar ubicación en la raíz de `energy-ml`
 Asegúrate de estar posicionado en la raíz del repositorio clonado en la lección 1.3:
@@ -91,7 +89,7 @@ Observarás paquetes clave del curso como `fastapi`, `uvicorn`, `scikit-learn`, 
 
 ---
 
-### 2.3. Interacción con Git: ¿Por qué `venv/` no se sube al repositorio?
+## 3. Interacción con Git: ¿Por qué `venv/` no se sube al repositorio?
 
 Ejecuta el comando de estado de Git:
 
@@ -106,7 +104,7 @@ Notarás que la carpeta `venv/` **no aparece** en la lista de archivos por añad
 
 ---
 
-## 3. Checkpoint de Verificación
+## Checkpoint de Verificación
 
 Antes de avanzar a la configuración de variables de entorno (`.env`):
 - [ ] Tu prompt de terminal muestra el prefijo `(venv)`.

@@ -6,19 +6,17 @@
 
 ---
 
-## 1. Objetivos de Aprendizaje y Competencias
+## Objetivos de Aprendizaje
 
-Al finalizar este laboratorio, el estudiante será capaz de:
+Al finalizar esta lección, el estudiante será capaz de:
 1. Comprender los fundamentos de los sistemas de control de versiones distribuidos (Git) y la plataforma GitHub.
-2. Configurar la identidad global de autor en Git (`user.name` y `user.email`).
+2. Configurar la identidad global de autor en Git mediante un script interactivo con validación de entradas.
 3. Descargar el caso de estudio oficial del curso mediante el comando `git clone https://github.com/datamaq-automation/energy-ml`.
 4. Inspeccionar la anatomía de un repositorio profesional de Machine Learning con arquitectura limpia y verificar su estado con `git status` y `git log`.
 
 ---
 
-## 2. Sección 1.3: Control de Versiones con Git y Descarga del Proyecto Base (`energy-ml`)
-
-### 2.1. Conceptos Fundamentales: ¿Por qué clonamos en lugar de descargar un ZIP?
+## 1. Conceptos Fundamentales: ¿Por qué clonamos en lugar de descargar un ZIP?
 
 En ingeniería de software y desarrollo de Machine Learning profesional:
 * **Repositorio de Git:** Es una base de datos que registra la evolución histórica completa de un proyecto (quién modificó qué línea, en qué fecha y por qué motivo).
@@ -27,30 +25,59 @@ En ingeniería de software y desarrollo de Machine Learning profesional:
 
 ---
 
-### 2.2. Configuración Inicial de Identidad en Git
+## 2. Configuración Interactiva de Identidad en Git
 
-Antes de interactuar con repositorios, Git necesita saber quién eres para firmar tus futuros commits y auditorías. Ejecuta en tu terminal:
+Antes de interactuar con repositorios, Git necesita asociar cada commit a tu nombre y correo electrónico.
+
+Para evitar configurar accidentalmente valores genéricos o incompletos, copia y pega el siguiente script interactivo en tu terminal:
 
 ```bash
-# 1. Configurar tu nombre completo (o alias profesional)
-git config --global user.name "Tu Nombre"
+# ==========================================================
+# Configuración Interactiva de Identidad en Git
+# ==========================================================
+echo "=========================================================="
+echo "👤 Configuración de Identidad en Git"
+echo "=========================================================="
 
-# 2. Configurar tu correo electrónico institucional o personal
-git config --global user.email "tu.email@ejemplo.com"
+GIT_NAME=""
+while [ -z "$GIT_NAME" ]; do
+    read -p "Ingresa tu nombre y apellido (ej. Juan Pérez): " GIT_NAME
+    if [ -z "$GIT_NAME" ]; then
+        echo "⚠️  El nombre no puede estar vacío. Inténtalo de nuevo."
+    fi
+done
 
-# 3. Comprobar que la configuración quedó registrada correctamente
-git config --list --show-origin | grep -E "user\.(name|email)"
+GIT_EMAIL=""
+while [ -z "$GIT_EMAIL" ]; do
+    read -p "Ingresa tu correo electrónico (ej. juan@ejemplo.com): " GIT_EMAIL
+    if [ -z "$GIT_EMAIL" ]; then
+        echo "⚠️  El correo no puede estar vacío. Inténtalo de nuevo."
+    fi
+done
+
+# Aplicar la configuración global en Git
+git config --global user.name "$GIT_NAME"
+git config --global user.email "$GIT_EMAIL"
+
+echo ""
+echo "✅ ¡Identidad configurada con éxito en Git!"
+echo "   Nombre registrado: $(git config --global user.name)"
+echo "   Email registrado:  $(git config --global user.email)"
+echo "=========================================================="
 ```
+
+> [!NOTE]
+> Este script utiliza el comando `read -p` de Bash (el equivalente a `input()` en Python) para solicitar los datos por teclado, asegurando que no se guarden campos vacíos.
 
 ---
 
-### 2.3. Paso a Paso: Navegación y Clonado en el Espacio de Trabajo
+## 3. Navegación y Clonado en el Espacio de Trabajo
 
-#### Paso 1: Posicionarse en la carpeta del curso
-Abre tu consola (**Git Bash**, **WSL** o **GNU/Linux Nativo**) y navega a la carpeta `aprendizaje-automatico` que creamos en la lección 1.2:
+### Paso 1: Posicionarse en la carpeta del curso
+Abre tu consola (**Git Bash**, **WSL** o **GNU/Linux Nativo**) y navega a la carpeta `aprendizaje-automatico` creada en la lección 1.2:
 
 ```bash
-# Navegar hacia el directorio de trabajo (adaptado a tu plataforma)
+# Navegar hacia el directorio de trabajo
 if [ -d "$HOME/Desktop/aprendizaje-automatico" ]; then
     cd "$HOME/Desktop/aprendizaje-automatico"
 elif [ -d "$HOME/Escritorio/aprendizaje-automatico" ]; then
@@ -59,16 +86,13 @@ elif [ -d "/mnt/c/Users/$WIN_USER/Desktop/aprendizaje-automatico" ]; then
     cd "/mnt/c/Users/$WIN_USER/Desktop/aprendizaje-automatico"
 elif [ -d "/c/Users/$USERNAME/Desktop/aprendizaje-automatico" ]; then
     cd "/c/Users/$USERNAME/Desktop/aprendizaje-automatico"
-else
-    # Si estás en cualquier otra ubicación, verifica con pwd
-    pwd
 fi
 
 # Confirmar la ruta actual
 pwd
 ```
 
-#### Paso 2: Clonar el Repositorio Oficial
+### Paso 2: Clonar el Repositorio Oficial
 Ejecuta el comando `git clone` apuntando a la URL pública del repositorio del curso:
 
 ```bash
@@ -85,7 +109,7 @@ Receiving objects: 100% (124/124), 85.20 KiB | 2.10 MiB/s, done.
 Resolving deltas: 100% (42/42), done.
 ```
 
-#### Paso 3: Ingresar al Proyecto Clonado
+### Paso 3: Ingresar al Proyecto Clonado
 Navega dentro de la carpeta descargada:
 
 ```bash
@@ -95,7 +119,7 @@ pwd
 
 ---
 
-### 2.4. Anatomía del Repositorio `energy-ml`
+## 4. Anatomía del Repositorio `energy-ml`
 
 Explora los archivos que componen el proyecto ejecutando `ls -la`:
 
@@ -122,7 +146,7 @@ energy-ml/
 
 ---
 
-### 2.5. Primeros Comandos de Verificación en Git
+## 5. Primeros Comandos de Verificación en Git
 
 Estando dentro de la carpeta `energy-ml`, ejecuta los comandos indispensables de auditoría:
 
@@ -139,10 +163,10 @@ git remote -v
 
 ---
 
-## 3. Checkpoint de Verificación
+## Checkpoint de Verificación
 
 Antes de avanzar a la creación del entorno virtual (`venv`):
-- [ ] Has configurado `user.name` y `user.email` en tu configuración global de Git.
+- [ ] Has configurado tu identidad en Git usando el script interactivo y verificado que no contiene valores por defecto.
 - [ ] El comando `git clone` se completó exitosamente sin errores de red.
 - [ ] La carpeta `energy-ml/` existe dentro de tu directorio de trabajo `aprendizaje-automatico`.
 - [ ] Al ejecutar `git status` dentro de `energy-ml`, la terminal responde `On branch main` (o `master`) y `working tree clean`.
