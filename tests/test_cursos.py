@@ -56,6 +56,19 @@ async def test_aprendizaje_automatico_entorno_os_lesson_rendered():
 
 
 @pytest.mark.asyncio
+async def test_aprendizaje_automatico_git_clone_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml")
+
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "1.3 Control de versiones con Git y clonado del proyecto base" in response.text
+    assert "energy-ml" in response.text
+    assert "git clone https://github.com/datamaq-automation/energy-ml" in response.text
+
+
+@pytest.mark.asyncio
 async def test_invalid_course_returns_404():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
