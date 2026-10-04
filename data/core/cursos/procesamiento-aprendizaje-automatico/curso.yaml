@@ -269,6 +269,12 @@ sections:
     description: Deducción simbólica del LLM vs. inducción estadística, partición temporal estricta y prevención de data leakage en energy-ml.
     items:
     - type: lesson
+      id: les-paa-int-2-0
+      slug: paa-int-etica-sesgo-privacidad
+      title: "2.0 Ética, Sesgo y Privacidad en Machine Learning — Responsabilidad del Científico de Datos"
+      duration: 35 min
+      content_file: cap-2-0-etica-sesgo-privacidad.md
+    - type: lesson
       id: les-paa-int-2-1
       slug: paa-int-deduccion-vs-induccion
       title: '2.1 Razonamiento deductivo del LLM vs. inducción estadística de parámetros'
