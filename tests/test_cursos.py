@@ -63,9 +63,23 @@ async def test_aprendizaje_automatico_git_clone_lesson_rendered():
 
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
-    assert "1.3 Control de versiones con Git y clonado del proyecto base" in response.text
+    assert "1.3 Control de versiones con Git, identidad y clonado del proyecto base" in response.text
     assert "energy-ml" in response.text
     assert "git clone https://github.com/datamaq-automation/energy-ml" in response.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_restore_reset_revert_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-restore-reset-revert")
+
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "2.4 Marcha atrás y control de daños" in response.text
+    assert "git restore" in response.text
+    assert "git reset" in response.text
+    assert "git revert" in response.text
 
 
 @pytest.mark.asyncio

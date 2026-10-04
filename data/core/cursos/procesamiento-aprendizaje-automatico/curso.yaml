@@ -39,8 +39,8 @@ sections:
   - id: chap-paa-ini-1
     title: 'Cap 1: La Terminal, Git y el Entorno de Trabajo en Python'
     description: "Aprovisionamiento del entorno de desarrollo: consola Bash (GNU/Linux,
-      WSL, Git Bash), control de versiones con Git, clonado del proyecto real (energy-ml),
-      aislamiento de dependencias con venv y validación con pytest."
+      WSL, Git Bash), control de versiones con Git, clonado y anatomía del proyecto real
+      (energy-ml), y aislamiento de dependencias con venv."
     items:
     - type: lesson
       id: les-paa-ini-1-1
@@ -57,43 +57,49 @@ sections:
     - type: lesson
       id: les-paa-ini-1-3
       slug: paa-ini-git-clone-proyecto-energy-ml
-      title: "1.3 Control de versiones con Git y clonado del proyecto base (energy-ml)"
-      duration: 25 min
+      title: "1.3 Control de versiones con Git, identidad y clonado del proyecto base (energy-ml)"
+      duration: 20 min
       content_file: cap-1-3-git-clone-proyecto-energy-ml.md
     - type: lesson
       id: les-paa-ini-1-4
-      slug: paa-ini-python-entornos-virtuales-venv
-      title: 1.4 Python 3, aislamiento de dependencias y entornos virtuales (venv)
-      duration: 25 min
-      content_file: cap-1-4-python-entornos-virtuales-venv.md
+      slug: paa-ini-git-exploracion-energy-ml
+      title: "1.4 Anatomía y exploración del repositorio energy-ml con Git"
+      duration: 20 min
+      content_file: cap-1-4-git-exploracion-energy-ml.md
     - type: lesson
       id: les-paa-ini-1-5
-      slug: paa-ini-variables-entorno-dotenv
-      title: "1.5 Variables de entorno (.env), resguardo de credenciales y validación con pytest"
-      duration: 20 min
-      content_file: cap-1-5-variables-entorno-dotenv.md
+      slug: paa-ini-python-entornos-virtuales-venv
+      title: "1.5 Python 3, aislamiento de dependencias y entornos virtuales (venv)"
+      duration: 25 min
+      content_file: cap-1-5-python-entornos-virtuales-venv.md
   - id: chap-paa-ini-2
-    title: 'Cap 2: Auditoría de Código y Flujo Atómico de Cambios'
-    description: "Auditoría crítica de código generado por asistentes de IA, lectura analítica de diffs, staging interactivo (git add -p) y flujo atómico de commits."
+    title: 'Cap 2: Auditoría de Código, Seguridad y Flujo Atómico en energy-ml'
+    description: "Auditoría de variables de entorno y pruebas base, inspección crítica de git diff ante propuestas de IA, staging interactivo (git add -p) y herramientas de marcha atrás (git restore, reset y revert)."
     items:
     - type: lesson
       id: les-paa-ini-2-1
-      slug: paa-ini-git-flujo-atomico-diffs
-      title: "2.1 Lectura e interpretación de git diff: el antídoto a la aceptación ciega de IA"
-      duration: 25 min
-      content_file: cap-2-1-git-flujo-atomico-diffs.md
+      slug: paa-ini-variables-entorno-dotenv
+      title: "2.1 Variables de entorno (.env), resguardo de credenciales y línea base con pytest"
+      duration: 20 min
+      content_file: cap-2-1-variables-entorno-dotenv.md
     - type: lesson
       id: les-paa-ini-2-2
-      slug: paa-ini-comandos-git-esenciales
-      title: "2.2 Staging interactivo (git add -p) y discriminación de código alucinado"
+      slug: paa-ini-git-flujo-atomico-diffs
+      title: "2.2 Lectura e interpretación de git diff: el antídoto a la aceptación ciega de IA"
       duration: 25 min
-      content_file: cap-2-2-comandos-git-esenciales.md
+      content_file: cap-2-2-git-flujo-atomico-diffs.md
     - type: lesson
       id: les-paa-ini-2-3
-      slug: paa-ini-auditoria-codigo-agentes
-      title: "2.3 Descarte de código inseguro (git restore -p) y commits atómicos auditados"
-      duration: 20 min
-      content_file: cap-2-3-auditoria-codigo-agentes.md
+      slug: paa-ini-staging-interactivo-git-add-p
+      title: "2.3 Staging interactivo (git add -p) y discriminación de código alucinado"
+      duration: 25 min
+      content_file: cap-2-3-staging-interactivo-git-add-p.md
+    - type: lesson
+      id: les-paa-ini-2-4
+      slug: paa-ini-git-restore-reset-revert
+      title: "2.4 Marcha atrás y control de daños: git restore, git reset (--soft / --hard) y git revert"
+      duration: 25 min
+      content_file: cap-2-4-git-restore-reset-revert.md
   - id: chap-paa-ini-3
     title: 'Cap 3: La Tríada de Asistentes: Aider, OpenCode y AGY CLI'
     description: Configuración y primeros comandos para pair programming con agentes
