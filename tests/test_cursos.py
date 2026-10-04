@@ -355,3 +355,20 @@ async def test_aprendizaje_automatico_unit2_cap3_lessons_rendered():
         assert r2.status_code == 200
         assert "POST /api/v1/classify/bayes" in r2.text
         assert "OpenCode" in r2.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit2_cap4_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 4.1 Algoritmo k-NN
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-knn-distancias-normalizacion")
+        assert r1.status_code == 200
+        assert "Algoritmo k-NN" in r1.text
+        assert "energy-ml" in r1.text
+
+        # 4.2 Endpoint k-NN en FastAPI
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-endpoint-knn-fastapi")
+        assert r2.status_code == 200
+        assert "POST /api/v1/classify/knn" in r2.text
+        assert "FastAPI" in r2.text

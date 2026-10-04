@@ -257,21 +257,19 @@ sections:
       duration: 30 min
       content_file: cap-3-2-endpoint-naive-bayes-opencode.md
   - id: chap-paa-int-4
-    title: 'Cap 4: Aprendizaje Basado en Instancias (k-NN)'
-    description: Cálculo vectorial de distancias, normalización de espacio de features
-      y endpoint de vecinos cercanos.
+    title: 'Cap 4: Aprendizaje Basado en Instancias (k-NN) en energy-ml'
+    description: Cálculo vectorial de distancias, normalización de telemetría y endpoint de firmas de carga en FastAPI.
     items:
     - type: lesson
       id: les-paa-int-4-1
       slug: paa-int-knn-distancias-normalizacion
-      title: '4.1 Algoritmo k-NN: métricas de distancia, estandarización y costo de
-        inferencia'
+      title: '4.1 Algoritmo k-NN: métricas de distancia, estandarización y costo de inferencia'
       duration: 25 min
       content_file: cap-4-1-knn-distancias-normalizacion.md
     - type: lesson
       id: les-paa-int-4-2
       slug: paa-int-endpoint-knn-fastapi
-      title: 4.2 Implementación del endpoint POST /classify/knn en FastAPI
+      title: '4.2 Implementación del endpoint POST /classify/knn en FastAPI'
       duration: 25 min
       content_file: cap-4-2-endpoint-knn-fastapi.md
   - id: chap-paa-int-5
