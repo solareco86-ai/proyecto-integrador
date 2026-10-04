@@ -96,6 +96,51 @@ async def test_aprendizaje_automatico_github_cli_lesson_rendered():
 
 
 @pytest.mark.asyncio
+async def test_aprendizaje_automatico_cap3_cuarteto_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 3.1 Modelos de Costo
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-modelos-costos-suscripcion-vs-api")
+        assert r1.status_code == 200
+        assert "3.1 Economía de la IA Agéntica" in r1.text
+        assert "DeepSeek" in r1.text
+
+        # 3.2 OpenCode
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-opencode-agente-opensource")
+        assert r2.status_code == 200
+        assert "3.2 OpenCode" in r2.text
+        assert "Open Source" in r2.text
+
+        # 3.3 Antigravity CLI
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-antigravity-cli-setup-navegador")
+        assert r3.status_code == 200
+        assert "3.3 Antigravity CLI" in r3.text
+        assert "5 USD" in r3.text
+        assert "/browser" in r3.text
+
+        # 3.4 Claude Code
+        r4 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-claude-code-entorno-corporativo")
+        assert r4.status_code == 200
+        assert "3.4 Claude Code" in r4.text
+        assert "corporativo" in r4.text
+
+        # 3.5 Aider
+        r5 = await ac.get(
+            "/cursos/procesamiento-aprendizaje-automatico/paa-ini-aider-deepseek-api-arquitectura-interna"
+        )
+        assert r5.status_code == 200
+        assert "3.5 Aider con DeepSeek API" in r5.text
+        assert "2 USD" in r5.text
+
+        # 3.6 Arneses (Codex, Kimi, DPH)
+        r6 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-arneses-ia-codex-kimi-dph")
+        assert r6.status_code == 200
+        assert "3.6 Ecosistema de Arneses de IA Agéntica" in r6.text
+        assert "Kimi Code" in r6.text
+        assert "DPH" in r6.text
+
+
+@pytest.mark.asyncio
 async def test_aprendizaje_automatico_debate_audio_lesson_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:

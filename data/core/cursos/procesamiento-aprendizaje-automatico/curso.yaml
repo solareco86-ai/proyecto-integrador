@@ -107,29 +107,45 @@ sections:
       duration: 20 min
       content_file: cap-2-5-github-cli-gh-agentes-ia.md
   - id: chap-paa-ini-3
-    title: 'Cap 3: La Tríada de Asistentes: Aider, OpenCode y AGY CLI'
-    description: Configuración y primeros comandos para pair programming con agentes
-      en la terminal de desarrollo.
+    title: 'Cap 3: El Cuarteto de IA Agéntica: OpenCode, Antigravity CLI, Claude Code y Aider'
+    description: Configuración, modelos de costos (suscripción vs. pago por uso), integración en terminal/navegador y arneses de ejecución.
     items:
     - type: lesson
       id: les-paa-ini-3-1
-      slug: paa-ini-instalacion-setup-agentes
-      title: 3.1 Instalación y configuración de Aider, OpenCode y AGY CLI
+      slug: paa-ini-modelos-costos-suscripcion-vs-api
+      title: '3.1 Economía de la IA Agéntica: Suscripciones Fijas vs. Pago por Uso'
       duration: 25 min
-      content_file: cap-3-1-instalacion-setup-agentes.md
+      content_file: cap-3-1-modelos-costos-suscripcion-vs-api.md
     - type: lesson
       id: les-paa-ini-3-2
-      slug: paa-ini-prompts-tecnicos-contexto
-      title: '3.2 Anatomía de una instrucción técnica: contexto, archivos y diffs'
+      slug: paa-ini-opencode-agente-opensource
+      title: '3.2 OpenCode: El Asistente Open Source y su Cuota Gratuita para Empezar sin Tarjeta'
       duration: 25 min
-      content_file: cap-3-2-prompts-tecnicos-contexto.md
+      content_file: cap-3-2-opencode-agente-opensource.md
     - type: lesson
       id: les-paa-ini-3-3
-      slug: paa-ini-laboratorio-script-aider
-      title: '3.3 Taller práctico: creación y refactor de un script utilitario con
-        Aider'
+      slug: paa-ini-antigravity-cli-setup-navegador
+      title: '3.3 Antigravity CLI: La Mejor Relación Calidad/Precio para Estudiantes y Modo Navegador'
       duration: 30 min
-      content_file: cap-3-3-laboratorio-script-aider.md
+      content_file: cap-3-3-antigravity-cli-setup-navegador.md
+    - type: lesson
+      id: les-paa-ini-3-4
+      slug: paa-ini-claude-code-entorno-corporativo
+      title: '3.4 Claude Code (Opcional): El Estándar Corporativo y Gestión de Límites de Cuota'
+      duration: 25 min
+      content_file: cap-3-4-claude-code-entorno-corporativo.md
+    - type: lesson
+      id: les-paa-ini-3-5
+      slug: paa-ini-aider-deepseek-api-arquitectura-interna
+      title: '3.5 Aider con DeepSeek API (Opcional): Arquitectura Agéntica Interna, Repomap y Pago por Uso'
+      duration: 30 min
+      content_file: cap-3-5-aider-deepseek-api-arquitectura-interna.md
+    - type: lesson
+      id: les-paa-ini-3-6
+      slug: paa-ini-arneses-ia-codex-kimi-dph
+      title: '3.6 Ecosistema de Arneses de IA Agéntica: OpenAI Codex, Kimi Code y DeepSeek Harness (DPH)'
+      duration: 20 min
+      content_file: cap-3-6-arneses-ia-codex-kimi-dph.md
   - id: chap-paa-ini-4
     title: 'Cap 4: De Script de Consola a Servicio Web con FastAPI'
     description: Protocolo HTTP, esquemas JSON y construcción de endpoints REST asistidos
