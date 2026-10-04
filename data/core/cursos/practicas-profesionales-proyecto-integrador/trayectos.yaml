@@ -57,22 +57,26 @@ trayectos:
   units:
     - trayecto-ii
   deliverables:
+    - name: "Integración Estratégica: Trabajo en Campo + Documentación"
+      description: "Visita a contexto real, acta de visita, learning logs, actualización de SRS/Backlog basada en realidad"
+      week: 9
+      weight: 15
     - name: "Código implementado (2 sprints)"
-      description: "Features funcionales en repositorio Git, commits atómicos, seguidor spec"
+      description: "Features funcionales en repositorio Git, commits atómicos, seguidor spec, OCR+NLP+ML integrados"
       week: 13
       weight: 25
     - name: "Test suite y validación de requisitos"
-      description: "Tests unitarios >= 85% cobertura, tests integración, validación de cada FR/NFR"
+      description: "Tests unitarios >= 85% cobertura, tests integración, validación de cada FR/NFR, métricas de monitoreo"
       week: 14
       weight: 25
     - name: "Informe Técnico Final"
-      description: "10-15 páginas: resumen, metodología, arquitectura, decisiones, resultados, lecciones aprendidas"
+      description: "10-15 páginas: resumen, metodología, arquitectura, decisiones, resultados, lecciones aprendidas, reflexión social"
       week: 15
-      weight: 25
+      weight: 20
     - name: "Presentación y Defensa oral"
-      description: "20-30 min frente a partes interesadas, Q&A, demo en vivo"
+      description: "20-30 min frente a partes interesadas, Q&A, demo en vivo, reflexión crítica sobre fortalezas/debilidades"
       week: 16
-      weight: 25
+      weight: 15
   evaluation_criteria:
     - Implementación de funcionalidades (FR operacionales)
     - Cumplimiento de NFR (seguridad, performance, escalabilidad)

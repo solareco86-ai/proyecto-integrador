@@ -137,94 +137,123 @@ sections:
   title: 'Trayecto II: Ejecución, Testing y Defensa'
   description: Desarrollo iterativo, testing (Constraint Gauntlet), documentación, defensa. Semanas 9-16 (32h).
   chapters:
-  - id: chap-pp-exec-5
-    title: 'Unidad 5: Ejecución - Sprint Cycle'
-    description: "2 sprints de 2 semanas c/u. Implementación según spec, integración de tecnologías, daily standups, demos."
+  - id: chap-pp-integracion-5a
+    title: 'Unidad 5A: Integración Estratégica y Contextualización'
+    description: "ANTES de ejecutar: integración de técnicas, trabajo en campo, clima institucional, post-procesamiento. Semana 9."
     items:
     - type: lesson
-      id: les-pp-exec-5-1
-      slug: pp-exec-sprint-planning
-      title: "5.1 Sprint Planning: qué entra en cada sprint"
-      duration: 40 min
-      content_file: unidad-5-1-sprint-planning.md
-    - type: lesson
-      id: les-pp-exec-5-2
-      slug: pp-exec-desarrollo-limpio
-      title: "5.2 Desarrollo limpio según spec: tipos, commits atómicos, PRs"
+      id: les-pp-integracion-5a-1
+      slug: pp-integracion-tecnicas
+      title: "5A.1 Integración de Técnicas: Arquitectura OCR + NLP + ML"
       duration: 50 min
-      content_file: unidad-5-2-desarrollo-limpio.md
+      content_file: unidad-5a-1-integracion-tecnicas.md
     - type: lesson
-      id: les-pp-exec-5-3
-      slug: pp-exec-integracion-demo
-      title: "5.3 Integración de módulos y demo al equipo"
+      id: les-pp-integracion-5a-2
+      slug: pp-trabajo-en-campo
+      title: "5A.2 Trabajo en Campo: Contextos Reales, Permisos y Seguros"
+      duration: 50 min
+      content_file: unidad-5a-2-trabajo-en-campo.md
+    - type: lesson
+      id: les-pp-integracion-5a-3
+      slug: pp-clima-institucional
+      title: "5A.3 Clima Institucional: Género, Inclusión, Diversidad y Horizontalidad"
       duration: 40 min
-      content_file: unidad-5-3-integracion-demo.md
+      content_file: unidad-5a-3-clima-institucional.md
+    - type: lesson
+      id: les-pp-integracion-5a-4
+      slug: pp-post-procesamiento
+      title: "5A.4 Post-procesamiento, Visualización y Mantenimiento: Sostenibilidad"
+      duration: 30 min
+      content_file: unidad-5a-4-post-procesamiento.md
+
+  - id: chap-pp-exec-5b
+    title: 'Unidad 5B: Ejecución Técnica Integrada'
+    description: "2 sprints de 2 semanas c/u, aplicando marcos de 5A. Implementación según spec, integración de tecnologías, daily standups, demos."
+    items:
+    - type: lesson
+      id: les-pp-exec-5b-1
+      slug: pp-sprint-planning
+      title: "5B.1 Sprint Planning: Cómo Estructurar el Sprint"
+      duration: 40 min
+      content_file: unidad-5b-1-sprint-planning.md
+    - type: lesson
+      id: les-pp-exec-5b-2
+      slug: pp-desarrollo-limpio
+      title: "5B.2 Desarrollo Limpio según Spec: Commits Atómicos, PRs, Code Review"
+      duration: 50 min
+      content_file: unidad-5b-2-desarrollo-limpio.md
+    - type: lesson
+      id: les-pp-exec-5b-3
+      slug: pp-integracion-demo
+      title: "5B.3 Integración de Módulos, Testing e Integración y Demo al Equipo"
+      duration: 40 min
+      content_file: unidad-5b-3-integracion-demo.md
 
   - id: chap-pp-test-6
     title: 'Unidad 6: Testing y Validación (Constraint Gauntlet)'
-    description: "11 baterías de validación según spec: tests, linters, validación de arquitectura, cobertura, UAT."
+    description: "11 baterías de validación según spec: tests, linters, validación de arquitectura, cobertura >= 85%, UAT."
     items:
     - type: lesson
       id: les-pp-test-6-1
       slug: pp-test-gauntlet-overview
-      title: "6.1 Constraint Gauntlet: 11 validaciones (spec)"
+      title: "6.1 Constraint Gauntlet: 11 Validaciones según spec"
       duration: 50 min
       content_file: unidad-6-1-gauntlet-overview.md
     - type: lesson
       id: les-pp-test-6-2
       slug: pp-test-unitarios-integracion
-      title: "6.2 Tests unitarios e integración: pytest, cobertura >= 85%"
+      title: "6.2 Tests Unitarios e Integración: pytest con Cobertura >= 85%"
       duration: 50 min
       content_file: unidad-6-2-tests-unitarios.md
     - type: lesson
       id: les-pp-test-6-3
       slug: pp-test-validacion-requisitos
-      title: "6.3 Validación de requisitos: cada FR y NFR implementado"
+      title: "6.3 Validación de Requisitos: Traceability Matrix y UAT"
       duration: 40 min
       content_file: unidad-6-3-validacion-requisitos.md
 
   - id: chap-pp-docs-7
     title: 'Unidad 7: Documentación y Comunicación Profesional'
-    description: "Informe técnico final, README, docstrings, lecciones aprendidas, slides de presentación."
+    description: "Informe técnico final, README ejecutable, docstrings, storytelling y slides."
     items:
     - type: lesson
       id: les-pp-docs-7-1
       slug: pp-docs-informe-tecnico
-      title: "7.1 Informe Técnico Final: estructura, metodología, decisiones"
+      title: "7.1 Informe Técnico Final: Estructura, Metodología y Decisiones"
       duration: 50 min
       content_file: unidad-7-1-informe-tecnico.md
     - type: lesson
       id: les-pp-docs-7-2
       slug: pp-docs-readme-docstrings
-      title: "7.2 README ejecutable y docstrings de código"
+      title: "7.2 README Ejecutable y Docstrings de Código"
       duration: 40 min
       content_file: unidad-7-2-readme-docstrings.md
     - type: lesson
       id: les-pp-docs-7-3
       slug: pp-docs-presentation-slides
-      title: "7.3 Storytelling y slides: presentación oral de 20-30 min"
+      title: "7.3 Storytelling y Slides: Presentación Oral de 20-30 min"
       duration: 40 min
       content_file: unidad-7-3-presentation-slides.md
 
   - id: chap-pp-defense-8
     title: 'Unidad 8: Defensa y Cierre'
-    description: "Presentación oral frente a partes interesadas, Q&A, demo en vivo, reflexión crítica."
+    description: "Presentación oral, Q&A y demo en vivo, reflexión crítica sobre fortalezas, debilidades, aprendizajes."
     items:
     - type: lesson
       id: les-pp-defense-8-1
       slug: pp-defense-oral-presentation
-      title: "8.1 Presentación oral: cómo contar la historia del proyecto"
+      title: "8.1 Presentación Oral: Cómo Contar la Historia del Proyecto"
       duration: 40 min
       content_file: unidad-8-1-oral-presentation.md
     - type: lesson
       id: les-pp-defense-8-2
       slug: pp-defense-qa-demo
-      title: "8.2 Q&A y demo en vivo: manejo de preguntas, troubleshooting"
+      title: "8.2 Q&A y Demo en Vivo: Manejo de Preguntas y Troubleshooting"
       duration: 40 min
       content_file: unidad-8-2-qa-demo.md
     - type: lesson
       id: les-pp-defense-8-3
       slug: pp-defense-lecciones-aprendidas
-      title: "8.3 Reflexión crítica: fortalezas, debilidades, mejoras futuras"
+      title: "8.3 Reflexión Crítica: Fortalezas, Debilidades, Mejoras Futuras"
       duration: 30 min
       content_file: unidad-8-3-lecciones-aprendidas.md
