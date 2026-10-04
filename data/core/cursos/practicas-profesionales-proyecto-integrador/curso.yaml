@@ -1,0 +1,372 @@
+id: practicas-profesionales-proyecto-integrador
+slug: practicas-profesionales-proyecto-integrador
+title: Prácticas Profesionales - Proyecto Integrador
+description_short: 'Proyecto integrador de 3er año en Ciencia de Datos e Inteligencia Artificial: dos casos reales (energético e institucional) con procesamiento de datos, imágenes (OCR), habla, modelos ML y comunicación de resultados.'
+description_long: |
+  Espacio curricular de cierre de la tecnicatura superior en Ciencia de Datos e Inteligencia Artificial.
+  Los estudiantes ejecutan un proyecto integrador que converge dos casos reales:
+
+  1. **Proyecto energético**: Análisis de consumo eléctrico mediante procesamiento de facturas (OCR), telemetría de sensores,
+     bot conversacional para consultas del usuario, modelos predictivos y dashboards de consumo.
+
+  2. **Proyecto institucional (web)**: Desarrollo de asistente conversacional para atención al alumno, procesamiento de documentación académica (OCR),
+     análisis de métricas de aprendizaje, sistemas de recomendación de cursos y reportes de progreso estudiantil.
+
+  El proyecto integra los cinco pilares de la disciplina: procesamiento de datos, procesamiento de imágenes, procesamiento de habla/NLP,
+  creación de modelos predictivos y post-procesamiento (visualización y comunicación de resultados).
+
+  Modalidad 100% práctica con entregas semanales, talleres colaborativos en el aula y evaluación mediante presentación y defensa del proyecto.
+duration: 64 horas de cursada (4 horas semanales × 16 semanas, 2do semestre de 3er año)
+level: Avanzado
+language: Español
+case_study_url_1: https://github.com/datamaq-automation/energy-ml
+case_study_title_1: "NILM + Consumo Eléctrico: Caso de Estudio Energético"
+case_study_description_1: "Análisis no intrusivo de cargas eléctricas (NILM), procesamiento de facturas digitales y gestión conversacional del consumo energético del usuario."
+case_study_url_2: https://isftn199.com.ar
+case_study_title_2: "Portal Institucional: Caso de Estudio Educativo"
+case_study_description_2: "Sistema integral de atención al alumno con bot conversacional, análisis de trayectorias académicas y recomendación personalizada de cursos."
+price: 0.0
+og_image: /static/media/cursos/og-practicas-profesionales-proyecto-integrador.webp
+og_image_width: 1200
+og_image_height: 630
+instructor_id: agustin-bustos
+academic_only: true
+sections:
+- id: unit-1
+  title: 'Unidad 1: Procesamiento de Datos'
+  description: Ingesta, limpieza, transformación y exploración de datos crudos. Preprocesamiento de telemetría energética y métricas académicas. Manejo de valores faltantes, outliers y normalización.
+  chapters:
+  - id: chap-pp-datos-1
+    title: 'Cap 1: Ingesta y Exploración de Datos'
+    description: "Lectura de datos desde múltiples fuentes (sensores, logs, APIs, bases de datos). Perfilado inicial (shape, dtypes, estadísticas). Detección de anomalías exploratorias."
+    items:
+    - type: lesson
+      id: les-pp-datos-1-1
+      slug: pp-datos-ingesta-fuentes
+      title: "1.1 Fuentes de datos: sensores energéticos, logs académicos y APIs"
+      duration: 30 min
+      content_file: cap-1-1-ingesta-fuentes.md
+    - type: lesson
+      id: les-pp-datos-1-2
+      slug: pp-datos-exploracion-pandas
+      title: "1.2 Exploración con Pandas: shape, dtypes, describe(), isnull()"
+      duration: 40 min
+      content_file: cap-1-2-exploracion-pandas.md
+    - type: lesson
+      id: les-pp-datos-1-3
+      slug: pp-datos-visualizacion-exploracion
+      title: "1.3 Visualización exploratoria: histogramas, boxplots, scatter plots"
+      duration: 35 min
+      content_file: cap-1-3-visualizacion-exploracion.md
+  - id: chap-pp-datos-2
+    title: 'Cap 2: Limpieza y Preprocesamiento'
+    description: "Tratamiento de valores faltantes (imputación, eliminación), manejo de outliers, validación de rangos. Normalización y escalado de features."
+    items:
+    - type: lesson
+      id: les-pp-datos-2-1
+      slug: pp-datos-valores-faltantes
+      title: "2.1 Manejo de valores faltantes: detección, imputación y estrategias"
+      duration: 40 min
+      content_file: cap-2-1-valores-faltantes.md
+    - type: lesson
+      id: les-pp-datos-2-2
+      slug: pp-datos-outliers-validacion
+      title: "2.2 Detección y tratamiento de outliers, validación de rangos"
+      duration: 35 min
+      content_file: cap-2-2-outliers-validacion.md
+    - type: lesson
+      id: les-pp-datos-2-3
+      slug: pp-datos-normalizacion-escalado
+      title: "2.3 Normalización y escalado: StandardScaler, MinMaxScaler, Log transform"
+      duration: 35 min
+      content_file: cap-2-3-normalizacion-escalado.md
+  - id: chap-pp-datos-3
+    title: 'Cap 3: Feature Engineering'
+    description: "Creación de nuevas características derivadas. Ingeniería de features temporales (hour, day, week, month). Agregaciones y ventanas deslizantes."
+    items:
+    - type: lesson
+      id: les-pp-datos-3-1
+      slug: pp-datos-feature-engineering
+      title: "3.1 Ingeniería de features: derivación, composición, agregación"
+      duration: 40 min
+      content_file: cap-3-1-feature-engineering.md
+    - type: lesson
+      id: les-pp-datos-3-2
+      slug: pp-datos-features-temporales
+      title: "3.2 Features temporales: extracción de hora, día, mes; ventanas deslizantes"
+      duration: 35 min
+      content_file: cap-3-2-features-temporales.md
+    - type: lesson
+      id: les-pp-datos-3-3
+      slug: pp-datos-feature-selection
+      title: "3.3 Selección de features: importancia, correlación, varianza"
+      duration: 40 min
+      content_file: cap-3-3-feature-selection.md
+  - id: chap-pp-datos-taller
+    title: 'Taller 1: Proyecto Energético - Datos de Sensores'
+    description: "Taller integrador: lectura de telemetría energética real, limpieza, normalización y extracción de features temporales para análisis posterior."
+    items:
+    - type: lesson
+      id: les-pp-datos-taller-1
+      slug: pp-datos-taller-energetico
+      title: "Taller 1: Ingesta y preprocesamiento de datos de sensores energéticos"
+      duration: 90 min
+      content_file: taller-1-datos-energetico.md
+
+- id: unit-2
+  title: 'Unidad 2: Procesamiento de Imágenes (OCR)'
+  description: Extracción de texto desde imágenes y PDFs digitales. OCR (Optical Character Recognition) en facturas de electricidad. Validación y estructuración de datos extraídos.
+  chapters:
+  - id: chap-pp-ocr-1
+    title: 'Cap 1: Fundamentos de OCR y Preparación de Imágenes'
+    description: "Conceptos de OCR. Preprocesamiento de imágenes (binarización, rotación, escalado). Bibliotecas Tesseract y Paddleocr."
+    items:
+    - type: lesson
+      id: les-pp-ocr-1-1
+      slug: pp-ocr-conceptos-basicos
+      title: "1.1 OCR: conceptos, flujo básico y casos de uso"
+      duration: 30 min
+      content_file: cap-1-1-ocr-conceptos.md
+    - type: lesson
+      id: les-pp-ocr-1-2
+      slug: pp-ocr-preprocesamiento-imagen
+      title: "1.2 Preprocesamiento de imágenes: conversión a escala de grises, binarización, rotación"
+      duration: 40 min
+      content_file: cap-1-2-preprocesamiento-imagen.md
+    - type: lesson
+      id: les-pp-ocr-1-3
+      slug: pp-ocr-tesseract-paddleocr
+      title: "1.3 Tesseract y Paddleocr: instalación, configuración y extracción de texto"
+      duration: 40 min
+      content_file: cap-1-3-tesseract-paddleocr.md
+  - id: chap-pp-ocr-2
+    title: 'Cap 2: Extracción de Datos desde Facturas'
+    description: "OCR en documentos reales (facturas PDF y fotografías). Parsing y estructura de datos. Validación de campos extraídos."
+    items:
+    - type: lesson
+      id: les-pp-ocr-2-1
+      slug: pp-ocr-facturas-pdf
+      title: "2.1 Extracción de texto desde facturas PDF: PyPDF2, pdfplumber"
+      duration: 35 min
+      content_file: cap-2-1-facturas-pdf.md
+    - type: lesson
+      id: les-pp-ocr-2-2
+      slug: pp-ocr-facturas-fotos
+      title: "2.2 OCR en fotografías de facturas: captura, orientación y extracción"
+      duration: 40 min
+      content_file: cap-2-2-facturas-fotos.md
+    - type: lesson
+      id: les-pp-ocr-2-3
+      slug: pp-ocr-parsing-validacion
+      title: "2.3 Parsing de campos: regex, validación de consumo, período y proveedor"
+      duration: 40 min
+      content_file: cap-2-3-parsing-validacion.md
+  - id: chap-pp-ocr-taller
+    title: 'Taller 2: Proyecto Energético - OCR de Facturas'
+    description: "Taller integrador: procesamiento de facturas de electricidad (PDF y fotos), extracción de consumo y período, validación y estructuración de datos."
+    items:
+    - type: lesson
+      id: les-pp-ocr-taller-1
+      slug: pp-ocr-taller-facturas
+      title: "Taller 2: OCR y extracción de datos desde facturas de electricidad"
+      duration: 90 min
+      content_file: taller-2-ocr-facturas.md
+
+- id: unit-3
+  title: 'Unidad 3: Procesamiento de Habla y NLP'
+  description: Transcripción, análisis de sentimiento y procesamiento de lenguaje natural. Bots conversacionales para gestión de consultas del usuario (energético) y atención al alumno (institucional).
+  chapters:
+  - id: chap-pp-nlp-1
+    title: 'Cap 1: Fundamentos de NLP y Conversacionales'
+    description: "Conceptos de PNL. Tokenización, lemmatización, modelos de lenguaje. Introducción a chatbots y asistentes conversacionales."
+    items:
+    - type: lesson
+      id: les-pp-nlp-1-1
+      slug: pp-nlp-conceptos-pnl
+      title: "1.1 Procesamiento de Lenguaje Natural: tokenización, lemmatización, embeddings"
+      duration: 40 min
+      content_file: cap-1-1-conceptos-pnl.md
+    - type: lesson
+      id: les-pp-nlp-1-2
+      slug: pp-nlp-speech-recognition
+      title: "1.2 Speech-to-Text: transcripción de voz (SpeechRecognition, Vosk)"
+      duration: 35 min
+      content_file: cap-1-2-speech-recognition.md
+    - type: lesson
+      id: les-pp-nlp-1-3
+      slug: pp-nlp-chatbot-basico
+      title: "1.3 Bots conversacionales básicos: reglas, intenciones y respuestas"
+      duration: 40 min
+      content_file: cap-1-3-chatbot-basico.md
+  - id: chap-pp-nlp-2
+    title: 'Cap 2: Bots Energéticos y Académicos'
+    description: "Diseño de conversaciones específicas. Bot para consultas de consumo energético. Bot para atención y orientación estudiantil."
+    items:
+    - type: lesson
+      id: les-pp-nlp-2-1
+      slug: pp-nlp-bot-energetico
+      title: "2.1 Bot energético: preguntas frecuentes sobre consumo, facturas, tarificación"
+      duration: 40 min
+      content_file: cap-2-1-bot-energetico.md
+    - type: lesson
+      id: les-pp-nlp-2-2
+      slug: pp-nlp-bot-academico
+      title: "2.2 Bot académico: orientación sobre carreras, cursos, requisitos de ingreso"
+      duration: 40 min
+      content_file: cap-2-2-bot-academico.md
+    - type: lesson
+      id: les-pp-nlp-2-3
+      slug: pp-nlp-analisis-sentimiento
+      title: "2.3 Análisis de sentimiento: clasificación de feedback estudiantil"
+      duration: 35 min
+      content_file: cap-2-3-analisis-sentimiento.md
+  - id: chap-pp-nlp-taller
+    title: 'Taller 3: Bots Energético y Académico'
+    description: "Taller integrador: diseño e implementación de bots conversacionales para ambos proyectos, con integraciones a datos de sensores y bases académicas."
+    items:
+    - type: lesson
+      id: les-pp-nlp-taller-1
+      slug: pp-nlp-taller-bots
+      title: "Taller 3: Implementación de bots conversacionales (energético + académico)"
+      duration: 120 min
+      content_file: taller-3-nlp-bots.md
+
+- id: unit-4
+  title: 'Unidad 4: Creación de Modelos Predictivos'
+  description: Entrenamiento de modelos de machine learning. Predicción de consumo energético. Sistemas de recomendación académica. Validación y evaluación de modelos.
+  chapters:
+  - id: chap-pp-ml-1
+    title: 'Cap 1: Regresión y Series Temporales'
+    description: "Modelos de regresión (lineal, polinómica). Análisis de series temporales (ARIMA, Exponential Smoothing). Predicción de consumo energético."
+    items:
+    - type: lesson
+      id: les-pp-ml-1-1
+      slug: pp-ml-regresion-lineal
+      title: "1.1 Regresión lineal y polinómica para predicción de consumo"
+      duration: 40 min
+      content_file: cap-1-1-regresion-lineal.md
+    - type: lesson
+      id: les-pp-ml-1-2
+      slug: pp-ml-series-temporales
+      title: "1.2 Series temporales: ARIMA, Exponential Smoothing, Prophet"
+      duration: 45 min
+      content_file: cap-1-2-series-temporales.md
+    - type: lesson
+      id: les-pp-ml-1-3
+      slug: pp-ml-validacion-temporal
+      title: "1.3 Validación temporal: train-test split, cross-validation de series"
+      duration: 35 min
+      content_file: cap-1-3-validacion-temporal.md
+  - id: chap-pp-ml-2
+    title: 'Cap 2: Clasificación y Sistemas de Recomendación'
+    description: "Modelos de clasificación (Logistic Regression, Random Forest, Gradient Boosting). Sistemas de recomendación basados en contenido y colaborativos."
+    items:
+    - type: lesson
+      id: les-pp-ml-2-1
+      slug: pp-ml-clasificacion-basica
+      title: "2.1 Clasificación: Logistic Regression, árboles de decisión, SVM"
+      duration: 40 min
+      content_file: cap-2-1-clasificacion-basica.md
+    - type: lesson
+      id: les-pp-ml-2-2
+      slug: pp-ml-ensambles
+      title: "2.2 Métodos de ensamble: Random Forest, XGBoost, Gradient Boosting"
+      duration: 45 min
+      content_file: cap-2-2-ensambles.md
+    - type: lesson
+      id: les-pp-ml-2-3
+      slug: pp-ml-recomendacion
+      title: "2.3 Sistemas de recomendación: filtrado colaborativo, basado en contenido"
+      duration: 40 min
+      content_file: cap-2-3-recomendacion.md
+  - id: chap-pp-ml-3
+    title: 'Cap 3: Evaluación y Ajuste de Modelos'
+    description: "Métricas de evaluación (accuracy, precision, recall, F1, MAE, RMSE). Hyperparameter tuning. Detección de overfitting."
+    items:
+    - type: lesson
+      id: les-pp-ml-3-1
+      slug: pp-ml-metricas-evaluacion
+      title: "3.1 Métricas de evaluación: accuracy, precision, recall, F1, AUC, MAE, RMSE"
+      duration: 40 min
+      content_file: cap-3-1-metricas-evaluacion.md
+    - type: lesson
+      id: les-pp-ml-3-2
+      slug: pp-ml-hyperparameter-tuning
+      title: "3.2 Ajuste de hiperparámetros: GridSearchCV, RandomSearchCV"
+      duration: 35 min
+      content_file: cap-3-2-hyperparameter-tuning.md
+    - type: lesson
+      id: les-pp-ml-3-3
+      slug: pp-ml-overfitting-regularizacion
+      title: "3.3 Overfitting y regularización: validación cruzada, dropout, L1/L2"
+      duration: 35 min
+      content_file: cap-3-3-overfitting-regularizacion.md
+  - id: chap-pp-ml-taller
+    title: 'Taller 4: Modelos Energético y Académico'
+    description: "Taller integrador: entrenamiento de modelo de predicción de consumo energético y sistema de recomendación de cursos académicos."
+    items:
+    - type: lesson
+      id: les-pp-ml-taller-1
+      slug: pp-ml-taller-modelos
+      title: "Taller 4: Entrenamiento de modelos predictivos (energía + recomendación académica)"
+      duration: 120 min
+      content_file: taller-4-ml-modelos.md
+
+- id: unit-5
+  title: 'Unidad 5: Post-Procesamiento y Comunicación de Resultados'
+  description: Visualización de resultados. Creación de dashboards interactivos. Elaboración de informes. Presentación y defensa del proyecto.
+  chapters:
+  - id: chap-pp-visual-1
+    title: 'Cap 1: Visualización y Dashboards'
+    description: "Librerías de visualización (Matplotlib, Plotly, Dash). Creación de dashboards interactivos. Diseño de KPIs y métricas."
+    items:
+    - type: lesson
+      id: les-pp-visual-1-1
+      slug: pp-visual-matplotlib-plotly
+      title: "1.1 Visualización: Matplotlib, Seaborn, Plotly para reportes interactivos"
+      duration: 40 min
+      content_file: cap-1-1-matplotlib-plotly.md
+    - type: lesson
+      id: les-pp-visual-1-2
+      slug: pp-visual-dashboards-dash
+      title: "1.2 Dashboards interactivos con Plotly Dash y Streamlit"
+      duration: 45 min
+      content_file: cap-1-2-dashboards-dash.md
+    - type: lesson
+      id: les-pp-visual-1-3
+      slug: pp-visual-kpi-metricas
+      title: "1.3 Diseño de KPIs, métricas y scorecards para audiencias no técnicas"
+      duration: 35 min
+      content_file: cap-1-3-kpi-metricas.md
+  - id: chap-pp-visual-2
+    title: 'Cap 2: Informes y Documentación'
+    description: "Escritura de informes técnicos. Documentación del proyecto. Conclusiones y recomendaciones."
+    items:
+    - type: lesson
+      id: les-pp-visual-2-1
+      slug: pp-visual-informe-tecnico
+      title: "2.1 Estructura de informe técnico: resumen ejecutivo, metodología, resultados, conclusiones"
+      duration: 40 min
+      content_file: cap-2-1-informe-tecnico.md
+    - type: lesson
+      id: les-pp-visual-2-2
+      slug: pp-visual-jupyter-notebooks
+      title: "2.2 Notebooks ejecutables: Jupyter como medio de comunicación científica"
+      duration: 35 min
+      content_file: cap-2-2-jupyter-notebooks.md
+    - type: lesson
+      id: les-pp-visual-2-3
+      slug: pp-visual-presentacion-defensa
+      title: "2.3 Presentación y defensa del proyecto: storytelling, slides, timing"
+      duration: 40 min
+      content_file: cap-2-3-presentacion-defensa.md
+  - id: chap-pp-visual-taller
+    title: 'Taller 5: Dashboards y Defensa'
+    description: "Taller integrador: creación de dashboards finales para ambos proyectos e integración de la presentación de defensa."
+    items:
+    - type: lesson
+      id: les-pp-visual-taller-1
+      slug: pp-visual-taller-dashboards
+      title: "Taller 5: Dashboards finales y preparación de presentación de defensa"
+      duration: 120 min
+      content_file: taller-5-visual-dashboards.md
