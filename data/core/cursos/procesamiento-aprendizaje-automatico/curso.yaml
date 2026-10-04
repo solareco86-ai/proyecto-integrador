@@ -273,28 +273,27 @@ sections:
       duration: 25 min
       content_file: cap-4-2-endpoint-knn-fastapi.md
   - id: chap-paa-int-5
-    title: 'Cap 5: Evaluación Rigurosa y TDD Asistido por Agentes'
-    description: Medición científica de rendimiento, desarrollo guiado por pruebas
-      con pytest y observabilidad de la API.
+    title: 'Cap 5: Evaluación Rigurosa y TDD Asistido por Agentes en energy-ml'
+    description: Matriz de confusión, precisión/recall asimétricos, ciclo TDD con Aider y AGY CLI, y observabilidad con GET /metrics.
     items:
     - type: lesson
       id: les-paa-int-5-1
       slug: paa-int-metricas-confusion-f1
-      title: 5.1 Matriz de confusión, precisión, recall y F1-Score
+      title: '5.1 Matriz de confusión, precisión, recall y F1-Score en energy-ml'
       duration: 25 min
       content_file: cap-5-1-metricas-confusion-f1.md
       case_study_reference: "energy-ml evalúa el rendimiento de la identificación de cargas en src/application/cargas/IdentificarCargasUseCase mediante matriz de confusión y métricas de precisión."
     - type: lesson
       id: les-paa-int-5-2
       slug: paa-int-tdd-pytest-aider-agy
-      title: 5.2 Flujo TDD en FastAPI con pytest asistido por Aider y AGY CLI
+      title: '5.2 Flujo TDD en FastAPI con pytest asistido por Aider y AGY CLI'
       duration: 30 min
       content_file: cap-5-2-tdd-pytest-aider-agy.md
     - type: lesson
       id: les-paa-int-5-3
       slug: paa-int-endpoint-metricas-observabilidad
-      title: 5.3 Exposición de métricas de rendimiento en el endpoint GET /metrics
-      duration: 20 min
+      title: '5.3 Exposición de métricas de rendimiento en el endpoint GET /metrics'
+      duration: 25 min
       content_file: cap-5-3-endpoint-metricas-observabilidad.md
 - id: unit-3
   title: 'Unidad 3: Programación Lógica'

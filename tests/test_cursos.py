@@ -372,3 +372,26 @@ async def test_aprendizaje_automatico_unit2_cap4_lessons_rendered():
         assert r2.status_code == 200
         assert "POST /api/v1/classify/knn" in r2.text
         assert "FastAPI" in r2.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit2_cap5_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 5.1 Matriz de confusión y F1
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-metricas-confusion-f1")
+        assert r1.status_code == 200
+        assert "Matriz de confusión" in r1.text
+        assert "energy-ml" in r1.text
+
+        # 5.2 Flujo TDD con Aider y AGY CLI
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-tdd-pytest-aider-agy")
+        assert r2.status_code == 200
+        assert "Flujo TDD en FastAPI" in r2.text
+        assert "Aider" in r2.text
+
+        # 5.3 Endpoint GET /metrics
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-endpoint-metricas-observabilidad")
+        assert r3.status_code == 200
+        assert "GET /api/v1/metrics" in r3.text
+        assert "Observabilidad" in r3.text

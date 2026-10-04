@@ -1,93 +1,139 @@
-# Guía de Laboratorio: Capítulo 5 - TDD, Batería de Pruebas con Pytest y Métricas de Evaluación
+# Guía de Laboratorio — Lección 5.1: Matriz de Confusión, Precisión, Recall y F1-Score en energy-ml
 
-**Trayecto Formativo:** Procesamiento y Aprendizaje Automático (Nivel Intermedio)  
-**Carga Horaria:** 5 horas (Práctica y Evaluación)  
-**Nivel:** Intermedio  
-**Slug:** `procesamiento-aprendizaje-automatico-intermedio`  
-
----
-
-## 1. Objetivos y Conceptos Clave
-
-### Objetivos de Aprendizaje
-* Aplicar la metodología de **Desarrollo Guiado por Pruebas (TDD - Test-Driven Development)** para la construcción de servicios de Machine Learning apoyándose en asistentes de código (**Aider** / **AGY CLI**).
-* Diseñar una batería de pruebas unitarias y de integración automatizadas utilizando **`pytest`** y el cliente de pruebas de FastAPI (`TestClient`).
-* Calcular e interpretar métricas de evaluación de clasificadores supervisados: **Matriz de Confusión**, **Precisión (Precision)**, **Sensibilidad (Recall)**, **F1-Score** y **Exactitud (Accuracy)**.
-* Exponer un endpoint analítico `GET /metrics` en FastAPI que entregue el rendimiento consolidado de los modelos desplegados (`Naive Bayes` y `k-NN`).
-
-### Conceptos Clave
-* **TDD (Test-Driven Development):** Ciclo *Red-Green-Refactor* donde se escriben primero las pruebas automatizadas que definen el comportamiento esperado y luego se implementa o refactoriza el código con la asistencia de la IA.
-* **FastAPI `TestClient`:** Cliente HTTP basado en `httpx` que permite simular peticiones a los endpoints de la API de forma sincrónica en las pruebas de `pytest` sin necesidad de levantar el servidor web manualmente.
-* **Matriz de Confusión:** Tabla de doble entrada que contrasta las etiquetas reales (*Ground Truth*) frente a las predicciones del modelo para contabilizar Verdaderos Positivos (TP), Verdaderos Negativos (TN), Falsos Positivos (FP) y Falsos Negativos (FN).
+**Asignatura:** Unidad 2 — Machine Learning (Nivel Intermedio)  
+**Capítulo 5:** Evaluación Rigurosa y TDD Asistido por Agentes en `energy-ml`  
+**Carga horaria estimada:** 25 min  
+**Prerrequisitos:** Haber completado los Capítulos 1 al 4 de la Unidad 2.
 
 ---
 
-## 2. Preparación del Entorno
+## 1. La Trampa de la Exactitud (Accuracy Paradox) en Redes Eléctricas
 
-Asegúrate de contar con el entorno virtual activado y las dependencias de testing instaladas:
+En problemas de diagnóstico de fallas industriales como los de **`energy-ml`**, los eventos críticos son **altamente desbalanceados**:
+* El 98% de los días un transformador de potencia opera en condiciones normales.
+* Solo el 2% de los días presenta una falla dieléctrica o cortocircuito incipiente.
+
+Si un modelo simplista predice ciegamente *"operación normal"* para el 100% de las lecturas, tendrá una **Exactitud (Accuracy) del 98%**. A pesar de este número aparentemente exitoso, el sistema es **completamente inútil y peligroso**: no detectará ninguna falla real, permitiendo que transformadores colapsen sin previo aviso.
+
+Por este motivo, en la Ciencia de Datos profesional se descarta la exactitud como métrica única y se utiliza la **Matriz de Confusión** junto con **Precisión**, **Recall (Sensibilidad)** y **F1-Score**.
+
+---
+
+## 2. Anatomía de la Matriz de Confusión
+
+La matriz de confusión es una tabla de doble entrada que compara las etiquetas reales de planta (*Ground Truth*) frente a las decisiones emitidas por el clasificador:
+
+```text
+┌───────────────────────────┬────────────────────────────────────────────┐
+│                           │ Condición Real (Planta Industrial)         │
+│                           ├────────────────────┬───────────────────────┤
+│                           │ Positivo (Falla)   │ Negativo (Normal)     │
+├─────────┬─────────────────┼────────────────────┼───────────────────────┤
+│ Decisión│ Positivo (Falla)│ Verdadero Positivo │ Falso Positivo (FP)   │
+│ del     │                 │ (TP - Acierto)     │ (Falsa Alarma)        │
+│ Modelo  ├─────────────────┼────────────────────┼───────────────────────┤
+│ (FastAPI│ Negativo (Normal│ Falso Negativo (FN)│ Verdadero Negativo    │
+│ Endpoint│                 │ (¡Falla no vista!) │ (TN - Acierto)        │
+└─────────┴─────────────────┴────────────────────┴───────────────────────┘
+```
+
+### El Costo Asimétrico del Error en Ingeniería Eléctrica:
+* **Falso Positivo (FP):** El modelo predice falla pero el transformador está sano. Consecuencia: una brigada de mantenimiento viaja a la subestación a verificar el equipo (costo operativo moderado).
+* **Falso Negativo (FN):** El modelo predice normal pero el transformador se está quemando. Consecuencia: explosión del tanque de aceite, corte masivo de suministro eléctrico a miles de usuarios y pérdidas millonarias (costo catastrófico).
+
+En `energy-ml`, nuestro objetivo primordial es **minimizar los Falsos Negativos**, lo que equivale a **maximizar el Recall**.
+
+---
+
+## 3. Métricas Derivadas: Precisión, Recall y F1-Score
+
+```text
+┌───────────────────────────────┬────────────────────────────────────────┐
+│ Métrica                       │ Definición Conceptual                  │
+├───────────────────────────────┼────────────────────────────────────────┤
+│ Precisión (Precision)         │ TP / (TP + FP)                         │
+│                               │ De todas las alarmas que emitió el     │
+│                               │ modelo, ¿cuántas fueron reales?        │
+├───────────────────────────────┼────────────────────────────────────────┤
+│ Sensibilidad / Recall         │ TP / (TP + FN)                         │
+│                               │ De todas las fallas reales que ocurrie-│
+│                               │ ron en planta, ¿cuántas atrapó el      │
+│                               │ modelo? (Vital en energía).            │
+├───────────────────────────────┼────────────────────────────────────────┤
+│ F1-Score                      │ Media armónica entre Precisión y Recall│
+│                               │ 2 * (Precision * Recall) / (Prec + Rec)│
+│                               │ Balance equilibrado para datasets      │
+│                               │ fuertemente desbalanceados.            │
+└───────────────────────────────┴────────────────────────────────────────┘
+```
+
+---
+
+## 4. Taller Práctico: Evaluación Rigurosa con Scikit-Learn
+
+Navegamos a nuestro repositorio local:
 
 ```bash
-# Activar entorno virtual
-source venv/bin/activate
-
-# Instalar pytest y dependencias de cálculo científico
-pip install pytest httpx scikit-learn numpy
+cd ~/proyectos_software/energy-ml
+source .venv/bin/activate
 ```
 
-Verifica la estructura proyectada para el laboratorio:
-```text
-laboratorio-intermedio-cap5/
-├── app/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── models/
-│   │   ├── bayes_model.py
-│   │   └── knn_model.py
-│   └── metrics.py
-├── tests/
-│   ├── __init__.py
-│   ├── test_bayes_endpoint.py
-│   ├── test_knn_endpoint.py
-│   └── test_metrics_endpoint.py
-├── pytest.ini
-└── .env
+Creamos `scripts/evaluar_metricas_diagnostico.py`:
+
+```python
+"""Cálculo riguroso de matriz de confusión y métricas en telemetría de transformadores."""
+
+import numpy as np
+from sklearn.metrics import (
+    confusion_matrix,
+    classification_report,
+    precision_score,
+    recall_score,
+    f1_score
+)
+
+# 1. Etiquetas reales observadas en 100 eventos de subestación (1: Falla, 0: Normal)
+# Dataset fuertemente desbalanceado: 95 normales, 5 fallas críticas
+np.random.seed(42)
+y_reales = np.array([0]*95 + [1]*5)
+
+# 2. Predicciones emitidas por un modelo de prueba
+# El modelo detectó 4 fallas reales (TP=4), ignoró 1 falla (FN=1) y generó 2 falsas alarmas (FP=2)
+y_predicciones = np.array([0]*93 + [1]*2 + [1]*4 + [0]*1)
+
+print("--- 1. Matriz de Confusión ---")
+matriz = confusion_matrix(y_reales, y_predicciones)
+tn, fp, fn, tp = matriz.ravel()
+print(f"Verdaderos Negativos (TN): {tn}")
+print(f"Falsos Positivos    (FP): {fp} (Falsas alarmas)")
+print(f"Falsos Negativos    (FN): {fn} (¡Fallas ignoradas!)")
+print(f"Verdaderos Positivos(TP): {tp} (Fallas detectadas)")
+
+print("\n--- 2. Métricas de Rendimiento en Falla Crítica (Clase 1) ---")
+precision = precision_score(y_reales, y_predicciones)
+recall = recall_score(y_reales, y_predicciones)
+f1 = f1_score(y_reales, y_predicciones)
+
+print(f"Precisión: {precision:.4f} ({precision*100:.1f}%)")
+print(f"Recall:    {recall:.4f} ({recall*100:.1f}%)")
+print(f"F1-Score:  {f1:.4f} ({f1*100:.1f}%)")
+
+print("\n--- 3. Reporte Completo de Clasificación ---")
+print(classification_report(y_reales, y_predicciones, target_names=["Normal", "Falla"]))
 ```
+
+Ejecutamos el script:
+
+```bash
+python scripts/evaluar_metricas_diagnostico.py
+```
+
+Observarás cómo el reporte de clasificación desglosa con exactitud matemática el comportamiento asimétrico del sistema de diagnóstico.
 
 ---
 
-## 3. Módulo de Cálculo de Métricas y Matriz de Confusión (`app/metrics.py`)
+## 5. Conclusión
 
-Crea el módulo `app/metrics.py` que calculará las métricas a partir de arreglos de valores reales y predichos utilizando `scikit-learn`:
+Comprender la **Matriz de Confusión**, la **Precisión** y el **Recall** es el fundamento para diseñar sistemas de Inteligencia Artificial responsables en infraestructuras críticas.
 
-```python
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
-from pydantic import BaseModel
-from typing import List, Dict
-
-class ModelMetricsResponse(BaseModel):
-    accuracy: float
-    precision: float
-    recall: float
-    f1_score: float
-    confusion_matrix: List[List[int]]
-
-class GlobalMetricsResponse(BaseModel):
-    naive_bayes: ModelMetricsResponse
-    knn: ModelMetricsResponse
-
-def calcular_metricas_clasificacion(y_true: List[int], y_pred: List[int]) -> ModelMetricsResponse:
-    """Calcula la matriz de confusión y métricas clave de evaluación."""
-    cm = confusion_matrix(y_true, y_pred).tolist()
-    acc = float(accuracy_score(y_true, y_pred))
-    prec = float(precision_score(y_true, y_pred, average="macro", zero_division=0))
-    rec = float(recall_score(y_true, y_pred, average="macro", zero_division=0))
-    f1 = float(f1_score(y_true, y_pred, average="macro", zero_division=0))
-
-    return ModelMetricsResponse(
-        accuracy=round(acc, 4),
-        precision=round(prec, 4),
-        recall=round(rec, 4),
-        f1_score=round(f1, 4),
-        confusion_matrix=cm
-    )
-```
+En la siguiente lección, aplicaremos la metodología de **Desarrollo Guiado por Pruebas (TDD)** asistidos por **Aider** y **AGY CLI**, escribiendo primero los tests automatizados antes de codificar la lógica del servicio.
