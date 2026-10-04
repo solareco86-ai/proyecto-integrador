@@ -458,3 +458,26 @@ async def test_aprendizaje_automatico_unit3_cap3_lessons_rendered():
         assert r3.status_code == 200
         assert "GET /api/v1/explain/tree" in r3.text
         assert "NodoArbolDTO" in r3.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit3_cap4_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 4.1 AST y Poda de Contexto
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-ast-poda-contexto-agentes")
+        assert r1.status_code == 200
+        assert "Árboles de Sintaxis Abstracta (AST)" in r1.text
+        assert "ASTContextPruner" in r1.text
+
+        # 4.2 Servidor MCP en FastAPI
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-servidor-mcp-fastapi")
+        assert r2.status_code == 200
+        assert "Model Context Protocol" in r2.text
+        assert "tools/list" in r2.text
+
+        # 4.3 Taller Integrador Final
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-proyecto-integrador-agentes")
+        assert r3.status_code == 200
+        assert "Taller Integrador" in r3.text
+        assert "ISFT N° 199" in r3.text
