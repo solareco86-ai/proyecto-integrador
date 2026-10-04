@@ -32,7 +32,8 @@ SMTP_USERNAME = os.getenv("SMTP_USERNAME", "")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
 NOTIFICATION_EMAIL = os.getenv("NOTIFICATION_EMAIL", "")
 
-WHATSAPP_PHONE = os.getenv("WHATSAPP_PHONE", "541156297160")
+WHATSAPP_ENABLED = os.getenv("WHATSAPP_ENABLED", "False").lower() in ("true", "1", "yes")
+WHATSAPP_PHONE = os.getenv("WHATSAPP_PHONE", "5491100000000")
 WHATSAPP_MESSAGE = os.getenv(
     "WHATSAPP_MESSAGE",
     "Hola! Quisiera realizar una consulta sobre las carreras e inscripciones del ISFT N° 199.",
