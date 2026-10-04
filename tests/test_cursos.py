@@ -301,6 +301,18 @@ async def test_aprendizaje_automatico_cap5_fastapi_lessons_rendered():
 
 
 @pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit2_cap0_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 0.1 NumPy y Tensores
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-numpy-vectores-telemetria")
+        assert r1.status_code == 200
+        assert "Álgebra Matricial Intuitiva" in r1.text
+        assert "NumPy" in r1.text
+        assert "energy-ml" in r1.text
+
+
+@pytest.mark.asyncio
 async def test_aprendizaje_automatico_unit2_cap1_lessons_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:

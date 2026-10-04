@@ -198,10 +198,19 @@ sections:
       duration: 30 min
       content_file: cap-5-4-reglas-manuales-vs-datos.md
 - id: unit-2
-  title: 'Unidad 2: Machine Learning'
-  description: Diseño de APIs de inferencia robustas, validación rigurosa de features
-    y administración de modelos en memoria de servidor.
+  title: 'Unidad 2: Trayecto I - Inferencia Estadística, Modelado y MLOps'
+  description: Puente activo con NumPy, APIs de inferencia robustas con Pydantic, algoritmos estadísticos (Bayes, k-NN) y evaluación TDD en energy-ml.
   chapters:
+  - id: chap-paa-int-0
+    title: 'Cap 0: Nivelación Activa con NumPy, Vectores y Tensores en energy-ml'
+    description: 'Puente pedagógico entre programación básica y Machine Learning: estructuras matriciales, broadcasting y vectorización en CPU local.'
+    items:
+    - type: lesson
+      id: les-paa-int-0-1
+      slug: paa-int-numpy-vectores-telemetria
+      title: '0.1 Álgebra matricial intuitiva, tensores y vectorización en CPU con NumPy'
+      duration: 25 min
+      content_file: cap-0-1-numpy-vectores-telemetria.md
   - id: chap-paa-int-1
     title: 'Cap 1: Arquitectura de Inferencia y Esquemas Pydantic en energy-ml'
     description: Tipado estricto de telemetría con Pydantic, persistencia de artefactos con joblib y gestión de memoria con lifespan en FastAPI.
@@ -296,9 +305,8 @@ sections:
       duration: 25 min
       content_file: cap-5-3-endpoint-metricas-observabilidad.md
 - id: unit-3
-  title: 'Unidad 3: Programación Lógica'
-  description: Aprendizaje de conceptos, límites de hipótesis y algoritmos de inducción
-    de reglas lógicas explicables.
+  title: 'Unidad 3: Trayecto II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
+  description: Aprendizaje de conceptos, inducción de reglas formales (AQ/FOIL), explicabilidad en árboles CART y servidores Model Context Protocol (MCP).
   chapters:
   - id: chap-paa-ava-1
     title: 'Cap 1: Espacio de Versiones y Aprendizaje de Conceptos'
