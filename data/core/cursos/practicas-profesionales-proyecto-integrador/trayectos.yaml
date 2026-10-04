@@ -1,0 +1,163 @@
+trayectos:
+- id: trayecto-pp-1
+  title: "Trayecto I: Procesamiento de Datos e Imágenes (OCR)"
+  description: |
+    Primer trayecto acumulativo del proyecto integrador.
+    Carga: 24 horas (Unidades 1 y 2).
+    Semanas 1-8 del 2do semestre de 3er año.
+    Hito de evaluación: Entrega de datos preprocesados y OCR de facturas validado.
+  duration: 24 horas
+  weeks: 8
+  starting_week: 1
+  academic_level: Avanzado
+  prerequisites:
+    - Procesamiento de Aprendizaje Automático (PAA)
+  units:
+    - unit-1
+    - unit-2
+  deliverables:
+    - name: "Dataset preprocesado y normalizado"
+      description: "Datos de sensores energéticos + métricas académicas, limpios y listos para modelado"
+      week: 4
+      weight: 30
+    - name: "OCR validado de facturas"
+      description: "Extracción exitosa de consumo, período y proveedor desde PDFs y fotos de facturas"
+      week: 8
+      weight: 30
+    - name: "Informe de preprocesamiento"
+      description: "Documentación de procesos, decisiones y validaciones realizadas"
+      week: 8
+      weight: 40
+  evaluation_criteria:
+    - Completitud y calidad de limpieza de datos
+    - Precisión del OCR (tasa de extracción correcta)
+    - Justificación de decisiones de transformación
+    - Documentación técnica clara
+
+- id: trayecto-pp-2
+  title: "Trayecto II: NLP, Modelos y Comunicación"
+  description: |
+    Segundo trayecto acumulativo del proyecto integrador.
+    Carga: 20 horas (Unidades 3, 4 y 5).
+    Semanas 9-16 del 2do semestre de 3er año.
+    Hito de evaluación: Presentación y defensa oral del proyecto completo.
+  duration: 20 horas
+  weeks: 8
+  starting_week: 9
+  academic_level: Avanzado
+  prerequisites:
+    - Trayecto I (este curso)
+    - Procesamiento de Aprendizaje Automático (PAA)
+  units:
+    - unit-3
+    - unit-4
+    - unit-5
+  deliverables:
+    - name: "Bots conversacionales funcionales"
+      description: "Bot energético + Bot académico integrando datos y modelos anteriores"
+      week: 11
+      weight: 25
+    - name: "Modelos predictivos entrenados y validados"
+      description: "Predicción de consumo + Sistema de recomendación académica con métricas de evaluación"
+      week: 13
+      weight: 25
+    - name: "Dashboards interactivos"
+      description: "Visualizaciones con Plotly/Dash para ambos proyectos"
+      week: 15
+      weight: 25
+    - name: "Presentación y defensa oral"
+      description: "Exposición de 20-30 minutos + defensa ante tribunal evaluador"
+      week: 16
+      weight: 25
+  evaluation_criteria:
+    - Funcionabilidad de bots conversacionales
+    - Precisión y robustez de modelos predictivos
+    - Claridad y utilidad de visualizaciones
+    - Calidad de presentación oral
+    - Respuesta a preguntas de tribunal
+    - Originalidad y pensamiento crítico en conclusiones
+
+evaluation_strategy: |
+  **Estrategia General de Evaluación**
+
+  El proyecto se evalúa en dos fases acumulativas:
+
+  1. **Trayecto I (Semanas 1-8)**: Evaluación de procesamiento de datos e imágenes.
+     Entregas parciales, feedback formativo, posibilidad de mejora.
+
+  2. **Trayecto II (Semanas 9-16)**: Evaluación de modelos, bots y presentación final.
+     Presentación oral con defensa ante tribunal de docentes.
+
+  **Criterios de evaluación (según currículo oficial):**
+  - Originalidad del trabajo y creatividad en solución
+  - Lógica del planteo y coherencia metodológica
+  - Adecuación de metodología aplicada
+  - Calidad de elaboración con datos obtenidos
+  - Coherencia entre hipótesis, datos y conclusiones
+  - Documentación técnica y reportes aportados
+
+  **Evaluación colaborativa:**
+  Si bien el proyecto es grupal (equipo completo de carrera),
+  cada estudiante tiene contribuciones individuales documentadas
+  en el repositorio Git del proyecto (commits, cambios específicos, defensa individual).
+
+grading_rubric:
+  - criterion: "Originalidad y creatividad"
+    weight: 15
+    levels:
+      - score: 90-100
+        description: "Soluciones innovadoras, adaptaciones creativas del caso, pensamiento crítico evidente"
+      - score: 75-89
+        description: "Ejecución competente, algunas mejoras sobre lo propuesto, reflexión presente"
+      - score: 60-74
+        description: "Sigue estructura propuesta, pocas modificaciones, reflexión limitada"
+      - score: 0-59
+        description: "Copia o adaptación directa sin análisis, falta reflexión crítica"
+
+  - criterion: "Rigor metodológico"
+    weight: 20
+    levels:
+      - score: 90-100
+        description: "Metodología clara, justificada, validada; decisiones coherentes; manejo riguroso de datos"
+      - score: 75-89
+        description: "Metodología clara y coherente; algunas justificaciones presentes; datos bien manejados"
+      - score: 60-74
+        description: "Metodología presente pero parcialmente justificada; datos adecuados pero validación incompleta"
+      - score: 0-59
+        description: "Falta metodología clara o no justificada; manejo inconsistente de datos"
+
+  - criterion: "Calidad técnica"
+    weight: 30
+    levels:
+      - score: 90-100
+        description: "Código limpio, modularizado, sin errores graves; modelos bien entrenados y validados"
+      - score: 75-89
+        description: "Código funcional, algunos detalles de calidad; modelos entrenados correctamente"
+      - score: 60-74
+        description: "Código funcional pero con mejoras necesarias; modelos básicamente funcionales"
+      - score: 0-59
+        description: "Código con errores graves; modelos no funcionan o no validados adecuadamente"
+
+  - criterion: "Documentación y comunicación"
+    weight: 20
+    levels:
+      - score: 90-100
+        description: "Informe detallado, notebooks ejecutables claros, presentación oral fluida y convincente"
+      - score: 75-89
+        description: "Informe completo, notebooks claros, presentación oral competente"
+      - score: 60-74
+        description: "Informe presente pero incompleto, notebooks funcionales, presentación básica"
+      - score: 0-59
+        description: "Documentación insuficiente, presentación confusa o incompleta"
+
+  - criterion: "Trabajo en equipo y contribución individual"
+    weight: 15
+    levels:
+      - score: 90-100
+        description: "Colaboración clara, contribuciones documentadas, equidad en distribución; defensa individual sólida"
+      - score: 75-89
+        description: "Colaboración presente, contribuciones visibles, defensa individual adecuada"
+      - score: 60-74
+        description: "Colaboración pero no siempre clara, algunas contribuciones individuales; defensa básica"
+      - score: 0-59
+        description: "Trabajo individual poco evidente, defensa débil o incompleta"
