@@ -1,163 +1,170 @@
 trayectos:
-- id: trayecto-pp-1
-  title: "Trayecto I: Procesamiento de Datos e Imágenes (OCR)"
+- id: trayecto-pp-i
+  title: "Trayecto I: Definición y Planificación"
   description: |
     Primer trayecto acumulativo del proyecto integrador.
-    Carga: 24 horas (Unidades 1 y 2).
+    Carga: 32 horas (Unidades 1-4).
     Semanas 1-8 del 2do semestre de 3er año.
-    Hito de evaluación: Entrega de datos preprocesados y OCR de facturas validado.
-  duration: 24 horas
+    Énfasis: Canvas, SRS, Arquitectura, Planificación Agile.
+  duration: 32 horas
   weeks: 8
   starting_week: 1
   academic_level: Avanzado
   prerequisites:
     - Procesamiento de Aprendizaje Automático (PAA)
+    - Técnicas de Procesamiento Digital de Imágenes (3er año)
+    - Técnicas de Procesamiento del Habla (2do año)
   units:
-    - unit-1
-    - unit-2
+    - trayecto-i
   deliverables:
-    - name: "Dataset preprocesado y normalizado"
-      description: "Datos de sensores energéticos + métricas académicas, limpios y listos para modelado"
-      week: 4
-      weight: 30
-    - name: "OCR validado de facturas"
-      description: "Extracción exitosa de consumo, período y proveedor desde PDFs y fotos de facturas"
+    - name: "Canvas completo (Lean Canvas)"
+      description: "Problem, Solution, Key Metrics, Unfair Advantage, Channels, Revenue Streams, Cost Structure"
+      week: 3
+      weight: 15
+    - name: "SRS (Especificación de Requisitos)"
+      description: "5-10 Requisitos Funcionales, 3-5 No-Funcionales, criterios de aceptación, casos de uso"
+      week: 5
+      weight: 25
+    - name: "Arquitectura de alto nivel"
+      description: "Diagrama de componentes, decisiones tecnológicas, justificación de stack, referencia a spec"
+      week: 6
+      weight: 25
+    - name: "Product Backlog priorizado"
+      description: "20-30 user stories con story points, roadmap de 2 sprints"
       week: 8
-      weight: 30
-    - name: "Informe de preprocesamiento"
-      description: "Documentación de procesos, decisiones y validaciones realizadas"
-      week: 8
-      weight: 40
+      weight: 35
   evaluation_criteria:
-    - Completitud y calidad de limpieza de datos
-    - Precisión del OCR (tasa de extracción correcta)
-    - Justificación de decisiones de transformación
-    - Documentación técnica clara
+    - Claridad del problema y value proposition
+    - Completitud y rigor de SRS
+    - Coherencia arquitectónica con spec
+    - Planificación realista (story points, velocidad estimada)
+    - Documentación de decisiones
 
-- id: trayecto-pp-2
-  title: "Trayecto II: NLP, Modelos y Comunicación"
+- id: trayecto-pp-ii
+  title: "Trayecto II: Ejecución, Testing y Defensa"
   description: |
     Segundo trayecto acumulativo del proyecto integrador.
-    Carga: 20 horas (Unidades 3, 4 y 5).
+    Carga: 32 horas (Unidades 5-8).
     Semanas 9-16 del 2do semestre de 3er año.
-    Hito de evaluación: Presentación y defensa oral del proyecto completo.
-  duration: 20 horas
+    Énfasis: Sprints, Testing (Constraint Gauntlet), Documentación, Defensa oral.
+  duration: 32 horas
   weeks: 8
   starting_week: 9
   academic_level: Avanzado
   prerequisites:
     - Trayecto I (este curso)
-    - Procesamiento de Aprendizaje Automático (PAA)
+    - Prerequisitos de Trayecto I
   units:
-    - unit-3
-    - unit-4
-    - unit-5
+    - trayecto-ii
   deliverables:
-    - name: "Bots conversacionales funcionales"
-      description: "Bot energético + Bot académico integrando datos y modelos anteriores"
-      week: 11
-      weight: 25
-    - name: "Modelos predictivos entrenados y validados"
-      description: "Predicción de consumo + Sistema de recomendación académica con métricas de evaluación"
+    - name: "Código implementado (2 sprints)"
+      description: "Features funcionales en repositorio Git, commits atómicos, seguidor spec"
       week: 13
       weight: 25
-    - name: "Dashboards interactivos"
-      description: "Visualizaciones con Plotly/Dash para ambos proyectos"
+    - name: "Test suite y validación de requisitos"
+      description: "Tests unitarios >= 85% cobertura, tests integración, validación de cada FR/NFR"
+      week: 14
+      weight: 25
+    - name: "Informe Técnico Final"
+      description: "10-15 páginas: resumen, metodología, arquitectura, decisiones, resultados, lecciones aprendidas"
       week: 15
       weight: 25
-    - name: "Presentación y defensa oral"
-      description: "Exposición de 20-30 minutos + defensa ante tribunal evaluador"
+    - name: "Presentación y Defensa oral"
+      description: "20-30 min frente a partes interesadas, Q&A, demo en vivo"
       week: 16
       weight: 25
   evaluation_criteria:
-    - Funcionabilidad de bots conversacionales
-    - Precisión y robustez de modelos predictivos
-    - Claridad y utilidad de visualizaciones
-    - Calidad de presentación oral
-    - Respuesta a preguntas de tribunal
-    - Originalidad y pensamiento crítico en conclusiones
+    - Implementación de funcionalidades (FR operacionales)
+    - Cumplimiento de NFR (seguridad, performance, escalabilidad)
+    - Cobertura de tests y validación exhaustiva
+    - Claridad de comunicación (informe, presentación)
+    - Respuesta a preguntas y pensamiento crítico
+    - Integración de tecnologías (OCR, NLP, ML si aplica)
+    - Adhesión a spec (arquitectura, código limpio, tipo exhaustivo)
 
 evaluation_strategy: |
   **Estrategia General de Evaluación**
 
-  El proyecto se evalúa en dos fases acumulativas:
+  El proyecto se evalúa en 2 fases acumulativas con 3 notas parciales + 1 nota final:
 
-  1. **Trayecto I (Semanas 1-8)**: Evaluación de procesamiento de datos e imágenes.
-     Entregas parciales, feedback formativo, posibilidad de mejora.
+  1. **Parcial I (Semana 8, Trayecto I):** Entrega de Canvas + SRS + Arquitectura + Backlog
+     Peso: 25% de nota final
 
-  2. **Trayecto II (Semanas 9-16)**: Evaluación de modelos, bots y presentación final.
-     Presentación oral con defensa ante tribunal de docentes.
+  2. **Parcial II (Semana 12, Trayecto II):** Sprint reviews (funcionalidad demostrable) + Informe de progreso
+     Peso: 25% de nota final
 
-  **Criterios de evaluación (según currículo oficial):**
-  - Originalidad del trabajo y creatividad en solución
-  - Lógica del planteo y coherencia metodológica
-  - Adecuación de metodología aplicada
-  - Calidad de elaboración con datos obtenidos
-  - Coherencia entre hipótesis, datos y conclusiones
-  - Documentación técnica y reportes aportados
+  3. **Parcial III (Semana 15, Trayecto II):** Código + Testing + Documentación técnica
+     Peso: 25% de nota final
 
-  **Evaluación colaborativa:**
-  Si bien el proyecto es grupal (equipo completo de carrera),
-  cada estudiante tiene contribuciones individuales documentadas
-  en el repositorio Git del proyecto (commits, cambios específicos, defensa individual).
+  4. **Defensa Final (Semana 16, Trayecto II):** Presentación oral + Q&A frente a partes interesadas
+     Peso: 25% de nota final
+
+  **NOTA FINAL = (Parcial I + Parcial II + Parcial III + Defensa) / 4**
+
+  **Criterios transversales (en todos los parciales):**
+  - Rigor metodológico: ¿Siguen proceso (spec, SRS, test-driven)?
+  - Integración de tecnologías: ¿Usan OCR, NLP, ML coherentemente?
+  - Documentación: ¿Decisiones justificadas, código legible, specs claros?
+  - Trabajo en equipo: ¿Contribuciones individuales visibles en Git?
+  - Pensamiento crítico: ¿Reflexionan sobre alternativas y limitaciones?
 
 grading_rubric:
-  - criterion: "Originalidad y creatividad"
-    weight: 15
-    levels:
-      - score: 90-100
-        description: "Soluciones innovadoras, adaptaciones creativas del caso, pensamiento crítico evidente"
-      - score: 75-89
-        description: "Ejecución competente, algunas mejoras sobre lo propuesto, reflexión presente"
-      - score: 60-74
-        description: "Sigue estructura propuesta, pocas modificaciones, reflexión limitada"
-      - score: 0-59
-        description: "Copia o adaptación directa sin análisis, falta reflexión crítica"
-
-  - criterion: "Rigor metodológico"
+  - criterion: "Rigor Metodológico y Especificación"
     weight: 20
     levels:
       - score: 90-100
-        description: "Metodología clara, justificada, validada; decisiones coherentes; manejo riguroso de datos"
+        description: "SRS completo, Canvas detallado, decisiones justificadas, referencias a spec consistentes"
       - score: 75-89
-        description: "Metodología clara y coherente; algunas justificaciones presentes; datos bien manejados"
+        description: "SRS y Canvas presentes, decisiones mayormente justificadas, referencias a spec"
       - score: 60-74
-        description: "Metodología presente pero parcialmente justificada; datos adecuados pero validación incompleta"
+        description: "SRS y Canvas básicos, decisiones implícitas, poco detalle"
       - score: 0-59
-        description: "Falta metodología clara o no justificada; manejo inconsistente de datos"
+        description: "SRS incompleto, Canvas superficial, sin justificación"
 
-  - criterion: "Calidad técnica"
-    weight: 30
+  - criterion: "Implementación y Arquitectura (Clean Architecture, spec)"
+    weight: 25
     levels:
       - score: 90-100
-        description: "Código limpio, modularizado, sin errores graves; modelos bien entrenados y validados"
+        description: "Código limpio, tipado exhaustivo, 4 capas respetadas, tests > 85%, commits atómicos"
       - score: 75-89
-        description: "Código funcional, algunos detalles de calidad; modelos entrenados correctamente"
+        description: "Código funcional, mayormente tipado, capas presentes, tests > 70%, commits limpios"
       - score: 60-74
-        description: "Código funcional pero con mejoras necesarias; modelos básicamente funcionales"
+        description: "Código funcional, tipado parcial, capas básicas, tests > 50%"
       - score: 0-59
-        description: "Código con errores graves; modelos no funcionan o no validados adecuadamente"
+        description: "Código con problemas, sin tipos, capas violadas, tests < 50%"
 
-  - criterion: "Documentación y comunicación"
+  - criterion: "Integración de Tecnologías (OCR/NLP/ML)"
     weight: 20
     levels:
       - score: 90-100
-        description: "Informe detallado, notebooks ejecutables claros, presentación oral fluida y convincente"
+        description: "Decisiones técnicas coherentes, alternativas evaluadas, integración limpia, justificación clara"
       - score: 75-89
-        description: "Informe completo, notebooks claros, presentación oral competente"
+        description: "Decisiones técnicas sensatas, integración funcional, justificación presente"
       - score: 60-74
-        description: "Informe presente pero incompleto, notebooks funcionales, presentación básica"
+        description: "Decisiones básicas, integración presente pero sin optimizar"
       - score: 0-59
-        description: "Documentación insuficiente, presentación confusa o incompleta"
+        description: "Decisiones ad-hoc, integración frágil o inexistente"
 
-  - criterion: "Trabajo en equipo y contribución individual"
+  - criterion: "Documentación y Comunicación"
+    weight: 20
+    levels:
+      - score: 90-100
+        description: "Informe detallado, README claro, docstrings completos, presentación fluida y convincente"
+      - score: 75-89
+        description: "Informe completo, README adecuado, docstrings presentes, presentación competente"
+      - score: 60-74
+        description: "Informe presente, README básico, docstrings parciales, presentación aceptable"
+      - score: 0-59
+        description: "Documentación insuficiente, presentación confusa"
+
+  - criterion: "Pensamiento Crítico y Reflexión"
     weight: 15
     levels:
       - score: 90-100
-        description: "Colaboración clara, contribuciones documentadas, equidad en distribución; defensa individual sólida"
+        description: "Reflexión sobre alternativas, limitaciones reconocidas, mejoras identificadas, respuesta sólida a Q&A"
       - score: 75-89
-        description: "Colaboración presente, contribuciones visibles, defensa individual adecuada"
+        description: "Reflexión presente, algunas limitaciones reconocidas, respuesta adecuada a preguntas"
       - score: 60-74
-        description: "Colaboración pero no siempre clara, algunas contribuciones individuales; defensa básica"
+        description: "Reflexión básica, limitaciones mencionadas, respuestas superficiales"
       - score: 0-59
-        description: "Trabajo individual poco evidente, defensa débil o incompleta"
+        description: "Sin reflexión crítica, respuestas débiles o evasivas"
