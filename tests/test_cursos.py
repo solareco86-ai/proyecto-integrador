@@ -412,3 +412,26 @@ async def test_aprendizaje_automatico_unit3_cap1_lessons_rendered():
         assert r2.status_code == 200
         assert "POST /api/v1/version-space/step" in r2.text
         assert "VersionSpaceLearner" in r2.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit3_cap2_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 2.1 Algoritmo AQ y cobertura secuencial
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-algoritmo-aq-cobertura")
+        assert r1.status_code == 200
+        assert "Algoritmo AQ" in r1.text
+        assert "Separate-and-Conquer" in r1.text
+
+        # 2.2 FOIL
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-programacion-logica-inductiva-foil")
+        assert r2.status_code == 200
+        assert "FOIL" in r2.text
+        assert "cláusulas de Horn" in r2.text
+
+        # 2.3 Endpoint GET /rules
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-endpoint-rules-auditoria")
+        assert r3.status_code == 200
+        assert "GET /api/v1/rules" in r3.text
+        assert "ReglaOperativaDTO" in r3.text
