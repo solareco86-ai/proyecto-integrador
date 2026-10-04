@@ -23,18 +23,24 @@
             Inconveniente en el Servidor
         </h1>
         <p class="tw:text-sm tw:md:text-base tw:text-dm-text-muted tw:mt-3 tw:max-w-lg tw:mx-auto tw:leading-relaxed">
-            Estamos solucionando un problema técnico momentáneo. Si necesitás asistencia inmediata o coordinar un peritaje urgente en planta, escribinos directamente por WhatsApp.
+            Estamos solucionando un problema técnico momentáneo. Si necesitás asistencia inmediata o consultar sobre inscripciones, podés escribir a nuestro canal de secretaría.
         </p>
 
         <div class="tw:mt-8 tw:flex tw:flex-wrap tw:justify-center tw:gap-4">
-            <a class="tw:btn tw:btn-primary tw:text-sm tw:font-bold tw:flex tw:items-center tw:gap-2"
-               href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%20Agust%C3%ADn%2C%20ocurri%C3%B3%20un%20error%20en%20el%20sitio%20web%20y%20necesito%20contactarte."
-               target="_blank" rel="noopener noreferrer">
-                <i class="bi bi-whatsapp"></i> Hablar directo con Agustín Bustos
-            </a>
-            <a class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold tw:flex tw:items-center tw:gap-2" href="/">
+            <a class="tw:btn tw:btn-primary tw:text-sm tw:font-bold tw:flex tw:items-center tw:gap-2" href="/">
                 <i class="bi bi-arrow-clockwise"></i> Reintentar Inicio
             </a>
+            {% if config.WHATSAPP_ENABLED and config.WHATSAPP_PHONE %}
+            <a class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold tw:flex tw:items-center tw:gap-2"
+               href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%2C%20ocurri%C3%B3%20un%20error%20en%20el%20sitio%20web%20del%20ISFT%20N%C2%B0%20199."
+               target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
+            </a>
+            {% else %}
+            <a class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold tw:flex tw:items-center tw:gap-2" href="/contact">
+                <i class="bi bi-envelope"></i> Contactar a Secretaría
+            </a>
+            {% endif %}
         </div>
     </div>
 </section>

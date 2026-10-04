@@ -74,7 +74,9 @@
                 "name": "{{ seo_data.site_name }}",
                 "url": "{{ seo_data.canonical_url }}",
                 "logo": "{{ request.url_for('static', path='media/logo-isft199.webp') }}",
+                {% if config.WHATSAPP_ENABLED and config.WHATSAPP_PHONE %}
                 "telephone": "+{{ config.WHATSAPP_PHONE }}",
+                {% endif %}
                 "email": "{{ brand.contactEmail }}",
                 {% if brand.address %}
                 "address": {
@@ -178,7 +180,9 @@
                 "contactPoint": {
                     "@type": "ContactPoint",
                     "contactType": "Secretaría Académica e Informes de Ingreso",
+                    {% if config.WHATSAPP_ENABLED and config.WHATSAPP_PHONE %}
                     "telephone": "+{{ config.WHATSAPP_PHONE }}",
+                    {% endif %}
                     "email": "{{ brand.contactEmail }}",
                     "areaServed": "AR",
                     "availableLanguage": "Spanish"

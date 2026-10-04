@@ -58,7 +58,11 @@
                         {% if guias_hero.detail_sidebar_text %}
                         <p class="c-curso-card__description">{{ guias_hero.detail_sidebar_text }}</p>
                         {% endif %}
-                        <a href="https://wa.me/541156297160?text=Hola%20Agust%C3%ADn%2C%20estuve%20leyendo%20la%20gu%C3%ADa%20'{{ guia.title | urlencode }}'%20y%20quiero%20hacerte%20una%20consulta%20para%20mi%20planta." class="c-curso-card__cta" target="_blank" rel="noopener noreferrer">{{ guias_hero.detail_sidebar_cta }}</a>
+                        {% if config.WHATSAPP_ENABLED and config.WHATSAPP_PHONE %}
+                        <a href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%2C%20estuve%20leyendo%20la%20gu%C3%ADa%20'{{ guia.title | urlencode }}'%20del%20ISFT%20N%C2%B0%20199." class="c-curso-card__cta" target="_blank" rel="noopener noreferrer">{{ guias_hero.detail_sidebar_cta }}</a>
+                        {% else %}
+                        <a href="/contact" class="c-curso-card__cta">{{ guias_hero.detail_sidebar_cta }}</a>
+                        {% endif %}
                     </div>
                 </div>
             </aside>

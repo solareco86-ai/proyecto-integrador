@@ -49,11 +49,18 @@
             <a class="tw:btn tw:btn-primary tw:text-sm tw:font-bold tw:flex tw:items-center tw:gap-2" href="/">
                 <i class="bi bi-house-door-fill"></i> Volver al inicio
             </a>
+            {% if config.WHATSAPP_ENABLED and config.WHATSAPP_PHONE %}
             <a class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold tw:flex tw:items-center tw:gap-2"
-               href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%20Agust%C3%ADn%2C%20estaba%20navegando%20en%20el%20sitio%20web%20y%20no%20encontr%C3%A9%20lo%20que%20buscaba."
+               href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola%2C%20estaba%20navegando%20en%20el%20sitio%20web%20y%20no%20encontr%C3%A9%20lo%20que%20buscaba."
                target="_blank" rel="noopener noreferrer">
                 <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
             </a>
+            {% else %}
+            <a class="tw:btn tw:btn-outline tw:text-sm tw:font-semibold tw:flex tw:items-center tw:gap-2"
+               href="/contact">
+                <i class="bi bi-envelope"></i> Contactar a Secretaría
+            </a>
+            {% endif %}
         </div>
     </div>
 </section>

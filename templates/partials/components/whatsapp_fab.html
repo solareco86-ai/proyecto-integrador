@@ -1,5 +1,5 @@
 {% macro whatsapp_fab(phone, message) %}
-{% if phone %}
+{% if config.WHATSAPP_ENABLED and phone %}
 <a href="https://wa.me/{{ phone }}?text={{ message | urlencode }}"
    class="c-whatsapp-fab"
    target="_blank"

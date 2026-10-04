@@ -129,7 +129,7 @@
                         Preinscribirme a esta Carrera
                     </a>
 
-                    {% if config.WHATSAPP_PHONE %}
+                    {% if config.WHATSAPP_ENABLED and config.WHATSAPP_PHONE %}
                     <a href="https://wa.me/{{ config.WHATSAPP_PHONE }}?text=Hola!%20Quisiera%20consultar%20por%20la%20inscripci%C3%B3n%20a%20{{ carrera.title | urlencode }}"
                        target="_blank" rel="noopener noreferrer"
                        class="tw:btn-outline tw:w-full tw:text-center tw:flex tw:items-center tw:justify-center tw:gap-2 tw:text-xs">
