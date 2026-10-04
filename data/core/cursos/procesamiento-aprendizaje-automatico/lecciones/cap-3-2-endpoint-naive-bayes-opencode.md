@@ -221,3 +221,56 @@ Hemos completado la implementación de un **servicio web de inferencia bayesiana
 * Automatización de pruebas unitarias verificadas localmente.
 
 En el **Capítulo 4**, exploraremos el **Aprendizaje Basado en Instancias con el Algoritmo k-Nearest Neighbors (k-NN)**, analizando la normalización de distancias y el costo computacional de inferencia en memoria.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué es crítico que un endpoint de clasificación Bayes devuelva tanto la predicción como el nivel de confianza (probabilidad)?
+2. ¿Qué haría un revisor humano si ve un endpoint que devuelve un resultado FALLA sin incluir la probabilidad posterior?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE ESPECIFICACIÓN GENERADO POR IA:
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class TelemetriaSensor(BaseModel):
+    temperatura_c: float
+    voltaje_v: float
+
+class RespuestaClasificacion(BaseModel):
+    prediccion: str  # Solo predicción binaria
+
+@app.post("/classify/bayes", response_model=RespuestaClasificacion)
+async def classify_bayes(telemetria: TelemetriaSensor):
+    # IA generó esto sin confianza
+    probabilidad_falla = calcular_bayes(telemetria)
+    return {"prediccion": "FALLA" if probabilidad_falla > 0.5 else "NORMAL"}
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Falta de Confianza:** No devuelve la probabilidad posterior, solo la clase.
+2. **Falta de Trazabilidad:** Un operario no puede auditar por qué se tomó la decisión.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   class RespuestaClasificacion(BaseModel):
+       prediccion: str
+       probabilidad_falla: float  # Confianza [0.0, 1.0]
+       umbral_aplicado: float
+
+   @app.post("/classify/bayes", response_model=RespuestaClasificacion)
+   async def classify_bayes(telemetria: TelemetriaSensor):
+       prob = calcular_bayes(telemetria)
+       return {
+           "prediccion": "FALLA" if prob > 0.5 else "NORMAL",
+           "probabilidad_falla": prob,
+           "umbral_aplicado": 0.5
+       }
+   ```
+
+---

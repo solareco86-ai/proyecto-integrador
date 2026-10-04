@@ -208,3 +208,45 @@ Cuando un agente de IA como **AGY CLI** o **Aider** analiza este endpoint:
    > *"El sistema clasificará un evento como FALLA_CRITICA si y solo si la temperatura supera los 80 °C y la vibración RMS es superior a 3.5 mm/s. El modelo cumple las directrices de la norma IEEE C57.104."*
 
 Esto transforma un modelo opaco en un artefacto transparente, auditable y listo para operar en entornos de alta exigencia técnica.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué es importante que la exportación JSON de un árbol de decisión incluya la información de muestras en cada nodo, no solo la predicción?
+2. ¿Qué haría un auditor si ve un árbol exportado sin profundidad ni ganancia de información en cada split?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE ESPECIFICACIÓN GENERADO POR IA:
+def exportar_arbol_json(arbol):
+    # IA generó esto sin detalles de auditoría
+    return {
+        "prediccion": "FALLA",
+        "izquierda": {...},
+        "derecha": {...}
+    }  # ¡Sin muestras, sin ganancia, sin profundidad!
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Sin Información de Decisión:** No muestra cuántas muestras eligieron cada rama.
+2. **Sin Trazabilidad:** No incluye la ganancia de información en cada split.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   def exportar_arbol_json(nodo, profundidad=0):
+       return {
+           "profundidad": profundidad,
+           "prediccion": nodo.prediccion,
+           "muestras": nodo.n_samples,
+           "valor": nodo.value.tolist() if hasattr(nodo, 'value') else None,
+           "ganancia_gini": nodo.impurity,
+           "split_feature": nodo.feature,
+           "split_threshold": nodo.threshold,
+           "izquierda": exportar_arbol_json(nodo.children_left, profundidad + 1) if nodo.children_left else None,
+           "derecha": exportar_arbol_json(nodo.children_right, profundidad + 1) if nodo.children_right else None
+       }
+   ```
+
+---

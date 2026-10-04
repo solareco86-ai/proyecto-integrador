@@ -110,3 +110,47 @@ La automatización agéntica no reemplaza el criterio del profesional de softwar
 - Su rigor ético y metodológico para auditar y verificar que ningún sistema crítico opere sin supervisión.
 
 ¡Felicitaciones por completar el recorrido de Procesamiento y Aprendizaje Automático en el ISFT N° 199!
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué un agente IA debe "pensar en voz alta" (generar reasoning tokens) antes de invocar el endpoint `/version-space/step` para refinamiento interactivo?
+2. ¿Qué síntoma de alucinación de IA detectarías si un agente llama a `/rules` sin verificar primero cuál es el conjunto de reglas actual?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE ORQUESTACIÓN GENERADO POR IA:
+async def pipeline_agente():
+    # IA generó esto sin estado compartido
+    predicciones = []
+    async for respuesta in agente_predict(energía_datos):
+        predicciones.append(respuesta)
+
+    # El agente hace predicciones SIN refinar hipótesis
+    # No hay llamadas a /version-space/step ni /rules
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Sin Refinamiento Interactivo:** El agente no mejora su comprensión a lo largo del tiempo.
+2. **Sin Auditoría de Decisiones:** No registra las reglas que aplicó en cada paso.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   async def pipeline_agente_integrador():
+       # 1. Predicción inicial
+       resultado_bayes = await client.post("/classify/bayes", json=telemetria)
+
+       # 2. Refinamiento de hipótesis (Candidate-Elimination)
+       refinamiento = await client.post("/version-space/step", json=resultado_bayes)
+
+       # 3. Auditoría de reglas aplicadas
+       reglas_actuales = await client.get("/rules")
+
+       # 4. El agente "reflexiona" antes de la siguiente predicción
+       proxima_telemetria = generar_siguiente_ejemplo()
+       return await pipeline_agente_integrador()  # Recursión reflexiva
+   ```
+
+---

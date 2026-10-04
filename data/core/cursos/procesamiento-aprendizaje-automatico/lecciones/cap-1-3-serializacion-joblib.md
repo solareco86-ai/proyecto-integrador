@@ -220,3 +220,44 @@ Has completado la arquitectura base de inferencia en producción:
 3. Persistencia profesional de artefactos de Machine Learning con **`joblib`**, incluyendo metadatos de gobernanza para erradicar el *schema drift*.
 
 En el **Capítulo 2**, profundizaremos en los fundamentos teóricos del aprendizaje supervisado: **Deducción vs. Inducción**, partición rigurosa de datos (Train/Test) y prevención de fugas de información (*data leakage*) sobre telemetría de redes eléctricas.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Cuál es el riesgo de seguridad crítico si deserializas un archivo `.joblib` de una fuente no confiable?
+2. ¿Qué diferencia hay entre guardar un modelo con `joblib.dump()` versus `.pickle()` en cuanto a reproducibilidad entre versiones de Python?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE SEGURIDAD GENERADO POR IA:
+import joblib
+import os
+
+# IA generó esto, sin validar la ruta
+archivo_modelo = os.environ.get("MODELO_PATH", "/tmp/modelo.joblib")
+modelo = joblib.load(archivo_modelo)  # ¡Puede cargar código arbitrario!
+
+# Si un atacante controla MODELO_PATH, puede ejecutar código
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Vulnerabilidad de Desserialización:** `joblib.load()` puede ejecutar código Python arbitrario.
+2. **Falta de Validación de Rutas:** No verifica que la ruta sea confiable.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   import joblib
+   from pathlib import Path
+
+   # Rutas autorizadas solo del proyecto
+   RUTA_SEGURA = Path(__file__).parent / "modelos" / "knn_classifier.joblib"
+
+   if not RUTA_SEGURA.exists():
+       raise FileNotFoundError(f"Modelo no encontrado en {RUTA_SEGURA}")
+
+   modelo = joblib.load(RUTA_SEGURA)
+   ```
+
+---

@@ -197,3 +197,53 @@ pytest tests/test_lifespan.py -v
 Al migrar la carga del modelo al protocolo **`lifespan`**, transformamos un servicio lento e inestable en un **microservicio de inferencia de baja latencia (<2ms)** listo para procesar cientos de lecturas simultáneas por segundo en subestaciones eléctricas.
 
 En la siguiente lección, aprenderemos cómo congelar, comprimir y persistir nuestros modelos entrenados mediante **`joblib`**, asegurando trazabilidad y prevención de desajuste de esquemas (*schema drift*).
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué es peligroso cargar un modelo de Machine Learning cada vez que llega una petición HTTP en lugar de hacerlo una sola vez en el `lifespan`?
+2. ¿Qué síntoma de IA alucinadora detectarías si ven cargar el modelo dentro del endpoint sin contexto de ciclo de vida?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG GRAVE GENERADO POR IA:
+from fastapi import FastAPI
+from sklearn.joblib import load
+
+app = FastAPI()
+
+@app.post("/predict")
+async def predict(x: float):
+    # IA generó esto, cargando el modelo en CADA petición
+    modelo = load("modelos/knn_classifier.joblib")  # ¡LENTÍSIMO!
+    return {"prediccion": modelo.predict([[x]])[0]}
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Pérdida de Rendimiento:** Cargar 100 MB de modelo en cada petición es ineficiente (segundos de latencia).
+2. **Falta de Gestión de Ciclo de Vida:** No utiliza `lifespan` de FastAPI para precarga.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   from contextlib import asynccontextmanager
+   from sklearn.joblib import load
+
+   modelo = None
+
+   @asynccontextmanager
+   async def lifespan(app):
+       global modelo
+       modelo = load("modelos/knn_classifier.joblib")  # Una sola vez
+       yield
+       # Limpieza opcional
+
+   app = FastAPI(lifespan=lifespan)
+
+   @app.post("/predict")
+   async def predict(x: float):
+       return {"prediccion": modelo.predict([[x]])[0]}
+   ```
+
+---

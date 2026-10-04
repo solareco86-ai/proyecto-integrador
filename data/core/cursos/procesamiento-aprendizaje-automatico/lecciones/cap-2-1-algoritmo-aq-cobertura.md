@@ -106,3 +106,43 @@ Consideremos un conjunto de telemetría de transformadores en la subestación Ti
 | **Traducción Operativa** | Mapeo 1:1 a configuraciones de relés de protección y SCADA. | Requiere estructuras `if/elif/else` profundamente anidadas. |
 
 En la siguiente lección extenderemos este razonamiento desde datos tabulares hacia la **Programación Lógica Inductiva (FOIL)** para aprender sobre grafos y topologías de red eléctrica.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué el algoritmo AQ es superior a enumerar todas las reglas posibles manualmente para clasificación predictiva?
+2. ¿Qué indicador de IA alucinadora detectarías si ves código AQ que no intenta minimizar el número de condiciones por regla?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE ALGORITMO GENERADO POR IA:
+def algoritmo_aq(ejemplos_positivos, ejemplos_negativos):
+    reglas = []
+    # IA generó esto sin especialización selectiva
+    for ejemplo_pos in ejemplos_positivos:
+        regla = [f"{attr}={valor}" for attr, valor in ejemplo_pos.items()]
+        reglas.append(regla)  # ¡Cada regla es exacta, no generaliza!
+    return reglas  # Overfitting total
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Falta de Generalización:** Las reglas son memorización exacta, no cubren nuevos casos.
+2. **Falta de Especialización Selectiva:** No intenta remover condiciones innecesarias.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   def algoritmo_aq(ejemplos_positivos, ejemplos_negativos):
+       reglas = []
+       ejemplos_sin_cubrir = set(ejemplos_positivos)
+
+       while ejemplos_sin_cubrir:
+           regla = conjunto_maximal_de_condiciones(ejemplos_sin_cubrir, ejemplos_negativos)
+           reglas.append(regla)
+           ejemplos_sin_cubrir -= set(cubrir(regla, ejemplos_positivos))
+
+       return reglas
+   ```
+
+---

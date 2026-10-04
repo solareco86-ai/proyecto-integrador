@@ -219,3 +219,55 @@ Cuando un agente de IA en la sala de control (por ejemplo, **AGY CLI** ejecutand
    > *"Activando protocolo de alivio de carga en Tigre Centro: Se cumple la regla R-IND-01 (soporte: 412 casos históricos, confianza: 98.8%)."*
 
 Esta capacidad de auditoría elimina el problema de las predicciones inexplicables y sienta las bases para arquitecturas agénticas confiables en infraestructura crítica.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué es crítico que un endpoint de auditoría de reglas devuelva la métrica de "cobertura" (cuántos ejemplos cubre cada regla)?
+2. ¿Qué indicador de IA alucinadora verías si un endpoint no devuelve el orden de aplicación de las reglas?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE ESPECIFICACIÓN GENERADO POR IA:
+@app.get("/rules")
+async def get_rules():
+    # IA generó esto sin auditoría
+    return {
+        "reglas": [
+            "IF temperatura > 30 AND voltaje < 200 THEN falla",
+            "IF humedad > 80 THEN falla"
+        ]
+    }  # ¡Sin cobertura, confianza, ni orden!
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Sin Métricas de Cobertura:** No muestra cuántos casos cubre cada regla.
+2. **Sin Orden de Aplicación:** No especifica el precedence de reglas en caso de conflicto.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   @app.get("/rules")
+   async def get_rules():
+       return {
+           "reglas": [
+               {
+                   "condicion": "temperatura > 30 AND voltaje < 200",
+                   "clase": "falla",
+                   "cobertura": 45,  # casos cubiertos
+                   "confianza": 0.91,  # TP/(TP+FP)
+                   "orden": 1
+               },
+               {
+                   "condicion": "humedad > 80",
+                   "clase": "falla",
+                   "cobertura": 23,
+                   "confianza": 0.87,
+                   "orden": 2
+               }
+           ]
+       }
+   ```
+
+---

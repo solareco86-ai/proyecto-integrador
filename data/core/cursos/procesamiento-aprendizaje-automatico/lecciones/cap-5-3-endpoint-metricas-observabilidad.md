@@ -156,3 +156,52 @@ pytest tests/test_api_metrics.py -v
 5. **Capítulo 5:** Evaluación rigurosa sin trampas de exactitud (**Matriz de Confusión, Precisión, Recall, F1**), metodología **TDD** con **Aider / AGY CLI** y observabilidad continua con el endpoint `GET /api/v1/metrics`.
 
 En la **Unidad 3**, profundizaremos en la **Programación Lógica y Aprendizaje de Conceptos**, explorando algoritmos de inducción formal de reglas explicables (como el Espacio de Versiones y Candidate-Elimination) para auditar decisiones automatizadas.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué es crítico que el endpoint `/metrics` devuelva true positives, false positives, false negatives, true negatives en lugar de solo un número de "exactitud"?
+2. ¿Qué haría un SRE si ve un endpoint que no registra métricas de precisión/recall en tiempo real?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE OBSERVABILIDAD GENERADO POR IA:
+from fastapi import FastAPI
+from datetime import datetime
+
+app = FastAPI()
+
+@app.get("/metrics")
+async def get_metrics():
+    # IA generó esto: métricas resumidas sin granularidad
+    return {
+        "ultima_evaluacion": datetime.now().isoformat(),
+        "exactitud": 0.95,  # ¡Número único sin desglose!
+    }
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Falta de Matriz de Confusión:** No desagrega TP, FP, FN, TN.
+2. **Falta de Métricas por Clase:** No muestra precisión/recall separadamente.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   @app.get("/metrics")
+   async def get_metrics():
+       return {
+           "confusion_matrix": {
+               "true_positives": tp,
+               "false_positives": fp,
+               "false_negatives": fn,
+               "true_negatives": tn
+           },
+           "precision": precision,
+           "recall": recall,
+           "f1_score": f1,
+           "timestamp": datetime.now().isoformat()
+       }
+   ```
+
+---

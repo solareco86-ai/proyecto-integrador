@@ -123,3 +123,53 @@ El agente está ejecutando una inferencia lógica sobre cláusulas de Horn anál
 3. **Fundamento Neuro-Simbólico:** Comprender cláusulas de Horn y razonamiento relacional es el puente directo entre el Machine Learning tradicional y los agentes de software modernos.
 
 En la próxima lección expondremos estas reglas operativas a través de un servicio de auditoría en FastAPI (`GET /api/v1/rules`).
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué FOIL es especialmente útil para descubrir relaciones de primer orden que k-NN o árboles de decisión no pueden capturar?
+2. ¿Qué síntoma de alucinación de IA verías si un algoritmo FOIL no ordena las variables por ganancia de información?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE ALGORITMO GENERADO POR IA:
+def foil_step(ejemplos_positivos, ejemplos_negativos):
+    # IA generó esto sin minimizar falsos positivos
+    mejor_literal = None
+    for literal in generar_literales():
+        coberturas_pos = contar(ejemplos_positivos, literal)
+        # ¡Falta considerar los falsos positivos (negativos cubiertos)!
+        if coberturas_pos > mejor_literal[1]:
+            mejor_literal = (literal, coberturas_pos)
+    return mejor_literal
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Sin Ganancia de Información:** Solo cuenta positivos, ignora negativos cubiertos.
+2. **Riesgo de Overfitting:** La regla puede ser demasiado específica.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   import math
+
+   def foil_step(ejemplos_positivos, ejemplos_negativos):
+       mejor_literal = None
+       mejor_ganancia = -float('inf')
+
+       for literal in generar_literales():
+           pos_cubiertos = contar(ejemplos_positivos, literal)
+           neg_cubiertos = contar(ejemplos_negativos, literal)
+
+           if pos_cubiertos > 0 and neg_cubiertos > 0:
+               ganancia = pos_cubiertos * (math.log2(pos_cubiertos / (pos_cubiertos + neg_cubiertos)) -
+                                           math.log2(len(ejemplos_positivos) / (len(ejemplos_positivos) + len(ejemplos_negativos))))
+               if ganancia > mejor_ganancia:
+                   mejor_literal = (literal, pos_cubiertos, neg_cubiertos)
+                   mejor_ganancia = ganancia
+
+       return mejor_literal
+   ```
+
+---

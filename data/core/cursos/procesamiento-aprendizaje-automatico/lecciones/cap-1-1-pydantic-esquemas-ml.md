@@ -180,3 +180,47 @@ Cualquier sensor averiado o atacante malicioso que envíe un dato fuera de los r
 El modelado riguroso de características con **Pydantic** convierte a la API en el primer filtro de calidad del pipeline analítico.
 
 En la siguiente lección, resolveremos el desafío de la gestión de memoria en el servidor web: cómo cargar nuestro modelo de Machine Learning una sola vez durante el inicio mediante el protocolo **`lifespan`** de FastAPI.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Qué diferencia crítica existe entre un diccionario Python vacío (`{}`) y un esquema Pydantic al validar telemetría de sensores?
+2. ¿Cómo detectaría un revisor humano si un asistente de IA ha olvidado aplicar `field(gt=0)` para temperaturas que nunca pueden ser negativas?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG SUTIL GENERADO POR IA:
+from pydantic import BaseModel
+
+class TelemetriaSensor(BaseModel):
+    temperatura_c: float  # ¡Falta validación de rango!
+    humedad_pct: float
+    timestamp: str
+
+# IA generó esto, sin restricciones
+datos = {
+    "temperatura_c": -1000,  # ¡Valor físicamente imposible!
+    "humedad_pct": 150,       # ¡Porcentaje > 100%!
+    "timestamp": "2026-10-03T10:00:00"
+}
+sensor = TelemetriaSensor(**datos)  # Pasa sin error
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Falta de Validación de Rango:** `temperatura_c` debería tener `field(gt=-50, lt=60)` para sensores reales.
+2. **Falta de Anotación de Tipo:** `timestamp` debería ser `datetime`, no `str`.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   from pydantic import BaseModel, field_validator
+   from datetime import datetime
+
+   class TelemetriaSensor(BaseModel):
+       temperatura_c: float  # field(gt=-50, lt=60)
+       humedad_pct: float    # field(ge=0, le=100)
+       timestamp: datetime
+   ```
+
+---

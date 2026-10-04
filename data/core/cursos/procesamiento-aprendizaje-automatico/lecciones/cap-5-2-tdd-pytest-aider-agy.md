@@ -169,3 +169,42 @@ git commit -m "feat(evaluacion): implementar calcular_metricas_clasificacion med
 El flujo **TDD asistido por agentes** garantiza que la Inteligencia Artificial opere como una herramienta subordinada a tus especificaciones de calidad, garantizando cero código muerto y cobertura de pruebas total desde el minuto cero.
 
 En la lección final de la Unidad 2, integraremos este módulo analítico en un **endpoint de observabilidad `GET /api/v1/metrics`** en FastAPI.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué un test que pasa en el ciclo TDD pero falla en producción indica que faltó un test de integración?
+2. ¿Qué patrón de test generado por IA es señal de código "alucinado": tests que siempre pasan versus tests que pueden fallar?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE TESTING GENERADO POR IA:
+def test_modelo_knn():
+    # IA generó esto: un test que SIEMPRE pasa
+    modelo = KNNClassifier()
+    resultado = modelo.predict([[1, 2, 3]])
+    assert resultado is not None  # ¡Demasiado débil!
+
+    # Test más robusto faltaría:
+    # assert resultado == "NORMAL"  (clase esperada)
+    # assert 0 <= confianza <= 1    (rango de confianza)
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Asserción Débil:** `is not None` es demasiado permisivo.
+2. **Falta de Especificación:** No verifica el valor correcto, solo que exista.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   def test_modelo_knn():
+       modelo = KNNClassifier()
+       resultado, confianza = modelo.predict_with_confidence([[1, 2, 3]])
+
+       assert resultado in ["NORMAL", "FALLA"], "Clase inválida"
+       assert isinstance(confianza, float), "Confianza debe ser float"
+       assert 0.0 <= confianza <= 1.0, "Confianza fuera de rango"
+   ```
+
+---

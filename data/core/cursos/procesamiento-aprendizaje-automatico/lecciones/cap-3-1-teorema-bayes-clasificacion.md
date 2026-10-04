@@ -155,3 +155,48 @@ Observarás cómo el modelo no solo asigna la clase más probable, sino que entr
 El Teorema de Bayes transforma mediciones crudas de sensores en **probabilidades accionables de riesgo operacional**.
 
 En la siguiente lección, utilizaremos **OpenCode** para construir el endpoint `POST /api/v1/classify/bayes` en FastAPI, exponiendo las probabilidades calibradas en la API pública de `energy-ml`.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué el Teorema de Bayes es especialmente útil para diagnóstico predictivo de fallas en energy-ml, comparado con otros algoritmos?
+2. ¿Qué asunción oculta de Naive Bayes podría causar predicciones incorrectas si dos sensores de temperatura están altamente correlacionados?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG CONCEPTUAL GENERADO POR IA:
+import numpy as np
+
+# IA generó esto, sin normalizar probabilidades a priori
+def naive_bayes_predict(x, P_falla=0.01, P_normal=0.99):
+    P_x_dado_falla = 0.8
+    P_x_dado_normal = 0.1
+
+    # ¡Falta el denominador de Bayes!
+    P_falla_dado_x = P_x_dado_falla * P_falla  # Incompleto
+    P_normal_dado_x = P_x_dado_normal * P_normal
+
+    return "FALLA" if P_falla_dado_x > P_normal_dado_x else "NORMAL"
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Falta del Denominador en Bayes:** No divide por `P(x) = P(x|falla)*P(falla) + P(x|normal)*P(normal)`.
+2. **Comparación Incorrecta:** Sin normalizar, la comparación de probabilidades es inválida.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   def naive_bayes_predict(x, P_falla=0.01, P_normal=0.99):
+       P_x_dado_falla = 0.8
+       P_x_dado_normal = 0.1
+
+       # Aplicar Teorema de Bayes correctamente
+       denominador = P_x_dado_falla * P_falla + P_x_dado_normal * P_normal
+       P_falla_dado_x = (P_x_dado_falla * P_falla) / denominador
+       P_normal_dado_x = (P_x_dado_normal * P_normal) / denominador
+
+       return "FALLA" if P_falla_dado_x > P_normal_dado_x else "NORMAL"
+   ```
+
+---

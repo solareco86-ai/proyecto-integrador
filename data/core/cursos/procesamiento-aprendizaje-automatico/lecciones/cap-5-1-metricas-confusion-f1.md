@@ -137,3 +137,43 @@ Observarás cómo el reporte de clasificación desglosa con exactitud matemátic
 Comprender la **Matriz de Confusión**, la **Precisión** y el **Recall** es el fundamento para diseñar sistemas de Inteligencia Artificial responsables en infraestructuras críticas.
 
 En la siguiente lección, aplicaremos la metodología de **Desarrollo Guiado por Pruebas (TDD)** asistidos por **Aider** y **AGY CLI**, escribiendo primero los tests automatizados antes de codificar la lógica del servicio.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué un modelo que obtiene 95% de exactitud (accuracy) podría ser inútil para detectar fallas eléctricas raras en energy-ml?
+2. ¿Qué métrica es más importante: precisión o recall, si el costo de un falso negativo (no detectar falla) es 100 veces mayor que un falso positivo?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE EVALUACIÓN GENERADO POR IA:
+from sklearn.metrics import accuracy_score
+
+y_true = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]  # Dataset desbalanceado: 80% clase 0
+y_pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]  # Predictor siempre predice 0
+
+accuracy = accuracy_score(y_true, y_pred)
+print(f"Accuracy: {accuracy}")  # ¡80%! Pero el modelo es inútil para detectar fallas (clase 1)
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Métrica Engañosa:** Accuracy es inútil en datasets desbalanceados.
+2. **Falsos Negativos:** El modelo perdió ambas fallas (falsos negativos = 2).
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
+
+   y_true = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+   y_pred = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+   tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+   precision, recall, f1, _ = precision_recall_fscore_support(y_true, y_pred, average='binary')
+
+   print(f"Precision: {precision:.2f}  Recall: {recall:.2f}  F1: {f1:.2f}")
+   # Recall=0.0 ← Detecta 0 de 2 fallas
+   ```
+
+---

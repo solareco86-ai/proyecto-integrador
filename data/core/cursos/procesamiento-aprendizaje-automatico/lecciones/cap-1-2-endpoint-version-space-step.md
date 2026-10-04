@@ -293,3 +293,42 @@ def test_version_space_step_flujo_incremental():
 ```
 
 Con este endpoint operativo, cualquier agente de software o panel de ingeniería puede enviar trazas de fallas y auditar cómo se delimita matemáticamente la causa raíz del evento crítico.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué un endpoint que devuelve solo S sin mostrar G (frontera general) es incompleto para el aprendizaje interactivo de conceptos?
+2. ¿Qué información crítica se pierde si el endpoint no devuelve la "confianza" del espacio de versiones en cada paso?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE ESPECIFICACIÓN GENERADO POR IA:
+@app.post("/version-space/step")
+async def version_space_step(ejemplo: Ejemplo):
+    ce = CandidateElimination()
+    # IA generó esto sin rastrear el espacio
+    ce.update(ejemplo)
+    return {"nueva_hipotesis": str(ce.S)}  # ¡Falta G y tamaño del espacio!
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Falta de Frontera General (G):** No devuelve la hipótesis más general, solo la específica.
+2. **Sin Métricas de Convergencia:** No indica si el espacio está convergiendo.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   @app.post("/version-space/step")
+   async def version_space_step(ejemplo: Ejemplo):
+       ce = CandidateElimination()
+       ce.update(ejemplo)
+       return {
+           "S": [str(h) for h in ce.S],
+           "G": [str(h) for h in ce.G],
+           "tamaño_espacio": len(ce.S),
+           "convergencia": len(ce.S) == 1
+       }
+   ```
+
+---

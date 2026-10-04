@@ -188,3 +188,49 @@ Hemos completado el **Capítulo 4 de la Unidad 2**:
 * Verificamos la resiliencia del servicio mediante pruebas automatizadas locales.
 
 En el **Capítulo 5**, abordaremos el ciclo final de la Unidad 2: **Evaluación Rigurosa y TDD Asistido por Agentes (Aider y AGY CLI)**, aprendiendo a calcular matrices de confusión, precisión, recall y F1-Score sobre subestaciones de `energy-ml`.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué es crítico normalizar las características de entrada en el mismo espacio que el modelo k-NN fue entrenado?
+2. ¿Qué indicador de IA alucinadora verías si el endpoint no aplica el escalador (StandardScaler) antes de consultar el modelo?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE PREPROCESO GENERADO POR IA:
+from fastapi import FastAPI
+from sklearn.joblib import load
+
+app = FastAPI()
+modelo_knn = load("modelos/knn.joblib")
+
+@app.post("/classify/knn")
+async def classify_knn(temperatura: float, voltaje: float):
+    # IA generó esto sin escalar
+    prediccion = modelo_knn.predict([[temperatura, voltaje]])[0]
+    return {"clase": prediccion}
+
+    # ¡BUG! Falta aplicar el escalador (StandardScaler) que usó en training
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Falta de Escalado:** Si el modelo fue entrenado con datos normalizados, la predicción es inválida sin escalar.
+2. **Distancias Sesgadas:** Las características con mayor rango dominarán el cálculo de distancia.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   from sklearn.joblib import load
+
+   modelo_knn = load("modelos/knn.joblib")
+   escalador = load("modelos/escalador.joblib")  # Serializado durante training
+
+   @app.post("/classify/knn")
+   async def classify_knn(temperatura: float, voltaje: float):
+       datos_escalados = escalador.transform([[temperatura, voltaje]])
+       prediccion = modelo_knn.predict(datos_escalados)[0]
+       return {"clase": prediccion}
+   ```
+
+---

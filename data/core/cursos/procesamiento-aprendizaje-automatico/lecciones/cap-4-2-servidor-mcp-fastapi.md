@@ -234,3 +234,57 @@ Al iniciar una sesión de desarrollo:
 3. El agente recibe el JSON estructurado con el diagnóstico y responde al operador humano con el plan de acción sugerido.
 
 En la siguiente y última lección, abordaremos el **Taller Integrador Final**, donde se ensambla todo el pipeline de inferencia, observabilidad y orquestación con agentes.
+---
+
+## Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. ¿Por qué es crítico que un servidor MCP exponga el esquema exacto de argumentos que cada herramienta espera, en lugar de solo devolver descripciones en texto?
+2. ¿Qué indicador de IA alucinadora verías si un servidor MCP no implementa el handshake inicial de inicialización?
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente código generado por un asistente de IA:
+
+```python
+# CÓDIGO CON BUG DE PROTOCOLO GENERADO POR IA:
+@app.post("/mcp/call_tool")
+async def call_tool(tool_name: str, arguments: dict):
+    # IA generó esto sin validar argumentos
+    if tool_name == "predict":
+        return predictor.predict(arguments)
+    # ¡Sin schema validation, sin error handling de protocolo MCP!
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Sin Validación de Esquema:** No verifica que los argumentos cumplan el contrato MCP.
+2. **Sin Inicialización MCP:** No implementa `initialize`, `listTools`, etc.
+3. **Corrección Obligatoria en energy-ml:**
+   ```python
+   from mcp.server import Server
+
+   server = Server("energy-ml-mcp")
+
+   @server.list_tools()
+   async def list_tools():
+       return [
+           Tool(
+               name="predict",
+               description="Predice falla en base a telemetría",
+               inputSchema={
+                   "type": "object",
+                   "properties": {
+                       "temperatura_c": {"type": "number"},
+                       "voltaje_v": {"type": "number"}
+                   },
+                   "required": ["temperatura_c", "voltaje_v"]
+               }
+           )
+       ]
+
+   @server.call_tool()
+   async def call_tool(name: str, arguments: dict):
+       if name == "predict":
+           return predictor.predict(arguments["temperatura_c"], arguments["voltaje_v"])
+   ```
+
+---

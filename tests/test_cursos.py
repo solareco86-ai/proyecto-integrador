@@ -499,10 +499,31 @@ async def test_aprendizaje_automatico_unit3_cap4_lessons_rendered():
 @pytest.mark.parametrize(
     "slug",
     [
+        # Lecciones originales (Unidad 2)
         "paa-int-subtareas-del-aprendizaje",
         "paa-int-knn-distancias-normalizacion",
+        "paa-int-numpy-vectores-telemetria",
+        # Lecciones nuevas Unidad 2
+        "paa-int-pydantic-esquemas-ml",
+        "paa-int-fastapi-lifespan-modelos",
+        "paa-int-serializacion-joblib",
+        "paa-int-teorema-bayes-clasificacion",
+        "paa-int-endpoint-naive-bayes-opencode",
+        "paa-int-endpoint-knn-fastapi",
+        "paa-int-metricas-confusion-f1",
+        "paa-int-tdd-pytest-aider-agy",
+        "paa-int-endpoint-metricas-observabilidad",
+        # Lecciones originales (Unidad 3)
         "paa-ava-espacio-versiones-ce",
         "paa-ava-arboles-regresion-continuos",
+        # Lecciones nuevas Unidad 3
+        "paa-ava-endpoint-version-space-step",
+        "paa-ava-algoritmo-aq-cobertura",
+        "paa-ava-programacion-logica-inductiva-foil",
+        "paa-ava-endpoint-rules-auditoria",
+        "paa-ava-exportacion-arbol-json",
+        "paa-ava-servidor-mcp-fastapi",
+        "paa-ava-proyecto-integrador-agentes",
     ],
 )
 async def test_aprendizaje_automatico_lecciones_con_caza_de_alucinaciones(slug: str):
