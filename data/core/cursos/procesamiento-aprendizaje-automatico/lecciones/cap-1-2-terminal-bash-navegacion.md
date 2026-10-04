@@ -58,9 +58,9 @@ Para evitar errores manuales de tipeo y garantizar que todos comiencen desde el 
 
 ---
 
-## 4. Script Bash: `preparar_entorno.sh`
+## 4. Automatización del Entorno: Copiar y Pegar en la Consola
 
-Crea o guarda el siguiente archivo con el nombre `preparar_entorno.sh`:
+En lugar de crear o descargar un archivo manualmente, copiá el siguiente bloque completo (utilizando el botón **Copiar**) y pegalo directamente en tu terminal abierta (Git Bash, WSL o consola de Linux):
 
 ```bash
 #!/usr/bin/env bash
@@ -142,59 +142,43 @@ Curso: Procesamiento de Aprendizaje Automático — ISFT N° 199
 Entorno inicializado correctamente desde la consola Bash.
 EOF
 
-# 5. Reporte y verificación
+# 5. Posicionamiento en el directorio y verificación
+cd "$CARPETA_PROYECTO"
+
 echo ""
 echo "=========================================================="
 echo "✅ ¡Espacio de trabajo creado con éxito!"
 echo "=========================================================="
-echo "📍 Directorio del proyecto:"
-echo "   $CARPETA_PROYECTO"
+echo "📍 Te encuentras posicionado en:"
+echo "   $(pwd)"
 echo ""
 echo "📋 Contenido del directorio:"
-ls -la "$CARPETA_PROYECTO"
+ls -la
 echo ""
-
-# Si se ejecutó con 'source', navegamos automáticamente
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-    cd "$CARPETA_PROYECTO"
-    echo "📍 Te encuentras en: $(pwd)"
-else
-    echo "👉 Para posicionarte dentro del proyecto en tu terminal, ejecuta:"
-    echo "   cd \"$CARPETA_PROYECTO\""
-fi
 ```
 
 ---
 
-## 5. ¿Cómo ejecutar el script y por qué puede cerrarse la terminal?
+## 5. ¿Cómo ejecutar los comandos copiando y pegando en la terminal?
 
-Existen tres formas de interactuar con scripts en la consola y es fundamental entender la diferencia:
+Para inicializar tu espacio de trabajo no necesitas descargar archivos ni configurar permisos de ejecución:
 
-#### Opción A: Ejecución como subproceso (`bash preparar_entorno.sh`)
-```bash
-bash preparar_entorno.sh
-```
-* **Qué hace:** Abre un subproceso hijo de Bash, ejecuta todas las instrucciones y cuando finaliza, regresa el control a tu terminal principal.
-* Luego de ejecutarlo, te mueves al directorio con el comando sugerido en pantalla:
-  ```bash
-  cd ~/Desktop/aprendizaje-automatico
-  ```
+#### Opción Única: Copiar y pegar directamente en la consola interactiva
 
-#### Opción B: Ejecución en la sesión actual (`source preparar_entorno.sh`)
-```bash
-source preparar_entorno.sh
-```
-* **Qué hace:** Ejecuta las líneas directamente **dentro de tu terminal actual**. Al finalizar, el comando `cd` te dejará parado directamente dentro de `aprendizaje-automatico/`.
+1. **Abrí tu terminal:** Iniciá **Git Bash**, **WSL** o tu terminal de **GNU/Linux**.
+2. **Copiá el bloque:** Hacé clic en el botón superior derecho **Copiar** del bloque de código de la sección 4.
+3. **Pegá en la terminal:**
+   * En **Git Bash** o **WSL**: Presioná `Shift + Insert` o hacé clic derecho dentro de la ventana de la terminal y seleccioná *Pegar* (*Paste*).
+   * En **GNU/Linux Nativo**: Presioná `Ctrl + Shift + V`.
+4. **Presioná Enter** (en caso de que la última línea no se dispare sola).
+5. **Resultado automático:** Como las instrucciones se interpretan dentro de tu propia sesión interactiva de Bash, el comando `cd "$CARPETA_PROYECTO"` cambia tu directorio activo inmediatamente. Al terminar verás el mensaje de confirmación y ya estarás trabajando dentro de `aprendizaje-automatico`.
 
-#### ⚠️ ¿Por qué se cierra la terminal si haces doble clic desde el explorador?
-Si haces doble clic sobre el archivo `.sh` desde el explorador de Windows o Linux:
-1. El sistema operativo abre una ventana de terminal temporal exclusivamente para correr el script.
-2. El script corre en milisegundos y finaliza su tarea con éxito.
-3. Como el comando terminó, **el sistema cierra automáticamente la ventana**.
-4. **Regla de oro:** En desarrollo profesional, nunca se hace doble clic a los scripts. **Siempre se abre primero la terminal** (Git Bash, WSL o consola de Linux) y se ejecuta el script desde allí con comandos.
-
-#### ⚠️ La trampa de `set -e` en sesiones interactivas
-En versiones anteriores de scripts se solía incluir `set -e` (*exit on error*). Si ejecutas un script con `set -e` usando `source`, esa bandera queda grabada en tu terminal activa: **cualquier comando posterior que arroje un código distinto de cero (incluso presionar Tab o un `grep` sin resultados) cerrará inmediatamente toda tu sesión de terminal**. Por ello, el script actual omite `set -e` garantizando estabilidad.
+#### ⚠️ ¿Por qué nunca debemos guardar y hacer doble clic desde el explorador de archivos?
+Si guardaras estos comandos en un archivo `.sh` e intentaras ejecutarlo con doble clic desde el explorador de Windows o Linux:
+1. El sistema operativo abre una ventana de terminal efímera exclusivamente para procesar el script.
+2. Los comandos se ejecutan en pocos milisegundos y finalizan con éxito.
+3. Al terminar la última línea, **el sistema operativo destruye la ventana automáticamente**.
+4. **Regla de oro profesional:** En ingeniería de software y ciencia de datos, nunca ejecutamos tareas con doble clic. **Siempre abrimos primero la terminal** y pegamos o ejecutamos los comandos desde allí para mantener el control y la persistencia de nuestra sesión.
 
 ---
 
@@ -208,14 +192,14 @@ En versiones anteriores de scripts se solía incluir `set -e` (*exit on error*).
 6. **`xdg-user-dir DESKTOP`:** En Linux lee la configuración del estándar FreeDesktop (`~/.config/user-dirs.dirs`), resolviendo diferencias entre idiomas (`Desktop` vs. `Escritorio`).
 7. **`mkdir -p "$CARPETA_PROYECTO/..."`:** Crea directorios recursivamente y de forma idempotente (no falla si ya existen).
 8. **`cat << 'EOF' > ...` (*Here-Document*):** Redirección multilínea para escribir archivos sin encadenar comandos `echo`.
-9. **`[[ "${BASH_SOURCE[0]}" != "${0}" ]]`:** Técnica avanzada que detecta si el script fue llamado mediante `source` (en cuyo caso ejecuta el `cd` en la terminal actual) o como comando externo (en cuyo caso imprime la instrucción `cd`).
+9. **`cd "$CARPETA_PROYECTO"`:** Al pegarse y ejecutarse en tu shell activo, navega directamente a la carpeta del proyecto sin necesidad de abrir subprocesos secundarios.
 
 ---
 
 ## Checkpoint de Verificación
 
 Antes de avanzar a la clonación del repositorio de Git:
-- [ ] Tu terminal permanece abierta después de ejecutar `bash preparar_entorno.sh` o `source preparar_entorno.sh`.
-- [ ] Has verificado con `pwd` que estás dentro de `aprendizaje-automatico`.
+- [ ] Has pegado el bloque de comandos en tu terminal y la sesión permanece abierta.
+- [ ] Has verificado con `pwd` que estás posicionado dentro de `aprendizaje-automatico`.
 - [ ] El comando `ls -la` lista las carpetas `src`, `data`, `notebooks`, `config` y los archivos iniciales.
-- [ ] La carpeta es visible en tu Escritorio físico.
+- [ ] La carpeta `aprendizaje-automatico` es visible en tu Escritorio físico.
