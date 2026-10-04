@@ -20,6 +20,20 @@ og_image_height: 630
 instructor_id: agustin-bustos
 academic_only: false
 sections:
+- id: unit-0
+  title: 'Unidad 0: Diagnóstico de Correlatividades (Año 1)'
+  description: Autoevaluación interactiva de requisitos previos (álgebra lineal, probabilidad, programación Python) con rutas de recuperación. TOMA ESTA PRUEBA PRIMERO.
+  chapters:
+  - id: chap-paa-diag-0
+    title: "Cap 0: Autoevaluación de Correlatividades (Diagnóstico)"
+    description: "Verifica que dominas matrices, probabilidad condicional y Python básico. Sin estos, PAA será imposible. Rutas de recuperación disponibles."
+    items:
+    - type: lesson
+      id: les-paa-diag-0-1
+      slug: paa-diag-correlatividades-autoeval
+      title: "0.1 ¿Estás Listo para PAA? Diagnóstico de Requisitos Previos"
+      duration: 30 min
+      content_file: cap-0-0-diagnostico-correlatividades.md
 - id: unit-1
   title: 'Unidad 1: Fundamentos'
   description: Configuración del entorno de trabajo, navegación en consola Bash, gestión
@@ -197,6 +211,13 @@ sections:
       title: '5.4 Del if/else de Firmas Eléctricas a la Inferencia Basada en Datos (Machine Learning)'
       duration: 30 min
       content_file: cap-5-4-reglas-manuales-vs-datos.md
+    - type: lesson
+      id: les-paa-ini-5-5
+      slug: paa-ini-comparacion-modelos
+      title: '5.5 Comparación Crítica y Selección de Modelos — ¿Cuándo Usar Bayes, k-NN o CART?'
+      duration: 40 min
+      content_file: cap-5-5-comparacion-seleccion-modelos.md
+      case_study_reference: "energy-ml requiere decisión: ¿Bayes para probabilidades calibradas, CART para reglas explícitas, o k-NN para firmas geométricas? Esta lección enseña comparación empírica."
 - id: unit-2
   title: 'Unidad 2: Parte I - Inferencia Estadística, Modelado y MLOps'
   description: Puente activo con NumPy, APIs de inferencia robustas con Pydantic, algoritmos estadísticos (Bayes, k-NN) y evaluación TDD en energy-ml.
