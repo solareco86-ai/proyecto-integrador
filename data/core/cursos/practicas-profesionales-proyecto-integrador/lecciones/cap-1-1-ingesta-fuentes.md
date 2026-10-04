@@ -80,57 +80,168 @@ STU001,CIS-301,assignment_submit,2026-10-01 09:30:00,85,45
 - Dificultades reportadas
 - Datos de clima institucional
 
-### 3. Conexión a fuentes mediante Python
+### 3. Patrones de Ingesta (Clean Architecture)
 
-#### Lectura desde CSV
+Según [spec/backend/srs-spec](https://github.com/datamaq-automation/spec/blob/main/backend/srs-spec-backend-fastapi.md), **la ingesta de datos es responsabilidad de la capa Infrastructure**. No debe haber conexiones directas desde `application/` o `domain/`.
 
-```python
-import pandas as pd
-
-# Cargar datos de sensores
-sensores_df = pd.read_csv('data/raw/sensores_energia_2026.csv', parse_dates=['timestamp'])
-print(sensores_df.head())
-print(sensores_df.info())
+**Arquitectura recomendada:**
+```
+src/
+├── domain/           (entidades, value objects, sin dependencias externas)
+├── application/      (servicios, DTOs, mappers - nunca acceso directo a BD)
+├── adapters/         (presenters, repositorio abstracto)
+└── infrastructure/   (implementación de repositorio, inicialización de FastAPI)
+    ├── db/
+    │   ├── connection.py      (SQLAlchemy engine)
+    │   └── repositories.py    (hereda de adapter.repositories.BaseRepository)
+    ├── integrations/
+    │   ├── mqtt_client.py     (sensores energéticos en vivo)
+    │   ├── api_client.py      (consultas REST a servicios externos)
+    │   └── pdf_extractor.py   (OCR de facturas)
+    └── config.py
 ```
 
-#### Conexión a base de datos SQL
+### 3.1 Lectura desde CSV (datos históricos)
 
 ```python
+# src/infrastructure/integrations/csv_loader.py
+from pathlib import Path
 import pandas as pd
-from sqlalchemy import create_engine
+from typing import Tuple
 
-# Configurar conexión (usuario, contraseña, host, base de datos)
-engine = create_engine('mysql+pymysql://usuario:contraseña@localhost/isft_lms')
-
-# Consultar datos académicos
-query = "SELECT * FROM student_events WHERE course_id = 'CIS-301' LIMIT 1000"
-eventos_df = pd.read_sql(query, engine)
+class CSVDataLoader:
+    """Carga datos históricos desde archivos CSV"""
+    
+    @staticmethod
+    def load_energy_sensors(filepath: str) -> pd.DataFrame:
+        """Carga telemetría energética con validación de tipos"""
+        df = pd.read_csv(filepath, parse_dates=['timestamp'])
+        # Validar tipos según dominio (ver src/domain/energetica/value_objects.py)
+        assert df['power_kw'].dtype == 'float64'
+        assert df['timestamp'].dtype == 'datetime64[ns]'
+        return df
+    
+    @staticmethod
+    def load_academic_events(filepath: str) -> pd.DataFrame:
+        """Carga logs de LMS"""
+        df = pd.read_csv(filepath, parse_dates=['event_timestamp'])
+        return df
 ```
 
-#### Lectura desde API REST
+### 3.2 Conexión a Base de Datos SQL (Clean Architecture)
 
 ```python
-import requests
-import pandas as pd
+# src/infrastructure/db/connection.py
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
+from src.infrastructure.config import Settings
 
-# API de sensores energéticos (ejemplo hipotético)
-response = requests.get('https://api.energia.local/v1/sensores?facility=001&period=2026-10')
-datos = response.json()
-
-# Convertir a DataFrame
-sensores_df = pd.DataFrame(datos['records'])
+class DatabaseConnection:
+    def __init__(self, settings: Settings):
+        self.engine = create_async_engine(
+            f"mysql+aiomysql://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}/{settings.DB_NAME}",
+            echo=False  # Loguear queries en desarrollo: echo=settings.DEBUG
+        )
+        self.SessionLocal = sessionmaker(self.engine, class_=AsyncSession, expire_on_commit=False)
+    
+    async def get_session(self) -> AsyncSession:
+        async with self.SessionLocal() as session:
+            yield session
 ```
 
-#### Lectura desde PDFs (facturas)
+**Inyección en FastAPI (sin hardcodeo):**
+```python
+# src/infrastructure/fastapi/routes/academic_events.py
+from fastapi import APIRouter, Depends
+from src.application.services.academic_service import AcademicService
+from src.infrastructure.db.connection import DatabaseConnection
+
+router = APIRouter()
+
+@router.get("/events/{student_id}")
+async def get_student_events(
+    student_id: str,
+    service: AcademicService = Depends(AcademicService)
+):
+    """Obtiene eventos de un estudiante desde DB"""
+    return await service.fetch_events(student_id)
+```
+
+### 3.3 Lectura desde API REST
 
 ```python
+# src/infrastructure/integrations/api_client.py
+import httpx
+from typing import AsyncGenerator
+import logging
+
+logger = logging.getLogger(__name__)
+
+class EnergyAPIClient:
+    """Cliente REST para API de sensores (implementa patrón Repository)"""
+    
+    def __init__(self, base_url: str, api_key: str):
+        self.base_url = base_url
+        self.api_key = api_key
+    
+    async def fetch_telemetry(self, facility_id: str, period: str) -> list[dict]:
+        """
+        Obtiene telemetría de sensores energéticos
+        Args:
+            facility_id: ID de instalación (ej: 'ISFT-001')
+            period: Período ISO 8601 (ej: '2026-10')
+        Returns:
+            Lista de registros con timestamp, power_kw, voltage_v, etc.
+        """
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get(
+                    f"{self.base_url}/v1/sensores",
+                    params={"facility": facility_id, "period": period},
+                    headers={"Authorization": f"Bearer {self.api_key}"},
+                    timeout=10.0
+                )
+                response.raise_for_status()
+                return response.json()['records']
+            except httpx.HTTPError as e:
+                logger.error(f"Error fetching telemetry: {e}")
+                raise  # Propagar; la capa application maneja el error
+```
+
+### 3.4 Lectura desde PDFs (OCR de facturas)
+
+```python
+# src/infrastructure/integrations/pdf_extractor.py
 import pdfplumber
+from pathlib import Path
+from dataclasses import dataclass
 
-# Abrir PDF de factura
-with pdfplumber.open('data/raw/facturas/factura_octubre_2026.pdf') as pdf:
-    tabla = pdf.pages[0].extract_table()
-    print(tabla)
-    # Posterior: parsear datos de consumo, período, monto
+@dataclass
+class InvoiceData:
+    """Value object de datos extraídos de factura"""
+    periodo_inicio: str  # ISO 8601
+    periodo_fin: str
+    consumo_kwh: float
+    distribuidor: str  # EDENOR, EDESUR, etc.
+    monto_total: float
+
+class BillExtractor:
+    """Extrae datos estructurados de facturas de electricidad"""
+    
+    @staticmethod
+    def extract_from_pdf(filepath: str) -> InvoiceData:
+        """Extrae consumo, período y distribuidor de PDF"""
+        with pdfplumber.open(filepath) as pdf:
+            tabla = pdf.pages[0].extract_table()
+            # Parsear según formato de distribuidor
+            # (EDENOR vs EDESUR tienen formatos diferentes)
+            return BillExtractor._parse_table(tabla)
+    
+    @staticmethod
+    def _parse_table(tabla: list) -> InvoiceData:
+        # Lógica de parsing específica por distribuidor
+        # Ver Cap 2.2 (OCR) para detalles
+        pass
 ```
 
 ### 4. Validación inicial de fuentes
