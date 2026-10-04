@@ -1,15 +1,15 @@
-# Guía de Laboratorio — Lección 4.3: Endpoint POST /api/v1/predict/consumo con Esquemas Pydantic Asistido por OpenCode
+# Guía de Laboratorio — Lección 5.3: Endpoint POST /api/v1/predict/consumo con Esquemas Pydantic Asistido por OpenCode
 
 **Asignatura:** Nivel 0 — Procesamiento y Aprendizaje Automático Inicial  
-**Capítulo 4:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
+**Capítulo 5:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
 **Carga horaria estimada:** 25 min  
-**Prerrequisitos:** Haber completado la Lección 4.2 (Servidor FastAPI y Swagger UI).
+**Prerrequisitos:** Haber completado la Lección 5.2 (Servidor FastAPI y Swagger UI).
 
 ---
 
 ## 1. El Peligro de los Datos Corruptos en Inferencia
 
-En el laboratorio de la Lección 4.1 aprendimos que las peticiones `POST` transportan un cuerpo JSON. Sin embargo, en el mundo real de la telemetría eléctrica industrial, los sensores IoT y medidores inteligentes pueden fallar:
+En el laboratorio de la Lección 5.1 aprendimos que las peticiones `POST` transportan un cuerpo JSON. Sin embargo, en el mundo real de la telemetría eléctrica industrial, los sensores IoT y medidores inteligentes pueden fallar:
 * Un sensor dañado puede enviar un voltaje negativo (`-220V`), lo cual es físicamente imposible.
 * Un microcontrolador descalibrado puede enviar un texto alfanumérico (`"error_crc"`) en un campo numérico.
 * Una fase eléctrica puede recibir una letra incorrecta (`"Z"` en lugar de `"R"`, `"S"` o `"T"`).

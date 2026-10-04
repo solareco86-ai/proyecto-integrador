@@ -1,9 +1,9 @@
-# Guía de Laboratorio — Lección 4.1: Protocolo HTTP, Métodos GET/POST y JSON como Contrato de Datos en energy-ml
+# Guía de Laboratorio — Lección 5.1: Protocolo HTTP, Métodos GET/POST y JSON como Contrato de Datos en energy-ml
 
 **Asignatura:** Nivel 0 — Procesamiento y Aprendizaje Automático Inicial  
-**Capítulo 4:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
+**Capítulo 5:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
 **Carga horaria estimada:** 25 min  
-**Prerrequisitos:** Haber completado los Capítulos 1, 2 y 3 (Entorno Bash, Git sobre `energy-ml` y Cuarteto de IA Agéntica).
+**Prerrequisitos:** Haber completado los Capítulos 1 al 4 (Terminal Bash, Git sobre `energy-ml`, Asistentes Estudiantiles y Ecosistema Avanzado de IA Agéntica).
 
 ---
 
@@ -131,7 +131,7 @@ Cuando un cliente envía una petición a nuestra API en `energy-ml`, el servidor
 * **Familia 4xx (Error del Cliente):**
   * `400 Bad Request`: La petición tiene una sintaxis JSON inválida o parámetros corruptos.
   * `404 Not Found`: El endpoint o sensor solicitado no existe.
-  * `422 Unprocessable Entity`: El JSON es sintácticamente válido pero no cumple las reglas de validación de tipos (por ejemplo, enviar un texto `"mucho"` en lugar de un número `220.0` para el voltaje).
+  * `422 Unprocessable Entity`: El JSON es sintácticamente válido pero no cumple las reglas de validación de tipos.
 * **Familia 5xx (Error del Servidor):**
   * `500 Internal Server Error`: Ocurrió una excepción no controlada en el código Python del backend.
 

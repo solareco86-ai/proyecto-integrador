@@ -1,9 +1,9 @@
-# Guía de Laboratorio — Lección 4.2: Servidor FastAPI con Uvicorn: Estructura Modular y Documentación Swagger UI
+# Guía de Laboratorio — Lección 5.2: Servidor FastAPI con Uvicorn: Estructura Modular y Documentación Swagger UI
 
 **Asignatura:** Nivel 0 — Procesamiento y Aprendizaje Automático Inicial  
-**Capítulo 4:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
+**Capítulo 5:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
 **Carga horaria estimada:** 25 min  
-**Prerrequisitos:** Haber completado la Lección 4.1 (Protocolo HTTP y JSON).
+**Prerrequisitos:** Haber completado la Lección 5.1 (Protocolo HTTP y JSON).
 
 ---
 
@@ -95,7 +95,7 @@ uvicorn src.api.main:app --reload --host 127.0.0.1 --port 8000
 
 ### Explicación de los Parámetros:
 * `src.api.main:app`: Indica el archivo (`src/api/main.py`) y la variable (`app`) que contiene la instancia de FastAPI.
-* `--reload`: Activa la recarga en caliente (*hot reload*). Si modificas y guardas el código de cualquier archivo `.py`, el servidor se reiniciará automáticamente sin tener que detenerlo manualmente.
+* `--reload`: Activa la recarga en caliente (*hot reload*). Si modificas y guardas el código de cualquier archivo `.py`, el servidor se reiniciará automáticamente.
 * `--port 8000`: Puerto de red local en el que escuchará peticiones.
 
 ---

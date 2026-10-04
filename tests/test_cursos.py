@@ -96,48 +96,72 @@ async def test_aprendizaje_automatico_github_cli_lesson_rendered():
 
 
 @pytest.mark.asyncio
-async def test_aprendizaje_automatico_cap3_cuarteto_lessons_rendered():
+async def test_aprendizaje_automatico_cap3_estudiantes_lessons_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         # 3.1 Modelos de Costo
         r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-modelos-costos-suscripcion-vs-api")
         assert r1.status_code == 200
         assert "3.1 Economía de la IA Agéntica" in r1.text
-        assert "DeepSeek" in r1.text
 
-        # 3.2 OpenCode
-        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-opencode-agente-opensource")
+        # 3.2 OpenCode Proveedores
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-opencode-instalacion-proveedores")
         assert r2.status_code == 200
         assert "3.2 OpenCode" in r2.text
-        assert "Open Source" in r2.text
+        assert "Proveedores Gratuitos" in r2.text
 
-        # 3.3 Antigravity CLI
-        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-antigravity-cli-setup-navegador")
+        # 3.3 OpenCode Laboratorio
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-opencode-laboratorio-energy-ml")
         assert r3.status_code == 200
-        assert "3.3 Antigravity CLI" in r3.text
-        assert "5 USD" in r3.text
-        assert "/browser" in r3.text
+        assert "3.3 Taller Práctico con OpenCode" in r3.text
+        assert "energy-ml" in r3.text
 
-        # 3.4 Claude Code
-        r4 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-claude-code-entorno-corporativo")
+        # 3.4 Antigravity CLI Setup
+        r4 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-antigravity-cli-setup-estudiantes")
         assert r4.status_code == 200
-        assert "3.4 Claude Code" in r4.text
-        assert "corporativo" in r4.text
+        assert "3.4 Antigravity CLI" in r4.text
+        assert "5 USD" in r4.text
 
-        # 3.5 Aider
+        # 3.5 Antigravity CLI Navegador
         r5 = await ac.get(
-            "/cursos/procesamiento-aprendizaje-automatico/paa-ini-aider-deepseek-api-arquitectura-interna"
+            "/cursos/procesamiento-aprendizaje-automatico/paa-ini-antigravity-cli-navegador-pair-programming"
         )
         assert r5.status_code == 200
-        assert "3.5 Aider con DeepSeek API" in r5.text
-        assert "2 USD" in r5.text
+        assert "3.5 AGY CLI en Acción" in r5.text
+        assert "/browser" in r5.text
 
-        # 3.6 Arneses (Codex, Kimi, DPH)
-        r6 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-arneses-ia-codex-kimi-dph")
-        assert r6.status_code == 200
-        assert "3.6 Ecosistema de Arneses de IA Agéntica" in r6.text
-        assert "Kimi Code" in r6.text
-        assert "DPH" in r6.text
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_cap4_avanzado_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 4.1 Claude Code
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-claude-code-entorno-corporativo")
+        assert r1.status_code == 200
+        assert "4.1 Claude Code" in r1.text
+        assert "corporativo" in r1.text
+
+        # 4.2 Aider Repomap
+        r2 = await ac.get(
+            "/cursos/procesamiento-aprendizaje-automatico/paa-ini-aider-deepseek-api-arquitectura-interna"
+        )
+        assert r2.status_code == 200
+        assert "4.2 Aider con DeepSeek API" in r2.text
+        assert "Repomap" in r2.text
+
+        # 4.3 Aider Optimización y Descuento Horario
+        r3 = await ac.get(
+            "/cursos/procesamiento-aprendizaje-automatico/paa-ini-aider-optimizacion-costos-descuento-horario"
+        )
+        assert r3.status_code == 200
+        assert "4.3 Optimización y Cautela Financiera en Aider" in r3.text
+        assert "2 USD" in r3.text
+
+        # 4.4 Arneses (Codex, Kimi, DPH)
+        r4 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-arneses-ia-codex-kimi-dph")
+        assert r4.status_code == 200
+        assert "4.4 Panorama de Arneses de IA Agéntica" in r4.text
+        assert "DPH" in r4.text
 
 
 @pytest.mark.asyncio
@@ -248,29 +272,29 @@ async def test_cursos_pages_do_not_render_footer():
 
 
 @pytest.mark.asyncio
-async def test_aprendizaje_automatico_cap4_fastapi_lessons_rendered():
+async def test_aprendizaje_automatico_cap5_fastapi_lessons_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        # 4.1 Fundamentos HTTP y JSON
+        # 5.1 Fundamentos HTTP y JSON
         r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-fundamentos-http-json")
         assert r1.status_code == 200
-        assert "4.1 Protocolo HTTP" in r1.text
+        assert "5.1 Protocolo HTTP" in r1.text
         assert "energy-ml" in r1.text
 
-        # 4.2 Primer servidor FastAPI
+        # 5.2 Primer servidor FastAPI
         r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-primer-servidor-fastapi")
         assert r2.status_code == 200
-        assert "4.2 Servidor FastAPI" in r2.text
+        assert "5.2 Servidor FastAPI" in r2.text
         assert "Swagger UI" in r2.text
 
-        # 4.3 Endpoint con Pydantic y OpenCode
+        # 5.3 Endpoint con Pydantic y OpenCode
         r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-endpoint-calculo-opencode")
         assert r3.status_code == 200
-        assert "4.3 Endpoint POST" in r3.text
+        assert "5.3 Endpoint POST" in r3.text
         assert "Pydantic" in r3.text
 
-        # 4.4 De if/else a Machine Learning
+        # 5.4 De if/else a Machine Learning
         r4 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-reglas-manuales-vs-datos")
         assert r4.status_code == 200
-        assert "4.4 Del if/else de Firmas Eléctricas" in r4.text
+        assert "5.4 Del if/else de Firmas Eléctricas" in r4.text
         assert "Machine Learning" in r4.text

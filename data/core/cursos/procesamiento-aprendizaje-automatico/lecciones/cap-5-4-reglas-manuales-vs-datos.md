@@ -1,15 +1,15 @@
-# Guía de Laboratorio — Lección 4.4: Del if/else de Firmas Eléctricas a la Inferencia Basada en Datos (Machine Learning)
+# Guía de Laboratorio — Lección 5.4: Del if/else de Firmas Eléctricas a la Inferencia Basada en Datos (Machine Learning)
 
 **Asignatura:** Nivel 0 — Procesamiento y Aprendizaje Automático Inicial  
-**Capítulo 4:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
+**Capítulo 5:** De Script de Consola a Servicio Web con FastAPI sobre `energy-ml`  
 **Carga horaria estimada:** 30 min  
-**Prerrequisitos:** Haber completado las Lecciones 4.1 a 4.3.
+**Prerrequisitos:** Haber completado las Lecciones 5.1 a 5.3.
 
 ---
 
 ## 1. El Límite Insuperable de las Reglas Rígidas (if/else)
 
-En la Lección 4.3 clasificamos el nivel de demanda eléctrica mediante una regla manual sencilla:
+En la Lección 5.3 clasificamos el nivel de demanda eléctrica mediante una regla manual sencilla:
 ```python
 if potencia_activa_w > 5000.0:
     nivel = "critica"
@@ -206,7 +206,8 @@ pytest tests/test_api.py -v
 ¡Felicitaciones! Has completado el ciclo fundacional completo de la carrera técnica:
 1. **Capítulo 1:** Dominio de la **Terminal Bash**, rutas relativas/absolutas y aislamiento en **entornos virtuales (`venv`)**.
 2. **Capítulo 2:** Higiene y trazabilidad con **Git y GitHub CLI (`gh`)** sobre el repositorio real `energy-ml`.
-3. **Capítulo 3:** Pair programming estratégico con el **Cuarteto de IA Agéntica** (OpenCode, Antigravity CLI con navegador, Claude Code y Aider con DeepSeek).
-4. **Capítulo 4:** Transformación de scripts analíticos en un **Servicio Web REST de Inferencia con FastAPI**, contratos de datos en **JSON**, validación rigurosa con **Pydantic** y el salto conceptual hacia el **Machine Learning**.
+3. **Capítulo 3:** Asistentes estudiantiles accesibles: **OpenCode** (libre sin tarjeta) y **Antigravity CLI** (plan estudiante 5 USD y navegación web).
+4. **Capítulo 4:** Ecosistema avanzado: **Claude Code** corporativo, **Aider con DeepSeek API** (repomap, AST y horario valle) y **Arneses Autónomos** (Codex, Kimi y DPH).
+5. **Capítulo 5:** Transformación de scripts analíticos en un **Servicio Web REST de Inferencia con FastAPI**, contratos de datos en **JSON**, validación rigurosa con **Pydantic** y el salto conceptual hacia el **Machine Learning**.
 
 En la **Unidad 2**, profundizaremos en el entrenamiento formal de modelos matemáticos avanzados, curvas de aprendizaje, hiperparámetros y serialización con `joblib` para llevar la inteligencia artificial a escala productiva.
