@@ -113,5 +113,5 @@ El instituto ofrece 6 tecnicaturas superiores con títulos oficiales de validez 
 3. **Canales Oficiales:**
    - Sitio Web Oficial: `https://isftn199.com.ar`
    - Correo Institucional: `isft199@abc.gob.ar`
-   - Teléfono / WhatsApp de Secretaría: `+54 11 5629 7160`
+   - Teléfono / WhatsApp de Secretaría: Próximamente (canal institucional en trámite)
 

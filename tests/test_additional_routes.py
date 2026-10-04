@@ -388,3 +388,24 @@ async def test_sitemap_excludes_hidden_monitoreo():
 
     assert response.status_code == 200
     assert "https://datamaq.com.ar/monitoreo" not in response.text
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_whatsapp_fab_widget_disabled_by_default(monkeypatch: pytest.MonkeyPatch):
+    transport = ASGITransport(app=app)
+    target_url = "/cursos/procesamiento-aprendizaje-automatico/paa-ini-debate-terminal-o-agentes-ia"
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get(target_url)
+
+    assert response.status_code == 200
+    assert "c-whatsapp-fab" not in response.text
+
+    # Si se activa explícitamente con un número real, el widget se renderiza
+    from src.infrastructure.settings import config
+    monkeypatch.setattr(config, "WHATSAPP_ENABLED", True)
+    monkeypatch.setattr(config, "WHATSAPP_PHONE", "5491112345678")
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response_enabled = await ac.get(target_url)
+    assert response_enabled.status_code == 200
+    assert "c-whatsapp-fab" in response_enabled.text
+

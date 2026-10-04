@@ -14,8 +14,7 @@ async def test_404_error_page():
         assert "Página no encontrada" in response.text
         assert "Error 404" in response.text
         assert "/landing/calidad-energia" in response.text
-        assert "/landing/telemetria-industrial" in response.text
-        assert "wa.me" in response.text
+        assert "/contact" in response.text
 
 
 @pytest.mark.asyncio

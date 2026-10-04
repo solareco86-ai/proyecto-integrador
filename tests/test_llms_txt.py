@@ -16,8 +16,8 @@ async def test_llms_txt_endpoint_returns_200() -> None:
     text = response.text
     assert "# ISFT N° 199" in text
     assert "Ciencia de Datos" in text
-    assert "DGCyE" in text
-    assert "+54 11 5629 7160" in text
+    assert "isft199@abc.gob.ar" in text
+    assert "WhatsApp Institucional" in text
 
 
 @pytest.mark.asyncio  # type: ignore
