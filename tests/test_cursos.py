@@ -69,6 +69,20 @@ async def test_aprendizaje_automatico_git_clone_lesson_rendered():
 
 
 @pytest.mark.asyncio
+async def test_aprendizaje_automatico_debate_audio_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-debate-terminal-o-agentes-ia")
+
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "0.1 Debate Dialéctico: ¿Terminal manual o agentes de IA?" in response.text
+    assert "c-lesson-audio-card" in response.text
+    assert "/static/media/cursos/terminal-manual-o-agentes-ia.m4a" in response.text
+    assert "<audio controls" in response.text
+
+
+@pytest.mark.asyncio
 async def test_invalid_course_returns_404():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:

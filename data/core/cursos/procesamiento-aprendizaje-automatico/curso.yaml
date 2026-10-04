@@ -25,6 +25,17 @@ sections:
   description: Configuración del entorno de trabajo, navegación en consola Bash, gestión
     de paquetes y buenas prácticas de Git como soporte para agentes.
   chapters:
+  - id: chap-paa-ini-0
+    title: "Cap 0: Introducción Dialéctica y Filosofía de Trabajo"
+    description: "Debate conceptual sobre el rol del desarrollador moderno: ¿artesanía manual en la terminal o dirección orquestada de agentes autónomos de IA? Fundamentos para abordar la ingeniería de software con rigor."
+    items:
+    - type: lesson
+      id: les-paa-ini-0-1
+      slug: paa-ini-debate-terminal-o-agentes-ia
+      title: "0.1 Debate Dialéctico: ¿Terminal manual o agentes de IA?"
+      duration: 17 min
+      content_file: cap-0-1-debate-terminal-o-agentes-ia.md
+      audio_url: /static/media/cursos/terminal-manual-o-agentes-ia.m4a
   - id: chap-paa-ini-1
     title: 'Cap 1: La Terminal, Git y el Entorno de Trabajo en Python'
     description: "Aprovisionamiento del entorno de desarrollo: consola Bash (GNU/Linux,
