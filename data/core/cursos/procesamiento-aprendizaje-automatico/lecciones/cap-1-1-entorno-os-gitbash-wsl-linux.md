@@ -81,28 +81,42 @@ git --version
 * Se integra directamente con Visual Studio Code a través de la extensión oficial **WSL**.
 
 ### Paso a Paso de Instalación
-1. **Verificar Virtualización en BIOS/UEFI:** Abre el *Administrador de Tareas* de Windows (Ctrl + Shift + Esc), ve a la pestaña *Rendimiento > CPU* y confirma que figure **"Virtualización: Habilitada"**. Si está deshabilitada, actívala en el setup de la BIOS de tu placa madre (Intel VT-x o AMD-V / SVM).
-2. **Instalación de WSL:** Abre **PowerShell** como Administrador (clic derecho > *Ejecutar como administrador*) y escribe:
-   ```powershell
-   wsl --install
-   ```
-   Este comando habilita las características necesarias de Windows, descarga el kernel Linux actualizado e instala la distribución **Ubuntu LTS** por defecto.
-3. **Reinicio:** Reinicia el equipo cuando el sistema lo solicite.
-4. **Configuración Inicial de Ubuntu:** Al reiniciar, se abrirá automáticamente una ventana de terminal de Ubuntu. Espera la inicialización e introduce:
-   * **Nombre de usuario UNIX** (en minúsculas, por ejemplo: `alumno`).
-   * **Contraseña** (no se mostrarán caracteres mientras escribes; confirma la clave presionando Enter).
-5. **Actualización del Sistema:** Dentro de la terminal de Ubuntu recién configurada, actualiza los paquetes base e instala las herramientas esenciales de desarrollo:
+
+#### Paso 1: Verificar Virtualización en BIOS/UEFI
+Abre el *Administrador de Tareas* de Windows (Ctrl + Shift + Esc), ve a la pestaña *Rendimiento > CPU* y confirma que figure **"Virtualización: Habilitada"**. Si está deshabilitada, actívala en el setup de la BIOS de tu placa madre (Intel VT-x o AMD-V / SVM).
+
+#### Paso 2: Instalación de WSL
+Abre **PowerShell** como Administrador (clic derecho > *Ejecutar como administrador*) y escribe:
+
+```powershell
+wsl --install
+```
+
+Este comando habilita las características necesarias de Windows, descarga el kernel Linux actualizado e instala la distribución **Ubuntu LTS** por defecto.
+
+#### Paso 3: Reinicio del Sistema
+Reinicia el equipo cuando el sistema lo solicite.
+
+#### Paso 4: Configuración Inicial de Ubuntu
+Al reiniciar, se abrirá automáticamente una ventana de terminal de Ubuntu. Espera la inicialización e introduce:
+* **Nombre de usuario UNIX** (en minúsculas, por ejemplo: `alumno`).
+* **Contraseña** (no se mostrarán caracteres mientras escribes; confirma la clave presionando Enter).
+
+#### Paso 5: Actualización del Sistema y Paquetes de Desarrollo
+Dentro de la terminal de Ubuntu recién configurada, actualiza los paquetes base e instala las herramientas esenciales de desarrollo:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y python3 python3-pip python3-venv git curl build-essential
+```
+
+#### Paso 6: Integración con Visual Studio Code
+1. Abre VS Code en Windows e instala la extensión **"WSL"** (de Microsoft).
+2. Desde la terminal de Ubuntu en WSL, navega a tu carpeta de trabajo y escribe:
    ```bash
-   sudo apt update && sudo apt upgrade -y
-   sudo apt install -y python3 python3-pip python3-venv git curl build-essential
+   code .
    ```
-6. **Integración con Visual Studio Code:**
-   * Abre VS Code en Windows e instala la extensión **"WSL"** (de Microsoft).
-   * Desde la terminal de Ubuntu en WSL, navega a tu carpeta de trabajo y escribe:
-     ```bash
-     code .
-     ```
-     VS Code se abrirá en Windows, pero ejecutando el servidor de desarrollo, las extensiones y el intérprete de Python dentro del entorno Linux.
+   VS Code se abrirá en Windows, pero ejecutando el servidor de desarrollo, las extensiones y el intérprete de Python dentro del entorno Linux.
 
 ### Verificación en WSL
 Ejecuta los siguientes comandos dentro de la consola de WSL:
