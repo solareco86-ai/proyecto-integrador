@@ -130,10 +130,10 @@ export function buildDynamicWhatsAppMessage(defaultMessage = 'Hola! Vi tu sitio 
 /**
  * Actualiza todos los enlaces de WhatsApp (a[href*="wa.me"] y .c-whatsapp-fab) presentes en el DOM.
  *
- * @param {string} [phone='541156297160'] - Número telefónico de WhatsApp de DataMaq con código de país.
+ * @param {string} [phone='5491100000000'] - Número telefónico de WhatsApp institucional con código de país.
  * @returns {void}
  */
-export function updateWhatsAppLinks(phone = '541156297160') {
+export function updateWhatsAppLinks(phone = '5491100000000') {
     const message = buildDynamicWhatsAppMessage();
     const encodedMessage = encodeURIComponent(message);
     const targetUrl = `https://wa.me/${phone}?text=${encodedMessage}`;

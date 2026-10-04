@@ -6,9 +6,9 @@
 export class CalculatorPowerFactor {
     /**
      * @param {HTMLElement} container - Contenedor raíz de la calculadora.
-     * @param {string} [phone="541156297160"] - Número de WhatsApp de DataMaq.
+     * @param {string} [phone="5491100000000"] - Número de WhatsApp de DataMaq.
      */
-    constructor(container, phone = "541156297160") {
+    constructor(container, phone = "5491100000000") {
         /** @type {HTMLElement} */
         this.container = container;
         /** @type {string} */

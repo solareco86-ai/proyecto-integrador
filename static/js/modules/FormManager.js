@@ -456,7 +456,7 @@ export class FormManager {
                 errorMsg.className = 'c-contact__error-msg tw:text-red-400 tw:text-sm tw:mt-3 tw:text-center';
                 this.form.querySelector('.c-contact__actions')?.appendChild(errorMsg);
             }
-            errorMsg.textContent = 'Hubo un inconveniente al enviar la consulta. Podés escribirnos directo por WhatsApp al +54 11 5629 7160.';
+            errorMsg.textContent = 'Hubo un inconveniente al enviar la consulta. Podés escribirnos directo por correo a isft199@abc.gob.ar.';
         }
     }
 }
