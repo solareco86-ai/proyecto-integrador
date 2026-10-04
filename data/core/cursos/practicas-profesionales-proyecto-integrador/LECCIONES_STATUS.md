@@ -2,10 +2,10 @@
 
 ## Resumen
 - **Total de lecciones planificadas:** 26 lecciones + 5 talleres
-- **Lecciones completadas:** 3 / 26 (11.5%)
+- **Lecciones completadas:** 9 / 26 (34.6%)
 - **Lecciones con estructura (placeholders):** 31 / 31 (100%)
-- **Talleres completados:** 0 / 5 (0%)
-- **Última actualización:** 2026-10-04 (sesión 2)
+- **Talleres completados:** 1 / 5 (20%)
+- **Última actualización:** 2026-10-04 (sesión 2 - Unidad 1 completa)
 
 ---
 
