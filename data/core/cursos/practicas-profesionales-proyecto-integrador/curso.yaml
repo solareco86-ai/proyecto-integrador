@@ -211,6 +211,12 @@ sections:
       title: "6.3 Validación de Requisitos: Traceability Matrix y UAT"
       duration: 40 min
       content_file: unidad-6-3-validacion-requisitos.md
+    - type: lesson
+      id: les-pp-test-6-4
+      slug: pp-test-criterios-evaluacion
+      title: "6.4 Rúbricas de Evaluación — Criterios Explícitos de Acreditación"
+      duration: 40 min
+      content_file: unidad-6-criterios-evaluacion-rubrica.md
 
   - id: chap-pp-docs-7
     title: 'Unidad 7: Documentación y Comunicación Profesional'
