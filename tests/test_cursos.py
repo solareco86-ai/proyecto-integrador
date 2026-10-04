@@ -245,3 +245,32 @@ async def test_cursos_pages_do_not_render_footer():
             response = await ac.get(url)
             assert response.status_code == 200
             assert 'class="c-home-footer"' not in response.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_cap4_fastapi_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 4.1 Fundamentos HTTP y JSON
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-fundamentos-http-json")
+        assert r1.status_code == 200
+        assert "4.1 Protocolo HTTP" in r1.text
+        assert "energy-ml" in r1.text
+
+        # 4.2 Primer servidor FastAPI
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-primer-servidor-fastapi")
+        assert r2.status_code == 200
+        assert "4.2 Servidor FastAPI" in r2.text
+        assert "Swagger UI" in r2.text
+
+        # 4.3 Endpoint con Pydantic y OpenCode
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-endpoint-calculo-opencode")
+        assert r3.status_code == 200
+        assert "4.3 Endpoint POST" in r3.text
+        assert "Pydantic" in r3.text
+
+        # 4.4 De if/else a Machine Learning
+        r4 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-reglas-manuales-vs-datos")
+        assert r4.status_code == 200
+        assert "4.4 Del if/else de Firmas Eléctricas" in r4.text
+        assert "Machine Learning" in r4.text

@@ -147,36 +147,33 @@ sections:
       duration: 20 min
       content_file: cap-3-6-arneses-ia-codex-kimi-dph.md
   - id: chap-paa-ini-4
-    title: 'Cap 4: De Script de Consola a Servicio Web con FastAPI'
-    description: Protocolo HTTP, esquemas JSON y construcción de endpoints REST asistidos
-      por agentes.
+    title: 'Cap 4: De Script de Consola a Servicio Web con FastAPI en energy-ml'
+    description: Protocolo HTTP, contratos JSON, validación Pydantic y endpoints de inferencia REST en energy-ml.
     items:
     - type: lesson
       id: les-paa-ini-4-1
       slug: paa-ini-fundamentos-http-json
-      title: 4.1 Protocolo HTTP, métodos GET/POST y formato JSON como contrato de
-        datos
-      duration: 20 min
+      title: '4.1 Protocolo HTTP, Métodos GET/POST y JSON como Contrato de Datos en energy-ml'
+      duration: 25 min
       content_file: cap-4-1-fundamentos-http-json.md
     - type: lesson
       id: les-paa-ini-4-2
       slug: paa-ini-primer-servidor-fastapi
-      title: '4.2 Primera aplicación FastAPI: Uvicorn y documentación interactiva
-        Swagger'
+      title: '4.2 Servidor FastAPI con Uvicorn: Estructura Modular y Documentación Swagger UI'
       duration: 25 min
       content_file: cap-4-2-primer-servidor-fastapi.md
-      case_study_reference: "energy-ml utiliza FastAPI en src/infrastructure/fastapi para servir el endpoint /api/v1/identify-loads, que realiza inferencia de cargas eléctricas en tiempo real."
+      case_study_reference: "energy-ml utiliza FastAPI en src/api para servir el endpoint /api/v1/identify-loads, que realiza inferencia de cargas eléctricas en tiempo real."
     - type: lesson
       id: les-paa-ini-4-3
       slug: paa-ini-endpoint-calculo-opencode
-      title: 4.3 Construcción del endpoint POST /operar asistida por OpenCode
+      title: '4.3 Endpoint POST /api/v1/predict/consumo con Esquemas Pydantic Asistido por OpenCode'
       duration: 25 min
       content_file: cap-4-3-endpoint-calculo-opencode.md
     - type: lesson
       id: les-paa-ini-4-4
       slug: paa-ini-reglas-manuales-vs-datos
-      title: 4.4 Del if/else tradicional a la toma de decisiones basada en datos
-      duration: 25 min
+      title: '4.4 Del if/else de Firmas Eléctricas a la Inferencia Basada en Datos (Machine Learning)'
+      duration: 30 min
       content_file: cap-4-4-reglas-manuales-vs-datos.md
 - id: unit-2
   title: 'Unidad 2: Machine Learning'
