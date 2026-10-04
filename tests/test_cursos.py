@@ -338,3 +338,20 @@ async def test_aprendizaje_automatico_unit2_cap2_lessons_rendered():
         assert r2.status_code == 200
         assert "Subtareas del aprendizaje" in r2.text
         assert "data leakage" in r2.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit2_cap3_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 3.1 Teorema de Bayes
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-teorema-bayes-clasificacion")
+        assert r1.status_code == 200
+        assert "Teorema de Bayes" in r1.text
+        assert "energy-ml" in r1.text
+
+        # 3.2 Endpoint Naive Bayes con OpenCode
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-endpoint-naive-bayes-opencode")
+        assert r2.status_code == 200
+        assert "POST /api/v1/classify/bayes" in r2.text
+        assert "OpenCode" in r2.text

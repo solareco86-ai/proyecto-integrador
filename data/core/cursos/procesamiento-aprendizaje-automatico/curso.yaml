@@ -241,20 +241,19 @@ sections:
       duration: 25 min
       content_file: cap-2-2-subtareas-del-aprendizaje.md
   - id: chap-paa-int-3
-    title: 'Cap 3: Clasificación Probabilística con Naive Bayes'
-    description: Teorema de Bayes, modelado probabilístico y servicio web de inferencia
-      en tiempo real.
+    title: 'Cap 3: Clasificación Probabilística con Naive Bayes en energy-ml'
+    description: Teorema de Bayes, probabilidades a posteriori de fallas eléctricas y endpoint REST en tiempo real con OpenCode.
     items:
     - type: lesson
       id: les-paa-int-3-1
       slug: paa-int-teorema-bayes-clasificacion
-      title: '3.1 Teorema de Bayes: probabilidades a priori, verosimilitud y a posteriori'
+      title: '3.1 Teorema de Bayes y clasificación probabilística de fallas en energy-ml'
       duration: 25 min
       content_file: cap-3-1-teorema-bayes-clasificacion.md
     - type: lesson
       id: les-paa-int-3-2
       slug: paa-int-endpoint-naive-bayes-opencode
-      title: 3.2 Construcción del endpoint POST /classify/bayes con OpenCode
+      title: '3.2 Construcción del endpoint POST /classify/bayes con OpenCode'
       duration: 30 min
       content_file: cap-3-2-endpoint-naive-bayes-opencode.md
   - id: chap-paa-int-4
