@@ -151,6 +151,28 @@
                     </div>
                 {% endif %}
 
+                {% if leccion.content_type == 'audio' or leccion.audio_url %}
+                    <div class="c-lesson-audio-card">
+                        <div class="c-lesson-audio-card__header">
+                            <div class="c-lesson-audio-card__icon" aria-hidden="true">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                </svg>
+                            </div>
+                            <div class="c-lesson-audio-card__info">
+                                <span class="c-lesson-audio-card__badge">Audio Overview · NotebookLM</span>
+                                <h3 class="c-lesson-audio-card__title">{{ leccion.title }}</h3>
+                                <p class="c-lesson-audio-card__desc">Escuchá el debate dialéctico y conceptual antes de abordar las prácticas en terminal.</p>
+                            </div>
+                        </div>
+                        <audio controls preload="metadata" class="c-lesson-audio-card__player">
+                            <source src="{{ leccion.audio_url }}" type="audio/mp4">
+                            Tu navegador no soporta la reproducción directa de audio HTML5.
+                        </audio>
+                    </div>
+                {% endif %}
+
                 <div class="c-lesson-body markdown-body">
                     <!-- En un entorno real se podría usar un filtro de markdown, pero al ser SSR y sin dependencias extra, pasamos el string.
                          Como las lecciones se escriben de forma segura, el renderizado de saltos de línea se maneja con estilos o un pre.
