@@ -435,3 +435,26 @@ async def test_aprendizaje_automatico_unit3_cap2_lessons_rendered():
         assert r3.status_code == 200
         assert "GET /api/v1/rules" in r3.text
         assert "ReglaOperativaDTO" in r3.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit3_cap3_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 3.1 Entropía y Gini
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-entropia-ganancia-gini")
+        assert r1.status_code == 200
+        assert "Impureza de Gini" in r1.text
+        assert "Entropía de Shannon" in r1.text
+
+        # 3.2 Árboles de regresión
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-arboles-regresion-continuos")
+        assert r2.status_code == 200
+        assert "Árboles de Regresión" in r2.text
+        assert "ccp_alpha" in r2.text
+
+        # 3.3 Exportación JSON
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-exportacion-arbol-json")
+        assert r3.status_code == 200
+        assert "GET /api/v1/explain/tree" in r3.text
+        assert "NodoArbolDTO" in r3.text
