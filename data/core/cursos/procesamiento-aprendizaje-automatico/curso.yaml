@@ -222,6 +222,16 @@ sections:
   title: 'Unidad 2: Parte I - Inferencia Estadística, Modelado y MLOps'
   description: Puente activo con NumPy, APIs de inferencia robustas con Pydantic, algoritmos estadísticos (Bayes, k-NN) y evaluación TDD en energy-ml.
   chapters:
+  - id: chap-paa-mapa-conceptual
+    title: 'Cap Intro: Mapa Conceptual de Unidad 2'
+    description: 'Antes de saltar a lecciones aisladas, visualiza cómo convergen Probabilidad → Bayes → k-NN → CART. Conexiones conceptuales explícitas.'
+    items:
+    - type: lesson
+      id: les-paa-int-mapa-0
+      slug: paa-int-mapa-conceptual-u2
+      title: '0.0 Mapa Conceptual de Unidad 2 — Cómo Convergen Probabilidad → Bayes → k-NN → CART'
+      duration: 20 min
+      content_file: cap-1-0-mapa-conceptual-unidad2.md
   - id: chap-paa-int-0
     title: 'Cap 0: Nivelación Activa con NumPy, Vectores y Tensores en energy-ml'
     description: 'Puente pedagógico entre programación básica y Machine Learning: estructuras matriciales, broadcasting y vectorización en CPU local.'
