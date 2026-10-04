@@ -100,6 +100,12 @@ sections:
       title: "2.4 Marcha atrás y control de daños: git restore, git reset (--soft / --hard) y git revert"
       duration: 25 min
       content_file: cap-2-4-git-restore-reset-revert.md
+    - type: lesson
+      id: les-paa-ini-2-5
+      slug: paa-ini-github-cli-gh-agentes-ia
+      title: "2.5 GitHub CLI (gh): Automatización de Pull Requests, Issues y Gobernanza para Agentes de IA"
+      duration: 20 min
+      content_file: cap-2-5-github-cli-gh-agentes-ia.md
   - id: chap-paa-ini-3
     title: 'Cap 3: La Tríada de Asistentes: Aider, OpenCode y AGY CLI'
     description: Configuración y primeros comandos para pair programming con agentes

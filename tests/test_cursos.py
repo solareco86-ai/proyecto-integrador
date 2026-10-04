@@ -83,6 +83,19 @@ async def test_aprendizaje_automatico_restore_reset_revert_lesson_rendered():
 
 
 @pytest.mark.asyncio
+async def test_aprendizaje_automatico_github_cli_lesson_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-github-cli-gh-agentes-ia")
+
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "2.5 GitHub CLI (gh)" in response.text
+    assert "gh pr create" in response.text
+    assert "gh issue" in response.text
+
+
+@pytest.mark.asyncio
 async def test_aprendizaje_automatico_debate_audio_lesson_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
