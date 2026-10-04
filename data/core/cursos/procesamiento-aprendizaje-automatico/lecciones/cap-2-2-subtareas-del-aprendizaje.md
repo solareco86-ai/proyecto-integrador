@@ -56,7 +56,7 @@ Para respetar la flecha del tiempo, la separación debe realizarse de forma secu
 ## 3. Prevención de Fugas en el Preprocesamiento (*Pre-processing Leakage*)
 
 Otro error crítico de diseño ocurre durante la normalización de variables numéricas:
-* Si calculas la media ($\mu$) y la desviación estándar ($\sigma$) sobre **todo el dataset junto** antes de separarlo en train y test, la media del futuro contaminará el entrenamiento.
+* Si calculas la media (`mu`) y la desviación estándar (`sigma`) sobre **todo el dataset junto** antes de separarlo en train y test, la media del futuro contaminará el entrenamiento.
 * **Regla Inviolable:** Los escaladores (como `StandardScaler` o `MinMaxScaler`) deben ajustarse con `.fit()` **únicamente sobre `X_train`**. Luego, esos parámetros congelados se aplican con `.transform()` sobre `X_test` y en los endpoints de producción.
 
 Para garantizar esta separación sin fisuras, Scikit-Learn provee la clase **`Pipeline`**.
@@ -182,7 +182,52 @@ pytest tests/test_pipeline_temporal.py -v
 
 ---
 
-## 6. Conclusión del Capítulo 2 de la Unidad 2
+## 6. Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. Si un modelo de predicción de demanda eléctrica obtiene un `R2 = 0.998` en pruebas iniciales, ¿por qué un ingeniero experimentado sospecha inmediatamente de fuga de datos antes de celebrar el resultado?
+   - *Respuesta:* Porque en series temporales industriales reales existe ruido no determinístico (clima, eventos de red). Un ajuste casi perfecto suele delatar que una variable del futuro (como la medición real del consumo posterior) se incluyó inadvertidamente en la matriz de features.
+2. ¿Qué diferencia crítica existe entre llamar a `.fit()` sobre todo el dataset o hacerlo exclusivamente dentro de las particiones de entrenamiento de un `Pipeline` de Scikit-Learn?
+   - *Respuesta:* Si se ajusta el escalador sobre todo el dataset, la media y la varianza de los datos futuros (test) contaminan las transformaciones de entrenamiento, invalidando las garantías de generalización.
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente pipeline generado por un asistente de IA para predecir la carga eléctrica en subestaciones:
+
+```python
+# CÓDIGO CON BUG SUTIL GENERADO POR IA:
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+
+# Paso 1: Escalar características
+scaler = StandardScaler()
+X_escalado = scaler.fit_transform(X_telemetria_temporal)
+
+# Paso 2: Particionar datos
+X_train, X_test, y_train, y_test = train_test_split(
+    X_escalado, y_demanda, test_size=0.2, shuffle=True, random_state=42
+)
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Doble Fuga de Datos:**
+   - **Fuga 1:** `scaler.fit_transform()` se ejecutó antes de la partición, filtrando la media y desviación estándar del conjunto de test hacia el entrenamiento.
+   - **Fuga 2:** `shuffle=True` destruye la causalidad temporal, mezclando muestras del futuro en el conjunto de entrenamiento. El modelo predecirá el pasado habiendo memorizado puntos adyacentes del futuro.
+2. **Corrección Obligatoria en energy-ml:**
+   ```python
+   # 1. Partición estrictamente cronológica
+   X_train, X_test, y_train, y_test = train_test_split(
+       X_telemetria_temporal, y_demanda, test_size=0.2, shuffle=False
+   )
+   # 2. Ajuste de escala encapsulado únicamente sobre X_train
+   scaler = StandardScaler()
+   X_train_scaled = scaler.fit_transform(X_train)
+   X_test_scaled = scaler.transform(X_test)  # Solo transform(), nunca fit()
+   ```
+
+---
+
+## 7. Conclusión del Capítulo 2 de la Unidad 2
 
 Has incorporado las dos salvaguardas metodológicas más críticas de la Ciencia de Datos aplicada:
 1. Reconocer la frontera entre la **deducción simbólica** de un asistente de IA y la **inducción empírica** de un modelo matemático.

@@ -36,7 +36,7 @@ Un **tensor** no es un concepto abstracto inalcanzable; es simplemente la genera
 | :--- | :--- | :--- | :--- |
 | **0D** | Escalar | `()` | Una medición puntual (ej: `temperatura = 78.4` °C). |
 | **1D** | Vector | `(features,)` | Una observación multivariable: `[tension, corriente, temp, thd]`. |
-| **2D** | Matriz | `(muestras, features)` | Lote histórico de telemetría: $N$ muestras y $M$ atributos. Es la convención `X` en Scikit-Learn. |
+| **2D** | Matriz | `(muestras, features)` | Lote histórico de telemetría: `N` muestras y `M` atributos. Es la convención `X` en Scikit-Learn. |
 | **3D** | Tensor 3D | `(subestaciones, tiempo, canales)` | Monitoreo simultáneo de 5 subestaciones durante 24 horas en 4 sensores. |
 
 ---

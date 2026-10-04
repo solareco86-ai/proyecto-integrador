@@ -10,8 +10,8 @@
 ## 1. El Paradigma del Aprendizaje Basado en Instancias (*Lazy Learning*)
 
 A diferencia de modelos como Naive Bayes o regresiones que ajustan parámetros matemáticos durante el entrenamiento y luego descartan los datos crudos (*Eager Learning*), el algoritmo **k-Nearest Neighbors (k-NN)** opera bajo el paradigma del **Aprendizaje Perezoso (*Lazy Learning*)**:
-* **Fase de Entrenamiento:** Prácticamente instantánea ($O(1)$). No calcula pesos; simplemente indexa y almacena en memoria RAM todas las instancias históricas etiquetadas.
-* **Fase de Inferencia:** Computacionalmente demandante ($O(N \cdot D)$). Cada vez que ingresa una nueva lectura de telemetría, el algoritmo debe calcular la distancia matemática entre el nuevo punto y **todas** las $N$ muestras almacenadas en el dataset para encontrar a los $k$ vecinos más cercanos.
+* **Fase de Entrenamiento:** Prácticamente instantánea (`O(1)`). No calcula pesos; simplemente indexa y almacena en memoria RAM todas las instancias históricas etiquetadas.
+* **Fase de Inferencia:** Computacionalmente demandante (`O(N * D)`). Cada vez que ingresa una nueva lectura de telemetría, el algoritmo debe calcular la distancia matemática entre el nuevo punto y **todas** las `N` muestras almacenadas en el dataset para encontrar a los `k` vecinos más cercanos.
 
 En **`energy-ml`**, k-NN es la técnica ideal para **desagregación de cargas eléctricas (NILM)** y detección de firmas operativas raras: si un compresor industrial enciende con un patrón transitorio idéntico al registrado hace seis meses, k-NN lo identifica inmediatamente por similitud geométrica.
 
@@ -134,15 +134,57 @@ Comprobarás cómo el pipeline normaliza las variables y asigna la clase *"motor
 
 ## 5. El Hiperparámetro k y el Balance Sesgo-Varianza
 
-El valor de **$k$ (número de vecinos consultados)** determina la suavidad de la frontera de decisión:
-* **$k = 1$:** Varianza alta (sensible al ruido y a mediciones erróneas puntuales).
-* **$k$ Moderado (ej. 3 o 5):** Buen compromiso de robustez ante fluctuaciones de red.
-* **$k$ Muy Grande:** Sesgo alto (la clase mayoritaria domina todas las predicciones).
-* **Regla Práctica:** Elegir un valor de $k$ impar para evitar empates en problemas de clasificación binaria.
+El valor de **`k` (número de vecinos consultados)** determina la suavidad de la frontera de decisión:
+* **`k = 1`:** Varianza alta (sensible al ruido y a mediciones erróneas puntuales).
+* **`k` Moderado (ej. 3 o 5):** Buen compromiso de robustez ante fluctuaciones de red.
+* **`k` Muy Grande:** Sesgo alto (la clase mayoritaria domina todas las predicciones).
+* **Regla Práctica:** Elegir un valor de `k` impar para evitar empates en problemas de clasificación binaria.
 
 ---
 
-## 6. Conclusión
+## 6. Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. Si un sensor de potencia opera en el rango de 0 a 50.000 Watts y el factor de potencia opera entre 0.70 y 1.00, ¿qué ocurre si calculamos la distancia euclidiana en k-NN sin normalizar?
+   - *Respuesta:* Una variación minúscula de 10 Watts en la potencia activa tendrá un impacto 100 veces mayor en la distancia que una variación catastrófica de 0.20 en el factor de potencia. La variable con mayor escala numérica eclipsa por completo a todas las demás.
+2. ¿Por qué se prefiere un valor de `k` impar cuando se realiza clasificación binaria (ej. Falla vs. Normal)?
+   - *Respuesta:* Para evitar empates determinísticos en la votación por mayoría simple.
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa la función de clasificación propuesta por un asistente de IA para identificar fallas eléctricas:
+
+```python
+# CÓDIGO CON ERROR PROPUESTO POR LA IA:
+from sklearn.neighbors import KNeighborsClassifier
+
+def clasificar_evento_directo(X_entrenamiento, y_etiquetas, muestra_nueva):
+    # La IA instancia el clasificador directamente sobre los datos crudos
+    knn = KNeighborsClassifier(n_neighbors=3)
+    knn.fit(X_entrenamiento, y_etiquetas)
+    return knn.predict([muestra_nueva])[0]
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Omisión Crítica de Escalado:** El asistente no normalizó las variables, provocando que la potencia activa domine artificialmente la distancia frente a la distorsión armónica o la temperatura.
+2. **Corrección con Pipeline Inmutable:**
+   ```python
+   from sklearn.pipeline import make_pipeline
+   from sklearn.preprocessing import StandardScaler
+   from sklearn.neighbors import KNeighborsClassifier
+
+   def clasificar_evento_robusto(X_entrenamiento, y_etiquetas, muestra_nueva):
+       # El pipeline garantiza que el escalador ajuste solo en entrenamiento y transforme la muestra
+       modelo_seguro = make_pipeline(
+           StandardScaler(),
+           KNeighborsClassifier(n_neighbors=3, metric="euclidean")
+       )
+       modelo_seguro.fit(X_entrenamiento, y_etiquetas)
+       return modelo_seguro.predict([muestra_nueva])[0]
+   ```
+
+---
+
+## 7. Conclusión
 
 El algoritmo k-NN ofrece una solución transparente y geométrica para identificar firmas de cargas en **`energy-ml`**, supeditado siempre a una rigurosa **estandarización de características**.
 

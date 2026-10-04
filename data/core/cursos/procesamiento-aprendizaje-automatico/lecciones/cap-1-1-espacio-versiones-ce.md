@@ -140,4 +140,47 @@ El algoritmo presenta tres estados finales posibles:
 > [!WARNING] Fragilidad ante el Ruido
 > Si un sensor defectuoso reporta un falso positivo o negativo, el algoritmo descartará las hipótesis correctas provocando el colapso del espacio. Por ello, en ingeniería real se utiliza Candidate-Elimination sobre datos verificados o en conjunto con técnicas de tolerancia a fallas.
 
+---
+
+## 7. Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. Si un operario ingresa dos mediciones con exactamente la misma telemetría física (`tension="alta", carga="critica", temp="elevada", thd="alto"`), pero una fue etiquetada como `True` (disparo) y la otra como `False` (normal), ¿qué le ocurre matemáticamente a las fronteras `S` y `G`?
+   - *Respuesta:* Ocurre el colapso inmediato del espacio de versiones (`S = {}` o `G = {}`). No existe ninguna hipótesis lógica determinística capaz de satisfacer simultáneamente datos contradictorios.
+2. ¿Por qué la frontera más específica `S` solo se modifica ante ejemplos positivos y la frontera más general `G` ante ejemplos negativos?
+   - *Respuesta:* Porque ante un positivo, `S` debe expandirse (generalizarse) mínimamente para abarcar la nueva evidencia sin volverse demasiado amplia; mientras que ante un negativo, `G` debe restringirse (especializarse) mínimamente para excluir la muestra sin descartar los casos positivos ya observados.
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa la función de actualización de frontera específica implementada por un modelo de lenguaje:
+
+```python
+# CÓDIGO CON BUG LÓGICO PROPUESTO POR LA IA:
+def actualizar_frontera_s_alucinado(S, instancia_positiva):
+    nuevos_s = []
+    for h_s in S:
+        # La IA generaliza todos los atributos no coincidentes a '?'
+        h_gen = {}
+        for attr, val in h_s.items():
+            if val == "0":
+                h_gen[attr] = instancia_positiva[attr]
+            elif val != instancia_positiva[attr]:
+                h_gen[attr] = "?"
+            else:
+                h_gen[attr] = val
+        nuevos_s.append(h_gen)
+    # BUG: La IA olvidó verificar si la hipótesis generada es consistente con G
+    return nuevos_s
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Pérdida de Consistencia Global:** Si `h_gen` se vuelve más general que alguna hipótesis de exclusión activa en `G`, el algoritmo conservará una hipótesis que ya clasifica erróneamente ejemplos negativos previos.
+2. **Corrección Obligatoria:**
+   ```python
+   # Se debe verificar que exista al menos una hipótesis en G más general o igual:
+   if any(es_mas_general_o_igual(h_g, h_gen) for h_g in G):
+       nuevos_s.append(h_gen)
+   ```
+
+---
+
 En la siguiente lección, expondremos este algoritmo como un servicio web interactivo en FastAPI dentro de `energy-ml`.

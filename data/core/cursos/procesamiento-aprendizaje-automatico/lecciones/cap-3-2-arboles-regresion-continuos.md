@@ -124,4 +124,50 @@ def entrenar_arbol_regresion_energia(
     return regresor, metricas
 ```
 
+---
+
+## 6. Autoevaluación Formativa y Caza de Código Alucinado
+
+### Preguntas de Razonamiento Conceptual
+1. En un árbol de regresión, ¿cuál es el valor predicho para cualquier muestra que caiga dentro de una hoja terminal?
+   - *Respuesta:* El promedio aritmético (`y_promedio`) de las muestras de entrenamiento que alcanzaron dicha hoja durante el ajuste.
+2. Si aumentamos el hiperparámetro `ccp_alpha` desde `0.0` hacia un valor positivo alto, ¿qué ocurre con el tamaño del árbol y con el sesgo/varianza?
+   - *Respuesta:* El árbol se poda agresivamente reduciendo su profundidad y número de hojas, disminuyendo la varianza (menor sobreajuste) a costa de un incremento controlado del sesgo.
+
+### Caza de Código Alucinado (Code Review Inverso)
+Observa el siguiente entrenamiento propuesto por un asistente de IA para predecir la demanda pico en Megavatios:
+
+```python
+# CÓDIGO CON ERROR PROPUESTO POR LA IA:
+from sklearn.tree import DecisionTreeRegressor
+
+def entrenar_modelo_pico_alucinado(X_telemetria, y_mw):
+    # La IA no define ningún límite de profundidad ni muestras por hoja
+    modelo = DecisionTreeRegressor(random_state=42)
+    modelo.fit(X_telemetria, y_mw)
+    # Reporta un error de entrenamiento nulo:
+    print("MSE en Entrenamiento:", modelo.score(X_telemetria, y_mw))  # R^2 = 1.0!
+    return modelo
+```
+
+**Diagnóstico del Revisor Humano:**
+1. **Sobreajuste Catastrófico:** Sin restricciones (`max_depth=None`, `min_samples_split=2`), el árbol dividirá hasta crear una hoja por cada medición histórica, memorizando perturbaciones espurias de la red. En producción, el error de predicción explotará.
+2. **Corrección con Regularización Obligatoria:**
+   ```python
+   def entrenar_modelo_pico_robusto(X_telemetria, y_mw):
+       # Restricciones estructurales y regularización por complejidad
+       modelo = DecisionTreeRegressor(
+           max_depth=5,
+           min_samples_leaf=15,
+           ccp_alpha=0.015,
+           random_state=42
+       )
+       modelo.fit(X_telemetria, y_mw)
+       return modelo
+   ```
+
+---
+
+## 7. Conclusión
+
 En la siguiente lección veremos cómo transformar la estructura interna de este árbol de Scikit-Learn en un esquema **JSON nativo** consumible por agentes de IA autónomos para proveer explicabilidad y trazabilidad operativa.

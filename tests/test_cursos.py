@@ -493,3 +493,22 @@ async def test_aprendizaje_automatico_unit3_cap4_lessons_rendered():
         assert r3.status_code == 200
         assert "Taller Integrador" in r3.text
         assert "ISFT N° 199" in r3.text
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "slug",
+    [
+        "paa-int-subtareas-del-aprendizaje",
+        "paa-int-knn-distancias-normalizacion",
+        "paa-ava-espacio-versiones-ce",
+        "paa-ava-arboles-regresion-continuos",
+    ],
+)
+async def test_aprendizaje_automatico_lecciones_con_caza_de_alucinaciones(slug: str):
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        r = await ac.get(f"/cursos/procesamiento-aprendizaje-automatico/{slug}")
+        assert r.status_code == 200
+        assert "Autoevaluación Formativa" in r.text
+        assert "Caza de Código Alucinado" in r.text
