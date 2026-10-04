@@ -35,6 +35,7 @@ class LessonModel(BaseModel):
     duration: str
     content_type: str = "markdown"
     video_url: str | None = None
+    audio_url: str | None = None
     content: str | None = None
     content_file: str | None = None
 

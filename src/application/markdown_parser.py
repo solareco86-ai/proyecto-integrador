@@ -38,12 +38,16 @@ _ALLOWED_TAGS = {
     "td",
     "span",
     "div",
+    "audio",
+    "source",
 }
 _ALLOWED_ATTRS = {
     "a": {"href", "title"},
     "img": {"src", "alt", "title", "width", "height"},
     "code": {"class"},
     "pre": {"class"},
+    "audio": {"controls", "preload", "class"},
+    "source": {"src", "type"},
 }
 
 _TAG_RE = re.compile(r"</?(\w+)[^>]*/?>")
