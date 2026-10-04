@@ -1,18 +1,18 @@
-# 5A.1 Integración de Técnicas: Arquitectura OCR + NLP + ML
+# 5A.1 Integración de Técnicas: Arquitectura de Imágenes + Habla + ML
 
 ## Objetivo
 
-Entender cómo OCR (procesamiento de imágenes), NLP (procesamiento del habla), y ML (modelos predictivos) trabajan JUNTOS en un sistema coherente. NO es "usar 3 técnicas aisladas"; es diseñar **un flujo de datos** donde cada técnica prepara input para la siguiente.
+Entender cómo **procesamiento de imágenes** (imágenes de drones, OCR), **procesamiento del habla** (NLP, extracción de intención), y **Machine Learning** (modelos predictivos) trabajan JUNTOS en un sistema coherente. NO es "usar 3 técnicas aisladas"; es diseñar **un flujo de datos** donde cada técnica prepara input para la siguiente, según la prescripción oficial del Anexo 1 DGCyE.
 
 ## Referencia
 
 **spec:** § Stack Tecnológico (integración de componentes)
 
-**PAA (3er año):** Unidad 1-4 (modelos ML, pipelines, evaluación)
+**PAA (2do año):** Unidad 1-4 (modelos ML, pipelines, evaluación)
 
-**Procesamiento del Habla (2do):** NLP, análisis morfológico, modelos de lenguaje
+**Procesamiento de Imágenes Digitales (3er año):** OCR, detección de patrones, clasificación visual
 
-**Procesamiento Digital de Imágenes (3er):** OCR, detección de patrones, clasificación
+**Procesamiento del Habla / NLP (2do año):** Análisis morfológico, modelos de lenguaje, procesamiento de audio
 
 ## Contenidos
 

@@ -7,7 +7,7 @@ description_long: Domina el ciclo completo de Machine Learning desde los fundame
   de desarrollo, control de versiones y APIs, pasando por algoritmos clásicos de clasificación,
   hasta la programación lógica inductiva y árboles de decisión. Modalidad 100% práctica
   con laboratorios.
-duration: 60 horas de cursada
+duration: 64 horas de cursada (4 horas semanales × 16 semanas, según Anexo DGCyE Resolución DGCyE N° 273/22)
 level: Inicial a Avanzado
 language: Español
 case_study_url: https://github.com/datamaq-automation/energy-ml
@@ -198,7 +198,7 @@ sections:
       duration: 30 min
       content_file: cap-5-4-reglas-manuales-vs-datos.md
 - id: unit-2
-  title: 'Unidad 2: Trayecto I - Inferencia Estadística, Modelado y MLOps'
+  title: 'Unidad 2: Parte I - Inferencia Estadística, Modelado y MLOps'
   description: Puente activo con NumPy, APIs de inferencia robustas con Pydantic, algoritmos estadísticos (Bayes, k-NN) y evaluación TDD en energy-ml.
   chapters:
   - id: chap-paa-int-0
@@ -305,7 +305,7 @@ sections:
       duration: 25 min
       content_file: cap-5-3-endpoint-metricas-observabilidad.md
 - id: unit-3
-  title: 'Unidad 3: Trayecto II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
+  title: 'Unidad 3: Parte II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
   description: Aprendizaje de conceptos, inducción de reglas formales (AQ/FOIL), explicabilidad en árboles CART y servidores Model Context Protocol (MCP).
   chapters:
   - id: chap-paa-ava-1

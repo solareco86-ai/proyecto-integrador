@@ -37,8 +37,8 @@ og_image_height: 630
 instructor_id: agustin-bustos
 academic_only: true
 sections:
-- id: trayecto-i
-  title: 'Trayecto I: Definición y Planificación'
+- id: parte-i
+  title: 'Parte I: Definición y Planificación'
   description: Gestión de proyecto, especificación formal, diseño arquitectónico. Semanas 1-8 (32h).
   chapters:
   - id: chap-pp-canvas-1
@@ -133,8 +133,8 @@ sections:
       duration: 30 min
       content_file: unidad-4-3-product-backlog.md
 
-- id: trayecto-ii
-  title: 'Trayecto II: Ejecución, Testing y Defensa'
+- id: parte-ii
+  title: 'Parte II: Ejecución, Testing y Defensa'
   description: Desarrollo iterativo, testing (Constraint Gauntlet), documentación, defensa. Semanas 9-16 (32h).
   chapters:
   - id: chap-pp-integracion-5a
