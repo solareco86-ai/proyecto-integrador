@@ -119,57 +119,14 @@ cd energy-ml
 pwd
 ```
 
----
-
-## 4. Anatomía del Repositorio `energy-ml`
-
-Explora los archivos que componen el proyecto ejecutando `ls -la`:
-
-```bash
-ls -la
-```
-
-Observarás una estructura organizada según los estándares de la industria:
-
-```text
-energy-ml/
-├── .git/                 ← Base de datos interna de Git (historial y ramas)
-├── .gitignore            ← Lista de exclusión (archivos que Git nunca sube)
-├── .env.example          ← Plantilla pública de variables de entorno
-├── README.md             ← Documentación general del caso de estudio
-├── requirements.txt      ← Lista de dependencias de Python (FastAPI, Scikit-Learn)
-├── data/                 ← Datos CSV de mediciones eléctricas para clustering
-├── src/                  ← Código fuente en Arquitectura Hexagonal
-│   ├── domain/           ← Entidades puras y lógica matemática
-│   ├── application/      ← Casos de uso y DTOs de validación
-│   └── infrastructure/   ← Servidor FastAPI y algoritmos de Machine Learning
-└── tests/                ← Batería de pruebas automatizadas con pytest
-```
-
----
-
-## 5. Primeros Comandos de Verificación en Git
-
-Estando dentro de la carpeta `energy-ml`, ejecuta los comandos indispensables de auditoría:
-
-```bash
-# 1. Comprobar la rama activa y el estado del árbol de trabajo
-git status
-
-# 2. Explorar los commits recientes del historial del proyecto
-git log --oneline -n 5
-
-# 3. Comprobar el origen remoto conectado
-git remote -v
-```
+Al ingresar a la carpeta, tu terminal reflejará que te encuentras dentro del proyecto clonado y listo para inspeccionar su estructura interna.
 
 ---
 
 ## Checkpoint de Verificación
 
-Antes de avanzar a la creación del entorno virtual (`venv`):
-- [ ] Has configurado tu identidad en Git usando el script interactivo y verificado que no contiene valores por defecto.
+Antes de avanzar a la exploración del repositorio en la lección 1.4:
+- [ ] Has configurado tu identidad en Git usando el script interactivo y verificado que tus credenciales son correctas con `git config --list`.
 - [ ] El comando `git clone` se completó exitosamente sin errores de red.
-- [ ] La carpeta `energy-ml/` existe dentro de tu directorio de trabajo `aprendizaje-automatico`.
-- [ ] Al ejecutar `git status` dentro de `energy-ml`, la terminal responde `On branch main` (o `master`) y `working tree clean`.
-- [ ] Puedes visualizar el archivo `requirements.txt` ejecutando `cat requirements.txt`.
+- [ ] Has ingresado a la carpeta `energy-ml/` y el comando `pwd` confirma que estás dentro del proyecto.
+- [ ] Tu terminal ya detecta el contexto de Git (indicando la rama activa en el prompt o permitiendo ejecutar comandos de Git).

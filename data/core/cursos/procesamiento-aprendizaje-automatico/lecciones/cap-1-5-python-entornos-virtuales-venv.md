@@ -1,10 +1,6 @@
 # Guía de Laboratorio Práctico — Capítulo 1: La Terminal, Git y el Entorno de Trabajo en Python
 
-**Módulo:** Procesamiento y Aprendizaje Automático Inicial (Nivel 0 — Nivelación)  
-**Slug:** `procesamiento-aprendizaje-automatico-inicial`  
-**Carga del Capítulo:** 5 horas (de 20 hs totales)
-
----
+## Lección 1.5: Python 3, Aislamiento de Dependencias y Entornos Virtuales (`venv`)
 
 ## Objetivos de Aprendizaje
 
