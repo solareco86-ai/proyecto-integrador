@@ -395,3 +395,20 @@ async def test_aprendizaje_automatico_unit2_cap5_lessons_rendered():
         assert r3.status_code == 200
         assert "GET /api/v1/metrics" in r3.text
         assert "Observabilidad" in r3.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit3_cap1_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 1.1 Candidate-Elimination
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-espacio-versiones-ce")
+        assert r1.status_code == 200
+        assert "Candidate-Elimination" in r1.text
+        assert "energy-ml" in r1.text
+
+        # 1.2 Endpoint version-space/step
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ava-endpoint-version-space-step")
+        assert r2.status_code == 200
+        assert "POST /api/v1/version-space/step" in r2.text
+        assert "VersionSpaceLearner" in r2.text
