@@ -225,21 +225,19 @@ sections:
       duration: 25 min
       content_file: cap-1-3-serializacion-joblib.md
   - id: chap-paa-int-2
-    title: 'Cap 2: Tareas de Aprendizaje y Deducción vs. Inducción'
-    description: Fundamentos teóricos del aprendizaje inductivo contrastados con el
-      razonamiento asistido de modelos de lenguaje.
+    title: 'Cap 2: Tareas de Aprendizaje y Deducción vs. Inducción en energy-ml'
+    description: Deducción simbólica del LLM vs. inducción estadística, partición temporal estricta y prevención de data leakage en energy-ml.
     items:
     - type: lesson
       id: les-paa-int-2-1
       slug: paa-int-deduccion-vs-induccion
-      title: 2.1 Razonamiento deductivo del LLM vs. inducción estadística de parámetros
+      title: '2.1 Razonamiento deductivo del LLM vs. inducción estadística de parámetros'
       duration: 25 min
       content_file: cap-2-1-deduccion-vs-induccion.md
     - type: lesson
       id: les-paa-int-2-2
       slug: paa-int-subtareas-del-aprendizaje
-      title: '2.2 Subtareas del aprendizaje: partición train/test y prevención de
-        fugas (data leakage)'
+      title: '2.2 Subtareas del aprendizaje: partición train/test y prevención de data leakage'
       duration: 25 min
       content_file: cap-2-2-subtareas-del-aprendizaje.md
   - id: chap-paa-int-3

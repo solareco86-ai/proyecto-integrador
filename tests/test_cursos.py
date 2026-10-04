@@ -321,3 +321,20 @@ async def test_aprendizaje_automatico_unit2_cap1_lessons_rendered():
         assert r3.status_code == 200
         assert "Serialización y persistencia" in r3.text
         assert "joblib" in r3.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit2_cap2_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 2.1 Deducción vs. Inducción
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-deduccion-vs-induccion")
+        assert r1.status_code == 200
+        assert "Razonamiento deductivo del LLM" in r1.text
+        assert "energy-ml" in r1.text
+
+        # 2.2 Subtareas del aprendizaje y Data Leakage
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-subtareas-del-aprendizaje")
+        assert r2.status_code == 200
+        assert "Subtareas del aprendizaje" in r2.text
+        assert "data leakage" in r2.text
