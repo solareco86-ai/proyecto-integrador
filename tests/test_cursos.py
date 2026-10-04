@@ -298,3 +298,26 @@ async def test_aprendizaje_automatico_cap5_fastapi_lessons_rendered():
         assert r4.status_code == 200
         assert "5.4 Del if/else de Firmas Eléctricas" in r4.text
         assert "Machine Learning" in r4.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_unit2_cap1_lessons_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # 1.1 Pydantic y Features
+        r1 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-pydantic-esquemas-ml")
+        assert r1.status_code == 200
+        assert "Modelado de features con Pydantic" in r1.text
+        assert "energy-ml" in r1.text
+
+        # 1.2 Lifespan y Memoria
+        r2 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-fastapi-lifespan-modelos")
+        assert r2.status_code == 200
+        assert "Gestión de memoria en FastAPI" in r2.text
+        assert "lifespan" in r2.text
+
+        # 1.3 Joblib y Persistencia
+        r3 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-int-serializacion-joblib")
+        assert r3.status_code == 200
+        assert "Serialización y persistencia" in r3.text
+        assert "joblib" in r3.text

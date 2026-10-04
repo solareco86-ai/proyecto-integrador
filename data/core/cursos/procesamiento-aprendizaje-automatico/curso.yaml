@@ -203,14 +203,13 @@ sections:
     y administración de modelos en memoria de servidor.
   chapters:
   - id: chap-paa-int-1
-    title: 'Cap 1: Arquitectura de Inferencia y Esquemas Pydantic'
-    description: Tipado estricto de entradas y salidas, persistencia con joblib y
-      ciclo de vida de aplicación con lifespan.
+    title: 'Cap 1: Arquitectura de Inferencia y Esquemas Pydantic en energy-ml'
+    description: Tipado estricto de telemetría con Pydantic, persistencia de artefactos con joblib y gestión de memoria con lifespan en FastAPI.
     items:
     - type: lesson
       id: les-paa-int-1-1
       slug: paa-int-pydantic-esquemas-ml
-      title: '1.1 Modelado de features con Pydantic: validación, rangos y tipado'
+      title: '1.1 Modelado de features con Pydantic: validación de telemetría y tipado'
       duration: 25 min
       content_file: cap-1-1-pydantic-esquemas-ml.md
     - type: lesson
@@ -222,8 +221,8 @@ sections:
     - type: lesson
       id: les-paa-int-1-3
       slug: paa-int-serializacion-joblib
-      title: 1.3 Serialización y persistencia de artefactos con joblib
-      duration: 20 min
+      title: '1.3 Serialización y persistencia de artefactos con joblib'
+      duration: 25 min
       content_file: cap-1-3-serializacion-joblib.md
   - id: chap-paa-int-2
     title: 'Cap 2: Tareas de Aprendizaje y Deducción vs. Inducción'
