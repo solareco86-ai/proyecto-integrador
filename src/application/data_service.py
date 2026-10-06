@@ -10,6 +10,7 @@ from src.application.dtos import (
     CasosContainerModel,
     ContenidoModel,
     CourseModel,
+    CursoEspecificacionModel,
     CursosContainerModel,
     GuiaModel,
     GuiasContainerModel,
@@ -70,6 +71,7 @@ class DataService:
         self._cached_redirects: dict[str, str] | None = None
         self._cached_landing_content: LandingContentModel | None = None
         self._cached_casos: CasosContainerModel | None = None
+        self._cached_especificaciones: dict[str, CursoEspecificacionModel] = {}
         self._cached_guias: GuiasContainerModel | None = None
         self._cached_planes: list[TelemetryPlanModel] | None = None
 
@@ -372,3 +374,17 @@ class DataService:
                 return carrera
         return None
 
+    def get_curso_especificacion(self, curso_id: str) -> CursoEspecificacionModel | None:
+        """Carga la especificación oficial de un curso desde YAML."""
+        if curso_id not in self._cached_especificaciones:
+            spec_path = os.path.join(self.courses_dir, curso_id, "especificacion-oficial.yaml")
+            if not os.path.exists(spec_path):
+                return None
+            try:
+                with open(spec_path, encoding="utf-8") as f:
+                    raw_data: dict[str, Any] = yaml.safe_load(f) or {}
+                spec = CursoEspecificacionModel.model_validate(raw_data)
+                self._cached_especificaciones[curso_id] = spec
+            except (FileNotFoundError, ValueError):
+                return None
+        return self._cached_especificaciones.get(curso_id)

@@ -53,6 +53,7 @@ from src.application.dtos.course_dto import (
     CourseChapterModel,
     CourseModel,
     CourseSectionModel,
+    CursoEspecificacionModel,
     CursosContainerModel,
     InstructoresContainerModel,
     InstructorModel,
@@ -155,6 +156,7 @@ __all__ = [
     "CourseSectionModel",
     "CourseModel",
     "CursosContainerModel",
+    "CursoEspecificacionModel",
     # SEO
     "SeoModel",
     "LandingContentItemModel",
