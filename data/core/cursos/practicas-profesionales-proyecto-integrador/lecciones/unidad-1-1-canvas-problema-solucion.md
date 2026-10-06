@@ -16,7 +16,7 @@ Ref: [spec](https://github.com/datamaq-automation/spec)
 ¿Cuál es el problema que resuelve este proyecto?
 
 **Proyecto Energético (energy-ml):**
-- **Problema:** Institutos no entienden qué es una factura de electricidad: por qué sube, qué consume más, cómo se calcula. Facturas llegan sin detalles. No hay visibilidad sobre qué equipos generan costos.
+- **Problema:** Empresas manufactureras no entienden qué es una factura de electricidad: por qué sube, qué consume más, cómo se calcula. Facturas llegan sin detalles. No hay visibilidad sobre qué equipos generan costos.
 - **Impacto:** Decisiones ciegas sobre consumo, no hay optimización posible, sorpresas en facturas.
 
 **Proyecto Institucional (web):**
