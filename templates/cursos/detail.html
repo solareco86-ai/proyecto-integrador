@@ -169,6 +169,54 @@
                     </div>
                 </div>
             </section>
+
+            {% if especificacion_oficial %}
+            <section class="c-curso-section" aria-labelledby="spec-title">
+                <h2 id="spec-title" class="c-curso-section__title">Especificación Oficial (DGCyE)</h2>
+
+                <div class="c-curso-section__text">
+                    <p><strong>Carga Horaria:</strong> {{ especificacion_oficial.carga_horaria }}</p>
+
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700;">Síntesis Introductoria</h3>
+                    <p>{{ especificacion_oficial.sintesis_introductoria }}</p>
+
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700;">Capacidades Profesionales</h3>
+                    <ul style="list-style: disc; margin-left: 1.5rem;">
+                        {% for capacidad in especificacion_oficial.capacidades_profesionales %}
+                            <li>{{ capacidad }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700;">Contenidos Temáticos</h3>
+                    <p>{{ especificacion_oficial.contenidos_descripcion }}</p>
+                    <ul style="list-style: disc; margin-left: 1.5rem;">
+                        {% for tema in especificacion_oficial.contenidos_tematicos %}
+                            <li>{{ tema }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700;">Prácticas Profesionalizantes en Entornos Formativos</h3>
+                    <p>{{ especificacion_oficial.practicas_entornos_formativos }}</p>
+
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700;">Referenciales para la Evaluación</h3>
+                    <ul style="list-style: disc; margin-left: 1.5rem;">
+                        {% for referencial in especificacion_oficial.referenciales_evaluacion %}
+                            <li>{{ referencial }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700;">Entorno de Aprendizaje</h3>
+                    <p>{{ especificacion_oficial.entorno_aprendizaje }}</p>
+
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.1rem; font-weight: 700;">Perfil Docente</h3>
+                    <p>{{ especificacion_oficial.perfil_docente }}</p>
+
+                    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--dm-text-muted);">
+                        <strong>Fuente:</strong> {{ especificacion_oficial.fuente_normativa or "DGCyE" }} | Versión {{ especificacion_oficial.version }}
+                    </p>
+                </div>
+            </section>
+            {% endif %}
         </main>
     </div>
 </div>

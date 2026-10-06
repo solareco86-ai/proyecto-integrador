@@ -135,11 +135,14 @@ async def detalle_curso(
     if curso.academic_only:
         seo["meta_robots"] = "noindex, nofollow"
 
+    especificacion_oficial = cursos_service.get_curso_especificacion(curso.id)
+
     context: dict[str, Any] = {
         "brand": brand_data,
         "content": content_data,
         "courses": content_data["courses"],
         "curso": presented_c,
+        "especificacion_oficial": especificacion_oficial.model_dump() if especificacion_oficial else None,
         "seo": seo,
         "footer": presented.get("footer"),
     }
