@@ -184,3 +184,55 @@ class Comunicado:
             created_at=datetime.now(UTC).isoformat(),
         )
 
+
+@dataclass
+class CursoEspecificacion:
+    """Especificación oficial de un curso según normativa DGCyE."""
+
+    id: str
+    curso_id: str
+    titulo: str
+    carga_horaria: str
+    sintesis_introductoria: str
+    capacidades_profesionales: list[str]
+    contenidos_tematicos: list[str]
+    contenidos_descripcion: str
+    practicas_entornos_formativos: str
+    referenciales_evaluacion: list[str]
+    entorno_aprendizaje: str
+    perfil_docente: str
+    version: str = "1.0"
+    created_at: str | None = None
+    updated_at: str | None = None
+
+    @classmethod
+    def create(
+        cls,
+        curso_id: str,
+        titulo: str,
+        carga_horaria: str,
+        sintesis_introductoria: str,
+        capacidades_profesionales: list[str],
+        contenidos_tematicos: list[str],
+        contenidos_descripcion: str,
+        practicas_entornos_formativos: str,
+        referenciales_evaluacion: list[str],
+        entorno_aprendizaje: str,
+        perfil_docente: str,
+    ) -> "CursoEspecificacion":
+        """Crea una especificación de curso con timestamp."""
+        return cls(
+            id=str(uuid4()),
+            curso_id=curso_id,
+            titulo=titulo,
+            carga_horaria=carga_horaria,
+            sintesis_introductoria=sintesis_introductoria,
+            capacidades_profesionales=capacidades_profesionales,
+            contenidos_tematicos=contenidos_tematicos,
+            contenidos_descripcion=contenidos_descripcion,
+            practicas_entornos_formativos=practicas_entornos_formativos,
+            referenciales_evaluacion=referenciales_evaluacion,
+            entorno_aprendizaje=entorno_aprendizaje,
+            perfil_docente=perfil_docente,
+            created_at=datetime.now(UTC).isoformat(),
+        )

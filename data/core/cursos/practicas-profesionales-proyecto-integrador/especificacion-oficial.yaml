@@ -1,0 +1,101 @@
+id: practicas-profesionales-proyecto-integrador-especificacion
+curso_id: practicas-profesionales-proyecto-integrador
+titulo: "Práctica Profesionalizante: Proyecto Integrador"
+carga_horaria: "4 (cuatro) horas reloj por semana"
+
+sintesis_introductoria: |
+  El propósito de estas Prácticas Profesionalizantes en contextos de trabajo es que las/los
+  estudiantes elaboren un proyecto de carácter integrador que contemple todos los aprendizajes
+  adquiridos previamente y su transferencia a un recorte concreto de la realidad. El objetivo
+  principal de este trabajo es proponer alternativas tecnológicas que optimicen y/o innoven en
+  relación a problemáticas sociales y/o específicas de su profesión, manejando imágenes digitales
+  provenientes del monitoreo de drones y procesamiento del habla, así como creación de modelos
+  de aprendizaje automático.
+
+capacidades_profesionales:
+  - Diseñar sistemas de inteligencia artificial
+  - Representar el problema a resolver
+  - Procesar las imágenes
+  - Planificar las etapas de trabajo
+  - Analizar los datos y realizar la limpieza y transformaciones necesarias previas a su procesamiento
+
+contenidos_tematicos:
+  - Procesamiento de datos
+  - Procesamiento del habla
+  - Procesamiento de imágenes
+  - Creación de modelos
+  - Post procesamiento de las estructuras descubiertas
+  - Visualización y actualización en línea
+  - Elaboración de informes y comunicación de la información obtenida
+  - Responsabilidad legal y social
+
+contenidos_descripcion: |
+  Los contenidos enunciados responden a un recorte temático relacionado con las capacidades y
+  competencias mínimas requeridas para la formación de los profesionales de la carrera. Deben
+  abordarse desde una perspectiva integral, en la cual cada espacio curricular forma parte de un
+  todo integrado. Contemplan capacidades y competencias vinculadas al saber hacer que cobran sentido
+  en tanto se encuentran ligadas entre sí. De allí que se deba propiciar el diálogo entre los
+  distintos espacios curriculares, generando una conversación entre las diferentes miradas.
+
+practicas_entornos_formativos: |
+  Debido a las características del módulo, los procesos de enseñanza y aprendizaje se deben
+  desarrollar en contextos teórico-prácticos de aula-taller así como en contextos de la práctica
+  profesional.
+
+  Este espacio curricular está organizado por un taller grupal y el trabajo en campo. En el taller,
+  los estudiantes preparan su salida al campo, ponen en común sus vivencias y realizan la síntesis
+  y conclusiones de las experiencias. El trabajo en campo corresponderá a la inserción de los
+  estudiantes en el contexto laboral o en aquel que mejor se aproxime a las condiciones reales.
+
+  En la planificación de esta unidad curricular, deberán preverse un número suficiente de encuentros
+  presenciales para desarrollar los requisitos y criterios que deberán tener en cuenta los estudiantes
+  para la elaboración del proyecto, a través de materiales y guías de trabajo.
+
+  En las clases presenciales los estudiantes planifican su trabajo y consultan dudas frente a la
+  elaboración del proyecto. Se socializan las experiencias que van adquiriendo, se gestionan los
+  permisos y seguros que se requieran para realizar visitas en contextos de trabajo, el uso del
+  laboratorio para la elaboración del trabajo. El objetivo principal de los encuentros será la
+  reflexión grupal sobre las dudas y los avances con el fin de lograr un ámbito de aprendizaje
+  colaborativo.
+
+  La/el docente y las autoridades de la institución educativa acordarán los ámbitos destinados a
+  la realización de las prácticas externas de los estudiantes para el desarrollo del proyecto. En
+  la planificación o plan de prácticas profesionalizantes deberá incluirse el enfoque de género que
+  garantice la equidad en los accesos a estas instancias de aprendizaje. La equidad supone que la
+  distribución del tiempo, los espacios y la posibilidad de vincular el conocimiento con la práctica,
+  representan un conjunto de estrategias pedagógicas proyectado desde el principio de la igualdad
+  educativa.
+
+  Los contextos deberán ser diversos y pertinentes en relación a los objetivos planteados, incluyendo
+  todos los requerimientos para que las actividades prácticas se realicen en contextos seguros.
+
+referenciales_evaluacion:
+  - La originalidad del trabajo
+  - La lógica del planteo
+  - Lo apropiado de la metodología aplicada
+  - La calidad de la elaboración efectuada con los datos obtenidos
+  - La coherencia entre hipótesis, datos y conclusiones
+  - La documentación aportada
+
+entorno_aprendizaje: |
+  Debido a las características del espacio curricular, los procesos de enseñanza y aprendizaje se
+  deben desarrollar en situaciones reales del ámbito profesional y en aula. En el campo de acción,
+  los futuros profesionales, llevarán adelante las propuestas de cada institución educativa, sin
+  perder de vista que es primordial y prescriptiva la vinculación real con el mundo del trabajo
+  para poder reflexionar y construir experiencias significativas.
+
+  En el contexto teórico-práctico debe contemplarse la dimensión vinculada al clima institucional.
+  En este sentido, se promoverán prácticas pedagógicas orientadas a la democratización de las
+  enseñanzas, garantizando procesos más inclusivos donde se reconozca y respete las diversidades,
+  se establezca la horizontalidad en las relaciones y se construyan vínculos entre los géneros
+  libres de violencias y discriminación.
+
+perfil_docente: |
+  Licenciada/o-Ingeniera/o en Informática, Técnica/o Superior en Software/Informática/Análisis de
+  Sistemas, Licenciada/o-Ingeniera/o en Sistemas u otro graduado de nivel superior que posea
+  formación específica en los contenidos enunciados en este espacio curricular con trayectoria en
+  el campo de conocimiento y formación pedagógica que califiquen su ingreso y promoción en la
+  carrera docente.
+
+version: "1.0"
+fuente_normativa: "DGCyE - Diseño Curricular Oficial, Trayecto J"
