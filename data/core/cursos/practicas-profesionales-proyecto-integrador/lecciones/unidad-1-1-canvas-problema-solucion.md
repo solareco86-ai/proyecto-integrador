@@ -7,7 +7,7 @@ Definir el problema del proyecto de forma clara, la solución propuesta, y cómo
 ## Referencia
 
 **Spec:** Business Model Canvas (BMC) es parte del proceso de gobernanza.
-Ref: https://github.com/datamaq-automation/spec
+Ref: [spec](https://github.com/datamaq-automation/spec)
 
 ## Contenidos
 
@@ -16,8 +16,8 @@ Ref: https://github.com/datamaq-automation/spec
 ¿Cuál es el problema que resuelve este proyecto?
 
 **Proyecto Energético (energy-ml):**
-- **Problema:** Institutos no conocen patrones de consumo eléctrico en tiempo real. Facturas llegan después. No hay visibilidad de cargas anómalas.
-- **Impacto:** Costos innecesarios, no hay optimización, sorpresas en facturas.
+- **Problema:** Institutos no entienden qué es una factura de electricidad: por qué sube, qué consume más, cómo se calcula. Facturas llegan sin detalles. No hay visibilidad sobre qué equipos generan costos.
+- **Impacto:** Decisiones ciegas sobre consumo, no hay optimización posible, sorpresas en facturas.
 
 **Proyecto Institucional (web):**
 - **Problema:** Alumnos no saben qué carrera elegir, qué materias cursar, cómo es el plan de estudios. Consultas manuales saturan secretaría.
@@ -34,10 +34,10 @@ Ref: https://github.com/datamaq-automation/spec
 - Bot conversacional (NLP, 2do año) para consultas
 
 **Proyecto Institucional:**
-- Portal centralizado con información de carreras
+- Portal centralizado con información clara de carreras (especialmente Cs de Datos e IA)
 - Bot de atención (NLP, 2do año)
-- Recomendador de carreras (ML, PAA)
-- Análisis de trayectorias (datos)
+- Visibilización de perfiles, salidas laborales y mercado para cada carrera
+- Análisis de tendencias de inscripción (datos)
 
 ### 3. Key Metrics
 
