@@ -209,17 +209,16 @@ async def vista_leccion(
     return templates.TemplateResponse(request=request, name="cursos/lesson.html", context=context)
 
 
-@router.get("/{curso_slug}/especificacion-oficial", response_model=CursoEspecificacionModel)
+@router.get("/api/{curso_id}/especificacion-oficial", response_model=CursoEspecificacionModel)
 async def especificacion_oficial(
-    curso_slug: str,
+    curso_id: str,
     cursos_service: DataService = Depends(get_cursos_service),
 ):
-    """Expone la especificación oficial de un curso en formato JSON."""
-    curso = cursos_service.get_curso_por_slug(curso_slug)
-    if not curso:
-        raise HTTPException(status_code=404, detail="Curso no encontrado")
+    """Expone la especificación oficial de un curso en formato JSON.
 
-    especificacion = cursos_service.get_curso_especificacion(curso.id)
+    Ejemplo: GET /cursos/api/practicas-profesionales-proyecto-integrador/especificacion-oficial
+    """
+    especificacion = cursos_service.get_curso_especificacion(curso_id)
     if not especificacion:
         raise HTTPException(status_code=404, detail="Especificación oficial no encontrada")
 
