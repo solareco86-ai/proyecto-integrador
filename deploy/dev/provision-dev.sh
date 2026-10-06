@@ -52,8 +52,9 @@ DATABASE_URL=sqlite+aiosqlite:///data/leads.db
 SECRET_KEY=$SECRET
 SESSION_COOKIE_NAME=isft199_dev_session
 ENV
-    chown "$DEPLOY_USER:$DEPLOY_USER" "$DEV_DIR/.env"
-    chmod 600 "$DEV_DIR/.env"
+    # Igual que producción: la app (usuario isftn199) lee el .env vía load_dotenv().
+    chown "$DEPLOY_USER:$APP_USER" "$DEV_DIR/.env"
+    chmod 640 "$DEV_DIR/.env"
 else
     log "    .env ya existe, no se toca"
 fi
