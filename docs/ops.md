@@ -56,6 +56,23 @@ sudo systemctl restart datamaq.service
 ### 2.3 Política de Autorización de Despliegue
 Cualquier modificación que impacte en producción debe ser autorizada por el usuario al aprobar el `git push` a `main` o al autorizar la ejecución directa del script de contingencia. Queda prohibido el despliegue manual autónomo por parte del asistente de IA sin confirmación previa.
 
+### 2.4 Entorno Dev (`https://dev.isftn199.com.ar`)
+Entorno de pruebas que sigue la rama de integración `develop` (ver [CONTRIBUTING.md](../CONTRIBUTING.md)). Los archivos de infraestructura están versionados en [deploy/dev/](../deploy/dev).
+
+| Elemento | Valor |
+|---|---|
+| Directorio VPS | `/var/www/proyecto-integrador-dev` (checkout de `develop`, venv y `.env` propios) |
+| Servicio | `isftn199-dev.service` (usuario `isftn199`) en `127.0.0.1:8004` |
+| Base de datos | SQLite propia (`data/leads.db` del checkout dev); sin acceso a datos de producción |
+| Nginx | `/etc/nginx/conf.d/dev.isftn199.com.ar.conf` (bloque `:80`, Cloudflare en modo Flexible) |
+| CD | `.github/workflows/deploy-dev.yml` en cada push a `develop` (environment `development`) |
+| Caché Cloudflare | No se purga en deploys dev (`DEPLOY_SKIP_PURGE=true`) |
+
+* **Provisión inicial (una sola vez, como root en el VPS):** `sudo bash deploy/dev/provision-dev.sh`. Es idempotente y valida `visudo` y `nginx -t` antes de aplicar.
+* **DNS y acceso:** registro `dev` con proxy de Cloudflare hacia la IP del VPS. El acceso se restringe con Cloudflare Access (login por email) y el vhost envía `X-Robots-Tag: noindex, nofollow`.
+* **Secretos del entorno:** el `.env` de dev se genera sin credenciales de producción (sin Telegram, SMTP ni analytics) y con `SECRET_KEY` propia.
+* Los secretos `DEPLOY_SSH_*` deben estar disponibles para el environment `development` de GitHub Actions.
+
 ---
 
 ## 3. Servicios en Segundo Plano y Watchdogs

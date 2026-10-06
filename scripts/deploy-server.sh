@@ -15,6 +15,9 @@ if [ -z "$DEPLOY_SSH_HOST" ] || [ -z "$DEPLOY_SSH_PORT" ] || [ -z "$DEPLOY_SSH_U
     exit 1
 fi
 
+# Rama a desplegar (main = producción; develop = entorno dev).
+DEPLOY_BRANCH="${DEPLOY_BRANCH:-main}"
+
 if [ "$DEPLOY_SSH_USER" = "root" ]; then
     echo "Error: no se permite desplegar como root. Usá un usuario dedicado."
     exit 1
@@ -46,6 +49,8 @@ log "Iniciando despliegue de Datamaq en $DEPLOY_SSH_HOST..."
 ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
     DEPLOY_REMOTE_DIR="$DEPLOY_REMOTE_DIR" \
     DEPLOY_SERVICE_NAME="$DEPLOY_SERVICE_NAME" \
+    DEPLOY_BRANCH="$DEPLOY_BRANCH" \
+    DEPLOY_APP_PORT="${DEPLOY_APP_PORT:-}" \
     bash <<'EOF'
     set -e
 
@@ -65,8 +70,8 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
     fi
 
     echo "==> Actualizando código..."
-    git fetch origin main
-    git reset --hard origin/main
+    git fetch origin "$DEPLOY_BRANCH"
+    git reset --hard "origin/$DEPLOY_BRANCH"
 
     echo "==> Instalando dependencias..."
     ./.venv/bin/pip install -r requirements.txt
@@ -118,6 +123,11 @@ fi
 
 # Purga la caché de Cloudflare tras un despliegue exitoso. No bloqueante si las
 # credenciales (CF_API_TOKEN/CF_ZONE_ID) no están definidas; en CI provienen de
-# los secrets de GitHub Actions.
-log "Purgando caché de Cloudflare..."
-python3 scripts/purge_cloudflare.py
+# los secrets de GitHub Actions. El entorno dev la omite (DEPLOY_SKIP_PURGE=true)
+# para no vaciar la caché de producción en cada deploy de la rama de integración.
+if [ "${DEPLOY_SKIP_PURGE:-false}" = "true" ]; then
+    log "Purga de caché de Cloudflare omitida (DEPLOY_SKIP_PURGE=true)."
+else
+    log "Purgando caché de Cloudflare..."
+    python3 scripts/purge_cloudflare.py
+fi

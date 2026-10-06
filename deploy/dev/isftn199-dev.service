@@ -1,0 +1,24 @@
+[Unit]
+Description=ISFT N°199 (proyecto-integrador) FastAPI Application - entorno dev
+After=network.target
+
+[Service]
+Type=simple
+# Mismo esquema de permisos que producción: el código es de `datamaq` (deploy) y
+# la app corre con el usuario dedicado `isftn199`, que solo escribe en data/.
+User=isftn199
+Group=isftn199
+WorkingDirectory=/var/www/proyecto-integrador-dev
+EnvironmentFile=/var/www/proyecto-integrador-dev/.env
+ExecStart=/var/www/proyecto-integrador-dev/.venv/bin/python3 -m uvicorn src.infrastructure.fastapi.app:app --host 127.0.0.1 --port 8004
+Restart=on-failure
+RestartSec=5
+PrivateTmp=true
+# git se niega a leer un repo de otro dueño ("dubious ownership"): se marca como
+# seguro solo para este servicio (sin tocar /etc/gitconfig).
+Environment=GIT_CONFIG_COUNT=1
+Environment=GIT_CONFIG_KEY_0=safe.directory
+Environment=GIT_CONFIG_VALUE_0=/var/www/proyecto-integrador-dev
+
+[Install]
+WantedBy=multi-user.target

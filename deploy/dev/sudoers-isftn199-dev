@@ -1,0 +1,3 @@
+datamaq ALL=(ALL) NOPASSWD: /bin/systemctl restart isftn199-dev.service
+datamaq ALL=(ALL) NOPASSWD: /bin/systemctl is-active isftn199-dev.service
+datamaq ALL=(ALL) NOPASSWD: /bin/systemctl status isftn199-dev.service
