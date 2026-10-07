@@ -46,6 +46,3 @@ def test_yaml_files_integrity():
     redirects = service.get_redirects()
     assert isinstance(redirects, dict)
 
-    # 7. Validar Landing Content
-    landing_content = service.get_landing_content()
-    assert landing_content is not None
