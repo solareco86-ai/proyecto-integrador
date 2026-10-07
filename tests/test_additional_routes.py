@@ -49,6 +49,11 @@ async def override_get_contenido():
                     "more_info_label": "Ver más",
                     "more_info_link": "/terminos-y-condiciones",
                 },
+                "error_404": {
+                    "description": "Test",
+                    "links_title": "Accesos rápidos:",
+                    "links": [{"label": "Carreras", "href": "/carreras", "icon": "bi-mortarboard-fill"}],
+                },
                 "contact": {
                     "title": "Solicitá asistencia técnica híbrida",
                     "subtitle": "Test",

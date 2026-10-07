@@ -23,25 +23,18 @@
             Página no encontrada
         </h1>
         <p class="tw:text-sm tw:md:text-base tw:text-dm-text-muted tw:mt-3 tw:max-w-lg tw:mx-auto tw:leading-relaxed">
-            El recurso buscado fue reubicado o no está disponible. No te preocupes: nuestras herramientas, telemetría y servicios siguen en marcha.
+            {{ content.error_404.description }}
         </p>
 
-        <!-- Enlaces rápidos a soluciones -->
+        <!-- Enlaces rápidos institucionales -->
         <div class="tw:mt-8 tw:p-6 tw:bg-dm-surface tw:border tw:border-dm-border-0 tw:rounded-2xl tw:text-left tw:space-y-3">
-            <span class="tw:text-xs tw:font-semibold tw:text-dm-text-muted tw:uppercase tw:tracking-wider">Accesos rápidos:</span>
+            <span class="tw:text-xs tw:font-semibold tw:text-dm-text-muted tw:uppercase tw:tracking-wider">{{ content.error_404.links_title }}</span>
             <div class="tw:grid tw:grid-cols-1 tw:sm:grid-cols-2 tw:gap-3 tw:pt-1">
-                <a href="/landing/calidad-energia" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-dm-accent-orange/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
-                    <i class="bi bi-lightning-charge-fill tw:text-amber-400"></i> Factor de Potencia (cos φ)
+                {% for link in content.error_404.links %}
+                <a href="{{ link.href }}" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-dm-accent-orange/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
+                    <i class="bi {{ link.icon }} tw:text-amber-400"></i> {{ link.label }}
                 </a>
-                <a href="/landing/telemetria-industrial" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-cyan-500/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
-                    <i class="bi bi-cpu-fill tw:text-cyan-400"></i> Telemetría & Retrofit IoT
-                </a>
-                <a href="/pricing" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-green-500/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
-                    <i class="bi bi-cash-coin tw:text-green-400"></i> Precios y Financiamiento
-                </a>
-                <a href="/cursos" class="tw:p-3 tw:bg-dm-bg-0 tw:border tw:border-dm-border-0 tw:rounded-xl tw:text-xs tw:font-bold tw:text-white hover:tw:border-purple-500/50 tw:flex tw:items-center tw:gap-2 tw:transition-colors">
-                    <i class="bi bi-journal-code tw:text-purple-400"></i> Cursos Gratuitos
-                </a>
+                {% endfor %}
             </div>
         </div>
 
