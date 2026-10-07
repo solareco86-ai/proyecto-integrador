@@ -23,7 +23,7 @@
 ### 1.2. Pilares de Valor de la Solución
 | Pilar | Enfoque | Implementación en este Sistema |
 | :--- | :--- | :--- |
-| **1. Entorno Educativo & Activos** | 6 Tecnicaturas Superiores (Ciencia de Datos e IA, Mecatrónica, Logística, Higiene y Seguridad, RRHH, Servicios Gastronómicos y Turismo). | Catálogo oficial desacoplado en `data/content/carreras.yaml` y campus técnico en `data/core/cursos/`. |
+| **1. Entorno Educativo & Activos** | 7 Tecnicaturas Superiores (Ciencia de Datos e IA, Mecatrónica, Logística, Higiene y Seguridad, RRHH, Turismo, Hotelería). | Catálogo oficial desacoplado en `data/content/carreras.yaml` y campus técnico en `data/core/cursos/`. |
 | **2. Arquitectura de Software** | Rendimiento web de alta velocidad, SEO optimizado y mantenibilidad estricta. | Arquitectura Hexagonal / DDD en Python con FastAPI + Jinja2 SSR, Tailwind CSS v4 y datos estáticos YAML/Markdown. |
 | **3. Impacto Comunitario** | Acceso universal a la formación superior técnica y vinculación socio-productiva en Zona Norte. | Cero barreras arancelarias, diseño responsivo móvil accesible y orientación directa vía WhatsApp y formularios. |
 
@@ -42,7 +42,7 @@
 ## 3. Requisitos del Sistema (SRS)
 
 ### 3.1. Requisitos Funcionales (FR)
-* **FR-01 (Catálogo Académico):** Presentación de planes de estudio oficiales, perfiles profesionales y materias de las 6 tecnicaturas desde `data/content/carreras.yaml`.
+* **FR-01 (Catálogo Académico):** Presentación de planes de estudio oficiales, perfiles profesionales y materias de las 7 tecnicaturas desde `data/content/carreras.yaml`.
 * **FR-02 (Campus Virtual / LMS Desacoplado):** Módulo `/cursos` con soporte para lecciones modulares en Markdown con syntax highlighting y cuestionarios de autoevaluación interactivos (quizzes).
 * **FR-03 (Captura de Aspirantes / Leads):** Formularios con validación en servidor (Pydantic DTOs), protección anti-spam por Honeypot, almacenamiento persistente (MySQL/SQLAlchemy) y despacho de notificaciones (Email, Telegram).
 * **FR-04 (SEO y Metadatos Semánticos):** Generación dinámica de `sitemap.xml`, `robots.txt`, `llms.txt`, etiquetas OpenGraph y esquemas JSON-LD (EducationalOrganization, Course, BreadcrumbList).

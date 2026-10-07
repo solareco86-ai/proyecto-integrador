@@ -10,12 +10,13 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
 * **Sede Principal:** Maestra Celina Voena 1750, El Talar, Partido de Tigre, Pcia. de Buenos Aires (CP 1618).
 * **Dominio Oficial:** [https://isftn199.com.ar](https://isftn199.com.ar)
 * **Oferta Académica Principal (Tecnicaturas Superiores de 3 Años):**
-  1. *Ciencia de Datos e Inteligencia Artificial* (Resolución DGCyE N° 273/22)
+  1. *Ciencia de Datos e Inteligencia Artificial* (Resolución DGCyE N° 2730/22)
   2. *Mecatrónica* (Resolución DGCyE N° 5885/10)
   3. *Logística* (Resolución DGCyE N° 1243/19)
   4. *Higiene y Seguridad en el Trabajo* (Resolución DGCyE N° 320/13)
   5. *Administración de Recursos Humanos* (Resolución DGCyE N° 276/03)
-  6. *Servicios Gastronómicos y Turismo* (Resolución DGCyE N° 148/18)
+  6. *Turismo* (Resolución N° 2686/20)
+  7. *Hotelería* (Resolución N° 2685/20)
 
 ---
 

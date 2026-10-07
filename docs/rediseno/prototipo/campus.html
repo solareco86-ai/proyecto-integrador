@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="es" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi cursada — Campus ISFT N° 199</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/sistema.css">
+</head>
+<body class="campus">
+<div class="banda-prototipo" role="note">Prototipo de rediseño · no es el sitio oficial. Lo marcado como «ejemplo» no es información oficial.</div>
+<a class="salto-contenido" href="#contenido">Saltar al contenido</a>
+
+<header class="campus__barra">
+  <a class="marca" href="index.html">
+    <img src="img/escudo.webp" alt="">
+    <span>
+      <span class="marca__n">ISFT N° 199</span>
+      <span class="marca__d">Campus</span>
+    </span>
+  </a>
+
+  <div class="campus__ciclo">
+    <span class="etiqueta-dato">Ciclo lectivo</span>
+    <strong class="dato">2026 · 2.º cuatrimestre</strong>
+  </div>
+
+  <div class="campus__usuario">
+    <button class="conmutador" type="button" data-conmutador>Tema oscuro</button>
+    <div class="usuario">
+      <span class="usuario__n">Matías Moreno</span>
+      <span class="usuario__r">Estudiante · Legajo <span class="dato">19 904/26</span></span>
+    </div>
+    <div class="usuario__av" aria-hidden="true">MM</div>
+  </div>
+</header>
+
+<div class="campus__cuerpo">
+
+  <nav class="rail" aria-label="Secciones del campus">
+    <p class="rail__t">Cursada</p>
+    <ul>
+      <li><a href="#" aria-current="page">Mi cursada</a></li>
+      <li><a href="#">Asistencia</a></li>
+      <li><a href="#">Calificaciones</a></li>
+      <li><a href="#">Material de cátedra</a></li>
+    </ul>
+
+    <p class="rail__t">Trámites</p>
+    <ul>
+      <li><a href="#">Inscripción a materias</a></li>
+      <li><a href="#">Inscripción a finales <span class="rail__n">2</span></a></li>
+      <li><a href="#">Constancias</a></li>
+      <li><a href="#">Mi legajo</a></li>
+    </ul>
+
+    <p class="rail__t">Instituto</p>
+    <ul>
+      <li><a href="#">Comunicados</a></li>
+      <li><a href="#">Calendario</a></li>
+      <li><a href="#">Preceptoría</a></li>
+    </ul>
+  </nav>
+
+  <main id="contenido" class="campus__main">
+
+    <div class="campus__enc">
+      <div>
+        <h1 class="titular">Mi cursada</h1>
+        <p class="campus__sub">
+          Tecnicatura Superior en Ciencia de Datos e IA · 2.º año · Comisión B · Turno vespertino
+        </p>
+      </div>
+      <a class="boton boton--chico" href="#">Descargar constancia de alumno regular</a>
+    </div>
+
+    <!-- Lo urgente primero: el campus abre con lo que vence -->
+    <section class="vencimientos" aria-label="Vencimientos próximos">
+      <article class="venc venc--urge">
+        <span class="venc__d">6</span>
+        <div>
+          <p class="venc__t">Cierra la inscripción a mesas de diciembre</p>
+          <p class="venc__f">Hasta el 12 oct 2026 · 23:59</p>
+        </div>
+        <a class="boton boton--chico" href="#">Inscribirme</a>
+      </article>
+      <article class="venc">
+        <span class="venc__d">21</span>
+        <div>
+          <p class="venc__t">Entrega del trabajo integrador de Machine Learning</p>
+          <p class="venc__f">Hasta el 27 oct 2026</p>
+        </div>
+        <a class="boton boton--chico" href="#">Ver consigna</a>
+      </article>
+    </section>
+
+    <div class="campus__col">
+
+      <section>
+        <div class="marcador">
+          <span class="marcador__n">01</span>
+          <span class="marcador__t">Materias en curso</span>
+          <span class="marcador__extra">5 materias · 2.º cuatrimestre</span>
+        </div>
+
+        <div class="tabla-desliza">
+          <table class="tabla tabla--campus">
+            <thead>
+              <tr>
+                <th scope="col">Materia</th>
+                <th scope="col">Docente</th>
+                <th scope="col" class="num">Asistencia</th>
+                <th scope="col" class="num">Parcial 1</th>
+                <th scope="col" class="num">Parcial 2</th>
+                <th scope="col">Condición</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Machine Learning y Minería de Datos</th>
+                <td>A. Bustos</td>
+                <td class="num"><span class="barra"><span style="--p:88%"></span></span> 88%</td>
+                <td class="num">8</td>
+                <td class="num tenue">—</td>
+                <td><span class="chip chip--ok">Regular</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Bases de Datos Relacionales y NoSQL</th>
+                <td>V. Juárez</td>
+                <td class="num"><span class="barra"><span style="--p:95%"></span></span> 95%</td>
+                <td class="num">9</td>
+                <td class="num">7</td>
+                <td><span class="chip chip--ok">Regular</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Álgebra Lineal y Estadística Aplicada</th>
+                <td>L. Amengual</td>
+                <td class="num"><span class="barra"><span style="--p:62%"></span></span> 62%</td>
+                <td class="num">6</td>
+                <td class="num tenue">—</td>
+                <td><span class="chip chip--riesgo">En riesgo</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Procesamiento de Lenguaje Natural</th>
+                <td>M. Leñero</td>
+                <td class="num"><span class="barra"><span style="--p:100%"></span></span> 100%</td>
+                <td class="num">10</td>
+                <td class="num">9</td>
+                <td><span class="chip chip--ok">Regular</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Ética, Gobernanza y Privacidad de los Datos</th>
+                <td>S. Areco</td>
+                <td class="num"><span class="barra"><span style="--p:76%"></span></span> 76%</td>
+                <td class="num">7</td>
+                <td class="num tenue">—</td>
+                <td><span class="chip chip--ok">Regular</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="nota-tabla">
+          Se mantiene la regularidad con <strong>75% de asistencia</strong> y los dos
+          parciales aprobados. Álgebra Lineal está por debajo del mínimo: hablá con
+          Preceptoría antes del cierre del cuatrimestre.
+        </p>
+      </section>
+
+      <section style="margin-top: var(--e8)">
+        <div class="marcador">
+          <span class="marcador__n">02</span>
+          <span class="marcador__t">Finales disponibles</span>
+          <span class="marcador__extra">Turno diciembre 2026</span>
+        </div>
+
+        <div class="tabla-desliza">
+          <table class="tabla tabla--campus">
+            <thead>
+              <tr>
+                <th scope="col">Materia</th>
+                <th scope="col">Mesa</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Estado</th>
+                <th scope="col"><span class="sr">Acción</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Programación en Python y Estructuras de Datos</th>
+                <td class="dato">M-114</td>
+                <td class="dato">03 dic · 18:30</td>
+                <td><span class="chip chip--ok">Inscripto</span></td>
+                <td class="num"><button class="enlace-accion" type="button">Dar de baja</button></td>
+              </tr>
+              <tr>
+                <th scope="row">Deep Learning y Computer Vision</th>
+                <td class="dato">M-118</td>
+                <td class="dato">05 dic · 18:30</td>
+                <td><span class="chip">Habilitado</span></td>
+                <td class="num"><button class="enlace-accion enlace-accion--alta" type="button">Inscribirme</button></td>
+              </tr>
+              <tr>
+                <th scope="row">Álgebra Lineal y Estadística Aplicada</th>
+                <td class="dato">M-121</td>
+                <td class="dato">09 dic · 19:00</td>
+                <td><span class="chip chip--bloqueado">Adeuda correlativa</span></td>
+                <td class="num tenue">No disponible</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Columna lateral de trámites -->
+    <aside class="campus__lateral">
+      <section class="panel">
+        <h2 class="panel__t">Mis trámites</h2>
+        <ul class="tramites">
+          <li>
+            <span class="chip chip--ok">Resuelto</span>
+            <p class="tramites__t">Constancia de alumno regular</p>
+            <p class="tramites__f dato">Emitida el 28 sep 2026</p>
+          </li>
+          <li>
+            <span class="chip chip--espera">En trámite</span>
+            <p class="tramites__t">Equivalencia de Inglés Técnico I</p>
+            <p class="tramites__f dato">Presentado el 14 sep 2026 · Preceptoría</p>
+          </li>
+          <li>
+            <span class="chip chip--ok">Resuelto</span>
+            <p class="tramites__t">Actualización de domicilio en legajo</p>
+            <p class="tramites__f dato">Resuelto el 02 sep 2026</p>
+          </li>
+        </ul>
+        <a class="boton boton--chico" href="#" style="width:100%; justify-content:center; margin-top:var(--e4)">Iniciar un trámite</a>
+      </section>
+
+      <section class="panel" style="margin-top:var(--e5)">
+        <h2 class="panel__t">Resumen del año</h2>
+        <dl class="ficha" style="border-top:0">
+          <div class="ficha__fila" style="grid-template-columns:1fr auto"><dt>Materias aprobadas</dt><dd class="dato">11 de 24</dd></div>
+          <div class="ficha__fila" style="grid-template-columns:1fr auto"><dt>Promedio general</dt><dd class="dato">8,12</dd></div>
+          <div class="ficha__fila" style="grid-template-columns:1fr auto"><dt>Asistencia global</dt><dd class="dato">84%</dd></div>
+          <div class="ficha__fila" style="grid-template-columns:1fr auto"><dt>Condición</dt><dd><span class="chip chip--ok">Regular</span></dd></div>
+        </dl>
+      </section>
+
+      <section class="panel" style="margin-top:var(--e5)">
+        <h2 class="panel__t">Comunicados</h2>
+        <ul class="comunicados">
+          <li>
+            <time class="dato" datetime="2026-10-02">02 oct</time>
+            <a href="#">Cronograma de mesas de examen — turno diciembre</a>
+          </li>
+          <li>
+            <time class="dato" datetime="2026-09-29">29 sep</time>
+            <a href="#">Cambio de aula para Bases de Datos: pasa al laboratorio 2</a>
+          </li>
+          <li>
+            <time class="dato" datetime="2026-09-20">20 sep</time>
+            <a href="#">Suspensión de actividades por jornada institucional</a>
+          </li>
+        </ul>
+      </section>
+    </aside>
+
+  </main>
+</div>
+
+<footer class="campus__pie">
+  <span>ISFT N° 199 · Campus virtual</span>
+  <span class="dato">Prototipo de rediseño · datos de ejemplo</span>
+</footer>
+
+<script src="js/tema.js"></script>
+</body>
+</html>

@@ -21,7 +21,7 @@
 ## 2. Oferta Curricular Oficial (Tecnicaturas Superiores de 3 Años)
 
 ### 2.1 Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
-* **Resolución Ministerial:** DGCyE N° 273/22.
+* **Resolución Ministerial:** DGCyE N° 2730/22.
 * **Título Otorgado:** Técnico/a Superior en Ciencia de Datos e Inteligencia Artificial.
 * **Duración:** 3 años (presencial, turno vespertino).
 * **Descripción:** Formación especializada en recolección, procesamiento, modelado predictivo y puesta en producción de modelos de aprendizaje automático y redes neuronales.
@@ -120,24 +120,46 @@
   - Administrador/a de legajos y compensaciones
   - Coordinador/a de clima y cultura de trabajo
 
-### 2.6 Tecnicatura Superior en Servicios Gastronómicos y Turismo
-* **Resolución Ministerial:** DGCyE N° 148/18.
-* **Título Otorgado:** Técnico/a Superior en Servicios Gastronómicos y Turismo.
+### 2.6 Tecnicatura Superior en Turismo
+* **Resolución:** Res. N° 2686/20.
+* **Título Otorgado:** Técnico/a Superior en Turismo.
 * **Duración:** 3 años (presencial, turno vespertino).
-* **Descripción:** Gestión e innovación en servicios turísticos, hoteleros y gastronómicos, con anclaje en el ecoturismo y el Delta de Tigre.
+* **Descripción:** Formación orientada a diseñar experiencias turísticas sostenibles y a trabajar en el desarrollo del turismo local y regional, aplicando marketing, comunicación y tecnología turística junto a proyectos de impacto local.
 * **Materias Destacadas del Plan de Estudios:**
-  - Circuitos Turísticos y Guía de Excursiones
-  - Gestión Hotelera y Hospitalidad
-  - Patrimonio Natural y Cultural del Delta
-  - Servicios Gastronómicos y Enología
-  - Organización de Eventos y Convenciones
-  - Marketing Turístico y Canales Digitales
-  - Idiomas Técnicos (Inglés y Portugués)
-  - Legislación Turística y Sustentabilidad
+  - Geografía
+  - Historia del Turismo
+  - Introducción al Turismo
+  - Gestión de Empresas Turísticas
+  - Legislación y Marketing Turístico
+  - Recursos Culturales
+  - Turismo Sustentable
+  - Portugués
 * **Perfil del Egresado y Salida Laboral:**
-  - Coordinador/a de circuitos turísticos y receptivos
-  - Administrador/a de hoteles, posadas y restaurantes
-  - Organizador/a profesional de eventos y congresos
+  - Guía o Coordinador/a de Turismo
+  - Asesor/a o Agente de Viajes
+  - Técnico/a en Promoción y Desarrollo Turístico
+  - Gestor/a de Proyectos Culturales y Sustentables
+  - Consultor/a o Emprendedor/a en servicios turísticos
+### 2.7 Tecnicatura Superior en Hotelería
+* **Resolución:** Res. N° 2685/20.
+* **Título Otorgado:** Técnico/a Superior en Hotelería.
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Descripción:** Prepara para organizar, dirigir y optimizar establecimientos hoteleros y turísticos, aportando calidad, creatividad y hospitalidad, con estrategias de marketing y optimización de recursos gastronómicos y turísticos.
+* **Materias Destacadas del Plan de Estudios:**
+  - Administración Hotelera
+  - Turismo y Hospitalidad
+  - Marketing
+  - Recursos Humanos
+  - Gastronomía
+  - Contabilidad
+  - Gestión de Calidad
+  - Sustentabilidad
+* **Perfil del Egresado y Salida Laboral:**
+  - Recepcionista o Coordinador/a de Reservas
+  - Encargado/a de Piso o Supervisor/a de Servicios
+  - Jefe/a de Recepción o de Alimentos y Bebidas
+  - Gerente/a de Hotel o Emprendedor/a turístico
+  - Asesor/a en gestión hotelera o calidad de servicios
 
 ---
 

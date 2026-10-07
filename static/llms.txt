@@ -10,7 +10,7 @@
 ## Oferta Académica Oficial (Tecnicaturas Superiores de 3 Años)
 
 1. [Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial](https://isftn199.com.ar/carreras):
-   - Resolución oficial: DGCyE N° 273/22.
+   - Resolución oficial: DGCyE N° 2730/22.
    - Formación: Python, Machine Learning, Deep Learning, SQL, Big Data, FastAPI, Computer Vision y NLP.
    - Salida laboral: Científico/a de datos, desarrollador/a de Machine Learning, analista de Business Intelligence e ingeniero/a de datos junior.
 
@@ -34,10 +34,15 @@
    - Formación: Gestión del talento, legislación laboral, liquidación de haberes y cargas sociales, relaciones sindicales y clima organizacional.
    - Salida laboral: Analista de selección (Talent Acquisition), responsable de nóminas, administración de personal y mediación laboral.
 
-6. [Tecnicatura Superior en Servicios Gastronómicos y Turismo](https://isftn199.com.ar/carreras):
-   - Resolución oficial: DGCyE N° 148/18.
-   - Formación: Planificación turística, administración hotelera y gastronómica, ecoturismo y desarrollo sustentable del Delta de Tigre.
-   - Salida laboral: Administrador/a hotelero/gastronómico, organizador/a de eventos y congresos, y coordinador/a de circuitos turísticos.
+6. [Tecnicatura Superior en Turismo](https://isftn199.com.ar/carreras):
+   - Resolución oficial: Res. N° 2686/20.
+   - Formación: Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
+   - Salida laboral: Guía o Coordinador/a de Turismo, Asesor/a o Agente de Viajes, Técnico/a en Promoción y Desarrollo Turístico, Gestor/a de Proyectos Culturales y Sustentables, Consultor/a o Emprendedor/a en servicios turísticos.
+
+7. [Tecnicatura Superior en Hotelería](https://isftn199.com.ar/carreras):
+   - Resolución oficial: Res. N° 2685/20.
+   - Formación: Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
+   - Salida laboral: Recepcionista o Coordinador/a de Reservas, Encargado/a de Piso o Supervisor/a de Servicios, Jefe/a de Recepción o de Alimentos y Bebidas, Gerente/a de Hotel o Emprendedor/a turístico, Asesor/a en gestión hotelera o calidad de servicios.
 
 ## Campus Virtual y Aulas Técnicas
 - **Plataforma LMS Integrada:** [Aulas y Cursos Técnicos](https://isftn199.com.ar/cursos) con talleres prácticos, apuntes abiertos, código y laboratorios de cátedra para estudiantes y docentes del instituto.

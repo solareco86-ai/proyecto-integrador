@@ -41,7 +41,7 @@ proof_strip:
 services:
   eyebrow: Áreas Formativas y Tecnicaturas
   title: Propuesta académica orientada al desarrollo tecnológico y profesional
-  description: Seis tecnicaturas superiores diseñadas para responder a la transformación
+  description: Siete tecnicaturas superiores diseñadas para responder a la transformación
     digital, la automatización industrial, la logística regional y la gestión organizacional.
   cards:
   - id: ciencia-de-datos-ia
@@ -127,7 +127,7 @@ process:
     secundario completo.
   steps:
   - title: 1. Elegí tu Carrera
-    text: Consultá los planes de estudio y perfiles profesionales de las 6 tecnicaturas
+    text: Consultá los planes de estudio y perfiles profesionales de las 7 tecnicaturas
       oficiales.
   - title: 2. Preinscripción en Línea
     text: Completá el formulario web con tus datos personales y la carrera seleccionada.
