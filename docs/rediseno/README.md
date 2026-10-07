@@ -135,9 +135,31 @@ tema claro y oscuro completos.
 | Carreras, resoluciones, materias, perfiles y salida laboral | `data/content/carreras.yaml` |
 | Domicilio, teléfono, correos y horarios | Sitio actual y `AGENTS.md` |
 | Escudo institucional | `static/media/logo-isft199.webp` |
-| Fechas de inscripción, novedades y **todo el contenido del campus** | **Inventado para la maqueta.** Señalizado en el pie de cada pantalla |
+| Fechas de inscripción, días restantes, novedades y **todo el contenido del campus** | **Inventado para la maqueta** (ver señalización abajo) |
 
-Ningún dato curricular del prototipo fue inventado.
+Ningún dato curricular del prototipo fue inventado. Los resúmenes por carrera son
+versiones condensadas de `description_short` y los distintivos coinciden con
+`badge` de `carreras.yaml`.
+
+### Señalización de los datos de ejemplo
+
+Cada pantalla abre con una banda «Prototipo de rediseño · no es el sitio
+oficial». Además, el dato inventado lleva su propia etiqueta «ejemplo» al lado:
+el estado de admisión y la fecha de cierre en la portada, la sección «Vida
+institucional» y el pie del campus. La cuenta regresiva está escrita a mano y no
+se actualiza.
+
+**Regla de migración:** ninguna fecha, plazo, novedad ni cifra del prototipo se
+copia a `templates/` o a código. En el sitio real esos datos viven en `data/` y
+requieren una fuente oficial (`AGENTS.md`, secciones 3 y 7.5). Mientras no exista
+esa fuente, el sitio no publica fechas de inscripción.
+
+Dos tests lo hacen cumplir: `tests/test_prototipo_rediseno.py` comprueba la
+banda y las etiquetas de ejemplo en las cuatro pantallas, y
+`tests/test_resoluciones_consistentes.py` exige que los números de resolución
+del prototipo y de los documentos de cátedra coincidan con `carreras.yaml`. El
+README raíz y `llms*.txt` están marcados `xfail` hasta resolver la discrepancia
+entre 6 y 7 carreras (ver el comentario en ese test).
 
 ---
 

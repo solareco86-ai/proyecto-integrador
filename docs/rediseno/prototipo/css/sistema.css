@@ -773,6 +773,28 @@ a { color: inherit; text-decoration: none; }
   color: var(--tinta-media);
 }
 
+/* Señalización de prototipo: nada de esto debe leerse como información oficial. */
+.banda-prototipo {
+  padding: var(--e2) var(--e4);
+  background: var(--tinta);
+  color: var(--papel);
+  font-family: var(--dato);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+.etiqueta-ejemplo {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid var(--oro);
+  color: var(--oro);
+  font-family: var(--dato);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
 .destacado {
   margin: 0;
   padding: 0 0 0 var(--e5);
