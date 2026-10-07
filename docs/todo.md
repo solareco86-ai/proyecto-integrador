@@ -27,7 +27,7 @@
 | **C-15** | **Roundcube SSOT de Contactos & Deduplicación** | La libreta de contactos de Roundcube (`roundcube.contacts` en MySQL) es la Fuente Única de Verdad de clientes y prospectos de DataMaq. Toda captura de formulario ejecuta deduplicación por email/teléfono antes de persistir, mientras que los eventos CTA notifican a Telegram sin generar contactos incompletos ni spam por email. |
 | **C-16** | **Portal Oficial ISFT N° 199** | Migración canónica hacia `isftn199.com.ar` como portal institucional oficial y campus virtual del Instituto Superior de Formación Técnica N° 199 de Tigre (DGCyE, Pcia. de Buenos Aires). |
 | **C-17** | **Educación Superior Pública y Gratuita** | Toda la propuesta académica es 100% gratuita. Prohibido cobrar matrículas o aranceles; redirección 301 de `/pricing` y `/planes` hacia `/carreras`. |
-| **C-18** | **Catálogo de 6 Tecnicaturas Superiores** | Oferta formativa oficial de 3 años con validez nacional: Ciencia de Datos e IA, Mecatrónica, Logística, Higiene y Seguridad, Recursos Humanos y Servicios Gastronómicos y Turismo (SSOT `data/content/carreras.yaml`). |
+| **C-18** | **Catálogo de 7 Tecnicaturas Superiores** | Oferta formativa oficial de 3 años con validez nacional: Ciencia de Datos e IA, Mecatrónica, Logística, Higiene y Seguridad, Recursos Humanos, Turismo y Hotelería (SSOT `data/content/carreras.yaml`). |
 | **C-19** | **Campus Virtual LMS Integrado** | Aulas técnicas y talleres integrados en `/cursos` con material de cátedra, lecciones Markdown con resaltado de código y repositorios abiertos. |
 | **C-20** | **Cursada Vespertina y Admisión Abierta** | Cursada de 18:00 a 22:30 hs en sede El Talar (Maestra Celina Voena 1750), admisión con título secundario o constancia de trámite. |
 
@@ -65,7 +65,7 @@ Todas las decisiones del backlog de pricing han sido formalmente analizadas, res
 - [ ] **T-19:** Desactivar Web Analytics en Cloudflare (zona `datamaq.com.ar` → Analytics & Logs → Web Analytics) para eliminar el beacon `static.cloudflareinsights.com` bloqueado por CSP.
 - [ ] **T-20:** Agregar secrets `CF_API_TOKEN` y `CF_ZONE_ID` (`97a5266edc3168950db5707cdec5cec9`) en GitHub Actions para habilitar la purga automática post-deploy.
 - [ ] **T-21:** Limpiar cookies de `datamaq.com.ar` en el navegador (residuo del GA ID anterior `_ga_4Y7WLJ1740` que genera advertencias de consola).
-- [x] **T-22:** Estructurar el catálogo institucional `data/content/carreras.yaml` con las 6 tecnicaturas oficiales y resoluciones DGCyE.
+- [x] **T-22:** Estructurar el catálogo institucional `data/content/carreras.yaml` con las 7 tecnicaturas oficiales y resoluciones DGCyE.
 - [x] **T-23:** Implementar arquitectura de dominio y aplicación para Carreras (`Carrera` entity, `CarreraModel` DTO, métodos en `DataService`, router `carreras_routes.py` y plantillas `carreras.html` y `carrera_detail.html`).
 - [x] **T-24:** Configurar redirección permanente 301 de rutas de pricing/planes (`/pricing`, `/planes`) hacia `/carreras`.
 - [x] **T-25:** Actualizar identidad visual, branding institucional, SEO y navegación general (`brand.yaml`, `footer.yaml`, `seo.yaml`, `home_sections.yaml`).

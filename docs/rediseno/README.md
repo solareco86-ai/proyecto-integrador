@@ -157,9 +157,9 @@ esa fuente, el sitio no publica fechas de inscripción.
 Dos tests lo hacen cumplir: `tests/test_prototipo_rediseno.py` comprueba la
 banda y las etiquetas de ejemplo en las cuatro pantallas, y
 `tests/test_resoluciones_consistentes.py` exige que los números de resolución
-del prototipo y de los documentos de cátedra coincidan con `carreras.yaml`. El
-README raíz y `llms*.txt` están marcados `xfail` hasta resolver la discrepancia
-entre 6 y 7 carreras (ver el comentario en ese test).
+del prototipo, el README y los documentos públicos coincidan con `carreras.yaml`.
+`tests/test_oferta_carreras_consistente.py` hace lo mismo con la lista de carreras
+(README, `llms*.txt`, JSON-LD del home y el conteo del texto del home).
 
 ---
 

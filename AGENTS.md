@@ -90,13 +90,14 @@ El portal institucional y campus virtual (`isftn199.com.ar`) opera como la plata
 * **Principio de Gratuidad Total:** La educación es **100% pública y gratuita**. Queda estrictamente prohibido tarifar, cobrar matrículas, mensualidades o inventar precios en el portal. Las redirecciones permanentes (301) desde antiguas rutas comerciales (`/pricing`, `/planes`) conducen directamente al catálogo académico oficial (`/carreras`).
 
 ### 7.2 Oferta Académica Oficial (Tecnicaturas Superiores de 3 Años)
-El instituto ofrece 6 tecnicaturas superiores con títulos oficiales de validez nacional y articulación socio-productiva con Tigre y Zona Norte del GBA:
+El instituto ofrece 7 tecnicaturas superiores con títulos oficiales de validez nacional y articulación socio-productiva con Tigre y Zona Norte del GBA:
 1. **Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial:** Machine Learning, analítica avanzada, Python, pipelines de datos y modelos predictivos.
 2. **Tecnicatura Superior en Mecatrónica:** Automatización industrial, robótica, electrónica aplicada, PLC y mantenimiento electromecánico.
 3. **Tecnicatura Superior en Logística:** Gestión de cadena de suministro, distribución física, centros de almacenamiento y comercio internacional.
 4. **Tecnicatura Superior en Higiene y Seguridad en el Trabajo:** Prevención de riesgos laborales, ergonomía, auditoría ambiental y normativa SRT.
 5. **Tecnicatura Superior en Administración de Recursos Humanos:** Gestión del talento, relaciones laborales, legislación del trabajo y clima organizacional.
-6. **Tecnicatura Superior en Servicios Gastronómicos y Turismo:** Planificación de servicios turísticos, gestión gastronómica, hospitalidad y desarrollo regional.
+6. **Tecnicatura Superior en Turismo:** Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
+7. **Tecnicatura Superior en Hotelería:** Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
 
 ### 7.3 Campus Virtual y Aulas Técnicas (`/cursos`)
 * **LMS Integrado:** El campus virtual en `/cursos` sirve como aula técnica extendida con talleres prácticos, lecciones interactivas, código abierto y recursos de cátedra para estudiantes y docentes del instituto.

@@ -12,21 +12,16 @@ import pytest
 
 ROOT: Path = Path(__file__).resolve().parent.parent
 
-# Número precedido por «DGCyE N°», «Res. N°» o «Resolución N°».
-PATRON_RESOLUCION: re.Pattern[str] = re.compile(r"(?:DGCyE|Res\.|Resoluci[oó]n) N° (\d{3,5}/\d{2})")
+# Número precedido por «DGCyE N°», «Res. N°», «Res.» o «Resolución N°».
+PATRON_RESOLUCION: re.Pattern[str] = re.compile(r"(?:DGCyE|Res\.|Resoluci[oó]n)(?: N°)? (\d{3,5}/\d{2})")
 
-DOCUMENTOS_CONSISTENTES: tuple[str, ...] = (
-    "docs/PROYECTO_CATEDRA_PAA.md",
-    "data/core/cursos/procesamiento-aprendizaje-automatico/curso.yaml",
-)
-
-# Pendiente de decisión: estos documentos listan 6 carreras ("Servicios
-# Gastronómicos y Turismo", Res. 148/18) y carreras.yaml tiene 7 (Turismo
-# 2686/20 y Hotelería 2685/20). Al corregirlos, quitar el xfail.
-DOCUMENTOS_PENDIENTES: tuple[str, ...] = (
+DOCUMENTOS: tuple[str, ...] = (
     "README.md",
     "static/llms.txt",
     "static/llms-full.txt",
+    "docs/srs.md",
+    "docs/PROYECTO_CATEDRA_PAA.md",
+    "data/core/cursos/procesamiento-aprendizaje-automatico/curso.yaml",
 )
 
 
@@ -36,24 +31,12 @@ def resoluciones_oficiales() -> set[str]:
     return set(re.findall(r"^\s*resolucion:.*?(\d{3,5}/\d{2})", texto, re.MULTILINE))
 
 
-def resoluciones_desconocidas(relativo: str) -> set[str]:
-    """Resoluciones citadas en el documento que no figuran en carreras.yaml."""
-    texto: str = (ROOT / relativo).read_text(encoding="utf-8")
-    return set(PATRON_RESOLUCION.findall(texto)) - resoluciones_oficiales()
-
-
 def test_carreras_yaml_declara_resoluciones() -> None:
     assert resoluciones_oficiales(), "carreras.yaml no declara ninguna resolución"
 
 
-@pytest.mark.parametrize("relativo", DOCUMENTOS_CONSISTENTES)
+@pytest.mark.parametrize("relativo", DOCUMENTOS)
 def test_documento_usa_resoluciones_oficiales(relativo: str) -> None:
-    desconocidas: set[str] = resoluciones_desconocidas(relativo)
-    assert not desconocidas, f"{relativo} cita resoluciones ausentes de carreras.yaml: {sorted(desconocidas)}"
-
-
-@pytest.mark.xfail(strict=True, reason="README y llms*.txt listan 6 carreras (Res. 148/18); carreras.yaml tiene 7")
-@pytest.mark.parametrize("relativo", DOCUMENTOS_PENDIENTES)
-def test_documento_pendiente_usa_resoluciones_oficiales(relativo: str) -> None:
-    desconocidas: set[str] = resoluciones_desconocidas(relativo)
+    texto: str = (ROOT / relativo).read_text(encoding="utf-8")
+    desconocidas: set[str] = set(PATRON_RESOLUCION.findall(texto)) - resoluciones_oficiales()
     assert not desconocidas, f"{relativo} cita resoluciones ausentes de carreras.yaml: {sorted(desconocidas)}"
