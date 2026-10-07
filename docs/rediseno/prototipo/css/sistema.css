@@ -1138,3 +1138,108 @@ body.campus {
   font-size: 0.78rem;
   color: var(--tinta-suave);
 }
+
+/* --- 19. Espacios de fotografía ------------------------------------------
+   Marcos reservados para fotografía institucional todavía no tomada. El
+   encuadre y la proporción ya son los definitivos: cuando llegue la foto
+   solo se reemplaza el contenido del marco. */
+
+.foto {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: var(--proporcion, 16 / 9);
+  background: var(--papel-hundido);
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0 11px,
+      color-mix(in srgb, var(--linea-fuerte) 26%, transparent) 11px 12px
+    );
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  overflow: hidden;
+}
+.foto > img { width: 100%; height: 100%; object-fit: cover; }
+
+.foto__nota {
+  display: grid;
+  gap: var(--e1);
+  justify-items: center;
+  text-align: center;
+  max-width: 34ch;
+  padding: var(--e4);
+  background: color-mix(in srgb, var(--papel) 90%, transparent);
+  border-radius: var(--radio);
+}
+.foto__nota svg { width: 22px; height: 22px; color: var(--tinta-suave); }
+.foto__t { font-size: 0.9rem; font-weight: 600; }
+.foto__d { font-size: 0.82rem; color: var(--tinta-suave); line-height: 1.45; }
+
+.foto--banda { --proporcion: 21 / 8; }
+.foto--sede  { --proporcion: 4 / 3; border-radius: var(--radio); }
+
+@media (max-width: 760px) {
+  .foto--banda { --proporcion: 4 / 3; }
+}
+
+/* --- 20. Sedes ----------------------------------------------------------- */
+
+.sedes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--e5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sede {
+  display: grid;
+  gap: var(--e3);
+  align-content: start;
+}
+.sede__t {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.008em;
+  margin: 0;
+}
+.sede__d {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--tinta-media);
+}
+.sede__c {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--tinta-suave);
+}
+.sede__c strong { color: var(--tinta-media); font-weight: 600; }
+
+@media (max-width: 860px) {
+  .sedes { grid-template-columns: 1fr; gap: var(--e6); }
+}
+
+/* Sede dentro de la fila de carrera y de la ficha */
+.sede-marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: var(--tinta-media);
+}
+.sede-marca::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sede-color, var(--linea-fuerte));
+}
+.sede-marca[data-sede="talar"]   { --sede-color: var(--verde); }
+.sede-marca[data-sede="troncos"] { --sede-color: var(--oro); }
+.sede-marca[data-sede="virreyes"]{ --sede-color: #5B7FA6; }
+
+.pendiente {
+  font-style: italic;
+  color: var(--tinta-suave);
+}
