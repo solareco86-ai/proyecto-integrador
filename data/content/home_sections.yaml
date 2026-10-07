@@ -341,6 +341,23 @@ cookie_banner:
   text: Usamos cookies propias y técnicas para mejorar la experiencia de navegación
     institucional.
   title: Política de Cookies
+error_404:
+  description: El recurso buscado fue reubicado o no está disponible. Estos accesos te
+    llevan a la información institucional del ISFT N° 199.
+  links_title: 'Accesos rápidos:'
+  links:
+    - label: Carreras y Tecnicaturas
+      href: /carreras
+      icon: bi-mortarboard-fill
+    - label: Campus Virtual
+      href: /cursos
+      icon: bi-journal-code
+    - label: Requisitos de ingreso
+      href: /inscripciones
+      icon: bi-card-checklist
+    - label: Contacto y Consultas
+      href: /contact
+      icon: bi-envelope-fill
 assistance_modes:
   presencial:
     description: Clases teórico-prácticas y laboratorios presenciales en sede El Talar

@@ -179,6 +179,18 @@ class CookieBannerModel(BaseModel):
     more_info_link: str
 
 
+class ErrorLinkModel(BaseModel):
+    label: str
+    href: str
+    icon: str
+
+
+class Error404Model(BaseModel):
+    description: str
+    links_title: str
+    links: list[ErrorLinkModel]
+
+
 class LegalSectionModel(BaseModel):
     title: str
     paragraphs: list[str]
@@ -242,6 +254,7 @@ class ContentModel(BaseModel):
     legal: LegalModel
     contact: ContactModel
     cookie_banner: CookieBannerModel
+    error_404: Error404Model
     assistance_modes: dict[str, AssistanceModeModel]
     courses: CoursesHeroModel
     cases: CasesHeroModel
