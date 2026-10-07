@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from starlette.middleware.base import RequestResponseEndpoint
 
 from src.infrastructure.fastapi.csp import build_csp
+from src.infrastructure.fastapi.dependencies import data_service
 from src.infrastructure.settings import config
 from src.infrastructure.settings.logger import get_logger
 
@@ -141,6 +142,20 @@ async def canonical_redirect_middleware(request: Request, call_next: RequestResp
         canonical = urlunsplit((scheme, netloc, path, request.url.query, ""))
         return RedirectResponse(url=canonical, status_code=308)
 
+    return await call_next(request)
+
+
+async def legacy_redirect_middleware(request: Request, call_next: RequestResponseEndpoint) -> Response:
+    """
+    Redirige con HTTP 301 las URLs retiradas que figuran en data/config/redirects.yaml.
+    Se aplica antes del enrutado, por lo que también cubre rutas que todavía existen
+    (por ejemplo, contenido comercial heredado). No toca archivos estáticos ni la API.
+    """
+    path = request.url.path
+    if not path.startswith(("/static", "/api")):
+        target = data_service.get_redirects().get(path)
+        if target:
+            return RedirectResponse(url=target, status_code=301)
     return await call_next(request)
 
 

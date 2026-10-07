@@ -107,24 +107,15 @@ async def test_home_json_ld_valid():
 
 
 @pytest.mark.asyncio
-async def test_service_automatizacion_linked_to_caso():
-    """Verifica que el caso MadyGraf sigue accesible desde una página DataMaq/SEO real
-    (datamaq_landing.html), ya que la Home institucional ISFT N° 199 ya no muestra
-    contenido comercial de DataMaq. La sección de casos de éxito de DataMaq se conserva
-    íntegra en /industria/{slug}.html, /{provincia} y /{provincia}/{municipio}."""
+async def test_home_no_enlaza_el_caso_comercial_madygraf():
+    """La Home institucional ISFT N° 199 no debe enlazar casos comerciales de DataMaq."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/industria/grafica.html")
         home_response = await ac.get("/")
-
-    assert response.status_code == 200
-    html = response.text
-
-    # El caso_slug "madygraf-eficiencia-y-vision-40" debe estar referenciado
-    assert "madygraf-eficiencia-y-vision-40" in html
-
-    # La Home institucional no debe enlazar este caso comercial
+    assert home_response.status_code == 200
     assert "madygraf-eficiencia-y-vision-40" not in home_response.text
+
+
 
 
 @pytest.mark.asyncio

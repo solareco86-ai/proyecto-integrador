@@ -184,30 +184,6 @@ async def test_404_has_noindex():
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_sitemap_includes_dynamic_urls():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/sitemap.xml")
-
-    assert response.status_code == 200
-    text = response.text
-    assert "https://datamaq.com.ar/buenos-aires/escobar/garin.html" in text
-    assert "https://datamaq.com.ar/buenos-aires/tigre/tigre.html" in text
-    assert "https://datamaq.com.ar/industria/grafica.html" in text
-    assert "https://datamaq.com.ar/industria/plastica.html" in text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_localidad_canonical_is_https():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires/escobar/garin.html")
-
-    assert response.status_code == 200
-    assert "rel='canonical' href='https://datamaq.com.ar/buenos-aires/escobar/garin.html'" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
 async def test_service_cards_use_heading_tags():
     """Verifica que las tarjetas de contenido de la Home institucional (Noticias/Eventos/
     Comunicados, Carreras, Estudiantes, Sedes) usen headings semánticos <h3>, ya sin las
@@ -278,25 +254,6 @@ async def test_json_ld_syntax_and_schemas():
         assert org.get("name") is not None
         assert webpage.get("name") is not None
         assert faq.get("mainEntity") is not None
-
-        # 2. Validar Localidad (LocalBusiness)
-        response_loc = await ac.get("/buenos-aires/escobar/garin.html")
-        assert response_loc.status_code == 200
-        json_lds_loc = parse_json_ld_blocks(response_loc.text)
-        local_business = get_json_ld_by_type(json_lds_loc, "LocalBusiness")
-        assert local_business is not None, "Falta JSON-LD de tipo LocalBusiness en la página de localidad"
-        assert local_business.get("address") is not None
-        assert local_business["address"].get("addressLocality") == "Garín"
-        assert local_business.get("areaServed") is not None
-
-        # 3. Validar Industria (Service)
-        response_ind = await ac.get("/industria/grafica.html")
-        assert response_ind.status_code == 200
-        json_lds_ind = parse_json_ld_blocks(response_ind.text)
-        service = get_json_ld_by_type(json_lds_ind, "Service")
-        assert service is not None, "Falta JSON-LD de tipo Service en la página de industria"
-        assert "Industria Gráfica" in service.get("name", "")
-        assert service.get("provider") is not None
 
 
 @pytest.mark.asyncio  # type: ignore
@@ -382,42 +339,6 @@ async def test_new_breadcrumbs_and_tech_article():
 
 
 @pytest.mark.asyncio
-async def test_provincia_page_rendered():
-    """Verifica que la página hub de provincia renderiza correctamente."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Buenos Aires" in response.text
-
-
-@pytest.mark.asyncio
-async def test_municipio_page_rendered():
-    """Verifica que la página hub de municipio renderiza correctamente."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires/escobar")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Escobar" in response.text
-
-
-@pytest.mark.asyncio
-async def test_localidad_page_rendered():
-    """Verifica que la página de localidad renderiza correctamente."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires/escobar/garin.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Garín" in response.text
-
-
-@pytest.mark.asyncio
 async def test_provincia_inexistente_404():
     """Verifica que una provincia inexistente devuelve 404."""
     transport = ASGITransport(app=app)
@@ -445,29 +366,6 @@ async def test_localidad_inexistente_404():
         response = await ac.get("/buenos-aires/escobar/localidad-que-no-existe.html")
 
     assert response.status_code == 404
-
-
-@pytest.mark.asyncio
-async def test_provincia_page_canonical_url():
-    """Verifica que la página de provincia tiene canonical URL correcta."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires")
-
-    assert "canonical" in response.text.lower()
-    assert "https://datamaq.com.ar/buenos-aires" in response.text
-
-
-@pytest.mark.asyncio
-async def test_landing_localidad_con_contenido():
-    """Verifica que una localidad con landing_content dedicado renderiza."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        # Garín tiene landing_content definido en data/seo/landing_content.yaml
-        response = await ac.get("/buenos-aires/escobar/garin.html")
-
-    assert response.status_code == 200
-    assert "Garín" in response.text
 
 
 @pytest.mark.asyncio
@@ -569,45 +467,3 @@ async def test_rate_limit_contact():
         app.dependency_overrides.pop(get_lead_repository, None)
 
 
-@pytest.mark.asyncio
-async def test_gba_norte_landing_pages_accessible_and_sitemap():
-    """Valida las localidades que quedan tras la consolidación de la huella geográfica.
-
-    Las localidades sin demanda industrial se retiraron de geografia.yaml y
-    redirigen 301 al hub de su municipio (ver data/config/redirects.yaml).
-    """
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="https://datamaq.com.ar") as client:
-        # 1. Verificar sitemap
-        sitemap_res = await client.get("/sitemap.xml")
-        assert sitemap_res.status_code == 200
-        sitemap_text = sitemap_res.text
-        assert "/buenos-aires/pilar/parque-industrial-pilar.html" in sitemap_text
-        assert "/buenos-aires/campana/campana.html" in sitemap_text
-        assert "/buenos-aires/san-martin/san-martin.html" in sitemap_text
-        # Las localidades retiradas no deben volver al sitemap
-        assert "/buenos-aires/san-martin/villa-lynch.html" not in sitemap_text
-        assert "/buenos-aires/tigre/nordelta.html" not in sitemap_text
-
-        # 2. Verificar páginas individuales
-        urls_to_test = [
-            "/buenos-aires/pilar/parque-industrial-pilar.html",
-            "/buenos-aires/campana/campana.html",
-            "/buenos-aires/san-martin/san-martin.html",
-        ]
-        for url in urls_to_test:
-            res = await client.get(url)
-            assert res.status_code == 200
-            assert "Telemetría y calidad de energía en" in res.text
-            assert "DataMaq" in res.text
-
-        # 3. Las localidades retiradas redirigen 301 al hub de su municipio
-        redirected = {
-            "/buenos-aires/san-martin/villa-ballester.html": "/buenos-aires/san-martin",
-            "/buenos-aires/tigre/nordelta.html": "/buenos-aires/tigre",
-            "/buenos-aires/pilar/del-viso.html": "/buenos-aires/pilar",
-        }
-        for url, destino in redirected.items():
-            res = await client.get(url)
-            assert res.status_code == 301, url
-            assert res.headers["location"] == destino
