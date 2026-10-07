@@ -2,16 +2,17 @@ from typing import Any
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 from starlette.exceptions import HTTPException
 from starlette.middleware.sessions import SessionMiddleware
 
 from src.application.dtos import ContenidoModel
-from src.infrastructure.fastapi.dependencies import CachedStaticFiles, data_service, get_contenido, templates
+from src.infrastructure.fastapi.dependencies import CachedStaticFiles, get_contenido, templates
 from src.infrastructure.fastapi.metrics import metrics_middleware
 from src.infrastructure.fastapi.middleware import (
     cache_control_middleware,
     canonical_redirect_middleware,
+    legacy_redirect_middleware,
     rate_limit_middleware,
     request_id_middleware,
     security_headers_middleware,
@@ -25,6 +26,7 @@ app = FastAPI(title=config.APP_TITLE)
 app.state.config = config
 app.middleware("http")(request_id_middleware)
 app.middleware("http")(rate_limit_middleware)
+app.middleware("http")(legacy_redirect_middleware)
 app.middleware("http")(canonical_redirect_middleware)
 app.middleware("http")(security_headers_middleware)
 app.middleware("http")(cache_control_middleware)
@@ -46,16 +48,6 @@ app.mount("/static", CachedStaticFiles(directory=config.STATIC_DIR), name="stati
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
     if exc.status_code == 404:
-        path = request.url.path
-
-        # No aplicar lógica de redirección a archivos estáticos ni API
-        if not path.startswith("/static") and not path.startswith("/api"):
-            # Redirecciones 301 puntuales para URLs legacy (si están configuradas)
-            redirects = data_service.get_redirects()
-            target = redirects.get(path)
-            if target:
-                return RedirectResponse(url=target, status_code=301)
-
         contenido: ContenidoModel = get_contenido()
         seo: dict[str, Any] = {
             "title": f"Página no encontrada | {contenido.brand.brandName}",

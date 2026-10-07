@@ -199,54 +199,6 @@ async def test_sitemap_includes_contact():
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_localidad_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires/escobar/garin.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Garín" in response.text
-    assert "Telemetría y calidad de energía" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_industria_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/industria/grafica.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Industria Gráfica" in response.text
-    assert "Telemetría y calidad de energía" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_localidad_tigre_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires/tigre/general-pacheco.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "General Pacheco" in response.text
-    assert "Telemetría y calidad de energía" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_industria_plastica_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/industria/plastica.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Industria Plástica" in response.text
-    assert "Telemetría y calidad de energía" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
 async def test_casos_list_rendered():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:

@@ -7,7 +7,7 @@ from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Resp
 
 from src.adapters.presenters.content_presenter import present_contenido
 from src.application.data_service import DataService
-from src.application.dtos import ContenidoModel, IndustriaModel
+from src.application.dtos import ContenidoModel
 from src.application.use_cases.content.list_comunicados import ListComunicadosUseCase
 from src.application.use_cases.content.list_eventos import ListEventosUseCase
 from src.application.use_cases.content.list_noticias import ListNoticiasUseCase
@@ -17,8 +17,6 @@ from src.infrastructure.fastapi.dependencies import (
     get_contenido,
     get_cursos_service,
     get_evento_repository,
-    get_geografia,
-    get_industrias,
     get_noticia_repository,
     templates,
 )
@@ -127,8 +125,6 @@ async def csp_report_endpoint(request: Request) -> Response:
 async def sitemap(
     request: Request,
     contenido: ContenidoModel = Depends(get_contenido),
-    geografia: dict[str, Any] = Depends(get_geografia),
-    industrias_data: IndustriaModel = Depends(get_industrias),
     cursos_service: DataService = Depends(get_cursos_service),
     noticia_repository: NoticiaRepository = Depends(get_noticia_repository),
     evento_repository: EventoRepository = Depends(get_evento_repository),
@@ -139,13 +135,6 @@ async def sitemap(
 
     urls = [
         {"loc": f"{base_url}/", "lastmod": lastmod, "changefreq": "monthly", "priority": "1.0"},
-        {"loc": f"{base_url}/landing/calidad-energia", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.9"},
-        {
-            "loc": f"{base_url}/landing/telemetria-industrial",
-            "lastmod": lastmod,
-            "changefreq": "monthly",
-            "priority": "0.9",
-        },
         {"loc": f"{base_url}/contact", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.6"},
         {"loc": f"{base_url}/terminos-y-condiciones", "lastmod": lastmod, "changefreq": "yearly", "priority": "0.3"},
         {"loc": f"{base_url}/carreras", "lastmod": lastmod, "changefreq": "weekly", "priority": "0.9"},
@@ -153,47 +142,6 @@ async def sitemap(
         {"loc": f"{base_url}/casos", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.7"},
         {"loc": f"{base_url}/guias", "lastmod": lastmod, "changefreq": "monthly", "priority": "0.7"},
     ]
-
-    localidades = geografia.get("localidades", {})
-    for provincia_key, provincia in localidades.items():
-        # Página hub de provincia
-        urls.append(
-            {
-                "loc": f"{base_url}/{provincia_key}",
-                "lastmod": lastmod,
-                "changefreq": "monthly",
-                "priority": "0.6",
-            }
-        )
-        for municipio_key, municipio in provincia.items():
-            # Página hub de municipio
-            urls.append(
-                {
-                    "loc": f"{base_url}/{provincia_key}/{municipio_key}",
-                    "lastmod": lastmod,
-                    "changefreq": "monthly",
-                    "priority": "0.6",
-                }
-            )
-            for localidad_key in municipio.keys():
-                urls.append(
-                    {
-                        "loc": f"{base_url}/{provincia_key}/{municipio_key}/{localidad_key}.html",
-                        "lastmod": lastmod,
-                        "changefreq": "monthly",
-                        "priority": "0.7",
-                    }
-                )
-
-    for industria_key in industrias_data.industrias.keys():
-        urls.append(
-            {
-                "loc": f"{base_url}/industria/{industria_key}.html",
-                "lastmod": lastmod,
-                "changefreq": "monthly",
-                "priority": "0.7",
-            }
-        )
 
     # Los cursos sostienen la actividad docente, no el embudo comercial: se mantienen
     # indexables pero por debajo de casos, guías y landings de servicio.
