@@ -250,18 +250,7 @@ class ContentModel(BaseModel):
     process: ProcessModel
 
 
-class FooterLinkModel(BaseModel):
-    label: str
-    href: str
-
-
-class FooterGroupModel(BaseModel):
-    title: str
-    links: list[FooterLinkModel]
-
-
 class FooterModel(BaseModel):
-    navigation_groups: list[FooterGroupModel]
     cta_title: str
     cta_label: str
     whatsapp_text: str | None = None

@@ -112,15 +112,6 @@ def mock_contenido() -> ContenidoModel:
                 },
             },
             "footer": {
-                "navigation_groups": [
-                    {
-                        "title": "Navegación",
-                        "links": [
-                            {"label": "Inicio", "href": "/"},
-                            {"label": "Contacto", "href": "/contact"},
-                        ],
-                    },
-                ],
                 "cta_title": "Test",
                 "cta_label": "Test",
                 "whatsapp_text": "Test",

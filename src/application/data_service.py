@@ -102,55 +102,6 @@ class DataService:
                 "footer": footer_data,
             }
 
-            # --- Generar Footer Dinámico ---
-            if "navigation_groups" not in raw_data["footer"]:
-                raw_data["footer"]["navigation_groups"] = []
-
-            # 1. Grupo de Navegación (mantener o definir por defecto)
-            nav_group: dict[str, Any] | None = None
-            for group in raw_data["footer"].get("navigation_groups", []):
-                if group.get("title") == "Navegación":
-                    nav_group = group
-                    break
-
-            if not nav_group:
-                nav_group = {
-                    "title": "Navegación",
-                    "links": [
-                        {"label": "Inicio", "href": "/"},
-                        {"label": "Casos", "href": "/casos"},
-                        {"label": "Cursos", "href": "/cursos"},
-                        {"label": "Contacto", "href": "/contact"},
-                    ],
-                }
-
-            # 2. Grupo de Cobertura dinámica
-            geografia_data = self.get_geografia()
-            cobertura_links: list[dict[str, str]] = []
-            localidades: dict[str, Any] = geografia_data.get("localidades", {})
-            for provincia_key, provincia in localidades.items():
-                for municipio_key, municipio in provincia.items():
-                    for localidad_key, nombre_localidad in municipio.items():
-                        cobertura_links.append(
-                            {
-                                "label": nombre_localidad,
-                                "href": f"/{provincia_key}/{municipio_key}/{localidad_key}.html",
-                            }
-                        )
-
-            cobertura_group: dict[str, Any] = {"title": "Cobertura", "links": cobertura_links}
-
-            # 3. Grupo de Industrias dinámica
-            industrias_data = self.get_industrias()
-            industrias_links: list[dict[str, str]] = []
-            for industria_key, nombre_industria in industrias_data.industrias.items():
-                label = nombre_industria.replace("Industria ", "")
-                industrias_links.append({"label": label, "href": f"/industria/{industria_key}.html"})
-
-            industrias_group: dict[str, Any] = {"title": "Industrias", "links": industrias_links}
-
-            raw_data["footer"]["navigation_groups"] = [nav_group, cobertura_group, industrias_group]
-
             self._cached_contenido = ContenidoModel.model_validate(raw_data)
         return self._cached_contenido
 

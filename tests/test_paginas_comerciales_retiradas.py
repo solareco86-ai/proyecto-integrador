@@ -5,6 +5,8 @@ telemetría por localidad, industria y landing se retiraron: conducen a /carrera
 (como /pricing y /planes), no están en el sitemap y los redirects no encadenan.
 """
 
+import re
+
 import pytest
 from httpx import ASGITransport, AsyncClient
 
@@ -97,3 +99,14 @@ async def test_los_redirects_no_afectan_estaticos_ni_paginas_vigentes() -> None:
         casos = await ac.get("/casos/madygraf-eficiencia-y-vision-40")
     assert carreras.status_code == 200
     assert casos.status_code == 200
+RUTAS_PUBLICAS: tuple[str, ...] = ("/", "/carreras", "/contact", "/terminos-y-condiciones")
+@pytest.mark.asyncio
+@pytest.mark.parametrize("ruta", RUTAS_PUBLICAS)
+async def test_paginas_publicas_no_enlazan_a_paginas_retiradas(ruta: str) -> None:
+    """Ni el cuerpo ni el footer de las páginas institucionales apuntan a URLs que ya redirigen."""
+    retiradas = urls_servibles_desde_los_datos() | set(REDIRECTS)
+    async with cliente() as ac:
+        respuesta = await ac.get(ruta)
+    assert respuesta.status_code in (200, 404)
+    enlaces = set(re.findall(r'href="([^"#?]+)', respuesta.text))
+    assert enlaces & retiradas == set()
