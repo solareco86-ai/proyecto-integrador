@@ -3,7 +3,7 @@
 
 **Docente:** Agustín Bustos  
 **Asignatura:** Procesamiento de Aprendizaje Automático (PAA)  
-**Resolución de Aprobación:** DGCyE N° 273/22  
+**Resolución de Aprobación:** DGCyE N° 2730/22  
 **Año de Dictado:** 2do año de carrera  
 **Régimen:** Cuatrimestral (16 semanas)  
 **Carga Horaria:** 64 horas reloj (4 horas semanales)  
@@ -351,7 +351,7 @@ Según Anexo 1 DGCyE, cada docente debe presentar proyecto de cátedra al concur
 ---
 
 **Anexos (referencias):**
-- Anexo 1: Diseño Curricular DGCyE Resolución N° 273/22
+- Anexo 1: Diseño Curricular DGCyE Resolución N° 2730/22
 - Anexo 2: Syllabus detallado (lecciones por semana)
 - Anexo 3: Rúbricas de evaluación (Prácticas Profesionales)
 - Anexo 4: Bitácora de clase (2026)

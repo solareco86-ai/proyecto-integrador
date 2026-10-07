@@ -10,7 +10,7 @@
 
 ### A. Herramientas de Orientación Vocacional y Curricular
 - **Orientador de Carrera Interactivo:** Módulo ágil de autoevaluación para aspirantes indecisos entre tecnicaturas afines (ej. *Ciencia de Datos e IA* vs *Mecatrónica*), guiándolos según intereses en programación, robótica, gestión o logística.
-- **Descarga Directa de Resoluciones y Planes de Estudio:** Integración de enlaces de descarga directa de los PDFs oficiales de resoluciones DGCyE (Res. 273/22, Res. 5885/10, etc.) en cada ficha de `/carreras/{slug}`.
+- **Descarga Directa de Resoluciones y Planes de Estudio:** Integración de enlaces de descarga directa de los PDFs oficiales de resoluciones DGCyE (Res. 2730/22, Res. 5885/10, etc.) en cada ficha de `/carreras/{slug}`.
 - **Visualizador de Malla Curricular y Correlatividades:** Diagrama interactivo de correlatividades por año (1°, 2° y 3°) para facilitar la planificación de cursada a los estudiantes regulares.
 
 ### B. Proceso de Inscripción Ágil
