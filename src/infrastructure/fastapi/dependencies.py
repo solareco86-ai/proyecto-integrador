@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.types import Scope
 
 from src.application.data_service import DataService
-from src.application.dtos import ContenidoModel, LandingContentModel
+from src.application.dtos import ContenidoModel
 from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.application.gateways.notification_gateway import NotificationGateway
 from src.application.gateways.password_hasher_gateway import PasswordHasherGateway
@@ -70,24 +70,8 @@ def get_contenido() -> ContenidoModel:
     return data_service.get_contenido()
 
 
-def get_geografia():
-    return data_service.get_geografia()
-
-
-def get_industrias():
-    return data_service.get_industrias()
-
-
 def get_cursos_service() -> DataService:
     return data_service
-
-
-def get_landing_content() -> LandingContentModel:
-    return data_service.get_landing_content()
-
-
-def get_landing_campaigns():
-    return data_service.get_landing_campaigns()
 
 
 # --- Dependencias de Infraestructura (Repository + Gateway) ---

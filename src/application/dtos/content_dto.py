@@ -3,7 +3,6 @@
 from pydantic import BaseModel, Field
 
 from src.application.dtos.lead_dto import ContactModel
-from src.application.dtos.seo_dto import SeoModel
 
 
 class PhotoModel(BaseModel):
@@ -250,6 +249,15 @@ class ContentModel(BaseModel):
     process: ProcessModel
 
 
+class SeoModel(BaseModel):
+    title: str
+    cta: str | None = None
+    description: str
+    canonical_url: str
+    site_name: str
+    og_image: str
+
+
 class FooterModel(BaseModel):
     cta_title: str
     cta_label: str
@@ -306,52 +314,6 @@ class GuiaModel(BaseModel):
 
 class GuiasContainerModel(BaseModel):
     guias: list[GuiaModel]
-
-
-class LandingBenefitModel(BaseModel):
-    title: str
-    text: str
-
-
-class LandingCalculatorModel(BaseModel):
-    title: str
-    subtitle: str
-    default_kw: float = 50.0
-    default_cos_phi: float = 0.78
-    target_cos_phi: float = 0.96
-    help_text: str | None = None
-
-
-class LandingFormModel(BaseModel):
-    title: str
-    subtitle: str
-    cta_button: str = "Solicitar Diagnóstico Express"
-
-
-class LandingProofItemModel(BaseModel):
-    title: str
-    description: str
-
-
-class LandingCampaignModel(BaseModel):
-    slug: str
-    badge: str
-    hero_title: str
-    hero_subtitle: str
-    primary_cta_label: str
-    primary_cta_whatsapp_text: str
-    secondary_cta_label: str | None = None
-    secondary_cta_href: str | None = None
-    benefits: list[LandingBenefitModel]
-    calculator: LandingCalculatorModel | None = None
-    form: LandingFormModel | None = None
-    proof_items: list[LandingProofItemModel] = Field(default_factory=list[LandingProofItemModel])
-    faqs: list[FaqItemModel] = Field(default_factory=list[FaqItemModel])
-
-
-class LandingCampaignsContainerModel(BaseModel):
-    calidad_energia: LandingCampaignModel
-    telemetria_industrial: LandingCampaignModel
 
 
 class CarreraModel(BaseModel):
