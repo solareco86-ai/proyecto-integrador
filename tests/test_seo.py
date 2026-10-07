@@ -112,16 +112,6 @@ async def override_get_contenido():
             }
         },
         footer={
-            "navigation_groups": [
-                {
-                    "title": "Navegación",
-                    "links": [
-                        {"label": "Inicio", "href": "/"},
-                        {"label": "Cursos", "href": "/cursos"},
-                        {"label": "Contacto", "href": "/contact"},
-                    ],
-                }
-            ],
             "cta_title": "Test CTA Title",
             "cta_label": "Test CTA Label",
             "whatsapp_text": "Test WhatsApp text",
