@@ -10,7 +10,7 @@
 ## Oferta Académica Oficial (Tecnicaturas Superiores de 3 Años)
 
 1. [Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial](https://isftn199.com.ar/carreras):
-   - Resolución oficial: DGCyE N° 273/22.
+   - Resolución oficial: DGCyE N° 2730/22.
    - Formación: Python, Machine Learning, Deep Learning, SQL, Big Data, FastAPI, Computer Vision y NLP.
    - Salida laboral: Científico/a de datos, desarrollador/a de Machine Learning, analista de Business Intelligence e ingeniero/a de datos junior.
 

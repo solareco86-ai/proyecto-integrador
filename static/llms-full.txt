@@ -21,7 +21,7 @@
 ## 2. Oferta Curricular Oficial (Tecnicaturas Superiores de 3 Años)
 
 ### 2.1 Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
-* **Resolución Ministerial:** DGCyE N° 273/22.
+* **Resolución Ministerial:** DGCyE N° 2730/22.
 * **Título Otorgado:** Técnico/a Superior en Ciencia de Datos e Inteligencia Artificial.
 * **Duración:** 3 años (presencial, turno vespertino).
 * **Descripción:** Formación especializada en recolección, procesamiento, modelado predictivo y puesta en producción de modelos de aprendizaje automático y redes neuronales.
