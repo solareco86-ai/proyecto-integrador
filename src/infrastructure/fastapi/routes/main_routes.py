@@ -2,7 +2,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 
 from src.adapters.presenters.content_presenter import present_contenido
@@ -257,6 +257,9 @@ async def preview(
     contenido: ContenidoModel = Depends(get_contenido),
     cursos_service: DataService = Depends(get_cursos_service),
 ):
+    # Herramienta de desarrollo: en producción no existe (404), no solo noindex.
+    if not config.DEBUG:
+        raise HTTPException(status_code=404, detail="Vista previa no disponible")
     presented = present_contenido(contenido)
     context: dict[str, Any] = {
         "brand": presented["brand"],
