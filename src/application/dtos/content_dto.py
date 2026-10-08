@@ -114,6 +114,52 @@ class ProfileModel(BaseModel):
     cta_href: str | None = None
 
 
+class RequisitoIngresoModel(BaseModel):
+    """Un ítem de la documentación exigida para el legajo de ingreso."""
+
+    text: str
+
+
+class PasoIngresoModel(BaseModel):
+    """Un paso del circuito administrativo de ingreso."""
+
+    title: str
+    text: str
+
+
+class CierreInscripcionModel(BaseModel):
+    """Plazo de cierre de la preinscripción.
+
+    Opcional a propósito: mientras Secretaría no comunique una fecha oficial, el
+    bloque de admisión se renderiza sin cuenta regresiva (`AGENTS.md`, 7.5).
+    """
+
+    fecha_iso: str
+    fecha_texto: str
+
+
+class AdmisionModel(BaseModel):
+    """Bloque de estado de admisión que encabeza la portada."""
+
+    titular: str
+    bajada: str
+    estado: str | None = None
+    cierre: CierreInscripcionModel | None = None
+    requisitos_titulo: str
+    requisitos: list[RequisitoIngresoModel]
+    cifras: list[BenefitModel]
+    pasos_eyebrow: str
+    pasos: list[PasoIngresoModel]
+    nota: list[str] = Field(default_factory=list[str])
+
+
+class SedeModel(BaseModel):
+    """Una sede donde el instituto dicta clases."""
+
+    nombre: str
+    direccion: list[str]
+
+
 class ProofStripItemModel(BaseModel):
     label: str | None = None
     text: str
@@ -260,6 +306,8 @@ class ContentModel(BaseModel):
     cases: CasesHeroModel
     guias: GuiasHeroModel | None = None
     process: ProcessModel
+    admision: AdmisionModel | None = None
+    sedes: list[SedeModel] = Field(default_factory=list[SedeModel])
 
 
 class SeoModel(BaseModel):

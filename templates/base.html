@@ -5,10 +5,10 @@
 </head>
 <body>
     <div id="app" data-v-app="">
-        <div data-v-236fef00="" id="top" class="app-shell app-shell--home tw:min-h-screen app-shell--variant-direct">
+        <div data-v-236fef00="" id="top" class="{% block shell_class %}app-shell app-shell--home tw:min-h-screen app-shell--variant-direct{% endblock %}">
             <a data-v-236fef00="" class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
             {% block header %}{% endblock %}
-            <main data-v-236fef00="" id="contenido-principal" class="c-home-main with-floating-cta">
+            <main data-v-236fef00="" id="contenido-principal" class="{% block main_class %}c-home-main with-floating-cta{% endblock %}">
                 {% block main_content %}{% endblock %}
             </main>
             {% block fab %}{% endblock %}

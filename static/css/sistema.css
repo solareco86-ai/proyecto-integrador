@@ -1,0 +1,822 @@
+/* =========================================================================
+   ISFT N° 199 — Sistema de diseño institucional
+   Dirección: "registro público". Tipografía y reglas, no tarjetas y sombras.
+   La propuesta completa está documentada en docs/rediseno/README.md.
+   ========================================================================= */
+
+/* --- 0. Tipografías autoalojadas -----------------------------------------
+   Se sirven desde static/fonts/ y no desde Google Fonts: la CSP del sitio
+   solo admite 'self' y cdn.jsdelivr.net en font-src, y para un portal
+   público conviene no derivar una petición por visita a un tercero.
+   Las tres son de licencia SIL Open Font License 1.1. */
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../fonts/archivo-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url("../fonts/source-serif-4-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2");
+}
+
+/* --- 1. Tokens ----------------------------------------------------------- */
+
+:root {
+  /* Papel y tinta. Base cálida: lo primero que separa esto de un SaaS. */
+  --papel:        #F6F3EC;
+  --papel-alto:   #FFFFFF;
+  --papel-hundido:#EDE8DE;
+
+  --tinta:        #1A1714;
+  --tinta-media:  #554D42;
+  --tinta-suave:  #857B6D;
+
+  /* Institucional: verde del escudo, oro del laurel. Planos, sin degradados. */
+  --verde:        #0E4A2B;
+  --verde-claro:  #16734A;
+  --oro:          #A67C00;
+
+  /* Señales */
+  --alerta:       #9E3620;
+  --ok:           #2F6B4F;
+
+  --linea:        #E5DFD4;
+  --linea-fuerte: #CCC3B2;
+
+  /* Tipografías */
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --lectura: "Source Serif 4", Georgia, serif;
+  --dato:    "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Ritmo vertical de 4px */
+  --e1: 4px;  --e2: 8px;  --e3: 12px; --e4: 16px;
+  --e5: 24px; --e6: 32px; --e7: 48px; --e8: 72px; --e9: 112px;
+
+  --ancho: 1280px;
+
+  /* Radio: lo justo para no parecer un formulario impreso, lo poco para no
+     parecer una tarjeta de SaaS. */
+  --radio-xs: 4px;
+  --radio:    8px;
+  --radio-lg: 14px;
+
+  /* Sombras teñidas de marrón, no de negro: conservan la calidez del papel. */
+  --sombra-sutil: 0 1px 2px rgba(48,36,22,.035), 0 3px 10px -2px rgba(48,36,22,.045);
+  --sombra-media: 0 2px 4px rgba(48,36,22,.04), 0 10px 28px -8px rgba(48,36,22,.10);
+  --sombra-alta:  0 18px 48px -16px rgba(48,36,22,.20);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --papel:        #14120F;
+    --papel-alto:   #1C1A16;
+    --papel-hundido:#0D0C0A;
+    --tinta:        #F2EDE3;
+    --tinta-media:  #B5AC9C;
+    --tinta-suave:  #8A8173;
+    --verde:        #4FA87A;
+    --verde-claro:  #6FC396;
+    --oro:          #D2A63C;
+    --alerta:       #E0745A;
+    --ok:           #6FC396;
+    --linea:        #35302A;
+    --linea-fuerte: #4E4740;
+    --sombra-sutil: 0 1px 2px rgba(0,0,0,.30), 0 3px 10px -2px rgba(0,0,0,.35);
+    --sombra-media: 0 2px 4px rgba(0,0,0,.30), 0 10px 28px -8px rgba(0,0,0,.45);
+    --sombra-alta:  0 18px 48px -16px rgba(0,0,0,.60);
+  }
+}
+
+:root[data-tema="oscuro"] {
+  --papel:        #14120F;
+  --papel-alto:   #1C1A16;
+  --papel-hundido:#0D0C0A;
+  --tinta:        #F2EDE3;
+  --tinta-media:  #B5AC9C;
+  --tinta-suave:  #8A8173;
+  --verde:        #4FA87A;
+  --verde-claro:  #6FC396;
+  --oro:          #D2A63C;
+  --alerta:       #E0745A;
+  --ok:           #6FC396;
+  --linea:        #35302A;
+  --linea-fuerte: #4E4740;
+  --sombra-sutil: 0 1px 2px rgba(0,0,0,.30), 0 3px 10px -2px rgba(0,0,0,.35);
+  --sombra-media: 0 2px 4px rgba(0,0,0,.30), 0 10px 28px -8px rgba(0,0,0,.45);
+  --sombra-alta:  0 18px 48px -16px rgba(0,0,0,.60);
+}
+
+/* --- 2. Base ------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--display);
+  font-size: 16px;
+  line-height: 1.5;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 2px;
+}
+
+.salto-contenido {
+  position: absolute; left: -9999px;
+  background: var(--verde); color: #fff;
+  padding: var(--e3) var(--e4); z-index: 100;
+}
+.salto-contenido:focus { left: var(--e4); top: var(--e4); }
+
+/* --- 3. Grilla ----------------------------------------------------------- */
+
+.marco {
+  max-width: var(--ancho);
+  margin-inline: auto;
+  padding-inline: var(--e5);
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--e5);
+}
+
+@media (max-width: 900px) {
+  .rejilla { grid-template-columns: repeat(6, 1fr); gap: var(--e4); }
+  .marco { padding-inline: var(--e4); }
+}
+
+/* --- 4. Tipografía ------------------------------------------------------- */
+
+.titular-mayor {
+  font-family: var(--lectura);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.021em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.titular {
+  font-family: var(--lectura);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.14;
+  letter-spacing: -0.014em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.titular-menor {
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+
+.prosa {
+  font-family: var(--lectura);
+  font-size: 1.125rem;
+  line-height: 1.62;
+  color: var(--tinta-media);
+  max-width: 62ch;
+}
+.prosa.ancha { max-width: 74ch; }
+
+.dato {
+  font-family: var(--dato);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.etiqueta-dato {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--tinta-suave);
+}
+
+/* Marcador de sección: número + nombre sobre una regla que cruza el ancho.
+   Reemplaza la "pastilla centrada" que usa todo sitio generado. */
+.marcador {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: var(--e3);
+  border-top: 1px solid var(--linea);
+  padding-top: var(--e4);
+  margin-bottom: var(--e6);
+}
+.marcador__n {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--oro);
+  font-variant-numeric: tabular-nums;
+}
+.marcador__t {
+  font-size: 0.84rem;
+  letter-spacing: 0.005em;
+  font-weight: 600;
+}
+.marcador__extra {
+  justify-self: end;
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+}
+
+/* --- 5. Barra oficial y cabecera ---------------------------------------- */
+
+.barra-oficial {
+  background: var(--verde);
+  color: #F2EDE3;
+  font-family: var(--dato);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
+.barra-oficial .marco {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--e4);
+  min-height: 34px;
+  flex-wrap: wrap;
+}
+.barra-oficial a { text-decoration: underline; text-underline-offset: 3px; }
+.barra-oficial a:hover { color: #fff; }
+
+.cabecera {
+  border-bottom: 1px solid var(--linea);
+  background: color-mix(in srgb, var(--papel) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.cabecera .marco {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e5);
+  min-height: 76px;
+}
+
+.marca { display: flex; align-items: center; gap: var(--e3); }
+.marca img { width: 44px; height: 44px; object-fit: contain; }
+.marca__n {
+  display: block;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.marca__d {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--tinta-suave);
+  letter-spacing: 0.01em;
+  margin-top: 1px;
+}
+
+.menu { display: flex; align-items: center; gap: var(--e5); }
+.menu a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding-block: var(--e2);
+  border-bottom: 2px solid transparent;
+}
+.menu a { border-radius: var(--radio-xs); }
+.menu a:hover { border-bottom-color: var(--oro); }
+.menu a[aria-current="page"] { border-bottom-color: var(--tinta); font-weight: 600; }
+
+@media (max-width: 900px) {
+  .menu { display: none; }
+}
+
+/* --- 6. Botones ---------------------------------------------------------- */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e2);
+  font-family: var(--display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: var(--e3) var(--e5);
+  border: 1px solid var(--linea-fuerte);
+  border-radius: var(--radio);
+  background: var(--papel-alto);
+  color: var(--tinta);
+  cursor: pointer;
+  transition: background .16s ease, color .16s ease, border-color .16s ease,
+              box-shadow .16s ease, transform .16s ease;
+}
+.boton:hover {
+  border-color: var(--tinta-media);
+  box-shadow: var(--sombra-sutil);
+  transform: translateY(-1px);
+}
+.boton:active { transform: none; box-shadow: none; }
+
+.boton--solido {
+  background: var(--verde);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--sombra-sutil);
+}
+.boton--solido:hover {
+  background: var(--verde-claro);
+  border-color: transparent;
+  box-shadow: var(--sombra-media);
+}
+
+.boton--chico { padding: var(--e2) var(--e4); font-size: 0.82rem; border-radius: var(--radio-xs); }
+
+/* --- 7. Estado de admisión (reemplaza al hero) --------------------------- */
+
+.admision {
+  padding-block: var(--e8) var(--e7);
+}
+.admision__estado {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e2);
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--verde);
+  background: color-mix(in srgb, var(--verde) 9%, transparent);
+  padding: var(--e1) var(--e3) var(--e1) var(--e2);
+  border-radius: 999px;
+  margin-bottom: var(--e5);
+}
+.admision__estado::before {
+  content: "";
+  width: 7px; height: 7px;
+  background: var(--verde);
+  border-radius: 50%;
+  margin-inline: var(--e1);
+}
+
+.admision__bajada {
+  margin-top: var(--e5);
+  font-family: var(--lectura);
+  font-size: 1.22rem;
+  line-height: 1.55;
+  color: var(--tinta-media);
+  max-width: 54ch;
+}
+
+.admision__acciones {
+  display: flex;
+  gap: var(--e3);
+  margin-top: var(--e6);
+  flex-wrap: wrap;
+}
+
+/* Cuenta regresiva / ficha lateral */
+.contador {
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  background: var(--papel-alto);
+  box-shadow: var(--sombra-media);
+  overflow: hidden;
+}
+.contador__cab {
+  border-bottom: 1px solid var(--linea);
+  padding: var(--e3) var(--e4);
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  color: var(--tinta-media);
+  background: var(--papel);
+}
+.contador__cuerpo { padding: var(--e4); }
+.contador__n {
+  font-family: var(--lectura);
+  font-size: 3.8rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.contador__u {
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+  letter-spacing: 0.01em;
+}
+
+/* Lista de requisitos con casillas cuadradas, no tildes decorativas */
+.requisitos { list-style: none; margin: var(--e4) 0 0; padding: 0; }
+.requisitos li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: var(--e3);
+  align-items: start;
+  padding-block: var(--e2);
+  font-size: 0.88rem;
+  color: var(--tinta-media);
+  border-top: 1px solid var(--linea);
+}
+.requisitos li::before {
+  content: "";
+  width: 11px; height: 11px;
+  margin-top: 5px;
+  border: 1.5px solid color-mix(in srgb, var(--verde) 55%, transparent);
+  border-radius: 3px;
+}
+
+/* --- 8. Cifras institucionales ------------------------------------------ */
+
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--papel-alto);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-sutil);
+  overflow: hidden;
+}
+.cifras > div {
+  padding: var(--e5);
+  border-right: 1px solid var(--linea);
+}
+.cifras > div:last-child { border-right: 0; }
+.cifras dt {
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  color: var(--tinta-suave);
+  margin-bottom: var(--e2);
+}
+.cifras dd {
+  margin: 0;
+  font-family: var(--lectura);
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.15;
+}
+@media (max-width: 760px) {
+  .cifras { grid-template-columns: repeat(2, 1fr); }
+  .cifras > div:nth-child(2) { border-right: 0; }
+  .cifras > div:nth-child(-n+2) { border-bottom: 1px solid var(--linea); }
+}
+
+/* --- 9. Listado de carreras (en vez de 7 tarjetas iguales) -------------- */
+
+.carreras { border-top: 1px solid var(--linea); }
+
+.carrera {
+  display: grid;
+  grid-template-columns: 2.1fr 1.5fr auto;
+  gap: var(--e5);
+  align-items: baseline;
+  padding: var(--e5) var(--e4);
+  margin-inline: calc(var(--e4) * -1);
+  border-bottom: 1px solid var(--linea);
+  border-radius: var(--radio);
+  position: relative;
+  transition: background .16s ease, box-shadow .16s ease;
+}
+.carrera:hover {
+  background: var(--papel-alto);
+  box-shadow: var(--sombra-sutil);
+  border-bottom-color: transparent;
+}
+.carrera:hover .carrera__ir { opacity: 1; transform: translateX(0); }
+
+.carrera__t {
+  font-size: 1.32rem;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  margin: 0 0 var(--e2);
+}
+.carrera__t a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.carrera__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e2) var(--e3);
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+}
+.carrera__meta > span:first-child { font-family: var(--dato); font-size: 0.74rem; }
+.carrera__meta b {
+  color: var(--oro);
+  font-weight: 600;
+  font-size: 0.74rem;
+  background: color-mix(in srgb, var(--oro) 11%, transparent);
+  padding: 1px var(--e2);
+  border-radius: 999px;
+}
+.carrera__d {
+  font-family: var(--lectura);
+  font-size: 0.98rem;
+  line-height: 1.52;
+  color: var(--tinta-media);
+  margin: 0;
+}
+.carrera__ir {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--verde);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .14s linear, transform .14s linear;
+}
+
+@media (max-width: 900px) {
+  .carrera { grid-template-columns: 1fr; gap: var(--e3); }
+  .carrera__ir { opacity: 1; transform: none; }
+}
+
+/* --- 10. Pasos de ingreso ------------------------------------------------ */
+
+.pasos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--linea);
+  counter-reset: paso;
+}
+.pasos > li {
+  list-style: none;
+  padding: var(--e5) var(--e4) var(--e6) 0;
+  border-right: 1px solid var(--linea);
+  counter-increment: paso;
+}
+.pasos > li:last-child { border-right: 0; }
+.pasos > li::before {
+  content: counter(paso);
+  display: grid;
+  place-items: center;
+  width: 26px; height: 26px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--verde);
+  background: color-mix(in srgb, var(--verde) 10%, transparent);
+  border-radius: 50%;
+  margin-bottom: var(--e3);
+  font-variant-numeric: tabular-nums;
+}
+.pasos h3 { font-size: 1rem; font-weight: 600; margin: 0 0 var(--e2); letter-spacing: -0.01em; }
+.pasos p { margin: 0; font-size: 0.88rem; color: var(--tinta-media); line-height: 1.5; }
+@media (max-width: 860px) {
+  .pasos { grid-template-columns: 1fr; }
+  .pasos > li { border-right: 0; border-bottom: 1px solid var(--linea); padding-bottom: var(--e5); }
+}
+
+/* --- 11. Novedades en lista editorial ------------------------------------ */
+
+.novedades { border-top: 1px solid var(--linea); }
+.novedad {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: var(--e5);
+  align-items: baseline;
+  padding: var(--e4);
+  margin-inline: calc(var(--e4) * -1);
+  border-bottom: 1px solid var(--linea);
+  border-radius: var(--radio);
+  position: relative;
+  transition: background .16s ease, box-shadow .16s ease;
+}
+.novedad:hover {
+  background: var(--papel-alto);
+  box-shadow: var(--sombra-sutil);
+  border-bottom-color: transparent;
+}
+.novedad__f { font-family: var(--dato); font-size: 0.74rem; color: var(--tinta-suave); }
+.novedad__t { font-size: 1.05rem; font-weight: 550; letter-spacing: -0.015em; margin: 0; }
+.novedad__t a::after { content: ""; position: absolute; inset: 0; }
+.novedad__c {
+  font-size: 0.74rem;
+  color: var(--tinta-suave);
+  background: var(--papel-hundido);
+  padding: 2px var(--e2);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .novedad { grid-template-columns: 1fr; gap: var(--e1); }
+}
+
+/* --- 12. Ficha de datos (dl institucional) ------------------------------- */
+
+.ficha { margin: 0; border-top: 1px solid var(--linea); }
+.ficha__fila {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: var(--e4);
+  padding-block: var(--e3);
+  border-bottom: 1px solid var(--linea);
+}
+.ficha dt {
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+  color: var(--tinta-suave);
+  padding-top: 1px;
+}
+.ficha dd { margin: 0; font-size: 0.94rem; }
+@media (max-width: 620px) {
+  .ficha__fila { grid-template-columns: 1fr; gap: var(--e1); }
+}
+
+/* --- 13. Pie ------------------------------------------------------------- */
+
+.pie {
+  border-top: 1px solid var(--linea);
+  margin-top: var(--e9);
+  padding-block: var(--e7) var(--e5);
+  background: var(--papel-hundido);
+}
+.pie h2 {
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  color: var(--tinta-suave);
+  margin: 0 0 var(--e3);
+  font-weight: 600;
+}
+.pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--e2); }
+.pie a { font-size: 0.9rem; color: var(--tinta-media); }
+.pie a:hover { color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; }
+.pie__legal {
+  margin-top: var(--e7);
+  padding-top: var(--e4);
+  border-top: 1px solid var(--linea);
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--e4);
+  flex-wrap: wrap;
+}
+
+/* --- 14. Utilidades ------------------------------------------------------ */
+
+.col-1-7  { grid-column: 1 / 8; }
+.col-8-12 { grid-column: 8 / 13; }
+.col-1-8  { grid-column: 1 / 9; }
+.col-9-12 { grid-column: 9 / 13; }
+.col-1-12 { grid-column: 1 / -1; }
+.col-1-6  { grid-column: 1 / 7; }
+.col-7-12 { grid-column: 7 / 13; }
+
+@media (max-width: 900px) {
+  .col-1-7, .col-8-12, .col-1-8, .col-9-12, .col-1-6, .col-7-12 { grid-column: 1 / -1; }
+}
+
+.seccion { padding-block: var(--e7); }
+.seccion--ajustada { padding-block: var(--e6); }
+
+.sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+
+/* --- 15. Complementos de la portada -------------------------------------- */
+
+.prosa--chica { font-size: 1rem; margin-top: var(--e3); }
+
+.pasos--tres { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 860px) { .pasos--tres { grid-template-columns: 1fr; } }
+
+.pie__descripcion {
+  margin: var(--e4) 0 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--tinta-media);
+  max-width: 42ch;
+}
+.pie__enlaces {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--e2) var(--e5);
+}
+@media (max-width: 760px) { .pie__enlaces { grid-template-columns: repeat(2, 1fr); } }
+
+/* Sedes: una ficha por domicilio, sin tarjetas ni íconos decorativos. */
+.sedes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--e5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--linea);
+  padding-top: var(--e5);
+}
+.sede { display: grid; gap: var(--e2); align-content: start; }
+.sede__t { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.008em; margin: 0; }
+.sede__d { margin: 0; font-size: 0.94rem; line-height: 1.55; color: var(--tinta-media); }
+@media (max-width: 860px) { .sedes { grid-template-columns: 1fr; gap: var(--e5); } }
+
+/* --- 16. Capa institucional ----------------------------------------------
+   Las páginas migradas salen del shell heredado mediante los bloques
+   shell_class / main_class de base.html. Esta clase es su reemplazo: no
+   arrastra el fondo oscuro ni la reserva del CTA flotante. */
+
+.capa-institucional {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--papel);
+  color: var(--tinta);
+}
+.capa-institucional__main { flex: 1; }
+
+/* --- 17. Acordeón de preguntas frecuentes --------------------------------
+   El partial faq_item.html lo comparten páginas migradas y sin migrar, así que
+   el estilo se acota a .capa-institucional en lugar de tocar el partial. */
+
+.capa-institucional .c-home-faq__item {
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--papel-alto);
+  margin-bottom: var(--e2);
+  overflow: hidden;
+  transition: box-shadow .16s ease;
+}
+.capa-institucional .c-home-faq__item[open] { box-shadow: var(--sombra-sutil); }
+
+.capa-institucional .c-home-faq__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e4);
+  padding: var(--e4) var(--e5);
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.008em;
+  color: var(--tinta);
+  cursor: pointer;
+  list-style: none;
+  background: none;
+}
+.capa-institucional .c-home-faq__summary::-webkit-details-marker { display: none; }
+.capa-institucional .c-home-faq__summary:hover { background: var(--papel); }
+
+.capa-institucional .c-home-faq__toggle {
+  flex: none;
+  color: var(--tinta-suave);
+  transition: transform .16s ease;
+}
+.capa-institucional .c-home-faq__item[open] .c-home-faq__toggle { transform: rotate(45deg); }
+
+.capa-institucional .c-home-faq__answer {
+  margin: 0;
+  padding: 0 var(--e5) var(--e5);
+  font-family: var(--lectura);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: var(--tinta-media);
+  max-width: 72ch;
+}

@@ -180,15 +180,20 @@ async def test_404_has_noindex():
 
 @pytest.mark.asyncio  # type: ignore
 async def test_service_cards_use_heading_tags():
-    """Verifica que las tarjetas de contenido de la Home institucional (Noticias/Eventos/
-    Comunicados, Carreras, Estudiantes, Sedes) usen headings semánticos <h3>, ya sin las
-    tarjetas de "servicios" comerciales de DataMaq."""
+    """Verifica que los bloques de contenido de la Home institucional (Carreras,
+    Vida institucional, Sedes) usen headings semánticos, ya sin las tarjetas de
+    "servicios" comerciales de DataMaq."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/")
 
     assert response.status_code == 200
-    assert 'c-inst-card__title"' in response.text
+    # Cada carrera encabeza con <h2> y los bloques secundarios con <h3>.
+    # No se verifican acá las sedes: varios módulos inyectan un ContenidoModel
+    # mínimo por dependency_overrides y las dejarían vacías. Esa garantía vive
+    # en tests/test_home_institucional.py.
+    assert 'class="carrera__t"' in response.text
+    assert "<h2" in response.text
     assert "<h3" in response.text
 
 
