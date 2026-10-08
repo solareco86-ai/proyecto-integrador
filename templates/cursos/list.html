@@ -34,7 +34,7 @@
                     </span>
                 {% else %}
                     <span class="tw:inline-flex tw:items-center tw:gap-1.5 tw:px-3 tw:py-1 tw:rounded-full tw:text-xs tw:font-semibold tw:bg-dm-bg tw:text-dm-text-muted tw:border tw:border-dm-border">
-                        <i class="bi bi-star-fill tw:text-yellow-400"></i> Cursos destacados
+                        <i class="bi bi-star-fill tw:text-yellow-400"></i> Materias destacadas
                     </span>
                 {% endif %}
             </div>
@@ -118,7 +118,7 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Cursos",
+      "name": "Materias",
       "item": "{{ seo.canonical_url }}"
     }
   ]
@@ -127,7 +127,7 @@
 {% endblock %}
 
 {% block dock %}
-{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Materias'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
 {% endblock %}
 
 {% block cookie_banner %}

@@ -44,6 +44,11 @@
    - Formación: Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
    - Salida laboral: Recepcionista o Coordinador/a de Reservas, Encargado/a de Piso o Supervisor/a de Servicios, Jefe/a de Recepción o de Alimentos y Bebidas, Gerente/a de Hotel o Emprendedor/a turístico, Asesor/a en gestión hotelera o calidad de servicios.
 
+8. [Tecnicatura Superior en Energía Eléctrica con orientación en Digitalización](https://isftn199.com.ar/carreras):
+   - Resolución oficial: pendiente de carga.
+   - Sede: Anexo Vicente López (Cerrito 3966).
+   - Formación: Generación, transmisión y distribución de energía eléctrica con instrumentación digital, automatización de subestaciones y gestión de la demanda.
+
 ## Campus Virtual y Aulas Técnicas
 - **Plataforma LMS Integrada:** [Aulas y Cursos Técnicos](https://isftn199.com.ar/cursos) con talleres prácticos, apuntes abiertos, código y laboratorios de cátedra para estudiantes y docentes del instituto.
 

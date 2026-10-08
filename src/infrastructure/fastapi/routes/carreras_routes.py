@@ -38,6 +38,7 @@ async def listado_carreras(
         "brand": brand_data,
         "content": content_data,
         "carreras": carreras,
+        "sedes_por_id": data_svc.get_sedes_por_id(),
         "seo": seo,
         "footer": presented.get("footer"),
     }
@@ -74,6 +75,7 @@ async def detalle_carrera(
         "content": content_data,
         "carrera": carrera,
         "otras_carreras": data_svc.get_otras_carreras(carrera_slug),
+        "sedes_por_id": data_svc.get_sedes_por_id(),
         "seo": seo,
         "footer": presented.get("footer"),
     }

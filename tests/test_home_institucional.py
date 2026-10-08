@@ -55,13 +55,13 @@ def test_la_plantilla_no_hardcodea_carreras_ni_sedes() -> None:
     el objetivo es que nadie vuelva a escribir el catálogo a mano.
     """
     plantilla = Path(config.TEMPLATES_DIR, "index.html").read_text(encoding="utf-8")
+    servicio = DataService(data_dir=config.DATA_DIR)
 
-    for prohibido in (
-        "Tecnicatura Superior en",
-        "Celina Voena",
-        "Alte. Brown",
-        "Cerrito 3966",
-    ):
+    prohibidos = [carrera.title for carrera in servicio.get_carreras()]
+    for sede in servicio.get_contenido().content.sedes:
+        prohibidos.extend(sede.direccion)
+
+    for prohibido in prohibidos:
         assert prohibido not in plantilla, (
             f"'{prohibido}' quedó hardcodeado en templates/index.html; "
             "ese dato vive en data/."

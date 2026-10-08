@@ -163,6 +163,13 @@
 
 ---
 
+### 2.8 Tecnicatura Superior en Energía Eléctrica con orientación en Digitalización
+* **Resolución:** pendiente de carga.
+* **Título Otorgado:** Técnico/a Superior en Energía Eléctrica con orientación en Digitalización.
+* **Duración:** 3 años (presencial, turno vespertino).
+* **Sede:** Anexo Vicente López (Cerrito 3966, Vicente López).
+* **Descripción:** Generación, transmisión y distribución de energía eléctrica con instrumentación digital, automatización de subestaciones y gestión de la demanda.
+
 ## 3. Requisitos de Ingreso y Trámite de Inscripción
 
 - **Condición excluyente:** Secundario completo (o constancia de analítico en trámite sin adeudar materias al inicio del ciclo lectivo).

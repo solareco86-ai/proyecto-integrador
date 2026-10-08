@@ -17,6 +17,7 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
   5. *Administración de Recursos Humanos* (Resolución DGCyE N° 276/03)
   6. *Turismo* (Resolución N° 2686/20)
   7. *Hotelería* (Resolución N° 2685/20)
+  8. *Energía Eléctrica con orientación en Digitalización* (Resolución pendiente de carga) — se dicta en el Anexo Vicente López
 
 ---
 

@@ -156,8 +156,10 @@ class AdmisionModel(BaseModel):
 class SedeModel(BaseModel):
     """Una sede donde el instituto dicta clases."""
 
+    id: str
     nombre: str
     direccion: list[str]
+    mapa: str | None = None
 
 
 class CampusEstudianteModel(BaseModel):
@@ -471,6 +473,7 @@ class CarreraModel(BaseModel):
     duracion: str
     modalidad: str
     turno: str
+    sede: str | None = None
     resolucion: str | None = None
     badge: str | None = None
     icon: str | None = None

@@ -54,6 +54,7 @@
                 <tr>
                     <th scope="col">Tecnicatura</th>
                     <th scope="col">Resolución</th>
+                    <th scope="col">Sede</th>
                     <th scope="col">Título que otorga</th>
                     <th scope="col"><span class="sr">Acción</span></th>
                 </tr>
@@ -63,6 +64,11 @@
                 <tr>
                     <th scope="row"><a href="/carreras/{{ carrera.slug }}">{{ carrera.title }}</a></th>
                     <td class="dato">{{ carrera.resolucion or '—' }}</td>
+                    <td>
+                        {% if carrera.sede and sedes_por_id.get(carrera.sede) %}
+                        <span class="sede-marca" data-sede="{{ carrera.sede }}">{{ sedes_por_id[carrera.sede].nombre | replace('Sede ', '') | replace('Anexo ', '') }}</span>
+                        {% else %}—{% endif %}
+                    </td>
                     <td>{{ carrera.titulo_otorgado }}</td>
                     <td class="tabla__ir">Ver →</td>
                 </tr>
@@ -73,6 +79,7 @@
 
     <p class="dato" style="color:var(--tinta-suave); margin-top:var(--e4)">
         Duración, modalidad y turno son iguales en todas: 3 años · presencial · vespertino 18:00–22:30.
+        Lo que cambia es el campo de trabajo y la sede: cada tecnicatura se dicta en una sola.
     </p>
 </section>
 
@@ -90,6 +97,9 @@
                 <h2 class="carrera__t"><a href="/carreras/{{ carrera.slug }}">{{ carrera.title }}</a></h2>
                 <p class="carrera__meta">
                     {% if carrera.resolucion %}<span>{{ carrera.resolucion }}</span>{% endif %}
+                    {% if carrera.sede and sedes_por_id.get(carrera.sede) %}
+                    <span class="sede-marca" data-sede="{{ carrera.sede }}">{{ sedes_por_id[carrera.sede].nombre }}</span>
+                    {% endif %}
                     {% if carrera.badge %}<b>{{ carrera.badge }}</b>{% endif %}
                 </p>
             </div>

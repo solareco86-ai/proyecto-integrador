@@ -6,6 +6,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
+  sede: los-troncos
   resolucion: Resolución DGCyE N° 2730/22
   badge: Alta Demanda Laboral
   icon: bi-cpu
@@ -45,6 +46,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
+  sede: ricardo-rojas
   resolucion: Resolución DGCyE N° 5885/10
   badge: Industria 4.0
   icon: bi-gear-wide-connected
@@ -81,6 +83,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
+  sede: el-talar
   resolucion: Resolución DGCyE N° 1243/19
   badge: Estratégica en Tigre
   icon: bi-truck
@@ -117,6 +120,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
+  sede: el-talar
   resolucion: Resolución DGCyE N° 320/13
   badge: Matrícula Habilitante
   icon: bi-shield-check
@@ -151,6 +155,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
+  sede: los-troncos
   resolucion: Resolución DGCyE N° 276/03
   badge: Gestión & Personas
   icon: bi-people
@@ -186,6 +191,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
+  sede: el-talar
   resolucion: Resolución N° 2686/20
   badge: Desarrollo Local Tigre
   icon: bi-airplane
@@ -219,6 +225,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
+  sede: el-talar
   resolucion: Resolución N° 2685/20
   badge: Desarrollo Local Tigre
   icon: bi-building
@@ -245,3 +252,19 @@ carreras:
   - Jefe/a de Recepción o de Alimentos y Bebidas
   - Gerente/a de Hotel o Emprendedor/a turístico
   - Asesor/a en gestión hotelera o calidad de servicios
+- id: energia-electrica
+  slug: energia-electrica
+  title: Tecnicatura Superior en Energía Eléctrica con orientación en Digitalización
+  titulo_otorgado: Técnico/a Superior en Energía Eléctrica con orientación en Digitalización
+  duracion: 3 años
+  modalidad: Presencial
+  turno: Vespertino (18:00 a 22:30)
+  sede: vicente-lopez
+  badge: Anexo Vicente López
+  icon: bi-lightning-charge
+  description_short: Generación, transmisión y distribución de energía eléctrica con
+    instrumentación digital, automatización de subestaciones y gestión de la demanda.
+  description_long: ''
+  perfil_egresado: ''
+  materias_destacadas: []
+  salida_laboral: []

@@ -19,7 +19,7 @@
         <nav class="c-breadcrumbs" aria-label="Breadcrumb">
             <ol class="c-breadcrumbs__list">
                 <li class="c-breadcrumbs__item"><a href="/">Inicio</a></li>
-                <li class="c-breadcrumbs__item"><a href="{{ url_for('listado_cursos') }}">Cursos</a></li>
+                <li class="c-breadcrumbs__item"><a href="{{ url_for('listado_cursos') }}">Materias</a></li>
                 <li class="c-breadcrumbs__item aria-current-page" aria-current="page">Instructores</li>
                 <li class="c-breadcrumbs__item aria-current-page" aria-current="page">{{ instructor.name }}</li>
             </ol>
@@ -71,7 +71,7 @@
         </section>
 
         <section class="c-curso-section" style="margin-top: 4rem;">
-            <h2 class="c-curso-section__title">Cursos Dictados por {{ instructor.name }}</h2>
+            <h2 class="c-curso-section__title">Materias Dictadas por {{ instructor.name }}</h2>
             {% if cursos %}
                 <div class="c-cursos-grid" style="padding-top: 1rem;">
                     {% for curso in cursos %}
@@ -143,7 +143,7 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Cursos",
+      "name": "Materias",
       "item": "https://datamaq.com.ar/cursos"
     },
     {
@@ -158,7 +158,7 @@
 {% endblock %}
 
 {% block dock %}
-{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Materias'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
 {% endblock %}
 
 {% block cookie_banner %}

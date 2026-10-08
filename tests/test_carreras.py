@@ -1,14 +1,20 @@
+from pathlib import Path
+
 import pytest
+import yaml
 from httpx import ASGITransport, AsyncClient
 
 from src.application.data_service import DataService
 from src.infrastructure.fastapi.app import app
 
+CARRERAS_YAML = Path(__file__).resolve().parent.parent / "data" / "content" / "carreras.yaml"
+
 
 def test_data_service_carreras_catalog():
     data_svc = DataService(data_dir="data")
     carreras = data_svc.get_carreras()
-    assert len(carreras) == 7
+    # La cantidad la fija data/content/carreras.yaml, no este test.
+    assert len(carreras) == len(yaml.safe_load(CARRERAS_YAML.read_text(encoding="utf-8"))["carreras"])
 
     slugs = [c.slug for c in carreras]
     assert "ciencia-de-datos-ia" in slugs

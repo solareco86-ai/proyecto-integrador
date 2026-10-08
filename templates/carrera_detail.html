@@ -117,6 +117,23 @@
                         <div class="ficha__fila"><dt>Duración</dt><dd>{{ carrera.duracion }}</dd></div>
                         <div class="ficha__fila"><dt>Modalidad</dt><dd>{{ carrera.modalidad }}</dd></div>
                         <div class="ficha__fila"><dt>Turno</dt><dd>{{ carrera.turno }}</dd></div>
+                        {% if carrera.sede and sedes_por_id.get(carrera.sede) %}
+                        {% set sede = sedes_por_id[carrera.sede] %}
+                        <div class="ficha__fila">
+                            <dt>Sede</dt>
+                            <dd>
+                                {{ sede.nombre }}<br>
+                                <span class="ficha__detalle">{{ sede.direccion | join(', ') }}</span>
+                                {% if sede.mapa %}
+                                <a class="sede__mapa" href="{{ sede.mapa }}" target="_blank" rel="noopener noreferrer">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                                    Cómo llegar
+                                    <span class="sr">a {{ sede.nombre }} (se abre en Google Maps)</span>
+                                </a>
+                                {% endif %}
+                            </dd>
+                        </div>
+                        {% endif %}
                         {% if carrera.resolucion %}
                         <div class="ficha__fila"><dt>Resolución</dt><dd class="dato">{{ carrera.resolucion }}</dd></div>
                         {% endif %}
@@ -148,6 +165,9 @@
                 <h2 class="carrera__t"><a href="/carreras/{{ otra.slug }}">{{ otra.title }}</a></h2>
                 <p class="carrera__meta">
                     {% if otra.resolucion %}<span>{{ otra.resolucion }}</span>{% endif %}
+                    {% if otra.sede and sedes_por_id.get(otra.sede) %}
+                    <span class="sede-marca" data-sede="{{ otra.sede }}">{{ sedes_por_id[otra.sede].nombre }}</span>
+                    {% endif %}
                     {% if otra.badge %}<b>{{ otra.badge }}</b>{% endif %}
                 </p>
             </div>

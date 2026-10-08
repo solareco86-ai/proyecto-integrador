@@ -112,6 +112,9 @@
                 <p class="carrera__meta">
                     {% if carrera.resolucion %}<span>{{ carrera.resolucion }}</span>{% endif %}
                     <span>{{ carrera.duracion }}</span>
+                    {% if carrera.sede and sedes_por_id.get(carrera.sede) %}
+                    <span class="sede-marca" data-sede="{{ carrera.sede }}">{{ sedes_por_id[carrera.sede].nombre }}</span>
+                    {% endif %}
                     {% if carrera.badge %}<b>{{ carrera.badge }}</b>{% endif %}
                 </p>
             </div>
@@ -191,13 +194,27 @@
     <ul class="sedes">
         {% for sede in content.sedes %}
         <li class="sede">
-            {{ foto_macro.foto('Frente de la ' ~ sede.nombre | lower,
+            {{ foto_macro.foto('Frente de ' ~ sede.nombre,
                 'Mismo encuadre, misma distancia y misma hora que las otras sedes.',
                 'foto--sede') }}
-            <h3 class="sede__t">{{ sede.nombre }}</h3>
-            <p class="sede__d">
-                {% for linea in sede.direccion %}{{ linea }}{% if not loop.last %}<br>{% endif %}{% endfor %}
-            </p>
+            <div class="sede__cuerpo">
+                <h3 class="sede__t">{{ sede.nombre }}</h3>
+                <p class="sede__d">
+                    {% for linea in sede.direccion %}{{ linea }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+                </p>
+                {% if carreras_por_sede.get(sede.id) %}
+                <p class="sede__c">
+                    {% for carrera in carreras_por_sede[sede.id] %}{{ carrera.title | replace('Tecnicatura Superior en ', '') }}{% if not loop.last %} · {% endif %}{% endfor %}
+                </p>
+                {% endif %}
+                {% if sede.mapa %}
+                <a class="sede__mapa" href="{{ sede.mapa }}" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                    Cómo llegar
+                    <span class="sr">a {{ sede.nombre }} (se abre en Google Maps)</span>
+                </a>
+                {% endif %}
+            </div>
         </li>
         {% endfor %}
     </ul>

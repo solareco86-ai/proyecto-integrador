@@ -10,8 +10,7 @@
   function rotular() {
     var oscuro = raiz.getAttribute('data-tema') === 'oscuro';
     document.querySelectorAll('[data-conmutador]').forEach(function (boton) {
-      boton.textContent = oscuro ? 'Tema claro' : 'Tema oscuro';
-      boton.setAttribute('aria-pressed', String(oscuro));
+      boton.setAttribute('aria-checked', String(oscuro));
     });
   }
 
