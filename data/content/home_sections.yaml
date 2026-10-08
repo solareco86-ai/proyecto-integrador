@@ -319,20 +319,14 @@ navbar:
   links:
   - href: /carreras
     label: Carreras
-  - href: /cursos
-    label: Campus Virtual
-  - href: /noticias
-    label: Noticias
-  - href: /eventos
-    label: Eventos
-  - href: /comunicados
-    label: Comunicados
   - href: '#ingreso'
     label: Ingreso
-  - href: '#faq'
-    label: Preguntas Frecuentes
-  - href: '#contacto'
-    label: Contacto
+  - href: /noticias
+    label: Novedades
+  - href: '#sedes'
+    label: Las sedes
+  - href: /campus
+    label: Campus
 cookie_banner:
   accept_label: Aceptar
   more_info_label: Ver más
@@ -376,6 +370,14 @@ assistance_modes:
 # ni cuentas regresivas (AGENTS.md, secciones 3 y 7.5). Al completarlos, la
 # portada muestra el estado y los días restantes sin tocar la plantilla.
 admision:
+  # DATO DE EJEMPLO: no hay fecha oficial de Secretaría. Se carga para que la
+  # portada muestre la estructura completa del bloque de admisión. Reemplazar
+  # por el plazo real antes de publicar, o vaciar `cierre` para que la cuenta
+  # regresiva desaparezca sola.
+  estado: Inscripción 2027 abierta
+  cierre:
+    fecha_iso: '2026-11-28'
+    fecha_texto: 28 nov 2026
   titular: Siete tecnicaturas superiores, públicas y gratuitas.
   bajada: Títulos oficiales con validez nacional, cursada vespertina de 18:00 a
     22:30 y tres años de duración. No se cobra matrícula, cuota ni arancel de

@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% import 'partials/head.html' as seo_macro %}
+
+{% block head %}
+{{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
+<meta name="robots" content="noindex, nofollow">
+<link rel="preload" href="{{ request.url_for('static', path='fonts/archivo-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/sistema.css') }}?v={{ static_version() }}">
+{% endblock %}
+
+{% block html_attrs %} data-tema="claro"{% endblock %}
+{% block shell_class %}capa-institucional campus{% endblock %}
+{% block main_class %}capa-institucional__main{% endblock %}
+
+{% block header %}
+<p class="banda-prototipo" role="note">
+    Estructura del campus virtual · El módulo todavía no está construido:
+    los datos de esta pantalla son de muestra y no corresponden a ninguna persona.
+</p>
+
+<header class="campus__barra">
+    <a class="marca" href="/">
+        <img src="/static/media/logo-isft199.webp" alt="" width="44" height="44">
+        <span>
+            <span class="marca__n">{{ brand.brandName }}</span>
+            <span class="marca__d">Campus</span>
+        </span>
+    </a>
+
+    <div class="campus__ciclo">
+        <span class="etiqueta-dato">Ciclo lectivo</span>
+        <strong class="dato">{{ campus.ciclo }}</strong>
+    </div>
+
+    <div class="campus__usuario">
+        <button class="conmutador" type="button" data-conmutador>Tema oscuro</button>
+        <div class="usuario">
+            <span class="usuario__n">{{ campus.estudiante.nombre }}</span>
+            <span class="usuario__r">Estudiante · Legajo <span class="dato">{{ campus.estudiante.legajo }}</span></span>
+        </div>
+        <div class="usuario__av" aria-hidden="true">{{ campus.estudiante.iniciales }}</div>
+    </div>
+</header>
+{% endblock %}
+
+{% block main_content %}
+<div class="campus__cuerpo">
+
+    <nav class="rail" aria-label="Secciones del campus">
+        {% for seccion in campus.secciones %}
+        <p class="rail__t">{{ seccion.titulo }}</p>
+        <ul>
+            {% for enlace in seccion.enlaces %}
+            <li>
+                <a href="#" {% if enlace.actual %}aria-current="page"{% endif %}>
+                    {{ enlace.label }}
+                    {% if enlace.aviso %}<span class="rail__n">{{ enlace.aviso }}</span>{% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </nav>
+
+    <div class="campus__main">
+
+        <div class="campus__enc">
+            <div>
+                <h1 class="titular">Mi cursada</h1>
+                <p class="campus__sub">
+                    {{ campus.estudiante.carrera }} · {{ campus.estudiante.anio }} ·
+                    {{ campus.estudiante.comision }} · {{ campus.estudiante.turno }}
+                </p>
+            </div>
+            <a class="boton boton--chico" href="#">Descargar constancia de alumno regular</a>
+        </div>
+
+        {# Lo urgente primero: el campus abre con lo que vence. #}
+        <section class="vencimientos" aria-label="Vencimientos próximos">
+            {% for venc in campus.vencimientos %}
+            <article class="venc {% if venc.urgente %}venc--urge{% endif %}">
+                <span class="venc__d">{{ venc.dias }}</span>
+                <div>
+                    <p class="venc__t">{{ venc.titulo }}</p>
+                    <p class="venc__f">{{ venc.detalle }}</p>
+                </div>
+                <a class="boton boton--chico" href="#">{{ venc.accion }}</a>
+            </article>
+            {% endfor %}
+        </section>
+
+        <div class="campus__col">
+
+            <section>
+                <div class="marcador">
+                    <span class="marcador__n">01</span>
+                    <span class="marcador__t">Materias en curso</span>
+                    <span class="marcador__extra">{{ campus.materias | length }} materias</span>
+                </div>
+
+                <div class="tabla-desliza">
+                    <table class="tabla tabla--campus">
+                        <thead>
+                            <tr>
+                                <th scope="col">Materia</th>
+                                <th scope="col">Docente</th>
+                                <th scope="col" class="num">Asistencia</th>
+                                <th scope="col" class="num">Parcial 1</th>
+                                <th scope="col" class="num">Parcial 2</th>
+                                <th scope="col">Condición</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for materia in campus.materias %}
+                            <tr>
+                                <th scope="row">{{ materia.nombre }}</th>
+                                <td>{{ materia.docente }}</td>
+                                <td class="num">
+                                    <span class="barra"><span style="--p: {{ materia.asistencia }}%"></span></span>
+                                    {{ materia.asistencia }}%
+                                </td>
+                                <td class="num">{{ materia.parcial_1 }}</td>
+                                <td class="num {% if materia.parcial_2 == '—' %}tenue{% endif %}">{{ materia.parcial_2 }}</td>
+                                <td><span class="chip chip--{{ materia.estado }}">{{ materia.condicion }}</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="nota-tabla">{{ campus.nota_materias }}</p>
+            </section>
+
+            <section style="margin-top: var(--e8)">
+                <div class="marcador">
+                    <span class="marcador__n">02</span>
+                    <span class="marcador__t">Finales disponibles</span>
+                </div>
+
+                <div class="tabla-desliza">
+                    <table class="tabla tabla--campus">
+                        <thead>
+                            <tr>
+                                <th scope="col">Materia</th>
+                                <th scope="col">Mesa</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col"><span class="sr">Acción</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for final in campus.finales %}
+                            <tr>
+                                <th scope="row">{{ final.materia }}</th>
+                                <td class="dato">{{ final.mesa }}</td>
+                                <td class="dato">{{ final.fecha }}</td>
+                                <td><span class="chip {% if final.estado_clase %}chip--{{ final.estado_clase }}{% endif %}">{{ final.estado }}</span></td>
+                                <td class="num">
+                                    {% if final.accion %}
+                                    <button class="enlace-accion {{ final.accion_clase }}" type="button">{{ final.accion }}</button>
+                                    {% else %}
+                                    <span class="tenue">No disponible</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+
+        <aside class="campus__lateral">
+            <section class="panel">
+                <h2 class="panel__t">Mis trámites</h2>
+                <ul class="tramites">
+                    {% for tramite in campus.tramites %}
+                    <li>
+                        <span class="chip chip--{{ tramite.estado_clase }}">{{ tramite.estado }}</span>
+                        <p class="tramites__t">{{ tramite.titulo }}</p>
+                        <p class="tramites__f dato">{{ tramite.detalle }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <a class="boton boton--chico" href="#" style="width:100%; justify-content:center; margin-top:var(--e4)">Iniciar un trámite</a>
+            </section>
+
+            <section class="panel" style="margin-top:var(--e5)">
+                <h2 class="panel__t">Resumen del año</h2>
+                <dl class="ficha" style="border-top:0">
+                    {% for item in campus.resumen %}
+                    <div class="ficha__fila" style="grid-template-columns:1fr auto">
+                        <dt>{{ item.etiqueta }}</dt>
+                        <dd class="dato">{{ item.valor }}</dd>
+                    </div>
+                    {% endfor %}
+                </dl>
+            </section>
+
+            <section class="panel" style="margin-top:var(--e5)">
+                <h2 class="panel__t">Comunicados</h2>
+                <ul class="comunicados">
+                    {% for com in campus.comunicados %}
+                    <li>
+                        <time class="dato">{{ com.fecha }}</time>
+                        <a href="/comunicados">{{ com.titulo }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </aside>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block fab %}{% endblock %}
+{% block dock %}{% endblock %}
+
+{% block footer %}
+<footer class="campus__pie">
+    <span>{{ brand.brandName }} · Campus virtual</span>
+    <span class="dato">Estructura de muestra · el módulo todavía no está construido</span>
+</footer>
+{% endblock %}
+
+{% block cookie_banner %}{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for("static", path="js/tema-institucional.js") }}?v={{ static_version() }}" defer></script>
+{% endblock %}

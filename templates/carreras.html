@@ -1,124 +1,145 @@
 {% extends "base.html" %}
 {% import 'partials/head.html' as seo_macro %}
-{% import 'partials/components/header.html' as header_macro %}
-{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/header_institucional.html' as header_macro %}
+{% import 'partials/components/footer_institucional.html' as footer_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
-{% import 'partials/components/icon.html' as icon_macro %}
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
-<link rel="stylesheet" href="{{ request.url_for('static', path='css/InstitucionalHome.css') }}?v={{ static_version() }}">
+<link rel="preload" href="{{ request.url_for('static', path='fonts/source-serif-4-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ request.url_for('static', path='fonts/archivo-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/sistema.css') }}?v={{ static_version() }}">
 {% endblock %}
 
+{% block html_attrs %} data-tema="claro"{% endblock %}
+{% block shell_class %}capa-institucional{% endblock %}
+{% block main_class %}capa-institucional__main{% endblock %}
+
 {% block header %}
-{{ header_macro.header(content.navbar.links) }}
+{{ header_macro.header_institucional(content.navbar.links, brand) }}
 {% endblock %}
 
 {% block main_content %}
-<div class="c-inst-home">
 
-    <section class="c-inst-carreras-hero">
-        <div class="c-inst-container">
-            <span class="c-inst-hero__badge">Educación Superior Técnica · Títulos Oficiales DGCyE</span>
-            <h1 class="c-inst-title">Oferta Académica &amp; Tecnicaturas Superiores</h1>
-            <p class="c-inst-subtitle" style="max-width:60ch;">Carreras técnicas de 3 años, públicas y 100% gratuitas en Tigre. Títulos oficiales con validez nacional, cursada en turno vespertino.</p>
-            <div class="c-inst-hero__actions" style="justify-content:center;">
-                <a href="#listado-carreras" class="c-inst-btn c-inst-btn--primary">Ver Carreras</a>
-                <a href="/contact" class="c-inst-btn c-inst-btn--outline">Consultar Preinscripción</a>
-            </div>
+<section class="marco" style="padding-block: var(--e8) var(--e6)">
+    <div class="rejilla">
+        <div class="col-1-8">
+            <p class="etiqueta-dato">Oferta académica vigente</p>
+            <h1 class="titular-mayor" style="margin-top:var(--e4)">{{ carreras | length }} carreras.<br>Todas de tres años.<br>Todas gratuitas.</h1>
         </div>
-    </section>
+        <div class="col-9-12" style="align-self:end">
+            <p class="prosa prosa--chica">
+                Todas se cursan de lunes a viernes de 18:00 a 22:30 y otorgan título
+                oficial con validez nacional. Lo que cambia entre una y otra es el
+                campo de trabajo.
+            </p>
+        </div>
+    </div>
+</section>
 
-    <section id="listado-carreras" class="c-inst-section">
-        <div class="c-inst-container">
-            <div class="c-inst-grid c-inst-grid--3">
+{# ============ COMPARADOR ============
+   Las siete comparten duración, modalidad y turno: la tabla responde de un
+   vistazo la única pregunta real, que es en qué se diferencian. #}
+<section class="marco seccion--ajustada">
+    <div class="marcador">
+        <span class="marcador__n">01</span>
+        <span class="marcador__t">Comparar las {{ carreras | length }}</span>
+        <span class="marcador__extra">Desplazá la tabla si no entra</span>
+    </div>
+
+    <div class="tabla-desliza">
+        <table class="tabla">
+            <caption class="sr">Comparación de las tecnicaturas superiores</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tecnicatura</th>
+                    <th scope="col">Resolución</th>
+                    <th scope="col">Título que otorga</th>
+                    <th scope="col"><span class="sr">Acción</span></th>
+                </tr>
+            </thead>
+            <tbody>
                 {% for carrera in carreras %}
-                    <article class="c-inst-card c-inst-carrera-full">
-                        <div class="c-inst-carrera-full__top">
-                            {% if carrera.badge %}<span class="c-inst-badge">{{ carrera.badge }}</span>{% endif %}
-                            <span class="c-inst-carrera-full__meta">{{ carrera.duracion }} · {{ carrera.modalidad }}</span>
-                        </div>
-                        <h2 class="c-inst-card__title"><a href="/carreras/{{ carrera.slug }}">{{ carrera.title }}</a></h2>
-                        {% if carrera.resolucion %}<p class="c-inst-carrera-full__resolucion">{{ carrera.resolucion }}</p>{% endif %}
-                        <p class="c-inst-card__text">{{ carrera.description_short }}</p>
-                        <ul class="c-inst-carrera-full__materias">
-                            {% for materia in carrera.materias_destacadas[:3] %}
-                            <li>{{ materia }}</li>
-                            {% endfor %}
-                        </ul>
-                        <div class="c-inst-carrera-full__footer">
-                            <a href="/carreras/{{ carrera.slug }}" class="c-inst-card__cta">Ver detalles →</a>
-                            <a href="/contact" class="c-inst-btn c-inst-btn--solid-green" style="padding:.5rem 1rem;font-size:.82rem;">Preinscribirme</a>
-                        </div>
-                    </article>
+                <tr>
+                    <th scope="row"><a href="/carreras/{{ carrera.slug }}">{{ carrera.title }}</a></th>
+                    <td class="dato">{{ carrera.resolucion or '—' }}</td>
+                    <td>{{ carrera.titulo_otorgado }}</td>
+                    <td class="tabla__ir">Ver →</td>
+                </tr>
                 {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-                {# Tecnicatura solicitada sin datos reales todavía disponibles en el proyecto: se muestra
-                   solo el nombre, sin inventar duración/resolución/descripción, y sin una ruta de detalle
-                   inventada (enlaza al listado general, que sí es una ruta real). #}
-                <article class="c-inst-card c-inst-carrera-full">
-                    <div class="c-inst-carrera-full__top">
-                        <span class="c-inst-badge c-inst-badge--pendiente">Pendiente de carga</span>
-                    </div>
-                    <h2 class="c-inst-card__title">Tecnicatura Superior en Energía Eléctrica y Digitalización</h2>
-                    <p class="c-inst-carrera-full__nota">Todavía no hay información oficial cargada en el proyecto para esta tecnicatura (duración, resolución, plan de estudios).</p>
-                    <div class="c-inst-carrera-full__footer">
-                        <a href="/carreras" class="c-inst-card__cta">Ver oferta académica →</a>
-                        <a href="/contact" class="c-inst-btn c-inst-btn--solid-green" style="padding:.5rem 1rem;font-size:.82rem;">Consultar</a>
-                    </div>
-                </article>
+    <p class="dato" style="color:var(--tinta-suave); margin-top:var(--e4)">
+        Duración, modalidad y turno son iguales en todas: 3 años · presencial · vespertino 18:00–22:30.
+    </p>
+</section>
+
+{# ============ QUÉ SE ESTUDIA EN CADA UNA ============ #}
+<section class="marco seccion">
+    <div class="marcador">
+        <span class="marcador__n">02</span>
+        <span class="marcador__t">Qué se estudia en cada una</span>
+    </div>
+
+    <div class="carreras">
+        {% for carrera in carreras %}
+        <article class="carrera carrera--extendida">
+            <div>
+                <h2 class="carrera__t"><a href="/carreras/{{ carrera.slug }}">{{ carrera.title }}</a></h2>
+                <p class="carrera__meta">
+                    {% if carrera.resolucion %}<span>{{ carrera.resolucion }}</span>{% endif %}
+                    {% if carrera.badge %}<b>{{ carrera.badge }}</b>{% endif %}
+                </p>
+            </div>
+            <div>
+                <p class="carrera__d">{{ carrera.description_short }}</p>
+                {% if carrera.materias_destacadas %}
+                <ul class="materias">
+                    {% for materia in carrera.materias_destacadas[:4] %}
+                    <li>{{ materia }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <span class="carrera__ir">Ver plan →</span>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="marco seccion--ajustada">
+    <div class="rejilla">
+        <div class="col-1-8">
+            <h2 class="titular">¿Todavía dudás cuál elegir?</h2>
+            <p class="prosa" style="margin-top:var(--e4)">
+                En Secretaría se atiende de lunes a viernes de 19:00 a 22:30. Podés
+                acercarte a conversar sobre el plan de estudios y la carga horaria
+                real de cada carrera.
+            </p>
+            <div class="admision__acciones">
+                <a class="boton boton--solido" href="/contact">Preinscribirme</a>
+                <a class="boton" href="/#sedes">Dónde se cursa</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="requisitos" class="c-inst-section c-inst-section--alt">
-        <div class="c-inst-container">
-            <div class="c-inst-head--center">
-                <h2 class="c-inst-title">Requisitos para el Ingreso</h2>
-                <p class="c-inst-subtitle">La inscripción está abierta a todas las personas interesadas en continuar sus estudios de nivel superior técnico.</p>
-            </div>
-            <div class="c-inst-grid c-inst-grid--3">
-                <div class="c-inst-card c-inst-head--center">
-                    <span class="c-inst-requisitos-icon">{{ icon_macro.bootstrap_icon('check2-circle') }}</span>
-                    <h3 class="c-inst-card__title">Título Secundario</h3>
-                    <p class="c-inst-card__text">Analítico de secundario completo o constancia de título en trámite.</p>
-                </div>
-                <div class="c-inst-card c-inst-head--center">
-                    <span class="c-inst-requisitos-icon">{{ icon_macro.bootstrap_icon('envelope-fill') }}</span>
-                    <h3 class="c-inst-card__title">Documentación Personal</h3>
-                    <p class="c-inst-card__text">Fotocopia de DNI vigente, partida de nacimiento y 2 fotos carnet 4x4.</p>
-                </div>
-                <div class="c-inst-card c-inst-head--center">
-                    <span class="c-inst-requisitos-icon">{{ icon_macro.bootstrap_icon('lightning-charge-fill') }}</span>
-                    <h3 class="c-inst-card__title">Salud &amp; Formulario</h3>
-                    <p class="c-inst-card__text">Certificado de aptitud psicofísica y planilla de inscripción del instituto.</p>
-                </div>
-            </div>
-            <div class="c-inst-head--center" style="margin-top:2rem;">
-                <a href="/contact" class="c-inst-btn c-inst-btn--solid-green">Iniciar Consulta de Preinscripción</a>
-            </div>
-        </div>
-    </section>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "{{ seo.title }}",
-      "description": "{{ seo.description }}",
-      "url": "{{ seo.canonical_url }}"
-    }
-    </script>
-</div>
 {% endblock %}
 
-{% block fab %}
-{% endblock %}
+{% block fab %}{% endblock %}
+{% block dock %}{% endblock %}
 
 {% block footer %}
-{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{{ footer_macro.footer_institucional(brand, content.legal.text, content.navbar.links) }}
 {% endblock %}
 
 {% block cookie_banner %}
 {{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
+{% endblock %}
+
+{% block scripts %}
+    <script type="module" src="{{ url_for("static", path="js/app.js") }}?v={{ static_version() }}"></script>
+    <script src="{{ url_for("static", path="js/tema-institucional.js") }}?v={{ static_version() }}" defer></script>
 {% endblock %}

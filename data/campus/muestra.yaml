@@ -1,0 +1,136 @@
+# Campus virtual — datos de MUESTRA.
+#
+# El módulo de campus todavía no existe: no hay base de estudiantes, ni notas,
+# ni asistencias. Este archivo alimenta la pantalla de estructura para poder
+# revisar el diseño y el flujo antes de construirlo.
+#
+# Nada de esto es información real de ninguna persona. La plantilla muestra un
+# aviso permanente y la ruta se sirve solo con DEBUG=true.
+estudiante:
+  nombre: Nombre Apellido
+  iniciales: NA
+  legajo: 00 000/00
+  carrera: Tecnicatura Superior en Ciencia de Datos e IA
+  anio: 2.º año
+  comision: Comisión B
+  turno: Turno vespertino
+ciclo: 2026 · 2.º cuatrimestre
+secciones:
+- titulo: Cursada
+  enlaces:
+  - label: Mi cursada
+    actual: true
+  - label: Asistencia
+  - label: Calificaciones
+  - label: Material de cátedra
+- titulo: Trámites
+  enlaces:
+  - label: Inscripción a materias
+  - label: Inscripción a finales
+    aviso: '2'
+  - label: Constancias
+  - label: Mi legajo
+- titulo: Instituto
+  enlaces:
+  - label: Comunicados
+  - label: Calendario
+  - label: Preceptoría
+vencimientos:
+- dias: 6
+  titulo: Cierra la inscripción a mesas de diciembre
+  detalle: Hasta el 12 oct 2026 · 23:59
+  accion: Inscribirme
+  urgente: true
+- dias: 21
+  titulo: Entrega del trabajo integrador de Machine Learning
+  detalle: Hasta el 27 oct 2026
+  accion: Ver consigna
+  urgente: false
+materias:
+- nombre: Machine Learning y Minería de Datos
+  docente: Apellido 1
+  asistencia: 88
+  parcial_1: '8'
+  parcial_2: '—'
+  condicion: Regular
+  estado: ok
+- nombre: Bases de Datos Relacionales y NoSQL
+  docente: Apellido 2
+  asistencia: 95
+  parcial_1: '9'
+  parcial_2: '7'
+  condicion: Regular
+  estado: ok
+- nombre: Álgebra Lineal y Estadística Aplicada
+  docente: Apellido 3
+  asistencia: 62
+  parcial_1: '6'
+  parcial_2: '—'
+  condicion: En riesgo
+  estado: riesgo
+- nombre: Procesamiento de Lenguaje Natural
+  docente: Apellido 4
+  asistencia: 100
+  parcial_1: '10'
+  parcial_2: '9'
+  condicion: Regular
+  estado: ok
+- nombre: Ética, Gobernanza y Privacidad de los Datos
+  docente: Apellido 5
+  asistencia: 76
+  parcial_1: '7'
+  parcial_2: '—'
+  condicion: Regular
+  estado: ok
+nota_materias: Se mantiene la regularidad con 75% de asistencia y los dos parciales
+  aprobados. Cuando una materia queda por debajo del mínimo, el campus lo marca y
+  avisa de hablar con Preceptoría antes del cierre del cuatrimestre.
+finales:
+- materia: Programación en Python y Estructuras de Datos
+  mesa: M-114
+  fecha: 03 dic · 18:30
+  estado: Inscripto
+  estado_clase: ok
+  accion: Dar de baja
+  accion_clase: ''
+- materia: Deep Learning y Computer Vision
+  mesa: M-118
+  fecha: 05 dic · 18:30
+  estado: Habilitado
+  estado_clase: ''
+  accion: Inscribirme
+  accion_clase: enlace-accion--alta
+- materia: Álgebra Lineal y Estadística Aplicada
+  mesa: M-121
+  fecha: 09 dic · 19:00
+  estado: Adeuda correlativa
+  estado_clase: bloqueado
+  accion: ''
+  accion_clase: ''
+tramites:
+- estado: Resuelto
+  estado_clase: ok
+  titulo: Constancia de alumno regular
+  detalle: Emitida el 28 sep 2026
+- estado: En trámite
+  estado_clase: espera
+  titulo: Equivalencia de Inglés Técnico I
+  detalle: Presentado el 14 sep 2026 · Preceptoría
+- estado: Resuelto
+  estado_clase: ok
+  titulo: Actualización de domicilio en legajo
+  detalle: Resuelto el 02 sep 2026
+resumen:
+- etiqueta: Materias aprobadas
+  valor: 11 de 24
+- etiqueta: Promedio general
+  valor: '8,12'
+- etiqueta: Asistencia global
+  valor: 84%
+comunicados:
+- fecha: 02 oct
+  titulo: Cronograma de mesas de examen — turno diciembre
+- fecha: 29 sep
+  titulo: 'Cambio de aula para Bases de Datos: pasa al laboratorio 2'
+- fecha: 20 sep
+  titulo: Suspensión de actividades por jornada institucional

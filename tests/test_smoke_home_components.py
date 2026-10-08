@@ -40,7 +40,8 @@ async def test_home_renders_with_all_key_sections():
     assert "Hotelería" in html
 
     # Campus virtual
-    assert "Campus Virtual" in html
+    assert "campus virtual" in html.lower()
+    assert 'href="/campus"' in html
 
     # Ingreso: el ancla la usan el CTA del encabezado y el submenú del header
     assert 'id="ingreso"' in html
@@ -50,7 +51,7 @@ async def test_home_renders_with_all_key_sections():
     assert "Vida institucional" in html
 
     # Sedes
-    assert "Dónde se cursa" in html
+    assert "Las sedes" in html
     assert "Sede Central" in html
 
     # FAQ

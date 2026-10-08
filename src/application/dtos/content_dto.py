@@ -160,6 +160,92 @@ class SedeModel(BaseModel):
     direccion: list[str]
 
 
+class CampusEstudianteModel(BaseModel):
+    nombre: str
+    iniciales: str
+    legajo: str
+    carrera: str
+    anio: str
+    comision: str
+    turno: str
+
+
+class CampusEnlaceModel(BaseModel):
+    label: str
+    actual: bool = False
+    aviso: str | None = None
+
+
+class CampusSeccionModel(BaseModel):
+    titulo: str
+    enlaces: list[CampusEnlaceModel]
+
+
+class CampusVencimientoModel(BaseModel):
+    dias: int
+    titulo: str
+    detalle: str
+    accion: str
+    urgente: bool = False
+
+
+class CampusMateriaModel(BaseModel):
+    nombre: str
+    docente: str
+    asistencia: int
+    parcial_1: str
+    parcial_2: str
+    condicion: str
+    estado: str
+
+
+class CampusFinalModel(BaseModel):
+    materia: str
+    mesa: str
+    fecha: str
+    estado: str
+    estado_clase: str = ""
+    accion: str = ""
+    accion_clase: str = ""
+
+
+class CampusTramiteModel(BaseModel):
+    estado: str
+    estado_clase: str
+    titulo: str
+    detalle: str
+
+
+class CampusItemResumenModel(BaseModel):
+    etiqueta: str
+    valor: str
+
+
+class CampusComunicadoModel(BaseModel):
+    fecha: str
+    titulo: str
+
+
+class CampusMuestraModel(BaseModel):
+    """Datos de muestra del campus virtual.
+
+    El módulo todavía no existe: no hay base de estudiantes, notas ni
+    asistencias. Este modelo alimenta la pantalla de estructura para poder
+    revisar el diseño y el flujo antes de construirlo.
+    """
+
+    estudiante: CampusEstudianteModel
+    ciclo: str
+    secciones: list[CampusSeccionModel]
+    vencimientos: list[CampusVencimientoModel]
+    materias: list[CampusMateriaModel]
+    nota_materias: str
+    finales: list[CampusFinalModel]
+    tramites: list[CampusTramiteModel]
+    resumen: list[CampusItemResumenModel]
+    comunicados: list[CampusComunicadoModel]
+
+
 class ProofStripItemModel(BaseModel):
     label: str | None = None
     text: str

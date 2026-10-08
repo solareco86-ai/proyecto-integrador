@@ -39,8 +39,10 @@ async def test_carreras_catalog_page():
 
     assert response.status_code == 200
     html = response.text
-    # El "&" del hero se emite como entidad HTML (&amp;), no como carácter crudo.
-    assert "Oferta Académica &amp; Tecnicaturas Superiores" in html
+    # El encabezado dejó de ser un eslogan: ahora dice cuántas carreras hay y
+    # el comparador responde en qué se diferencian (ver docs/rediseno).
+    assert "Oferta académica vigente" in html
+    assert "Comparar las" in html
     assert "Ciencia de Datos e Inteligencia Artificial" in html
     assert "Mecatrónica" in html
     assert "Logística" in html
@@ -59,10 +61,13 @@ async def test_carrera_detail_page():
     assert response.status_code == 200
     html = response.text
     assert "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial" in html
-    assert "Perfil Profesional del Egresado" in html
-    assert "Ejes Temáticos y Materias Destacadas" in html
-    assert "Alcance y Salida Laboral" in html
-    assert "Preinscribirme a esta Carrera" in html
+    assert "Perfil del egresado" in html
+    assert "Contenidos centrales" in html
+    assert "Dónde se trabaja" in html
+    assert "Preinscribirme a esta carrera" in html
+    # La ficha lateral y las migas son parte del recorrido nuevo.
+    assert "Ficha de la carrera" in html
+    assert "Seguir mirando" in html
 
 
 @pytest.mark.asyncio

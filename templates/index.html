@@ -4,6 +4,7 @@
 {% import 'partials/components/footer_institucional.html' as footer_macro %}
 {% import 'partials/components/faq_item.html' as faq_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
+{% import 'partials/components/foto.html' as foto_macro %}
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
@@ -15,6 +16,7 @@
 {# La portada ya no usa el shell heredado de DataMaq (fondo oscuro, CTA flotante):
    los bloques de base.html permiten salir sin afectar al resto de las páginas,
    que lo conservan hasta que se migren. #}
+{% block html_attrs %} data-tema="claro"{% endblock %}
 {% block shell_class %}capa-institucional{% endblock %}
 {% block main_class %}capa-institucional__main{% endblock %}
 
@@ -48,11 +50,16 @@
         {% if admision %}
         <aside class="col-9-12">
             <div class="contador">
-                <p class="contador__cab">{{ admision.requisitos_titulo }}</p>
+                <p class="contador__cab">{% if admision.cierre %}Cierre de preinscripción{% else %}{{ admision.requisitos_titulo }}{% endif %}</p>
                 <div class="contador__cuerpo">
                     {% if admision.cierre %}
-                    <p class="contador__n">{{ admision.cierre.fecha_texto }}</p>
-                    <p class="contador__u">Cierre de la preinscripción</p>
+                    {% set dias = dias_restantes(admision.cierre.fecha_iso) %}
+                    {% if dias is not none %}
+                    <p class="contador__n">{{ dias }}</p>
+                    <p class="contador__u">días restantes · cierra el {{ admision.cierre.fecha_texto }}</p>
+                    {% else %}
+                    <p class="contador__u">La preinscripción cerró el {{ admision.cierre.fecha_texto }}</p>
+                    {% endif %}
                     {% endif %}
                     <ul class="requisitos">
                         {% for requisito in admision.requisitos %}
@@ -64,6 +71,13 @@
         </aside>
         {% endif %}
     </div>
+</section>
+
+{# ============ FOTOGRAFÍA INSTITUCIONAL ============ #}
+<section class="marco" style="padding-block: var(--e6) var(--e7)">
+    {{ foto_macro.foto('Fachada del instituto al anochecer',
+        'Plano general horizontal, con las aulas iluminadas y gente entrando. Es la primera imagen del sitio.',
+        'foto--banda') }}
 </section>
 
 {# ============ CIFRAS INSTITUCIONALES ============ #}
@@ -167,15 +181,19 @@
 {# ============ SEDES ============
    Los domicilios viven en data/content/home_sections.yaml desde esta migración;
    antes estaban escritos acá, contra la regla de desacoplamiento de contenido. #}
-<section class="seccion marco" aria-labelledby="titulo-sedes">
+<section class="seccion marco" id="sedes" aria-labelledby="titulo-sedes">
     <div class="marcador">
         <span class="marcador__n">04</span>
-        <span class="marcador__t" id="titulo-sedes">Dónde se cursa</span>
+        <span class="marcador__t" id="titulo-sedes">Las sedes</span>
+        <span class="marcador__extra">Cursada presencial y vespertina</span>
     </div>
 
     <ul class="sedes">
         {% for sede in content.sedes %}
         <li class="sede">
+            {{ foto_macro.foto('Frente de la ' ~ sede.nombre | lower,
+                'Mismo encuadre, misma distancia y misma hora que las otras sedes.',
+                'foto--sede') }}
             <h3 class="sede__t">{{ sede.nombre }}</h3>
             <p class="sede__d">
                 {% for linea in sede.direccion %}{{ linea }}{% if not loop.last %}<br>{% endif %}{% endfor %}
@@ -276,4 +294,5 @@
 
 {% block scripts %}
     <script type="module" src="{{ url_for("static", path="js/app.js") }}?v={{ static_version() }}"></script>
+    <script src="{{ url_for("static", path="js/tema-institucional.js") }}?v={{ static_version() }}" defer></script>
 {% endblock %}
