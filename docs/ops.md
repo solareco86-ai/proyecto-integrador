@@ -69,7 +69,8 @@ Entorno de pruebas que sigue la rama de integración `develop` (ver [CONTRIBUTIN
 | Caché Cloudflare | No se purga en deploys dev (`DEPLOY_SKIP_PURGE=true`) |
 
 * **Provisión inicial (una sola vez, como root en el VPS):** `sudo bash deploy/dev/provision-dev.sh`. Es idempotente y valida `visudo` y `nginx -t` antes de aplicar.
-* **DNS y acceso:** registro `dev` con proxy de Cloudflare hacia la IP del VPS. El acceso se restringe con Cloudflare Access (login por email) y el vhost envía `X-Robots-Tag: noindex, nofollow`.
+* **DNS y acceso:** registro `dev` con proxy de Cloudflare hacia la IP del VPS. Mientras no se habilite Cloudflare Access (login por email, issue #22), el acceso se restringe en el origen con Basic Auth (`/etc/nginx/.htpasswd-dev`) y allow-list de rangos Cloudflare (`/etc/nginx/snippets/cloudflare-allow.conf`), generadas por `provision-dev.sh`. El vhost envía `X-Robots-Tag: noindex, nofollow`.
+* **Credencial Basic Auth:** usuario `dev`; la contraseña se imprime una única vez al generar `/etc/nginx/.htpasswd-dev`. Para rotarla, borrar ese archivo y re-ejecutar `sudo bash deploy/dev/provision-dev.sh`.
 * **Secretos del entorno:** el `.env` de dev se genera sin credenciales de producción (sin Telegram, SMTP ni analytics) y con `SECRET_KEY` propia.
 * Los secretos `DEPLOY_SSH_*` deben estar disponibles para el environment `development` de GitHub Actions.
 
