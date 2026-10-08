@@ -18,7 +18,7 @@ async def test_home_renders_complete_isft199():
     assert "ISFT N° 199" in html
     # El encabezado dejó de ser un eslogan con pastilla de color: ahora comunica
     # la oferta concreta y su carácter público (ver docs/rediseno).
-    assert "Siete tecnicaturas superiores" in html
+    assert "Ocho tecnicaturas superiores" in html
     assert "Validez nacional" in html
     assert "Ciencia de Datos" in html
     assert "Mecatrónica" in html
@@ -27,7 +27,7 @@ async def test_home_renders_complete_isft199():
 @pytest.mark.asyncio
 async def test_home_academic_proof_and_services():
     """Verifica que la Home institucional comunique gratuidad, horario vespertino
-    y Campus Virtual a través de sus secciones reales (Hero, FAQ, Estudiantes),
+    y campus virtual a través de sus secciones reales (admisión, cifras, FAQ),
     ya sin la franja "proof strip" comercial de DataMaq."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
@@ -36,9 +36,10 @@ async def test_home_academic_proof_and_services():
     assert response.status_code == 200
     html = response.text
 
-    assert "100% gratuitas" in html
+    assert "$0 · Gratuita" in html
+    assert "no se cobra matrícula" in html.lower()
     assert "vespertino" in html.lower()
-    assert "Campus Virtual" in html
+    assert "campus virtual" in html.lower()
     assert "c-home-proof-strip" not in html
 
 

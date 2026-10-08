@@ -30,7 +30,7 @@ async def test_home_renders_with_all_key_sections():
 
     # Estado de admisión
     assert "ISFT N° 199" in html
-    assert "Siete tecnicaturas superiores" in html
+    assert "Ocho tecnicaturas superiores" in html
     assert "$0 · Gratuita" in html
 
     # Oferta académica (se arma desde data/content/carreras.yaml)
@@ -40,7 +40,8 @@ async def test_home_renders_with_all_key_sections():
     assert "Hotelería" in html
 
     # Campus virtual
-    assert "Campus Virtual" in html
+    assert "campus virtual" in html.lower()
+    assert 'href="/campus"' in html
 
     # Ingreso: el ancla la usan el CTA del encabezado y el submenú del header
     assert 'id="ingreso"' in html
@@ -50,8 +51,11 @@ async def test_home_renders_with_all_key_sections():
     assert "Vida institucional" in html
 
     # Sedes
-    assert "Dónde se cursa" in html
-    assert "Sede Central" in html
+    assert "Las sedes" in html
+    assert "Sede El Talar" in html
+    assert "Sede Ricardo Rojas" in html
+    # Cada sede ofrece un direccional a Google Maps.
+    assert "Cómo llegar" in html
 
     # FAQ
     assert 'id="faq"' in html

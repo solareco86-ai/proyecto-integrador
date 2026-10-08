@@ -17,6 +17,7 @@ from src.application.gateways.notification_gateway import NotificationGateway
 from src.application.gateways.password_hasher_gateway import PasswordHasherGateway
 from src.domain.auth.entities import Usuario
 from src.domain.auth.repositories import UsuarioRepository
+from src.domain.common.fechas import dias_restantes
 from src.domain.content.repositories import ComunicadoRepository, EventoRepository, NoticiaRepository
 from src.domain.repositories.lead_repository import LeadRepository
 from src.infrastructure.gateways.bcrypt_password_hasher import BcryptPasswordHasher
@@ -247,4 +248,7 @@ def get_static_version() -> str:
 templates.env.globals["static_version"] = get_static_version  # type: ignore[index]
 templates.env.globals["config"] = config  # type: ignore[index]
 templates.env.globals["year"] = datetime.now().year
+# Función pura del dominio: deja que la plantilla muestre los días que faltan
+# para un plazo sin calcularlos ella misma.
+templates.env.globals["dias_restantes"] = dias_restantes  # type: ignore[index]
 templates.env.globals["commit_sha"] = config.GIT_COMMIT_SHA

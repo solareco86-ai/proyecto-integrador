@@ -298,6 +298,8 @@ async def root(
         "guias": cursos_service.get_guias(),
         "cursos": cursos_service.get_cursos(),
         "carreras": cursos_service.get_carreras(),
+        "sedes_por_id": cursos_service.get_sedes_por_id(),
+        "carreras_por_sede": cursos_service.get_carreras_por_sede(),
         "planes": cursos_service.get_planes(),
     }
     return templates.TemplateResponse(request=request, name="index.html", context=context)

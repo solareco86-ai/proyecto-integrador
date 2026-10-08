@@ -4,6 +4,7 @@ from typing import Any, cast
 import yaml  # type: ignore
 
 from src.application.dtos import (
+    CampusMuestraModel,
     CarreraModel,
     CarrerasContainerModel,
     CasoModel,
@@ -19,6 +20,7 @@ from src.application.dtos import (
     InstructorModel,
     LessonModel,
     QuizModel,
+    SedeModel,
     TelemetryPlanModel,
 )
 from src.application.mappers.course_mapper import to_course_model
@@ -290,6 +292,30 @@ class DataService:
             if carrera.slug == slug:
                 return carrera
         return None
+
+    def get_campus_muestra(self) -> CampusMuestraModel:
+        """Datos de muestra que alimentan la pantalla de estructura del campus."""
+        ruta = os.path.join(self.data_dir, "campus", "muestra.yaml")
+        with open(ruta, encoding="utf-8") as archivo:
+            crudo: Any = yaml.safe_load(archivo)
+        return CampusMuestraModel.model_validate(crudo)
+
+    def get_sedes_por_id(self) -> dict[str, SedeModel]:
+        """Sedes indexadas por id, para resolver el `sede` de cada carrera."""
+        return {sede.id: sede for sede in self.get_contenido().content.sedes}
+
+    def get_carreras_por_sede(self) -> dict[str, list[CarreraModel]]:
+        """Carreras agrupadas por id de sede, para listarlas en cada domicilio."""
+        agrupadas: dict[str, list[CarreraModel]] = {}
+        for carrera in self.get_carreras():
+            if carrera.sede:
+                agrupadas.setdefault(carrera.sede, []).append(carrera)
+        return agrupadas
+
+    def get_otras_carreras(self, slug: str, limite: int = 2) -> list[CarreraModel]:
+        """Carreras distintas de `slug`, para el bloque de navegación del detalle."""
+        otras = [carrera for carrera in self.get_carreras() if carrera.slug != slug]
+        return otras[:limite]
 
     def get_curso_especificacion(self, curso_id: str) -> CursoEspecificacionModel | None:
         """Carga la especificación oficial de un curso desde YAML."""

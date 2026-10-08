@@ -1,43 +1,49 @@
 /* ==========================================================================
-   TOKENS DE DISEÑO — Single Source of Truth del tema
-   Paleta institucional ISFT N° 199 (#0a192f / #0284c7 / #38bdf8 / #10b981).
+   TOKENS DE DISEÑO — Single Source of Truth del tema heredado
+   Paleta institucional ISFT N° 199: blanco y azules (docs/branding/README.md).
    Este archivo es la ÚNICA definición de custom properties del sitio.
    No editar el partial generado: editar aquí y ejecutar `build:critical`.
+
+   Los nombres --dm-* vienen del sitio anterior y se conservan para no
+   reescribir cada regla de las páginas todavía sin migrar. Lo que cambió es a
+   qué color apunta cada uno: retiñéndolos, todas esas páginas adoptan la marca
+   sin tocar su marcado. Las páginas ya migradas usan los tokens de
+   static/css/sistema.css y no dependen de este archivo.
    ========================================================================== */
 
 :root {
-    color-scheme: dark;
+    color-scheme: light;
 
-    /* Paleta institucional ISFT N° 199 */
-    --dm-bg-0: #0a192f;
-    --dm-bg-1: #0f2744;
-    --dm-bg-2: #163b66;
-    --dm-text-0: #f8fafc;
-    --dm-text-muted: #94a3b8;
-    --dm-line-blueprint: #38bdf8;
-    --dm-data-cyan: #0284c7;
-    --dm-accent-orange: #38bdf8;
-    --dm-status-green: #10b981;
-    --dm-status-green-hover: #059669;
-    --dm-surface-0: #112240;
-    --dm-surface-1: #1a345d;
-    --dm-border-0: #1e3a63;
-    --dm-border-1: #2b4e7e;
-    --dm-blueprint-opacity: .15;
-    --dm-overlay-vignette: .35;
-    --dm-radius-1: .75rem;
-    --dm-shadow-rgb: 10, 25, 47;
-    --dm-bg-0-rgb: 10, 25, 47;
-    --dm-text-0-rgb: 248, 250, 252;
-    --dm-text-muted-rgb: 148, 163, 184;
-    --dm-line-blueprint-rgb: 56, 189, 248;
-    --dm-data-cyan-rgb: 2, 132, 199;
-    --dm-accent-orange-rgb: 56, 189, 248;
-    --dm-status-green-rgb: 16, 185, 129;
-    --dm-border-0-rgb: 30, 58, 99;
-    --dm-border-1-rgb: 43, 78, 126;
-    --dm-surface-0-rgb: 17, 34, 64;
-    --dm-surface-1-rgb: 26, 52, 93;
+    /* Paleta institucional ISFT N° 199 — blanco y azules */
+    --dm-bg-0: #ffffff;
+    --dm-bg-1: #f3f7fb;
+    --dm-bg-2: #e2edf7;
+    --dm-text-0: #0b2a4a;
+    --dm-text-muted: #647d96;
+    --dm-line-blueprint: #93bede;
+    --dm-data-cyan: #1a5a91;
+    --dm-accent-orange: #2176b5;
+    --dm-status-green: #1e7a52;
+    --dm-status-green-hover: #17603f;
+    --dm-surface-0: #ffffff;
+    --dm-surface-1: #f3f7fb;
+    --dm-border-0: #dce6f0;
+    --dm-border-1: #b4c7da;
+    --dm-blueprint-opacity: .06;
+    --dm-overlay-vignette: .06;
+    --dm-radius-1: .5rem;
+    --dm-shadow-rgb: 11, 42, 74;
+    --dm-bg-0-rgb: 255, 255, 255;
+    --dm-text-0-rgb: 11, 42, 74;
+    --dm-text-muted-rgb: 100, 125, 150;
+    --dm-line-blueprint-rgb: 147, 190, 222;
+    --dm-data-cyan-rgb: 26, 90, 145;
+    --dm-accent-orange-rgb: 33, 118, 181;
+    --dm-status-green-rgb: 30, 122, 82;
+    --dm-border-0-rgb: 220, 230, 240;
+    --dm-border-1-rgb: 180, 199, 218;
+    --dm-surface-0-rgb: 255, 255, 255;
+    --dm-surface-1-rgb: 243, 247, 251;
     --dm-color-energy-orange: var(--dm-data-cyan);
     --dm-color-energy-orange-rgb: var(--dm-data-cyan-rgb);
 

@@ -1,14 +1,9 @@
-{# Cabecera del sistema institucional (docs/rediseno).
+{# Cabecera del sistema institucional (docs/branding).
    Convive con partials/components/header.html mientras dura la migración:
-   esa sigue sirviendo a las páginas que todavía no adoptaron el sistema. #}
-{% macro header_institucional(links, brand) %}
-<div class="barra-oficial">
-    <div class="marco">
-        <span>Dirección General de Cultura y Educación · Provincia de Buenos Aires · Región 6</span>
-        <span><a href="/cursos">Campus virtual</a> · <a href="#contacto">Secretaría</a></span>
-    </div>
-</div>
+   esa sigue sirviendo a las páginas que todavía no lo adoptaron. #}
+{% import 'partials/components/conmutador_tema.html' as tema_macro %}
 
+{% macro header_institucional(links, brand) %}
 <header class="cabecera">
     <div class="marco">
         <a class="marca" href="/">
@@ -18,11 +13,15 @@
                 <span class="marca__d">Formación Técnica Superior</span>
             </span>
         </a>
-        <nav class="menu" aria-label="Principal">
-            {% for link in links %}
-            <a href="{{ link.href }}">{{ link.label }}</a>
-            {% endfor %}
-        </nav>
+
+        <div class="cabecera__derecha">
+            <nav class="menu" aria-label="Principal">
+                {% for link in links %}
+                <a href="{{ link.href }}">{{ link.label }}</a>
+                {% endfor %}
+            </nav>
+            {{ tema_macro.conmutador_tema() }}
+        </div>
     </div>
 </header>
 {% endmacro %}

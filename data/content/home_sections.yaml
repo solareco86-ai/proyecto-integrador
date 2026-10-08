@@ -41,7 +41,7 @@ proof_strip:
 services:
   eyebrow: Áreas Formativas y Tecnicaturas
   title: Propuesta académica orientada al desarrollo tecnológico y profesional
-  description: Siete tecnicaturas superiores diseñadas para responder a la transformación
+  description: Ocho tecnicaturas superiores diseñadas para responder a la transformación
     digital, la automatización industrial, la logística regional y la gestión organizacional.
   cards:
   - id: ciencia-de-datos-ia
@@ -127,7 +127,7 @@ process:
     secundario completo.
   steps:
   - title: 1. Elegí tu Carrera
-    text: Consultá los planes de estudio y perfiles profesionales de las 7 tecnicaturas
+    text: Consultá los planes de estudio y perfiles profesionales de las 8 tecnicaturas
       oficiales.
   - title: 2. Preinscripción en Línea
     text: Completá el formulario web con tus datos personales y la carrera seleccionada.
@@ -174,7 +174,7 @@ guias:
   detail_sidebar_cta: Consultar
 courses:
   badge: Campus Virtual
-  title: Aulas y Materiales de Cátedra en Línea
+  title: Materias y Materiales de Cátedra en Línea
   subtitle: Acompañamiento pedagógico digital con lecciones interactivas, código abierto
     y cuestionarios para estudiantes de las tecnicaturas.
   assistance_cta_label: Ingresar al Campus
@@ -319,20 +319,14 @@ navbar:
   links:
   - href: /carreras
     label: Carreras
-  - href: /cursos
-    label: Campus Virtual
-  - href: /noticias
-    label: Noticias
-  - href: /eventos
-    label: Eventos
-  - href: /comunicados
-    label: Comunicados
   - href: '#ingreso'
     label: Ingreso
-  - href: '#faq'
-    label: Preguntas Frecuentes
-  - href: '#contacto'
-    label: Contacto
+  - href: /noticias
+    label: Novedades
+  - href: '#sedes'
+    label: Las sedes
+  - href: /campus
+    label: Campus virtual
 cookie_banner:
   accept_label: Aceptar
   more_info_label: Ver más
@@ -376,7 +370,15 @@ assistance_modes:
 # ni cuentas regresivas (AGENTS.md, secciones 3 y 7.5). Al completarlos, la
 # portada muestra el estado y los días restantes sin tocar la plantilla.
 admision:
-  titular: Siete tecnicaturas superiores, públicas y gratuitas.
+  # DATO DE EJEMPLO: no hay fecha oficial de Secretaría. Se carga para que la
+  # portada muestre la estructura completa del bloque de admisión. Reemplazar
+  # por el plazo real antes de publicar, o vaciar `cierre` para que la cuenta
+  # regresiva desaparezca sola.
+  estado: Inscripción 2027 abierta
+  cierre:
+    fecha_iso: '2026-11-28'
+    fecha_texto: 28 nov 2026
+  titular: Ocho tecnicaturas superiores, públicas y gratuitas.
   bajada: Títulos oficiales con validez nacional, cursada vespertina de 18:00 a
     22:30 y tres años de duración. No se cobra matrícula, cuota ni arancel de
     ningún tipo.
@@ -389,7 +391,7 @@ admision:
   - text: Certificado de aptitud psicofísica
   - text: Dos fotos 4×4
   cifras:
-  - title: 7 tecnicaturas
+  - title: 8 tecnicaturas
     text: Oferta vigente
   - title: 3 años
     text: Duración
@@ -412,24 +414,41 @@ admision:
   - El ISFT N° 199 no cobra matrícula, cuota mensual ni arancel de examen. Si
     alguien te pide un pago para ingresar, no es del instituto.
   - No hay examen de admisión.
-# Sedes del instituto. Los domicilios son los que ya publicaba la portada; se
-# trasladan tal cual desde templates/index.html, donde estaban hardcodeados en
-# contra de la regla de desacoplamiento de contenido (AGENTS.md, secciones 2b y 3).
-# Pendiente de confirmación en Secretaría: el domicilio de Los Troncos, la sede
-# de Virreyes y la vigencia del anexo de Vicente López (ver docs/rediseno/README.md).
+# Sedes del instituto. Cada tecnicatura se dicta en una sola: la columna
+# `carreras` es la que alimenta el dato de sede en el catálogo y en el detalle.
+#
+# `mapa` es un enlace de búsqueda de Google Maps construido con la dirección,
+# no un identificador de lugar: no requiere clave de API ni expira.
+#
+# Pendiente de confirmación en Secretaría: el domicilio de Los Troncos (el sitio
+# anterior publicaba Alte. Brown 739) y la dirección exacta del anexo de
+# Vicente López. Ver docs/branding/README.md.
 sedes:
-- nombre: Sede Central
+- id: el-talar
+  nombre: Sede El Talar
   direccion:
   - Maestra Celina Voena 1750
   - El Talar – Tigre
   - Provincia de Buenos Aires
-- nombre: Sede Los Troncos
+  mapa: https://www.google.com/maps/search/?api=1&query=Maestra+Celina+Voena+1750%2C+El+Talar%2C+Tigre%2C+Buenos+Aires
+- id: los-troncos
+  nombre: Sede Los Troncos
   direccion:
-  - Alte. Brown 739
+  - Libertador Gral. San Martín 436, esq. Alte. Brown
   - Los Troncos del Talar – Tigre
   - Provincia de Buenos Aires
-- nombre: Anexo Vicente López
+  mapa: https://www.google.com/maps/search/?api=1&query=Libertador+General+San+Martin+436%2C+Los+Troncos+del+Talar%2C+Tigre%2C+Buenos+Aires
+- id: ricardo-rojas
+  nombre: Sede Ricardo Rojas
+  direccion:
+  - Carlos Tejedor 2726
+  - Ricardo Rojas – Tigre
+  - Provincia de Buenos Aires
+  mapa: https://www.google.com/maps/search/?api=1&query=Carlos+Tejedor+2726%2C+Ricardo+Rojas%2C+Tigre%2C+Buenos+Aires
+- id: vicente-lopez
+  nombre: Anexo Vicente López
   direccion:
   - Cerrito 3966
   - Vicente López
   - Provincia de Buenos Aires
+  mapa: https://www.google.com/maps/search/?api=1&query=Cerrito+3966%2C+Vicente+Lopez%2C+Buenos+Aires
