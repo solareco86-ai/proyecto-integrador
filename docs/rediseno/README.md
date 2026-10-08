@@ -239,8 +239,15 @@ hace después, en el proyecto.
       ya están reservados en el prototipo.
 - [ ] **Confirmar en Secretaría** el domicilio de Los Troncos, la dirección de
       Virreyes y la vigencia del anexo de Vicente López (sección 2.3).
-- [ ] Migración del sistema a las plantillas Jinja y a Tailwind v4 con prefijo
-      `tw:`.
+- [x] **Migración de la portada** a las plantillas Jinja, con el sistema servido
+      desde `static/css/sistema.css` y las tipografías autoalojadas en
+      `static/fonts/`. La portada sale del shell heredado mediante los bloques
+      `shell_class` / `main_class` de `base.html`.
+- [ ] Migrar el resto de las páginas: listado y detalle de carreras, campus,
+      páginas de error y panel. Hasta entonces conservan el sistema anterior y
+      los partials `header.html` / `footer.html`.
+- [ ] Unificar el partial de preguntas frecuentes: hoy el estilo nuevo se acota
+      con `.capa-institucional` para no afectar a `pricing.html` ni `preview.html`.
 - [ ] Unificación de las plantillas que quedaron con el tema heredado
       (hallazgo 1.1), en una rama propia.
 - [ ] Corrección de los accesos comerciales de la página 404 (hallazgo 1.2), en

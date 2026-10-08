@@ -94,7 +94,9 @@ async def test_q8_home_renders_ejes_academicos() -> None:
     html = response.text
     assert "Ciencia de Datos" in html
     assert "Mecatrónica" in html
-    assert "Educación Pública Superior" in html
+    # El carácter público y oficial ya no se comunica con una pastilla de color
+    # sino con las cifras institucionales del encabezado.
+    assert "Validez nacional" in html
 
 
 # --- Q9: el HTML del select renderiza la opción de Ciencia de Datos e IA.

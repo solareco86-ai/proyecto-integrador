@@ -16,8 +16,10 @@ async def test_home_renders_complete_isft199():
     html = response.text
 
     assert "ISFT N° 199" in html
-    assert "Educación Pública Superior" in html
-    assert "Formación técnica de excelencia" in html
+    # El encabezado dejó de ser un eslogan con pastilla de color: ahora comunica
+    # la oferta concreta y su carácter público (ver docs/rediseno).
+    assert "Siete tecnicaturas superiores" in html
+    assert "Validez nacional" in html
     assert "Ciencia de Datos" in html
     assert "Mecatrónica" in html
 

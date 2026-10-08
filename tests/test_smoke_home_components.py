@@ -13,10 +13,14 @@ from src.infrastructure.fastapi.app import app
 @pytest.mark.asyncio
 async def test_home_renders_with_all_key_sections():
     """Verifica que la Home institucional ISFT N° 199 contiene sus secciones reales
-    (Hero, Noticias/Eventos/Comunicados, Carreras, Estudiantes, Ingresantes, Sedes,
-    FAQ, Contacto), y que NO se reintrodujeron los componentes comerciales de DataMaq
-    (proof strip, process, casos, cursos comerciales), que ahora viven exclusivamente
-    en las páginas DataMaq/SEO servidas por datamaq_landing.html."""
+    (admisión, oferta académica, ingreso, vida institucional, sedes, FAQ y contacto),
+    y que NO se reintrodujeron los componentes comerciales de DataMaq (proof strip,
+    process, casos, cursos comerciales), que ahora viven exclusivamente en las
+    páginas DataMaq/SEO servidas por datamaq_landing.html.
+
+    Las cadenas que se verifican acá son las del sistema institucional
+    (docs/rediseno); el marcado c-inst-* quedó atrás con la migración de la
+    portada."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/")
@@ -24,31 +28,33 @@ async def test_home_renders_with_all_key_sections():
     assert response.status_code == 200
     html = response.text
 
-    # Hero
+    # Estado de admisión
     assert "ISFT N° 199" in html
-    assert "100% gratuitas" in html
+    assert "Siete tecnicaturas superiores" in html
+    assert "$0 · Gratuita" in html
 
-    # Noticias / Eventos / Comunicados
-    assert "Noticias, eventos y comunicados" in html
-
-    # Nuestras carreras
-    assert "Nuestras carreras" in html
+    # Oferta académica (se arma desde data/content/carreras.yaml)
+    assert "Oferta académica" in html
     assert "Mecatrónica" in html
     assert "Turismo" in html
     assert "Hotelería" in html
 
-    # Información para estudiantes
-    assert "Información para estudiantes" in html
+    # Campus virtual
     assert "Campus Virtual" in html
 
-    # Ingresantes
-    assert "Ingresantes" in html
+    # Ingreso: el ancla la usan el CTA del encabezado y el submenú del header
+    assert 'id="ingreso"' in html
+    assert "Cómo se ingresa" in html
+
+    # Vida institucional
+    assert "Vida institucional" in html
 
     # Sedes
-    assert "Nuestras sedes" in html
+    assert "Dónde se cursa" in html
+    assert "Sede Central" in html
 
     # FAQ
-    assert "c-home-faq" in html
+    assert 'id="faq"' in html
 
     # Contacto
     assert "Preinscripción y Consultas Institucionales" in html
