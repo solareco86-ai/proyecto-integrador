@@ -205,14 +205,13 @@ async def test_casos_list_rendered():
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_caso_detail_rendered():
+async def test_caso_retirado_responde_404():
+    """Los casos de estudio fueron retirados del portal: su detalle ya no se sirve."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/casos/madygraf-eficiencia-y-vision-40")
 
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "MadyGraf" in response.text
+    assert response.status_code == 404
 
 
 @pytest.mark.asyncio  # type: ignore
