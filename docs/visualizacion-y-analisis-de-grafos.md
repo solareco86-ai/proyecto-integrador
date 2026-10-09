@@ -20,6 +20,8 @@ Los resultados se guardan en `tmp/grafos-asignacion-aulas/`:
 | `grafo-comision-aula.svg` | Visualización directa en el navegador. |
 | `*.dot` | Fuente editable para Graphviz. |
 | `patrones.md` | Informe de indicadores y decisiones del dataset procesado. |
+| `asignaciones.csv` | Propuesta de aula para cada comisión asignada. |
+| `comisiones-sin-asignar.csv` | Comisiones que no recibieron aula y motivo. |
 
 También se puede elegir otro directorio de salida:
 
@@ -57,6 +59,14 @@ Patrones relevantes:
 4. La falta de un aula compatible o de aulas suficientes es un conflicto bloqueante.
 5. GraphML se utiliza como formato portable para análisis externo; SVG se utiliza para una visualización rápida.
 6. Los resultados generados no se versionan automáticamente porque dependen del dataset procesado y se guardan en `tmp/`.
+
+## Propuesta automática
+
+Dentro de cada franja horaria exacta, el sistema construye un matching bipartito entre comisiones y aulas compatibles. Una comisión se conecta con un aula cuando la capacidad del aula alcanza la cantidad de estudiantes.
+
+El matching intenta asignar la mayor cantidad posible de comisiones sin reutilizar un aula dentro de la misma franja. Las aulas pueden volver a utilizarse en otra franja horaria.
+
+Esta primera versión no resuelve todavía superposiciones parciales como una clase de 18:00 a 20:00 junto con otra de 19:00 a 21:00. Ese caso queda documentado como ampliación del modelo.
 
 ## Cómo usar el informe
 

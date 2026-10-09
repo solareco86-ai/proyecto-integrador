@@ -15,6 +15,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from src.adapters.classroom_assignment.assignment_exporter import (
+    export_assignments_csv,
+    export_unassigned_csv,
+)
 from src.adapters.classroom_assignment.csv_reader import read_csv_rows
 from src.adapters.classroom_assignment.graph_exporter import (
     export_compatibility_dot,
@@ -23,6 +27,7 @@ from src.adapters.classroom_assignment.graph_exporter import (
     export_overlap_graphml,
 )
 from src.adapters.classroom_assignment.pattern_report import write_pattern_report
+from src.application.use_cases.classroom_assignment.assign_rooms import AssignRoomsUseCase
 from src.application.use_cases.classroom_assignment.detect_conflicts import DetectConflictsUseCase
 from src.application.use_cases.classroom_assignment.validate_input_data import ValidateInputDataUseCase
 from src.domain.classroom_assignment.graph import build_compatibility_graph
@@ -49,6 +54,7 @@ def main() -> int:
         return 1
 
     report, overlap_graph = DetectConflictsUseCase().execute(validation.comisiones, validation.aulas)
+    assignment = AssignRoomsUseCase().execute(validation.comisiones, validation.aulas)
     compatibility_graph = build_compatibility_graph(validation.comisiones, validation.aulas)
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -60,7 +66,15 @@ def main() -> int:
     export_compatibility_graphml(compatibility_graph, compatibility_graphml)
     export_overlap_dot(overlap_graph, overlap_dot)
     export_compatibility_dot(compatibility_graph, compatibility_dot)
-    write_pattern_report(report, overlap_graph, compatibility_graph, args.output_dir / "patrones.md")
+    export_assignments_csv(assignment, args.output_dir / "asignaciones.csv")
+    export_unassigned_csv(assignment, args.output_dir / "comisiones-sin-asignar.csv")
+    write_pattern_report(
+        report,
+        overlap_graph,
+        compatibility_graph,
+        args.output_dir / "patrones.md",
+        assignment,
+    )
 
     dot = shutil.which("dot")
     if dot:

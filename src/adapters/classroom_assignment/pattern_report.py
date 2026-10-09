@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from src.domain.classroom_assignment.assignment import AssignmentResult
 from src.domain.classroom_assignment.conflicts import ConflictReport
 from src.domain.classroom_assignment.graph import CompatibilityGraph, OverlapGraph
 
@@ -11,6 +12,7 @@ def write_pattern_report(
     overlap_graph: OverlapGraph,
     compatibility_graph: CompatibilityGraph,
     path: Path,
+    assignment: AssignmentResult | None = None,
 ) -> None:
     """Escribe indicadores iniciales para interpretar los grafos exportados."""
     overlap_degrees = {node: 0 for node in overlap_graph.nodes}
@@ -40,6 +42,14 @@ def write_pattern_report(
         f"- Aulas: **{len(compatibility_graph.room_nodes)}**",
         f"- Relaciones de superposición: **{len(overlap_graph.edges)}**",
         f"- Relaciones comisión-aula compatibles: **{len(compatibility_graph.edges)}**",
+        *(
+            [
+                f"- Comisiones asignadas: **{len(assignment.assignments)}**",
+                f"- Comisiones sin asignar: **{len(assignment.unassigned)}**",
+            ]
+            if assignment is not None
+            else []
+        ),
         "",
         "## Patrones observados",
         "",
