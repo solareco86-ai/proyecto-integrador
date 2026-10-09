@@ -533,3 +533,12 @@ async def test_aprendizaje_automatico_lecciones_con_caza_de_alucinaciones(slug: 
         assert r.status_code == 200
         assert "Autoevaluación Formativa" in r.text
         assert "Caza de Código Alucinado" in r.text
+
+
+@pytest.mark.asyncio
+async def test_listado_cursos_muestra_version_desplegada():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos")
+    assert response.status_code == 200
+    assert "Versión de despliegue" in response.text

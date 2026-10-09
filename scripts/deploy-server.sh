@@ -72,6 +72,8 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
     echo "==> Actualizando código..."
     git fetch origin "$DEPLOY_BRANCH"
     git reset --hard "origin/$DEPLOY_BRANCH"
+    # Registra el commit desplegado para que el footer muestre la versión real
+    git rev-parse --short HEAD > .build_commit
 
     echo "==> Instalando dependencias..."
     ./.venv/bin/pip install -r requirements.txt
@@ -104,6 +106,7 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
         sudo journalctl -u "$DEPLOY_SERVICE_NAME" -n 30 --no-pager || true
         echo "==> Ejecutando rollback a $PREVIOUS_COMMIT..."
         git reset --hard "$PREVIOUS_COMMIT"
+        git rev-parse --short HEAD > .build_commit
         echo "==> Reiniciando servicio $DEPLOY_SERVICE_NAME con versión anterior..."
         sudo systemctl restart "$DEPLOY_SERVICE_NAME"
         echo "ERROR: Deploy fallido. Rollback ejecutado."
