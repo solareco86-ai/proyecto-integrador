@@ -1,5 +1,6 @@
 import os
 import secrets
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -111,16 +112,27 @@ SESSION_MAX_AGE_SECONDS = int(os.getenv("SESSION_MAX_AGE_SECONDS", "28800"))  # 
 SESSION_COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME", "isft199_session")
 
 
-def _get_git_commit_sha() -> str:
-    """Obtiene el hash SHA corto del commit actual vía variable de entorno o git."""
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
+
+def _get_git_commit_sha(root: Path = _PROJECT_ROOT) -> str:
+    """Obtiene el SHA corto del commit desplegado.
+
+    Orden: variable de entorno, archivo .build_commit (escrito por el despliegue), git, y por último "dev".
+    """
     sha = os.getenv("GIT_COMMIT_SHA") or os.getenv("GITHUB_SHA")
     if sha:
         return sha[:7]
+    build_file = root / ".build_commit"
+    if build_file.is_file():
+        registrado = build_file.read_text(encoding="utf-8").strip()
+        if registrado:
+            return registrado[:7]
     try:
         import subprocess
 
         res = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
+            ["git", "-C", str(root), "rev-parse", "--short", "HEAD"],
             capture_output=True,
             text=True,
             timeout=2.0,
