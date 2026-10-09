@@ -69,9 +69,10 @@ Para la aprobación del proyecto, los estudiantes deben verificar los siguientes
 ### Hito 5: Suite de Pruebas y Cobertura (TDD)
 - Suite completa en `pytest` cubriendo rutas, validaciones y lógica de dominio.
 - Cobertura de código verificada superior al 85%:
-  ```bash
-  pytest --cov=src --cov-fail-under=85 tests/
-  ```
+
+```bash
+pytest --cov=src --cov-fail-under=85 tests/
+```
 
 ### Hito 6: Gobernanza con Git y GitHub CLI (gh)
 - Todo el trabajo debe reflejar un historial de **commits atómicos y descriptivos**.

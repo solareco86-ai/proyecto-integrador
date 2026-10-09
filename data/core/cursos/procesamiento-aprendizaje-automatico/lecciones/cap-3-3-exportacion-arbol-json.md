@@ -190,9 +190,12 @@ def obtener_arbol_explicable() -> ArbolExplicableResponse:
 ## 5. Auditoría Automatizada por Agentes Autónomos
 
 Cuando un agente de IA como **AGY CLI** o **Aider** analiza este endpoint:
-1. El agente hace una petición HTTP `GET /api/v1/explain/tree`.
-2. Parsea el árbol JSON y encuentra:
-   ```json
+
+**Paso 1:** El agente hace una petición HTTP `GET /api/v1/explain/tree`.
+
+**Paso 2:** Parsea el árbol JSON y encuentra:
+
+```json
    {
      "caracteristica": "temperatura_aceite",
      "umbral": 80.0,
@@ -203,9 +206,11 @@ Cuando un agente de IA como **AGY CLI** o **Aider** analiza este endpoint:
        "derecha_mayor": { "tipo": "hoja", "prediccion": "FALLA_CRITICA" }
      }
    }
-   ```
-3. El agente puede emitir un reporte instantáneo:
-   > *"El sistema clasificará un evento como FALLA_CRITICA si y solo si la temperatura supera los 80 °C y la vibración RMS es superior a 3.5 mm/s. El modelo cumple las directrices de la norma IEEE C57.104."*
+```
+
+**Paso 3:** El agente puede emitir un reporte instantáneo:
+
+> *"El sistema clasificará un evento como FALLA_CRITICA si y solo si la temperatura supera los 80 °C y la vibración RMS es superior a 3.5 mm/s. El modelo cumple las directrices de la norma IEEE C57.104."*
 
 Esto transforma un modelo opaco en un artefacto transparente, auditable y listo para operar en entornos de alta exigencia técnica.
 ---
@@ -234,19 +239,20 @@ def exportar_arbol_json(arbol):
 1. **Sin Información de Decisión:** No muestra cuántas muestras eligieron cada rama.
 2. **Sin Trazabilidad:** No incluye la ganancia de información en cada split.
 3. **Corrección Obligatoria en energy-ml:**
-   ```python
-   def exportar_arbol_json(nodo, profundidad=0):
-       return {
-           "profundidad": profundidad,
-           "prediccion": nodo.prediccion,
-           "muestras": nodo.n_samples,
-           "valor": nodo.value.tolist() if hasattr(nodo, 'value') else None,
-           "ganancia_gini": nodo.impurity,
-           "split_feature": nodo.feature,
-           "split_threshold": nodo.threshold,
-           "izquierda": exportar_arbol_json(nodo.children_left, profundidad + 1) if nodo.children_left else None,
-           "derecha": exportar_arbol_json(nodo.children_right, profundidad + 1) if nodo.children_right else None
-       }
-   ```
+
+```python
+def exportar_arbol_json(nodo, profundidad=0):
+    return {
+        "profundidad": profundidad,
+        "prediccion": nodo.prediccion,
+        "muestras": nodo.n_samples,
+        "valor": nodo.value.tolist() if hasattr(nodo, 'value') else None,
+        "ganancia_gini": nodo.impurity,
+        "split_feature": nodo.feature,
+        "split_threshold": nodo.threshold,
+        "izquierda": exportar_arbol_json(nodo.children_left, profundidad + 1) if nodo.children_left else None,
+        "derecha": exportar_arbol_json(nodo.children_right, profundidad + 1) if nodo.children_right else None
+    }
+```
 
 ---

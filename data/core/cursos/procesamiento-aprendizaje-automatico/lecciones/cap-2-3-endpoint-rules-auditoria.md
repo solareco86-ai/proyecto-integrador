@@ -247,27 +247,28 @@ async def get_rules():
 1. **Sin Métricas de Cobertura:** No muestra cuántos casos cubre cada regla.
 2. **Sin Orden de Aplicación:** No especifica el precedence de reglas en caso de conflicto.
 3. **Corrección Obligatoria en energy-ml:**
-   ```python
-   @app.get("/rules")
-   async def get_rules():
-       return {
-           "reglas": [
-               {
-                   "condicion": "temperatura > 30 AND voltaje < 200",
-                   "clase": "falla",
-                   "cobertura": 45,  # casos cubiertos
-                   "confianza": 0.91,  # TP/(TP+FP)
-                   "orden": 1
-               },
-               {
-                   "condicion": "humedad > 80",
-                   "clase": "falla",
-                   "cobertura": 23,
-                   "confianza": 0.87,
-                   "orden": 2
-               }
-           ]
-       }
-   ```
+
+```python
+@app.get("/rules")
+async def get_rules():
+    return {
+        "reglas": [
+            {
+                "condicion": "temperatura > 30 AND voltaje < 200",
+                "clase": "falla",
+                "cobertura": 45,  # casos cubiertos
+                "confianza": 0.91,  # TP/(TP+FP)
+                "orden": 1
+            },
+            {
+                "condicion": "humedad > 80",
+                "clase": "falla",
+                "cobertura": 23,
+                "confianza": 0.87,
+                "orden": 2
+            }
+        ]
+    }
+```
 
 ---

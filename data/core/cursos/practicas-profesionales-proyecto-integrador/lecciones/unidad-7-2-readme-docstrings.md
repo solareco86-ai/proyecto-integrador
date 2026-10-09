@@ -327,27 +327,31 @@ service = ReadingService(db=PostgresDB())  # en prod
 
 ## Actividad Práctica
 
-1. **Escribe README.md ejecutable:**
-   - Debe poder clonar, instalar, ejecutar en 5 min
-   - Secciones: Descripción, Instalación, Ejecución, Troubleshooting
-   - Incluir 3-5 ejemplos funcionales
+**Paso 1: Escribe README.md ejecutable.**
 
-2. **Documenta TODO en docstrings:**
-   ```bash
-   # Validar cobertura de docstrings
-   pydocstyle src/
-   ```
+- Debe poder clonar, instalar, ejecutar en 5 min
+- Secciones: Descripción, Instalación, Ejecución, Troubleshooting
+- Incluir 3-5 ejemplos funcionales
 
-3. **Genera docs con Sphinx:**
-   ```bash
-   sphinx-build -b html docs/ docs/_build/
-   # Abre docs/_build/index.html
-   ```
+**Paso 2: Documenta TODO en docstrings.** Valida la cobertura con:
 
-4. **Crea ARCHITECTURE.md:**
-   - Decisiones clave justificadas
-   - Benchmarks
-   - Roadmap de escalabilidad
+```bash
+# Validar cobertura de docstrings
+pydocstyle src/
+```
+
+**Paso 3: Genera docs con Sphinx.** Compila la documentación con:
+
+```bash
+sphinx-build -b html docs/ docs/_build/
+# Abre docs/_build/index.html
+```
+
+**Paso 4: Crea ARCHITECTURE.md.**
+
+- Decisiones clave justificadas
+- Benchmarks
+- Roadmap de escalabilidad
 
 ## Palabras clave
 

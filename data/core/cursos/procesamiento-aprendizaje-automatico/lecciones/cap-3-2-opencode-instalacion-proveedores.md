@@ -12,16 +12,16 @@
 **OpenCode** es una herramienta de asistencia en desarrollo de software construida desde cero bajo la filosofía del **software libre**. A diferencia de extensiones cerradas de editores comerciales, OpenCode se ejecuta de forma nativa en la terminal Bash y desacopla la interfaz del proveedor de inteligencia artificial:
 
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│                      ARQUITECTURA MODULAR DE OPENCODE                  │
-├────────────────────────────────────────────────────────────────────────┤
-│  Terminal Bash ──► OpenCode Engine (Lectura de archivos y AST)        │
-│                           │                                            │
-│        ┌──────────────────┼─────────────────────────┐                  │
-│        ▼                  ▼                         ▼                  │
-│  Zen / Free Tier    Google AI Studio          Ollama Local             │
-│  (Créditos $0)      (Gemini Flash Gratuito)   (100% Offline en CPU)    │
-└────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────┐
+│                ARQUITECTURA MODULAR DE OPENCODE                    │
+├────────────────────────────────────────────────────────────────────┤
+│  Terminal Bash ──► OpenCode Engine (Lectura de archivos)           │
+│                              │                                     │
+│                  ┌───────────┴───────────┐                         │
+│                  ▼                       ▼                         │
+│        Zen / Free Tier          Ollama Local                       │
+│        (Créditos $0)            (100% Offline)                     │
+└────────────────────────────────────────────────────────────────────┘
 ```
 
 Esta modularidad garantiza que el estudiante nunca quede bloqueado si una empresa cambia sus términos de servicio o cancela una promoción comercial.
@@ -67,34 +67,34 @@ Para comenzar a operar, ejecuta el asistente interactivo de configuración:
 opencode setup
 ```
 
-OpenCode te ofrecerá diversas alternativas de conexión. Veamos las tres opciones recomendadas para los estudiantes del ISFT N° 199:
+OpenCode te ofrecerá diversas alternativas de conexión. Veamos las dos opciones recomendadas para los estudiantes del ISFT N° 199:
 
 ### Opción 1: Nivel Gratuito Zen (Free Tier Comunitario)
 * **Requisito:** Ninguno. Sin registro ni tarjeta de crédito.
 * **Ventaja:** Funciona de inmediato al finalizar la instalación. Permite realizar consultas diarias para generar scripts, corregir errores de sintaxis y resolver dudas de laboratorio.
 * **Configuración:** Selecciona *"OpenCode Zen (Community Free Tier)"* en el menú de setup.
 
-### Opción 2: Clave Gratuita de Google AI Studio (Gemini Flash)
-* **Requisito:** Cuenta de correo Google personal o educativa.
-* **Ventaja:** Acceso a modelos avanzados de razonamiento rápido (Gemini Flash) con límites de hasta 15 peticiones por minuto totalmente gratis.
-* **Configuración:**
-  1. Ingresa a [Google AI Studio](https://aistudio.google.com/) y pulsa *"Get API Key"*.
-  2. Crea una clave y cópiala en tu portapapeles.
-  3. Configura la variable en tu sesión o en tu archivo `~/.bashrc`:
-     ```bash
-     export OPENCODE_API_KEY="tu-clave-de-aistudio"
-     ```
-
-### Opción 3: Inferencia 100% Local y Offline con Ollama
-* **Requisito:** Computadora con CPU multinúcleo o tarjeta gráfica (mínimo 8 GB de RAM).
+### Opción 2: Inferencia 100% Local y Offline con Ollama
+* **Requisito:** 8 GB de RAM para ejecutar en CPU (más lento). Para trabajar con modelos grandes se recomienda una tarjeta gráfica con **24 GB de VRAM**. Es posible experimentar desde **2 GB de VRAM** con modelos pequeños. Antes de elegir un modelo, revisa la lección 3.1b.
 * **Ventaja:** Cero consumo de internet y privacidad total. Tus datos nunca salen de tu disco rígido.
-* **Configuración:**
-  1. Instala Ollama en tu sistema: `curl -fsSL https://ollama.com/install.sh | sh`
-  2. Descarga un modelo especializado en código:
-     ```bash
-     ollama run qwen2.5-coder:7b
-     ```
-  3. En OpenCode setup, selecciona *"Local Ollama endpoint (http://localhost:11434)"*.
+**Configuración:**
+
+**Paso 1:** Instala Ollama en tu sistema:
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+**Paso 2:** Descarga un modelo especializado en código:
+
+```bash
+ollama run qwen2.5-coder:7b
+```
+
+> [!NOTE]
+> Si tu equipo tiene poca memoria (2 GB de VRAM o menos), usa un modelo más pequeño, por ejemplo `ollama run qwen2.5-coder:1.5b`. Las respuestas serán más simples, pero el flujo de trabajo es el mismo.
+
+**Paso 3:** En OpenCode setup, selecciona *"Local Ollama endpoint (http://localhost:11434)"*.
 
 ---
 

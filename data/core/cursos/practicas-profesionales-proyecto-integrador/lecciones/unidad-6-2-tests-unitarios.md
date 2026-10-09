@@ -330,10 +330,11 @@ Si cubre < 85%, PR falla.
    ```
 
 3. **Integrar en pre-push:**
-   ```bash
-   # .git/hooks/pre-push
-   pytest --cov=src --cov-fail-under=85 || exit 1
-   ```
+
+```bash
+# .git/hooks/pre-push
+pytest --cov=src --cov-fail-under=85 || exit 1
+```
 
 ## Palabras clave
 

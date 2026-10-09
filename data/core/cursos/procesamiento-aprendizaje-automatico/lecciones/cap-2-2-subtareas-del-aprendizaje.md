@@ -214,16 +214,17 @@ X_train, X_test, y_train, y_test = train_test_split(
    - **Fuga 1:** `scaler.fit_transform()` se ejecutó antes de la partición, filtrando la media y desviación estándar del conjunto de test hacia el entrenamiento.
    - **Fuga 2:** `shuffle=True` destruye la causalidad temporal, mezclando muestras del futuro en el conjunto de entrenamiento. El modelo predecirá el pasado habiendo memorizado puntos adyacentes del futuro.
 2. **Corrección Obligatoria en energy-ml:**
-   ```python
-   # 1. Partición estrictamente cronológica
-   X_train, X_test, y_train, y_test = train_test_split(
-       X_telemetria_temporal, y_demanda, test_size=0.2, shuffle=False
-   )
-   # 2. Ajuste de escala encapsulado únicamente sobre X_train
-   scaler = StandardScaler()
-   X_train_scaled = scaler.fit_transform(X_train)
-   X_test_scaled = scaler.transform(X_test)  # Solo transform(), nunca fit()
-   ```
+
+```python
+# 1. Partición estrictamente cronológica
+X_train, X_test, y_train, y_test = train_test_split(
+    X_telemetria_temporal, y_demanda, test_size=0.2, shuffle=False
+)
+# 2. Ajuste de escala encapsulado únicamente sobre X_train
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)  # Solo transform(), nunca fit()
+```
 
 ---
 

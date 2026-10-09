@@ -318,17 +318,18 @@ async def version_space_step(ejemplo: Ejemplo):
 1. **Falta de Frontera General (G):** No devuelve la hipótesis más general, solo la específica.
 2. **Sin Métricas de Convergencia:** No indica si el espacio está convergiendo.
 3. **Corrección Obligatoria en energy-ml:**
-   ```python
-   @app.post("/version-space/step")
-   async def version_space_step(ejemplo: Ejemplo):
-       ce = CandidateElimination()
-       ce.update(ejemplo)
-       return {
-           "S": [str(h) for h in ce.S],
-           "G": [str(h) for h in ce.G],
-           "tamaño_espacio": len(ce.S),
-           "convergencia": len(ce.S) == 1
-       }
-   ```
+
+```python
+@app.post("/version-space/step")
+async def version_space_step(ejemplo: Ejemplo):
+    ce = CandidateElimination()
+    ce.update(ejemplo)
+    return {
+        "S": [str(h) for h in ce.S],
+        "G": [str(h) for h in ce.G],
+        "tamaño_espacio": len(ce.S),
+        "convergencia": len(ce.S) == 1
+    }
+```
 
 ---

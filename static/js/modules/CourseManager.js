@@ -84,6 +84,7 @@ export class CourseManager {
 
         // Inicializar botones de copiar para bloques de código
         this.initCodeCopyButtons();
+        this.initInlineCodeCopy();
 
         // Actualizar porcentaje y barra de progreso al cargar
         this.updateProgressBar();
@@ -307,6 +308,44 @@ export class CourseManager {
         if (this.sidebar) this.sidebar.classList.remove('is-open');
         if (this.sidebarBackdrop) this.sidebarBackdrop.classList.remove('is-open');
         document.body.style.overflow = '';
+    }
+
+    /**
+     * Hace copiables con un clic los comandos inline (`code` dentro de párrafos o listas),
+     * que no pasan por la lógica de bloques `pre`.
+     * @returns {void}
+     */
+    initInlineCodeCopy() {
+        /** @type {NodeListOf<HTMLElement>} */
+        const inlineCodes = document.querySelectorAll('.c-lesson-body code');
+
+        inlineCodes.forEach((code) => {
+            if (code.closest('pre') || code.classList.contains('c-inline-copy')) return;
+
+            code.classList.add('c-inline-copy');
+            code.setAttribute('role', 'button');
+            code.setAttribute('tabindex', '0');
+            code.setAttribute('title', 'Clic para copiar');
+
+            /** @returns {Promise<void>} */
+            const copyText = async () => {
+                try {
+                    await navigator.clipboard.writeText((code.textContent || '').trim());
+                    code.classList.add('is-copied');
+                    setTimeout(() => code.classList.remove('is-copied'), 1500);
+                } catch (err) {
+                    logError('[CourseManager] Error al copiar comando inline:', err);
+                }
+            };
+
+            code.addEventListener('click', copyText);
+            code.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    copyText();
+                }
+            });
+        });
     }
 
     /**
