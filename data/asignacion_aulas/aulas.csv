@@ -1,0 +1,6 @@
+id_aula,nombre,capacidad,edificio,equipamiento
+A001,Aula 1,30,Sede Central,"proyector"
+A002,Aula 2,50,Sede Central,"proyector,pizarrón"
+A003,Aula 3,20,Sede Central,"pizarrón"
+A004,Laboratorio de Informática,25,Sede Central,"computadoras,proyector"
+A005,Aula Anexo 1,40,Sede Anexo,"pizarrón"

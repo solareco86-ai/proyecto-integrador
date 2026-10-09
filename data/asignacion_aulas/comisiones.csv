@@ -1,0 +1,9 @@
+id_comision,materia,carrera,cantidad_estudiantes,dia,hora_inicio,hora_fin
+C001,Programación I,Ciencia de Datos e Inteligencia Artificial,28,Lunes,18:00,20:00
+C002,Matemática I,Logística,45,Lunes,18:00,20:00
+C003,Introducción a la Mecatrónica,Mecatrónica,18,Lunes,18:00,20:00
+C004,Base de Datos,Ciencia de Datos e Inteligencia Artificial,22,Lunes,20:00,22:00
+C005,Comunicación,Administración de Recursos Humanos,35,Martes,18:00,20:00
+C006,Inglés Técnico,Turismo,24,Martes,18:00,20:00
+C007,Seguridad e Higiene,Higiene y Seguridad en el Trabajo,38,Martes,20:00,22:00
+C008,Práctica Profesional,Hotelería,15,Miércoles,18:00,21:00
