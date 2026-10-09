@@ -113,9 +113,10 @@ sudo apt install -y python3 python3-pip python3-venv git curl build-essential
 #### Paso 6: Integración con Visual Studio Code
 1. Abre VS Code en Windows e instala la extensión **"WSL"** (de Microsoft).
 2. Desde la terminal de Ubuntu en WSL, navega a tu carpeta de trabajo y escribe:
-   ```bash
-   code .
-   ```
+
+```bash
+code .
+```
    VS Code se abrirá en Windows, pero ejecutando el servidor de desarrollo, las extensiones y el intérprete de Python dentro del entorno Linux.
 
 ### Verificación en WSL

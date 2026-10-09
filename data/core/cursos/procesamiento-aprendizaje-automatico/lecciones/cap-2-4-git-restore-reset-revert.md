@@ -140,7 +140,7 @@ git status
 **Salida en consola:**
 
 ```output
-On branch main
+En la rama ejercicio/diff-energia
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
 	modified:   src/domain/services/energy_service.py
@@ -169,7 +169,7 @@ La suite volvió al verde: la función ahora calcula con la precisión redondead
 ---
 
 ### Paso 4: Confirmación Atómica y Registro en el Historial
-Registra el commit auditado siguiendo la convención de commits atómicos:
+Registra el commit auditado en tu rama de ejercicio (`ejercicio/diff-energia`, de la lección 2.2) siguiendo la convención de commits atómicos:
 
 ```bash
 git commit -m "feat(domain): agregar redondeo a 3 decimales en calculo de consumo activo"
@@ -184,7 +184,7 @@ git log -n 1 --stat
 **Salida esperada:**
 
 ```output
-[main 9f3e1a0] feat(domain): agregar redondeo a 3 decimales en calculo de consumo activo
+[ejercicio/diff-energia 9f3e1a0] feat(domain): agregar redondeo a 3 decimales en calculo de consumo activo
  1 file changed, 2 insertions(+), 2 deletions(-)
 ```
 
@@ -197,4 +197,4 @@ Has completado el ciclo completo de auditoría y gobierno de código:
 - [ ] Entiendes por qué nunca se debe utilizar `git reset --hard` en ramas compartidas.
 - [ ] Has descartado exitosamente la alucinación del umbral con `git restore`.
 - [ ] Tu suite de pruebas `pytest` se encuentra 100% en verde.
-- [ ] Tu árbol de trabajo en `energy-ml` está limpio (`working tree clean`) con tu commit atómico registrado.
+- [ ] Tu árbol de trabajo en `ejercicio/diff-energia` está limpio (`working tree clean`) con tu commit atómico registrado.

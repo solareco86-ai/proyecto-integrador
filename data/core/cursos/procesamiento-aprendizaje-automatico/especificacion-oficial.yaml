@@ -1,0 +1,77 @@
+id: procesamiento-aprendizaje-automatico-especificacion
+curso_id: procesamiento-aprendizaje-automatico
+titulo: "Procesamiento de Aprendizaje Automático"
+carga_horaria: "4 (cuatro) horas reloj por semana"
+
+sintesis_introductoria: |
+  El propósito general de este módulo es que las y los estudiantes desarrollen e implementen técnicas
+  de aprendizaje automático para su uso, aplicado a través de modelos predictivos, reconocimiento de
+  segmentos y clusters. El abordaje del módulo también permite la construcción de secuencias de análisis
+  usando librerías propias, de otros integrantes del equipo o externas.
+
+capacidades_profesionales:
+  - "Aplicar las distintas técnicas de aprendizaje automático, así como determinar cuál de ellas es apropiada para resolver un determinado problema."
+  - "Utilizar técnicas de validación y verificación de modelos y experimentar con dichas técnicas en diferentes problemas reales."
+  - "Resolver problemas de predicción y optimización usando algoritmos de clasificación, clustering y genéticos."
+
+contenidos_tematicos:
+  - "Bloque Aprendizaje automático"
+  - "Bloque Aprendizaje Supervisado"
+  - "Bloque Aprendizaje No Supervisado"
+
+contenidos_descripcion: |
+  Los contenidos a desarrollar en este módulo se organizan en tres bloques.
+
+  Bloque Aprendizaje automático: Concepto de Aprendizaje automático. Técnicas de aprendizaje automático.
+  Objetivos de la tarea de Aprendizaje. El aprendizaje como una tarea de búsqueda. Sub tareas relacionadas
+  con la tarea de aprendizaje. Diseño de modelos. Evaluación del modelo. Aprendizaje Inductivo y Deductivo.
+
+  Bloque Aprendizaje Supervisado: Clasificadores. Aprendizaje de Conceptos y de Reglas. Espacio de Versiones.
+  Algoritmo AQ. Programación Lógica Inductiva: Algoritmo FOIL. Árboles de Decisión y de Regresión. Aprendizaje
+  basado en Instancias. Clasificadores Bayesianos. Algoritmo Naive-Bayes. Elaboración del modelo. Características.
+  Medidas de rendimiento. Ajustes del modelo.
+
+  Bloque Aprendizaje No Supervisado: Elaboración del modelo. Características. Ejemplos y aplicaciones.
+  Comparación y selección de modelos. Agrupamiento (Clustering). Estrategia Aglomerativa. Algoritmo k-medias.
+  Aprendizaje por refuerzo.
+
+practicas_entornos_formativos: |
+  Las prácticas profesionalizantes en entornos formativos deben ser organizadas, implementadas y evaluadas
+  por la institución educativa, y estarán bajo el control de la respectiva Jurisdicción. Las prácticas
+  planteadas en este espacio deberán integrarse con saberes propios de los otros campos de cursado
+  simultáneo que integran el plan de estudios.
+
+  En relación con el presente módulo, las/los estudiantes deberán realizar actividades reales o simuladas
+  donde se analizarán y estudiarán los modelos de aprendizaje para desarrollar e implementar algoritmos de
+  aprendizaje automático. Se analizarán, diseñarán y construirán sistemas y aplicaciones informáticas que
+  utilizan técnicas de aprendizaje supervisado y no supervisado.
+
+  Las prácticas profesionalizantes en entornos formativos deben ser organizadas, implementadas y evaluadas
+  por la institución educativa, y estarán bajo el control de la respectiva Jurisdicción.
+
+referenciales_evaluacion:
+  - "Validación y verificación de modelos"
+  - "Resolución de problemas de predicción"
+  - "Aplicación de técnicas de aprendizaje automático"
+  - "Construcción de sistemas de aprendizaje supervisado y no supervisado"
+
+entorno_aprendizaje: |
+  Debido a las características del módulo, los procesos de enseñanza y aprendizaje se deben desarrollar en
+  (i) contextos teórico-prácticos de aula-taller (laboratorio) con recursos para las tareas expositivo-explicativas
+  y para la producción individual y colectiva donde se garanticen las condiciones mínimas para actividades
+  educativas; así como en (ii) contextos de la práctica profesional. Específicamente este espacio deberá brindar
+  oportunidades para identificar patrones y elaborar predicciones a partir de datos.
+
+  En el contexto teórico-práctico mencionado debe contemplarse la dimensión vinculada al clima institucional.
+  En este sentido, se promoverán prácticas pedagógicas orientadas a la democratización de las enseñanzas,
+  garantizando procesos más inclusivos donde se reconozca y respete las diversidades, se establezca la
+  horizontalidad en las relaciones y se construyan vínculos entre los géneros libres de violencias y discriminación.
+
+perfil_docente: |
+  Licenciada/o-Ingeniera/o en Informática, Técnica/o Superior en Software / Informática/Análisis de Sistemas,
+  Licenciada/o-Ingeniera/o en Sistemas u otro graduado de nivel superior que posea formación específica en los
+  contenidos enunciados en este espacio curricular con trayectoria en el campo de conocimiento y formación
+  pedagógica que califiquen su ingreso y promoción en la carrera docente.
+
+version: "1.0"
+fuente_normativa: "DGCyE - Diseño Curricular Oficial, Trayecto F"

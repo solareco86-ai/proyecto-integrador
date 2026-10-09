@@ -175,11 +175,12 @@ def actualizar_frontera_s_alucinado(S, instancia_positiva):
 **Diagnóstico del Revisor Humano:**
 1. **Pérdida de Consistencia Global:** Si `h_gen` se vuelve más general que alguna hipótesis de exclusión activa en `G`, el algoritmo conservará una hipótesis que ya clasifica erróneamente ejemplos negativos previos.
 2. **Corrección Obligatoria:**
-   ```python
-   # Se debe verificar que exista al menos una hipótesis en G más general o igual:
-   if any(es_mas_general_o_igual(h_g, h_gen) for h_g in G):
-       nuevos_s.append(h_gen)
-   ```
+
+```python
+# Se debe verificar que exista al menos una hipótesis en G más general o igual:
+if any(es_mas_general_o_igual(h_g, h_gen) for h_g in G):
+    nuevos_s.append(h_gen)
+```
 
 ---
 

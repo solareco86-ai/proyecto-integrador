@@ -42,13 +42,14 @@ En la ingeniería de software asistida por IA, el modelo de lenguaje opera de ma
 * **Premisa Mayor (Contrato):** *"El estándar de calidad de red exige que la frecuencia en Argentina sea de 50 Hz con tolerancia de ±1%."*
 * **Premisa Menor (Dato puntual):** *"La medición actual es `frecuencia = 48.2 Hz`."*
 * **Deducción Lógica (Código):**
-  ```python
-  def validar_frecuencia_red(frecuencia_hz: float) -> bool:
-      """Aplica deducción lógica sobre límites normativos."""
-      frecuencia_nominal = 50.0
-      tolerancia = frecuencia_nominal * 0.01  # ±0.5 Hz (49.5 a 50.5)
-      return (frecuencia_nominal - tolerancia) <= frecuencia_hz <= (frecuencia_nominal + tolerancia)
-  ```
+
+```python
+def validar_frecuencia_red(frecuencia_hz: float) -> bool:
+    """Aplica deducción lógica sobre límites normativos."""
+    frecuencia_nominal = 50.0
+    tolerancia = frecuencia_nominal * 0.01  # ±0.5 Hz (49.5 a 50.5)
+    return (frecuencia_nominal - tolerancia) <= frecuencia_hz <= (frecuencia_nominal + tolerancia)
+```
 
 El LLM sobresale aquí porque no necesita "entrenar pesos" para deducir esta regla: interpreta el lenguaje natural, conoce la normativa eléctrica y genera código determinístico.
 

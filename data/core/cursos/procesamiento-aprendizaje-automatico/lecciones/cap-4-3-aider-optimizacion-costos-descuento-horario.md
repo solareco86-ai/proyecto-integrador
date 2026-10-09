@@ -87,7 +87,8 @@ Observa lo que ocurre en la terminal:
 3. Al detectar que el repositorio Git está configurado, Aider **crea automáticamente un commit atómico**:
    ```text
    Commit 7f3a8b1: Agregar función calcular_estadisticas_consumo en src/pipeline.py
-   ```
+
+```
 4. Aider muestra en la esquina inferior el costo de la interacción: normalmente **menos de 0,004 USD** (menos de medio centavo de dólar).
 
 ---

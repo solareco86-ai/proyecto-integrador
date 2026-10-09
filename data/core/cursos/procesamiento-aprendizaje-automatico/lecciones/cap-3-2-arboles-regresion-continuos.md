@@ -153,18 +153,19 @@ def entrenar_modelo_pico_alucinado(X_telemetria, y_mw):
 **Diagnóstico del Revisor Humano:**
 1. **Sobreajuste Catastrófico:** Sin restricciones (`max_depth=None`, `min_samples_split=2`), el árbol dividirá hasta crear una hoja por cada medición histórica, memorizando perturbaciones espurias de la red. En producción, el error de predicción explotará.
 2. **Corrección con Regularización Obligatoria:**
-   ```python
-   def entrenar_modelo_pico_robusto(X_telemetria, y_mw):
-       # Restricciones estructurales y regularización por complejidad
-       modelo = DecisionTreeRegressor(
-           max_depth=5,
-           min_samples_leaf=15,
-           ccp_alpha=0.015,
-           random_state=42
-       )
-       modelo.fit(X_telemetria, y_mw)
-       return modelo
-   ```
+
+```python
+def entrenar_modelo_pico_robusto(X_telemetria, y_mw):
+    # Restricciones estructurales y regularización por complejidad
+    modelo = DecisionTreeRegressor(
+        max_depth=5,
+        min_samples_leaf=15,
+        ccp_alpha=0.015,
+        random_state=42
+    )
+    modelo.fit(X_telemetria, y_mw)
+    return modelo
+```
 
 ---
 

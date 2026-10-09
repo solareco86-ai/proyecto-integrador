@@ -91,8 +91,36 @@ async def test_aprendizaje_automatico_github_cli_lesson_rendered():
     assert response.status_code == 200
     assert "text/html" in response.headers["content-type"]
     assert "2.5 GitHub CLI (gh)" in response.text
-    assert "gh pr create" in response.text
-    assert "gh issue" in response.text
+    assert "gh auth status" in response.text
+    assert "gh issue list" in response.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_github_cli_pr_y_proyectos_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        r26 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-github-cli-pull-requests-ci")
+        assert r26.status_code == 200
+        assert "2.6 Pull Requests y CI" in r26.text
+        assert "gh pr create" in r26.text
+        assert "gh run view --log-failed" in r26.text
+
+        r27 = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-github-cli-issues-projects-wiki")
+        assert r27.status_code == 200
+        assert "2.7 Issues, Projects y Wiki" in r27.text
+        assert "gh project item-add" in r27.text
+        assert "gh browse --wiki" in r27.text
+
+
+@pytest.mark.asyncio
+async def test_aprendizaje_automatico_hardware_modelo_local_rendered():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/cursos/procesamiento-aprendizaje-automatico/paa-ini-hardware-tamano-modelo-local")
+    assert response.status_code == 200
+    assert "3.1b Hardware" in response.text
+    assert "ollama show" in response.text
+    assert "Cuantización" in response.text
 
 
 @pytest.mark.asyncio

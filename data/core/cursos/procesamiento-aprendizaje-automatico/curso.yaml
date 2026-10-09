@@ -117,9 +117,21 @@ sections:
     - type: lesson
       id: les-paa-ini-2-5
       slug: paa-ini-github-cli-gh-agentes-ia
-      title: "2.5 GitHub CLI (gh): Automatización de Pull Requests, Issues y Gobernanza para Agentes de IA"
+      title: "2.5 GitHub CLI (gh): Autenticación y Lectura de Issues para Agentes de IA"
       duration: 20 min
       content_file: cap-2-5-github-cli-gh-agentes-ia.md
+    - type: lesson
+      id: les-paa-ini-2-6
+      slug: paa-ini-github-cli-pull-requests-ci
+      title: "2.6 Pull Requests y CI desde la Terminal (gh pr y gh run)"
+      duration: 25 min
+      content_file: cap-2-6-pull-requests-ci-gh.md
+    - type: lesson
+      id: les-paa-ini-2-7
+      slug: paa-ini-github-cli-issues-projects-wiki
+      title: "2.7 Issues, Projects y Wiki desde la Terminal (gh issue, gh project y gh browse)"
+      duration: 25 min
+      content_file: cap-2-7-issues-projects-wiki-gh.md
   - id: chap-paa-ini-3
     title: 'Cap 3: Asistentes de IA para Estudiantes: OpenCode y Antigravity CLI'
     description: Configuración profunda de OpenCode (gratuito) y Antigravity CLI ($5/mes estudiantil), navegación web viva y pair programming en energy-ml.
@@ -130,6 +142,12 @@ sections:
       title: '3.1 Economía de la IA Agéntica: Suscripciones Fijas vs. Pago por Uso'
       duration: 25 min
       content_file: cap-3-1-modelos-costos-suscripcion-vs-api.md
+    - type: lesson
+      id: les-paa-ini-3-1b
+      slug: paa-ini-hardware-tamano-modelo-local
+      title: '3.1b Hardware y Tamaño de Modelo para Inferencia Local: RAM, VRAM y Cuantización'
+      duration: 25 min
+      content_file: cap-3-1b-hardware-tamano-modelo-local.md
     - type: lesson
       id: les-paa-ini-3-2
       slug: paa-ini-opencode-instalacion-proveedores

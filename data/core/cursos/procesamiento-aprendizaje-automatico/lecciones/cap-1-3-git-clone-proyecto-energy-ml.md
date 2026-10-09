@@ -29,7 +29,7 @@ En ingeniería de software y desarrollo de Machine Learning profesional:
 
 Antes de interactuar con repositorios, Git necesita asociar cada commit a tu nombre y correo electrónico.
 
-Para evitar configurar accidentalmente valores genéricos o incompletos, copia y pega el siguiente script interactivo en tu terminal:
+Para evitar configurar accidentalmente valores genéricos o incompletos, copia y pega el siguiente script interactivo en tu terminal. Si ya tienes nombre o correo configurados en Git, el script no te los vuelve a pedir: solo consulta el dato que falte.
 
 ```bash
 # ==========================================================
@@ -39,33 +39,35 @@ echo "=========================================================="
 echo "👤 Configuración de Identidad en Git"
 echo "=========================================================="
 
-GIT_NAME=""
-while [ -z "$GIT_NAME" ]; do
-    read -p "Ingresa tu nombre y apellido (ej. Juan Pérez): " GIT_NAME
-    if [ -z "$GIT_NAME" ]; then
-        echo "⚠️  El nombre no puede estar vacío. Inténtalo de nuevo."
-    fi
-done
+GIT_NAME="$(git config --global user.name)"
+GIT_EMAIL="$(git config --global user.email)"
 
-GIT_EMAIL=""
-while [ -z "$GIT_EMAIL" ]; do
-    read -p "Ingresa tu correo electrónico (ej. juan@ejemplo.com): " GIT_EMAIL
-    if [ -z "$GIT_EMAIL" ]; then
-        echo "⚠️  El correo no puede estar vacío. Inténtalo de nuevo."
-    fi
-done
+if [ -z "$GIT_NAME" ]; then
+    while [ -z "$GIT_NAME" ]; do
+        read -p "Ingresa tu nombre y apellido (ej. Juan Pérez): " GIT_NAME
+        if [ -z "$GIT_NAME" ]; then
+            echo "⚠️  El nombre no puede estar vacío. Inténtalo de nuevo."
+        fi
+    done
+    git config --global user.name "$GIT_NAME"
+fi
 
-# Aplicar la configuración global en Git
-git config --global user.name "$GIT_NAME"
-git config --global user.email "$GIT_EMAIL"
+if [ -z "$GIT_EMAIL" ]; then
+    while [ -z "$GIT_EMAIL" ]; do
+        read -p "Ingresa tu correo electrónico (ej. juan@ejemplo.com): " GIT_EMAIL
+        if [ -z "$GIT_EMAIL" ]; then
+            echo "⚠️  El correo no puede estar vacío. Inténtalo de nuevo."
+        fi
+    done
+    git config --global user.email "$GIT_EMAIL"
+fi
 
 echo ""
-echo "✅ ¡Identidad configurada con éxito en Git!"
+echo "✅ ¡Identidad de Git lista!"
 echo "   Nombre registrado: $(git config --global user.name)"
 echo "   Email registrado:  $(git config --global user.email)"
 echo "=========================================================="
 ```
-
 > [!NOTE]
 > Este script utiliza el comando `read -p` de Bash (el equivalente a `input()` en Python) para solicitar los datos por teclado, asegurando que no se guarden campos vacíos.
 
@@ -123,6 +125,50 @@ Al ingresar a la carpeta, tu terminal reflejará que te encuentras dentro del pr
 
 ---
 
+## 4. Retomar el Trabajo: Actualizar tu Copia con `git pull`
+
+Tu clon es una copia del repositorio tal como estaba en el momento de clonarlo. Si pasan días o semanas antes de que lo retomes, el repositorio original puede tener cambios nuevos (correcciones de la cátedra, lecciones o código actualizado). Antes de seguir trabajando, actualiza tu copia.
+
+### Paso 1: Revisar el estado de tu copia
+
+Ubícate dentro de `energy-ml` y comprueba si tienes cambios propios sin guardar:
+
+```bash
+cd energy-ml
+git status
+```
+
+Si estás en una rama de ejercicio (por ejemplo `ejercicio/diff-energia`, de la lección 2.2), vuelve a `main` antes de actualizar:
+
+```bash
+git checkout main
+```
+
+### Paso 2: Traer y aplicar las actualizaciones
+
+```bash
+git pull --ff-only
+```
+
+La opción `--ff-only` hace que Git solo avance si puede hacerlo sin mezclar historias. Si no puede, falla y no modifica nada. Así evitas combinaciones automáticas que no entiendes.
+
+### Si Git no te deja actualizar
+
+**Caso 1: `Your local changes ... would be overwritten by merge`** (tienes cambios sin guardar en archivos que llegan con la actualización). Guarda tus cambios temporalmente, actualiza y recupéralos:
+
+```bash
+git stash
+git pull --ff-only
+git stash pop
+```
+
+**Caso 2: `fatal: Not possible to fast-forward, aborting`** (tu historia local y la remota divergieron): no fuerces la actualización ni uses `git reset --hard`. Consulta con el docente antes de seguir.
+
+> [!WARNING]
+> Nunca uses `git pull --force` ni `git reset --hard` para "arreglar" una actualización: borran cambios sin posibilidad de recuperarlos.
+
+---
+
 ## Checkpoint de Verificación
 
 Antes de avanzar a la exploración del repositorio en la lección 1.4:
@@ -130,3 +176,4 @@ Antes de avanzar a la exploración del repositorio en la lección 1.4:
 - [ ] El comando `git clone` se completó exitosamente sin errores de red.
 - [ ] Has ingresado a la carpeta `energy-ml/` y el comando `pwd` confirma que estás dentro del proyecto.
 - [ ] Tu terminal ya detecta el contexto de Git (indicando la rama activa en el prompt o permitiendo ejecutar comandos de Git).
+- [ ] Sabes actualizar tu copia con `git status` y `git pull --ff-only` antes de retomar el trabajo después de un tiempo.
