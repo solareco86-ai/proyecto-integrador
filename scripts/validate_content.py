@@ -21,7 +21,6 @@ from src.application.dtos import (
     ContentModel,
     CourseModel,
     FooterModel,
-    LandingContentModel,
     LegalPagesModel,
     SeoModel,
 )
@@ -146,7 +145,6 @@ def run_validation(data_dir: str, fix_mode: bool) -> bool:
         (os.path.join(data_dir, "content", "home_sections.yaml"), ContentModel),
         (os.path.join(data_dir, "content", "legal.yaml"), LegalPagesModel),
         (os.path.join(data_dir, "seo", "seo.yaml"), SeoModel),
-        (os.path.join(data_dir, "seo", "landing_content.yaml"), LandingContentModel),
     ]
 
     # Agregar cursos

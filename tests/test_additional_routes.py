@@ -49,6 +49,11 @@ async def override_get_contenido():
                     "more_info_label": "Ver más",
                     "more_info_link": "/terminos-y-condiciones",
                 },
+                "error_404": {
+                    "description": "Test",
+                    "links_title": "Accesos rápidos:",
+                    "links": [{"label": "Carreras", "href": "/carreras", "icon": "bi-mortarboard-fill"}],
+                },
                 "contact": {
                     "title": "Solicitá asistencia técnica híbrida",
                     "subtitle": "Test",
@@ -98,16 +103,6 @@ async def override_get_contenido():
                 }
             },
             "footer": {
-                "navigation_groups": [
-                    {
-                        "title": "Navegación",
-                        "links": [
-                            {"label": "Inicio", "href": "/"},
-                            {"label": "Cursos", "href": "/cursos"},
-                            {"label": "Contacto", "href": "/contact"},
-                        ],
-                    }
-                ],
                 "cta_title": "Test CTA Title",
                 "cta_label": "Test CTA Label",
                 "whatsapp_text": "Test WhatsApp text",
@@ -196,54 +191,6 @@ async def test_sitemap_includes_contact():
 
     assert response.status_code == 200
     assert "https://datamaq.com.ar/contact" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_localidad_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires/escobar/garin.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Garín" in response.text
-    assert "Telemetría y calidad de energía" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_industria_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/industria/grafica.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Industria Gráfica" in response.text
-    assert "Telemetría y calidad de energía" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_localidad_tigre_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/buenos-aires/tigre/general-pacheco.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "General Pacheco" in response.text
-    assert "Telemetría y calidad de energía" in response.text
-
-
-@pytest.mark.asyncio  # type: ignore
-async def test_industria_plastica_page_rendered():
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/industria/plastica.html")
-
-    assert response.status_code == 200
-    assert "text/html" in response.headers["content-type"]
-    assert "Industria Plástica" in response.text
-    assert "Telemetría y calidad de energía" in response.text
 
 
 @pytest.mark.asyncio  # type: ignore

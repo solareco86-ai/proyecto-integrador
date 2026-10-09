@@ -187,21 +187,22 @@ async def get_metrics():
 1. **Falta de Matriz de Confusión:** No desagrega TP, FP, FN, TN.
 2. **Falta de Métricas por Clase:** No muestra precisión/recall separadamente.
 3. **Corrección Obligatoria en energy-ml:**
-   ```python
-   @app.get("/metrics")
-   async def get_metrics():
-       return {
-           "confusion_matrix": {
-               "true_positives": tp,
-               "false_positives": fp,
-               "false_negatives": fn,
-               "true_negatives": tn
-           },
-           "precision": precision,
-           "recall": recall,
-           "f1_score": f1,
-           "timestamp": datetime.now().isoformat()
-       }
-   ```
+
+```python
+@app.get("/metrics")
+async def get_metrics():
+    return {
+        "confusion_matrix": {
+            "true_positives": tp,
+            "false_positives": fp,
+            "false_negatives": fn,
+            "true_negatives": tn
+        },
+        "precision": precision,
+        "recall": recall,
+        "f1_score": f1,
+        "timestamp": datetime.now().isoformat()
+    }
+```
 
 ---

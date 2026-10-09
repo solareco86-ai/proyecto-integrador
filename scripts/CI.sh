@@ -97,7 +97,7 @@ cleanup_server() {
 trap cleanup_server EXIT INT TERM
 
 echo "==> Levantando servidor temporal en http://127.0.0.1:$PORT para auditorías HTTP/Playwright..."
-$PYTHON_BIN -m uvicorn src.infrastructure.fastapi.app:app --host 127.0.0.1 --port $PORT --no-access-log > /dev/null 2>&1 &
+DEBUG=True $PYTHON_BIN -m uvicorn src.infrastructure.fastapi.app:app --host 127.0.0.1 --port $PORT --no-access-log > /dev/null 2>&1 &
 SERVER_PID=$!
 
 server_ready=false

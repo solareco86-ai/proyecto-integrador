@@ -63,6 +63,11 @@ def mock_contenido() -> ContenidoModel:
                     "more_info_label": "Ver más",
                     "more_info_link": "/terminos-y-condiciones",
                 },
+                "error_404": {
+                    "description": "Test",
+                    "links_title": "Accesos rápidos:",
+                    "links": [{"label": "Carreras", "href": "/carreras", "icon": "bi-mortarboard-fill"}],
+                },
                 "contact": {
                     "title": "Test",
                     "subtitle": "Test",
@@ -112,15 +117,6 @@ def mock_contenido() -> ContenidoModel:
                 },
             },
             "footer": {
-                "navigation_groups": [
-                    {
-                        "title": "Navegación",
-                        "links": [
-                            {"label": "Inicio", "href": "/"},
-                            {"label": "Contacto", "href": "/contact"},
-                        ],
-                    },
-                ],
                 "cta_title": "Test",
                 "cta_label": "Test",
                 "whatsapp_text": "Test",

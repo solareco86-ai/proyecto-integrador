@@ -112,13 +112,14 @@ Verás la interfaz interactiva de **Swagger UI**:
 1. Haz clic en el endpoint `GET /health`.
 2. Pulsa el botón **"Try it out"** y luego **"Execute"**.
 3. Observa la respuesta HTTP con código **`200 OK`** y el cuerpo JSON devuelto por el servidor:
-   ```json
-   {
-     "status": "healthy",
-     "subestacion": "Planta Industrial Tigre",
-     "red_activa": true
-   }
-   ```
+
+```json
+{
+  "status": "healthy",
+  "subestacion": "Planta Industrial Tigre",
+  "red_activa": true
+}
+```
 
 También puedes acceder a la documentación alternativa formateada según el estándar **ReDoc** en:
 ```text

@@ -288,12 +288,13 @@ npm run lint                       # ESLint + Prettier
    ```
 
 2. **Durante cada sprint, al menos 1x al día:**
-   ```bash
-   # Escribo código...
-   git add src/
-   git commit -m "feat(domain): agregar validación de email"
-   git push    # Pre-push hook valida automáticamente
-   ```
+
+```bash
+# Escribo código...
+git add src/
+git commit -m "feat(domain): agregar validación de email"
+git push    # Pre-push hook valida automáticamente
+```
 
 3. **Al terminar feature (crear PR):**
    ```bash

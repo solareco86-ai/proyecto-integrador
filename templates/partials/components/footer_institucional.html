@@ -1,0 +1,30 @@
+{# Pie del sistema institucional (docs/rediseno).
+   Los enlaces salen de content.navbar.links: no se repite acá ninguna lista. #}
+{% macro footer_institucional(brand, legal_text, links) %}
+<footer class="pie" role="contentinfo">
+    <div class="marco rejilla">
+        <div class="col-1-6">
+            <a class="marca" href="/">
+                <img src="/static/media/logo-isft199.webp" alt="" width="44" height="44">
+                <span><span class="marca__n">{{ brand.brandName }}</span></span>
+            </a>
+            <p class="pie__descripcion">{{ brand.footerDescription }}</p>
+            <p class="pie__descripcion">{{ brand.baseOperativa }}</p>
+        </div>
+
+        <nav class="col-7-12" aria-label="Pie">
+            <h2>Secciones</h2>
+            <ul class="pie__enlaces">
+                {% for link in links %}
+                <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        <div class="col-1-12 pie__legal">
+            <span>{{ legal_text }}</span>
+            <span>© {{ year }} {{ brand.brandName }}</span>
+        </div>
+    </div>
+</footer>
+{% endmacro %}

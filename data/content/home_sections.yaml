@@ -341,6 +341,23 @@ cookie_banner:
   text: Usamos cookies propias y técnicas para mejorar la experiencia de navegación
     institucional.
   title: Política de Cookies
+error_404:
+  description: El recurso buscado fue reubicado o no está disponible. Estos accesos te
+    llevan a la información institucional del ISFT N° 199.
+  links_title: 'Accesos rápidos:'
+  links:
+    - label: Carreras y Tecnicaturas
+      href: /carreras
+      icon: bi-mortarboard-fill
+    - label: Campus Virtual
+      href: /cursos
+      icon: bi-journal-code
+    - label: Requisitos de ingreso
+      href: /inscripciones
+      icon: bi-card-checklist
+    - label: Contacto y Consultas
+      href: /contact
+      icon: bi-envelope-fill
 assistance_modes:
   presencial:
     description: Clases teórico-prácticas y laboratorios presenciales en sede El Talar
@@ -352,3 +369,67 @@ assistance_modes:
       de código abiertos.
     icon: laptop
     label: Campus Virtual
+# Bloque de admisión que encabeza la portada rediseñada.
+#
+# `estado` y `cierre` quedan deliberadamente sin completar: mientras Secretaría
+# no comunique un período oficial de preinscripción, el sitio no publica fechas
+# ni cuentas regresivas (AGENTS.md, secciones 3 y 7.5). Al completarlos, la
+# portada muestra el estado y los días restantes sin tocar la plantilla.
+admision:
+  titular: Siete tecnicaturas superiores, públicas y gratuitas.
+  bajada: Títulos oficiales con validez nacional, cursada vespertina de 18:00 a
+    22:30 y tres años de duración. No se cobra matrícula, cuota ni arancel de
+    ningún tipo.
+  requisitos_titulo: Qué necesitás para inscribirte
+  requisitos:
+  - text: Título secundario completo o constancia de título en trámite
+  - text: Fotocopia de DNI
+  - text: Analítico del secundario
+  - text: Partida de nacimiento
+  - text: Certificado de aptitud psicofísica
+  - text: Dos fotos 4×4
+  cifras:
+  - title: 7 tecnicaturas
+    text: Oferta vigente
+  - title: 3 años
+    text: Duración
+  - title: $0 · Gratuita
+    text: Arancel
+  - title: Validez nacional
+    text: Título
+  pasos_eyebrow: Cómo se ingresa
+  pasos:
+  - title: Consultá o preinscribite
+    text: Completá el formulario en línea, escribinos por WhatsApp o acercate
+      directamente a Secretaría. No hace falta documentación en este paso.
+  - title: Reuní la documentación
+    text: Es la lista de requisitos de ingreso. Si todavía adeudás materias del
+      secundario, podés presentar la constancia de título en trámite.
+  - title: Presentá el legajo en Secretaría
+    text: Se recibe de lunes a viernes de 19:00 a 22:30 en la sede donde se dicta
+      la carrera que elegiste.
+  nota:
+  - El ISFT N° 199 no cobra matrícula, cuota mensual ni arancel de examen. Si
+    alguien te pide un pago para ingresar, no es del instituto.
+  - No hay examen de admisión.
+# Sedes del instituto. Los domicilios son los que ya publicaba la portada; se
+# trasladan tal cual desde templates/index.html, donde estaban hardcodeados en
+# contra de la regla de desacoplamiento de contenido (AGENTS.md, secciones 2b y 3).
+# Pendiente de confirmación en Secretaría: el domicilio de Los Troncos, la sede
+# de Virreyes y la vigencia del anexo de Vicente López (ver docs/rediseno/README.md).
+sedes:
+- nombre: Sede Central
+  direccion:
+  - Maestra Celina Voena 1750
+  - El Talar – Tigre
+  - Provincia de Buenos Aires
+- nombre: Sede Los Troncos
+  direccion:
+  - Alte. Brown 739
+  - Los Troncos del Talar – Tigre
+  - Provincia de Buenos Aires
+- nombre: Anexo Vicente López
+  direccion:
+  - Cerrito 3966
+  - Vicente López
+  - Provincia de Buenos Aires

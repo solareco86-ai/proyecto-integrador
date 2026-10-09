@@ -99,12 +99,13 @@ reglas, no las tarjetas y las sombras.
 | Decisión | Fundamento |
 |---|---|
 | Base de papel cálido (`#F6F3EC`) en lugar de gris azulado | Separa la identidad del molde "producto tecnológico" |
-| Sin degradados ni sombras; borde de 1px y radio de 2px | La jerarquía queda a cargo de la tipografía |
-| **Archivo** para títulos e interfaz | Tipografía de Omnibus-Type, fundidora de Buenos Aires |
-| **Source Serif 4** para texto extenso | Registro de documento académico |
-| **IBM Plex Mono** para datos | Resoluciones, legajos, fechas y notas con cifras tabulares |
+| Sin degradados; escala de radio de 4, 8 y 14px | Lo justo para no parecer un formulario impreso, lo poco para no parecer una tarjeta de SaaS |
+| Sombras teñidas de marrón, nunca de negro | Una sombra negra sobre base cálida la ensucia y la vuelve gris |
+| **Source Serif 4** para titulares y texto extenso | Registro de documento académico; además, la sans es el molde de todo sitio generado |
+| **Archivo** para interfaz, navegación y tablas | Refuerza la distinción entre el sitio que informa y la herramienta que gestiona |
+| **IBM Plex Mono** solo para datos | Resoluciones, legajos, fechas y notas con cifras tabulares. Nunca para etiquetas |
 | Verde y oro del escudo, planos y escasos | Color institucional como señal, no como decoración |
-| Marcadores de sección numerados sobre una regla | Reemplazan la pastilla centrada de color |
+| Marcadores de sección numerados sobre una regla clara | Reemplazan la pastilla centrada de color |
 | Listas y tablas en lugar de grillas de tarjetas | Siete carreras con atributos comunes son una tabla |
 
 Los tokens están en [prototipo/css/sistema.css](prototipo/css/sistema.css), con
@@ -125,6 +126,29 @@ tema claro y oscuro completos.
    contenido cargados en `data/content/carreras.yaml` y aclara que el plan
    completo lo fija la resolución correspondiente, en cumplimiento de la regla de
    veracidad académica de [AGENTS.md](../../AGENTS.md) (sección 7.5).
+6. **La sede aparece junto a cada carrera.** El instituto dicta en tres sedes y
+   cada tecnicatura se cursa en una sola: es un dato que condiciona la decisión
+   tanto como el plan de estudios, y hoy el sitio no lo dice en ninguna parte.
+
+### 2.3 Sedes y distribución de la oferta
+
+| Sede | Domicilio | Carreras que se dictan |
+|---|---|---|
+| **El Talar** | Maestra Celina Voena 1750, El Talar, Partido de Tigre | Logística · Higiene y Seguridad · Turismo · Hotelería |
+| **Los Troncos** | Libertador Gral. San Martín 436, esquina Alte. Brown, Los Troncos del Talar, Partido de Tigre | Ciencia de Datos e IA · Administración de Recursos Humanos |
+| **Virreyes** | *Pendiente de confirmación*, Virreyes, Partido de San Fernando | Mecatrónica |
+
+Dato aportado por la cátedra en octubre de 2026. **Dos discrepancias con el
+contenido publicado**, a resolver antes de migrar:
+
+- El sitio actual publica Los Troncos en **Alte. Brown 739**; el dato aportado es
+  **Libertador Gral. San Martín 436, esquina Alte. Brown**. El prototipo usa el
+  segundo.
+- El sitio actual publica un **Anexo Vicente López** (Cerrito 3966) que no figura
+  en la distribución aportada. El prototipo no lo incluye.
+
+Al tratarse de domicilios oficiales, ninguno de los dos puntos se lleva a
+`data/` sin confirmación de Secretaría.
 
 ---
 
@@ -163,12 +187,67 @@ del prototipo, el README y los documentos públicos coincidan con `carreras.yaml
 
 ---
 
-## 4. Trabajo pendiente
+## 4. Guía de fotografía
 
-- [ ] Ajuste de la dirección visual. La estructura está aprobada; el acabado
-      gráfico está en revisión.
-- [ ] Migración del sistema a las plantillas Jinja y a Tailwind v4 con prefijo
-      `tw:`, una vez cerrado el punto anterior.
+El sitio no tiene una sola fotografía, y eso explica buena parte de por qué se
+lee como un documento y no como el lugar donde se estudia. El prototipo reserva
+cinco espacios con el encuadre y la proporción ya definidos: cuando lleguen las
+fotos solo se reemplaza el contenido del marco.
+
+### Reglas comunes a todas
+
+- **Horizontal, salvo donde se indique.** Una foto vertical no entra en los
+  marcos anchos y obliga a recortar lo importante.
+- **Al anochecer, entre las 18:00 y las 20:00.** La cursada es vespertina: las
+  ventanas iluminadas sobre cielo todavía azul son la imagen más honesta del
+  instituto y la más favorecedora. Es la llamada «hora azul» y dura unos 25
+  minutos, así que conviene llegar antes y esperar.
+- **Luz disponible, sin flash directo.** El flash del teléfono aplana todo y
+  produce el aspecto de foto de trámite.
+- **Encuadrar más amplio de lo necesario.** Después se recorta; agregar no se
+  puede. Mínimo 2400px de ancho.
+- **Cuidado con las personas.** Si se ven caras identificables hace falta
+  consentimiento por escrito. Lo más simple es fotografiar de espaldas, manos
+  trabajando, o planos donde la gente aparezca de lejos o desenfocada.
+- **Nada de posar.** Que la gente esté haciendo lo que hace. Una clase mirando a
+  cámara se nota, y se nota mal.
+
+### Las cinco tomas
+
+| # | Dónde va | Proporción | Qué fotografiar |
+|---|---|---|---|
+| 1 | Portada, banda bajo el titular | 21:8 (muy apaisada) | **Fachada del instituto al anochecer.** Plano general con las aulas iluminadas y, si se puede, gente entrando. Es la primera imagen del sitio y la que más pesa. Pararse enfrente, cruzando la calle, para que entre el edificio completo. |
+| 2 | Las sedes, columna 1 | 4:3 | **Frente de la sede El Talar**, con el cartel institucional visible. |
+| 3 | Las sedes, columna 2 | 4:3 | **Frente de la sede Los Troncos.** Mismo encuadre y misma distancia que la anterior. |
+| 4 | Las sedes, columna 3 | 4:3 | **Frente de la sede Virreyes.** Mismo encuadre que las otras dos. |
+| 5 | Detalle de carrera, bajo el titular | 16:9 | **Un aula o laboratorio de esa carrera en uso.** Una foto distinta por tecnicatura: la sala de informática con las máquinas encendidas para Ciencia de Datos, el laboratorio con los PLC para Mecatrónica, y así. |
+
+Las tres fotos de sede (2, 3 y 4) **tienen que estar tomadas igual**: misma
+distancia, misma altura y a la misma hora del día. Van una al lado de la otra y
+cualquier diferencia de encuadre o de luz se nota de inmediato y desprolija la
+fila. Lo más práctico es hacer las tres el mismo día.
+
+Formato: JPEG o WebP, el original sin recortar. El recorte a cada proporción se
+hace después, en el proyecto.
+
+---
+
+## 5. Trabajo pendiente
+
+- [x] Ajuste de la dirección visual sobre la estructura aprobada.
+- [ ] **Fotografía institucional**: las cinco tomas de la sección 4. Los espacios
+      ya están reservados en el prototipo.
+- [ ] **Confirmar en Secretaría** el domicilio de Los Troncos, la dirección de
+      Virreyes y la vigencia del anexo de Vicente López (sección 2.3).
+- [x] **Migración de la portada** a las plantillas Jinja, con el sistema servido
+      desde `static/css/sistema.css` y las tipografías autoalojadas en
+      `static/fonts/`. La portada sale del shell heredado mediante los bloques
+      `shell_class` / `main_class` de `base.html`.
+- [ ] Migrar el resto de las páginas: listado y detalle de carreras, campus,
+      páginas de error y panel. Hasta entonces conservan el sistema anterior y
+      los partials `header.html` / `footer.html`.
+- [ ] Unificar el partial de preguntas frecuentes: hoy el estilo nuevo se acota
+      con `.capa-institucional` para no afectar a `pricing.html` ni `preview.html`.
 - [ ] Unificación de las plantillas que quedaron con el tema heredado
       (hallazgo 1.1), en una rama propia.
 - [ ] Corrección de los accesos comerciales de la página 404 (hallazgo 1.2), en

@@ -113,13 +113,15 @@ Las principales herramientas del cuarteto de IA agéntica aplican esta técnica 
 ## 5. Ejercicio Práctico en la Terminal
 
 1. Navega al directorio de `energy-ml`:
-   ```bash
-   cd ~/proyectos_software/energy-ml
-   ```
+
+```bash
+cd ~/proyectos_software/energy-ml
+```
 2. Ejecuta el podador AST sobre el archivo del servicio de predicción:
-   ```bash
-   python3 scripts/prune_ast.py src/infrastructure/fastapi/routes/predict.py
-   ```
+
+```bash
+python3 scripts/prune_ast.py src/infrastructure/fastapi/routes/predict.py
+```
 3. Observa cómo un archivo de 200 líneas se sintetiza en un contrato de 30 líneas que incluye únicamente los tipos de entrada `Pydantic`, decoradores de ruta (`@router.post`) y firmas de retorno.
 
 En la próxima lección veremos cómo exponer la funcionalidad de `energy-ml` hacia los agentes mediante el protocolo estándar **Model Context Protocol (MCP)**.

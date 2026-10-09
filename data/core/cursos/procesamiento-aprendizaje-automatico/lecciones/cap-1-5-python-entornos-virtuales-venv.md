@@ -44,14 +44,17 @@ python -m venv venv
 #### Paso 3: Activar el Entorno Virtual
 La activación redirige las variables de entorno de tu terminal (`$PATH`) para que el comando `python` apunte al entorno recién creado.
 
-* **En GNU/Linux Nativo o WSL 2:**
-  ```bash
-  source venv/bin/activate
-  ```
-* **En Windows con Git Bash:**
-  ```bash
-  source venv/Scripts/activate
-  ```
+**En GNU/Linux Nativo o WSL 2:**
+
+```bash
+source venv/bin/activate
+```
+
+**En Windows con Git Bash:**
+
+```bash
+source venv/Scripts/activate
+```
 
 *(Observarás que el indicador o prompt de tu terminal ahora comienza con `(venv)`, confirmando que el entorno está activo).*
 

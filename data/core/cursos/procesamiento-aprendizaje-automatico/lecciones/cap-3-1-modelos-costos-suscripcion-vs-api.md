@@ -37,7 +37,7 @@ Uno de los conceptos centrales que todo futuro profesional debe dominar es la ec
 ```
 
 ### Principio de Inclusión y Accesibilidad en el ISFT N° 199
-1. **Punto de Partida sin Tarjeta (Costo $0):** Todo estudiante comienza con **OpenCode** utilizando proveedores comunitarios o claves gratuitas de Google AI Studio / modelos locales con Ollama.
+1. **Punto de Partida sin Tarjeta (Costo $0):** Todo estudiante comienza con **OpenCode** utilizando proveedores comunitarios o modelos locales con Ollama.
 2. **Inversión Optimizada para Estudiantes ($5 USD/mes):** Aquellos que deseen modelos de frontera y capacidades de navegador utilizan **Antigravity CLI** gracias al descuento educativo de 15 USD por 12 meses sobre el plan Pro.
 3. **Control Total de Saldo:** En los capítulos posteriores aprenderemos a utilizar APIs de pago por uso (DeepSeek) cargando únicamente 2 USD prepago y aprovechando descuentos de horario valle.
 

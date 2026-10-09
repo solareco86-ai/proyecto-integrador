@@ -362,13 +362,14 @@ class Reading:
    ```
 
 3. **Integra en pre-push:**
-   ```bash
-   # .git/hooks/pre-push incluye:
-   echo "Running Constraint Gauntlet..."
-   python3 tests/test_architecture.py || exit 1
-   python3 tests/test_god_components.py --strict || exit 1
-   python3 tests/test_clean_design.py --strict || exit 1
-   ```
+
+```bash
+# .git/hooks/pre-push incluye:
+echo "Running Constraint Gauntlet..."
+python3 tests/test_architecture.py || exit 1
+python3 tests/test_god_components.py --strict || exit 1
+python3 tests/test_clean_design.py --strict || exit 1
+```
 
 ## Palabras clave
 

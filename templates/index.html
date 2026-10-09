@@ -1,182 +1,230 @@
 {% extends "base.html" %}
 {% import 'partials/head.html' as seo_macro %}
-{% import 'partials/components/header.html' as header_macro %}
-{% import 'partials/components/footer.html' as footer_macro %}
+{% import 'partials/components/header_institucional.html' as header_macro %}
+{% import 'partials/components/footer_institucional.html' as footer_macro %}
 {% import 'partials/components/faq_item.html' as faq_macro %}
-{% import 'partials/components/section_wrapper.html' as section_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
-{% import 'partials/components/icon.html' as icon_macro %}
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand) }}
-<link rel="stylesheet" href="{{ request.url_for('static', path='css/InstitucionalHome.css') }}?v={{ static_version() }}">
+<link rel="preload" href="{{ request.url_for('static', path='fonts/source-serif-4-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ request.url_for('static', path='fonts/archivo-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/sistema.css') }}?v={{ static_version() }}">
 {% endblock %}
 
+{# La portada ya no usa el shell heredado de DataMaq (fondo oscuro, CTA flotante):
+   los bloques de base.html permiten salir sin afectar al resto de las páginas,
+   que lo conservan hasta que se migren. #}
+{% block shell_class %}capa-institucional{% endblock %}
+{% block main_class %}capa-institucional__main{% endblock %}
+
 {% block header %}
-{{ header_macro.header(content.navbar.links) }}
+{{ header_macro.header_institucional(content.navbar.links, brand) }}
 {% endblock %}
 
 {% block main_content %}
-<div class="c-inst-home">
+{% set admision = content.admision %}
 
-    {# ============ HERO INSTITUCIONAL ============ #}
-    <section class="c-inst-hero" aria-labelledby="hero-title">
-        <div class="c-inst-container c-inst-hero__grid">
-            <div>
-                <span class="c-inst-hero__badge">{{ content.hero.badge }}</span>
-                <h1 id="hero-title" class="c-inst-hero__title">{{ content.hero.title }}</h1>
-                <p class="c-inst-hero__subtitle">El Instituto Superior de Formación Técnica N° 199 ofrece tecnicaturas superiores oficiales, públicas y 100% gratuitas en El Talar, Tigre, con títulos de validez nacional y formación orientada al ámbito laboral.</p>
-                <div class="c-inst-hero__actions">
-                    <a href="{{ content.hero.primaryCta.href }}" class="c-inst-btn c-inst-btn--primary">{{ content.hero.primaryCta.label }}</a>
-                    {% if content.hero.secondaryCta %}
-                    <a href="{{ content.hero.secondaryCta.href }}" class="c-inst-btn c-inst-btn--outline">{{ content.hero.secondaryCta.label }}</a>
+{# ============ ESTADO DE ADMISIÓN (reemplaza al hero decorativo) ============
+   El titular y la bajada salen de data/content/home_sections.yaml. El estado y
+   la fecha de cierre solo se renderizan si Secretaría cargó un plazo oficial:
+   mientras no exista, la portada no publica plazos.
+   El <h1> se renderiza siempre, incluso con un ContenidoModel mínimo sin bloque
+   de admisión: la página no puede quedarse sin encabezado principal. #}
+<section class="admision" aria-labelledby="titulo-admision">
+    <div class="marco rejilla">
+        <div class="col-1-8">
+            {% if admision and admision.estado %}
+            <p class="admision__estado">{{ admision.estado }}</p>
+            {% endif %}
+            <h1 id="titulo-admision" class="titular-mayor">{{ admision.titular if admision else content.hero.title }}</h1>
+            <p class="admision__bajada">{{ admision.bajada if admision else content.hero.subtitle }}</p>
+            <div class="admision__acciones">
+                <a class="boton boton--solido" href="{{ content.hero.primaryCta.href }}">{{ content.hero.primaryCta.label }}</a>
+                <a class="boton" href="{{ content.hero.secondaryCta.href }}">{{ content.hero.secondaryCta.label }}</a>
+            </div>
+        </div>
+
+        {% if admision %}
+        <aside class="col-9-12">
+            <div class="contador">
+                <p class="contador__cab">{{ admision.requisitos_titulo }}</p>
+                <div class="contador__cuerpo">
+                    {% if admision.cierre %}
+                    <p class="contador__n">{{ admision.cierre.fecha_texto }}</p>
+                    <p class="contador__u">Cierre de la preinscripción</p>
                     {% endif %}
+                    <ul class="requisitos">
+                        {% for requisito in admision.requisitos %}
+                        <li>{{ requisito.text }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <p class="c-inst-hero__note">{{ content.hero.responseNote }}</p>
             </div>
-            <div class="c-inst-hero__media">
-                <img src="{{ request.url_for('static', path=content.hero.image.src.replace('/static/', '')) }}" alt="{{ content.hero.image.alt }}" width="420" loading="eager" decoding="async">
-            </div>
-        </div>
-    </section>
+        </aside>
+        {% endif %}
+    </div>
+</section>
 
-    {# ============ NUESTRAS CARRERAS (sección principal, mayor jerarquía) ============ #}
-    {# El ancla id="estudiantes" se conserva acá: el submenú "Estudiantes" del header
-       (/#estudiantes) enlazaba antes a un bloque de tarjetas redundante (Campus Virtual,
-       Carreras, Contacto, FAQ) cuyos accesos ya existen en el propio header. Se fusionó
-       esa sección; el ancla sigue funcionando y lleva a la oferta académica. #}
-    {% set carreras_home = [
-        {'nombre': 'Tecnicatura Superior en Turismo', 'href': '/carreras/turismo'},
-        {'nombre': 'Tecnicatura Superior en Hotelería', 'href': '/carreras/hoteleria'},
-        {'nombre': 'Tecnicatura Superior en Logística', 'href': '/carreras/logistica'},
-        {'nombre': 'Tecnicatura Superior en Higiene y Seguridad en el Trabajo', 'href': '/carreras/higiene-y-seguridad'},
-        {'nombre': 'Tecnicatura Superior en Administración de los Recursos Humanos', 'href': '/carreras/recursos-humanos'},
-        {'nombre': 'Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial', 'href': '/carreras/ciencia-de-datos-ia'},
-        {'nombre': 'Tecnicatura Superior en Energía Eléctrica', 'href': '/carreras'},
-    ] %}
-    <section class="c-inst-section c-inst-section--carreras-featured" id="estudiantes" aria-labelledby="carreras-title">
-        <div class="c-inst-container">
-            <div class="c-inst-head--center">
-                <span class="c-inst-eyebrow">Oferta académica</span>
-                <h2 id="carreras-title" class="c-inst-title c-inst-title--featured">Nuestras carreras</h2>
-                <p class="c-inst-subtitle">Tecnicaturas superiores públicas y gratuitas, con título oficial de validez nacional. Elegí la tuya para ver el plan de estudios completo.</p>
+{# ============ CIFRAS INSTITUCIONALES ============ #}
+{% if admision %}
+<section class="marco seccion--ajustada">
+    <dl class="cifras">
+        {% for cifra in admision.cifras %}
+        <div>
+            <dt>{{ cifra.text }}</dt>
+            <dd>{{ cifra.title }}</dd>
+        </div>
+        {% endfor %}
+    </dl>
+</section>
+{% endif %}
+
+{# ============ OFERTA ACADÉMICA ============
+   El ancla id="estudiantes" la usa el submenú del header y se conserva.
+   Las carreras salen del DataService: ya no hay lista hardcodeada acá. #}
+<section class="seccion marco" id="estudiantes" aria-labelledby="titulo-carreras">
+    <div class="marcador">
+        <span class="marcador__n">01</span>
+        <span class="marcador__t" id="titulo-carreras">Oferta académica</span>
+        <span class="marcador__extra">Resoluciones DGCyE vigentes</span>
+    </div>
+
+    <div class="carreras">
+        {% for carrera in carreras %}
+        <article class="carrera">
+            <div>
+                <h2 class="carrera__t"><a href="/carreras/{{ carrera.slug }}">{{ carrera.title }}</a></h2>
+                <p class="carrera__meta">
+                    {% if carrera.resolucion %}<span>{{ carrera.resolucion }}</span>{% endif %}
+                    <span>{{ carrera.duracion }}</span>
+                    {% if carrera.badge %}<b>{{ carrera.badge }}</b>{% endif %}
+                </p>
             </div>
-            <div class="c-inst-grid c-inst-grid--4">
-                {% for carrera in carreras_home %}
-                <a href="{{ carrera.href }}" class="c-inst-card c-inst-carrera-card">
-                    <span class="c-inst-carrera-card__icon">{{ icon_macro.bootstrap_icon('check2-circle') }}</span>
-                    <h3 class="c-inst-card__title">{{ carrera.nombre }}</h3>
-                    <span class="c-inst-card__cta">Ver carrera →</span>
-                </a>
+            <p class="carrera__d">{{ carrera.description_short }}</p>
+            <span class="carrera__ir">Ver plan →</span>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+{# ============ CÓMO SE INGRESA ============ #}
+{% if admision %}
+<section class="seccion marco" aria-labelledby="titulo-ingreso">
+    <div class="marcador">
+        <span class="marcador__n">02</span>
+        <span class="marcador__t" id="titulo-ingreso">{{ admision.pasos_eyebrow }}</span>
+    </div>
+
+    <div class="rejilla">
+        <div class="col-1-8">
+            <ol class="pasos pasos--tres">
+                {% for paso in admision.pasos %}
+                <li>
+                    <h3>{{ paso.title }}</h3>
+                    <p>{{ paso.text }}</p>
+                </li>
                 {% endfor %}
-            </div>
+            </ol>
         </div>
-    </section>
+        <aside class="col-9-12">
+            <p class="etiqueta-dato">Importante</p>
+            {% for parrafo in admision.nota %}
+            <p class="prosa prosa--chica">{{ parrafo }}</p>
+            {% endfor %}
+        </aside>
+    </div>
+</section>
 
-    {# ============ NOTICIAS / EVENTOS / COMUNICADOS ============ #}
-    <section class="c-inst-section" aria-labelledby="contenido-destacado-title">
-        <div class="c-inst-container">
-            <div class="c-inst-head--center">
-                <span class="c-inst-eyebrow">Vida institucional</span>
-                <h2 id="contenido-destacado-title" class="c-inst-title">Noticias, eventos y comunicados</h2>
-                <p class="c-inst-subtitle">Novedades, actividades y avisos oficiales del ISFT N° 199.</p>
-            </div>
-            <div class="c-inst-grid c-inst-grid--3">
-                <a href="/noticias" class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('journal-bookmark-fill') }}</span>
-                    <h3 class="c-inst-card__title">Noticias</h3>
-                    <p class="c-inst-card__text">Novedades académicas e institucionales del instituto.</p>
-                    <span class="c-inst-card__cta">Ver noticias →</span>
-                </a>
-                <a href="/eventos" class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('journal-bookmark-fill') }}</span>
-                    <h3 class="c-inst-card__title">Eventos</h3>
-                    <p class="c-inst-card__text">Actividades, jornadas y actos institucionales próximos.</p>
-                    <span class="c-inst-card__cta">Ver eventos →</span>
-                </a>
-                <a href="/comunicados" class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('journal-bookmark-fill') }}</span>
-                    <h3 class="c-inst-card__title">Comunicados</h3>
-                    <p class="c-inst-card__text">Avisos y comunicados oficiales para la comunidad educativa.</p>
-                    <span class="c-inst-card__cta">Ver comunicados →</span>
-                </a>
-            </div>
-        </div>
-    </section>
+{% endif %}
 
-    {# ============ NUESTRAS SEDES ============ #}
-    <section class="c-inst-section c-inst-section--alt" aria-labelledby="sedes-title">
-        <div class="c-inst-container">
-            <div class="c-inst-head--center">
-                <span class="c-inst-eyebrow">Dónde estamos</span>
-                <h2 id="sedes-title" class="c-inst-title">Nuestras sedes</h2>
-            </div>
-            <div class="c-inst-grid c-inst-grid--3">
-                <div class="c-inst-card">
-                    <span class="c-inst-sede-card__icon">{{ icon_macro.bootstrap_icon('geo-alt-fill') }}</span>
-                    <h3 class="c-inst-card__title">Sede Central</h3>
-                    <p class="c-inst-card__text">Celina Voena 1750<br>El Talar – Tigre<br>Provincia de Buenos Aires</p>
-                </div>
-                <div class="c-inst-card">
-                    <span class="c-inst-sede-card__icon">{{ icon_macro.bootstrap_icon('geo-alt-fill') }}</span>
-                    <h3 class="c-inst-card__title">Sede Los Troncos</h3>
-                    <p class="c-inst-card__text">Alte. Brown 739<br>Los Troncos del Talar – Tigre<br>Provincia de Buenos Aires</p>
-                </div>
-                <div class="c-inst-card">
-                    <span class="c-inst-sede-card__icon">{{ icon_macro.bootstrap_icon('geo-alt-fill') }}</span>
-                    <h3 class="c-inst-card__title">Anexo Vicente López</h3>
-                    <p class="c-inst-card__text">Cerrito 3966<br>Vicente López<br>Provincia de Buenos Aires</p>
-                </div>
-            </div>
-        </div>
-    </section>
+{# ============ VIDA INSTITUCIONAL ============ #}
+<section class="seccion marco" aria-labelledby="titulo-vida">
+    <div class="marcador">
+        <span class="marcador__n">03</span>
+        <span class="marcador__t" id="titulo-vida">Vida institucional</span>
+    </div>
 
-    {# ============ FAQ (conserva el ancla real /#faq) ============ #}
-    {% call section_macro.section_wrapper('faq', content.faq.title, content.faq.eyebrow, None, 'c-home-faq') %}
-    <div class="c-home-faq__stack">
+    <div class="carreras">
+        <article class="carrera">
+            <div><h3 class="carrera__t"><a href="/noticias">Noticias</a></h3></div>
+            <p class="carrera__d">Novedades académicas e institucionales del instituto.</p>
+            <span class="carrera__ir">Ver noticias →</span>
+        </article>
+        <article class="carrera">
+            <div><h3 class="carrera__t"><a href="/eventos">Eventos</a></h3></div>
+            <p class="carrera__d">Actividades, jornadas y actos institucionales próximos.</p>
+            <span class="carrera__ir">Ver eventos →</span>
+        </article>
+        <article class="carrera">
+            <div><h3 class="carrera__t"><a href="/comunicados">Comunicados</a></h3></div>
+            <p class="carrera__d">Avisos y comunicados oficiales para la comunidad educativa.</p>
+            <span class="carrera__ir">Ver comunicados →</span>
+        </article>
+    </div>
+</section>
+
+{# ============ SEDES ============
+   Los domicilios viven en data/content/home_sections.yaml desde esta migración;
+   antes estaban escritos acá, contra la regla de desacoplamiento de contenido. #}
+<section class="seccion marco" aria-labelledby="titulo-sedes">
+    <div class="marcador">
+        <span class="marcador__n">04</span>
+        <span class="marcador__t" id="titulo-sedes">Dónde se cursa</span>
+    </div>
+
+    <ul class="sedes">
+        {% for sede in content.sedes %}
+        <li class="sede">
+            <h3 class="sede__t">{{ sede.nombre }}</h3>
+            <p class="sede__d">
+                {% for linea in sede.direccion %}{{ linea }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+{# ============ PREGUNTAS FRECUENTES (conserva el ancla /#faq) ============ #}
+<section class="seccion marco" id="faq" aria-labelledby="titulo-faq">
+    <div class="marcador">
+        <span class="marcador__n">05</span>
+        <span class="marcador__t" id="titulo-faq">{{ content.faq.title }}</span>
+    </div>
+    <div class="col-1-8">
         {% for item in content.faq.questions %}
         {{ faq_macro.faq_item(item.question, item.answer, loop.first) }}
         {% endfor %}
     </div>
-    {% endcall %}
+</section>
 
-    {# ============ CONTACTO RESUMIDO (conserva /#contacto; también asume el ancla
-       id="ingreso" que antes llevaba a la sección "Ingresantes" con el CTA "Quiero
-       información" → /contact, para no romper el botón secundario del hero ni el
-       submenú "Estudiantes" del header. El formulario multi-paso completo, con su
-       lógica y validación intactas, sigue viviendo exclusivamente en /contact). #}
-    <section class="c-inst-section c-inst-section--alt" id="contacto" aria-labelledby="contacto-resumen-title">
-        <div class="c-inst-container">
-            <span id="ingreso" aria-hidden="true"></span>
-            <div class="c-inst-head--center">
-                <span class="c-inst-eyebrow">Contacto</span>
-                <h2 id="contacto-resumen-title" class="c-inst-title">{{ content.contact.title }}</h2>
-                <p class="c-inst-subtitle">{{ content.contact.subtitle }}</p>
-            </div>
-            <div class="c-inst-grid c-inst-grid--3">
-                <div class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('telephone-forward-fill') }}</span>
-                    <h3 class="c-inst-card__title">Atención telefónica</h3>
-                    <p class="c-inst-card__text">11 4736-0013<br>Lunes a viernes de 19:00 a 22:30 hs.</p>
-                </div>
-                <div class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('envelope-fill') }}</span>
-                    <h3 class="c-inst-card__title">Correo institucional</h3>
-                    <p class="c-inst-card__text">{{ brand.contactEmail }}</p>
-                </div>
-                <div class="c-inst-card">
-                    <span class="c-inst-card__icon">{{ icon_macro.bootstrap_icon('geo-alt-fill') }}</span>
-                    <h3 class="c-inst-card__title">Sede Central</h3>
-                    <p class="c-inst-card__text">{{ brand.baseOperativa }}</p>
-                </div>
-            </div>
-            <div class="c-inst-head--center" style="margin-top:2rem;">
-                <a href="/contact" class="c-inst-btn c-inst-btn--solid-green">Ir al formulario de contacto</a>
+{# ============ CONTACTO (conserva /#contacto y el ancla id="ingreso" del hero) ============ #}
+<section class="seccion marco" id="contacto" aria-labelledby="titulo-contacto">
+    <span id="ingreso" aria-hidden="true"></span>
+    <div class="marcador">
+        <span class="marcador__n">06</span>
+        <span class="marcador__t" id="titulo-contacto">Contacto</span>
+    </div>
+
+    <div class="rejilla">
+        <div class="col-1-6">
+            <h2 class="titular">{{ content.contact.title }}</h2>
+            <p class="prosa">{{ content.contact.subtitle }}</p>
+            <div class="admision__acciones">
+                <a class="boton boton--solido" href="/contact">Ir al formulario de contacto</a>
             </div>
         </div>
-    </section>
-
-</div>
+        <div class="col-7-12">
+            <dl class="ficha">
+                <div class="ficha__fila"><dt>Horario de cursada</dt><dd>Lunes a viernes, 18:00 a 22:30</dd></div>
+                <div class="ficha__fila"><dt>Secretaría</dt><dd>Lunes a viernes, 19:00 a 22:30</dd></div>
+                <div class="ficha__fila"><dt>Teléfono</dt><dd class="dato">11 4736-0013</dd></div>
+                <div class="ficha__fila"><dt>Correo</dt><dd class="dato">{{ brand.contactEmail }}</dd></div>
+                <div class="ficha__fila"><dt>Sede central</dt><dd>{{ brand.baseOperativa }}</dd></div>
+            </dl>
+        </div>
+    </div>
+</section>
 
 <script type="application/ld+json">
 {
@@ -219,7 +267,7 @@
 {% endblock %}
 
 {% block footer %}
-{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
+{{ footer_macro.footer_institucional(brand, content.legal.text, content.navbar.links) }}
 {% endblock %}
 
 {% block cookie_banner %}

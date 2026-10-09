@@ -3,7 +3,6 @@
 from pydantic import BaseModel, Field
 
 from src.application.dtos.lead_dto import ContactModel
-from src.application.dtos.seo_dto import SeoModel
 
 
 class PhotoModel(BaseModel):
@@ -115,6 +114,52 @@ class ProfileModel(BaseModel):
     cta_href: str | None = None
 
 
+class RequisitoIngresoModel(BaseModel):
+    """Un ítem de la documentación exigida para el legajo de ingreso."""
+
+    text: str
+
+
+class PasoIngresoModel(BaseModel):
+    """Un paso del circuito administrativo de ingreso."""
+
+    title: str
+    text: str
+
+
+class CierreInscripcionModel(BaseModel):
+    """Plazo de cierre de la preinscripción.
+
+    Opcional a propósito: mientras Secretaría no comunique una fecha oficial, el
+    bloque de admisión se renderiza sin cuenta regresiva (`AGENTS.md`, 7.5).
+    """
+
+    fecha_iso: str
+    fecha_texto: str
+
+
+class AdmisionModel(BaseModel):
+    """Bloque de estado de admisión que encabeza la portada."""
+
+    titular: str
+    bajada: str
+    estado: str | None = None
+    cierre: CierreInscripcionModel | None = None
+    requisitos_titulo: str
+    requisitos: list[RequisitoIngresoModel]
+    cifras: list[BenefitModel]
+    pasos_eyebrow: str
+    pasos: list[PasoIngresoModel]
+    nota: list[str] = Field(default_factory=list[str])
+
+
+class SedeModel(BaseModel):
+    """Una sede donde el instituto dicta clases."""
+
+    nombre: str
+    direccion: list[str]
+
+
 class ProofStripItemModel(BaseModel):
     label: str | None = None
     text: str
@@ -180,6 +225,18 @@ class CookieBannerModel(BaseModel):
     more_info_link: str
 
 
+class ErrorLinkModel(BaseModel):
+    label: str
+    href: str
+    icon: str
+
+
+class Error404Model(BaseModel):
+    description: str
+    links_title: str
+    links: list[ErrorLinkModel]
+
+
 class LegalSectionModel(BaseModel):
     title: str
     paragraphs: list[str]
@@ -243,25 +300,26 @@ class ContentModel(BaseModel):
     legal: LegalModel
     contact: ContactModel
     cookie_banner: CookieBannerModel
+    error_404: Error404Model
     assistance_modes: dict[str, AssistanceModeModel]
     courses: CoursesHeroModel
     cases: CasesHeroModel
     guias: GuiasHeroModel | None = None
     process: ProcessModel
+    admision: AdmisionModel | None = None
+    sedes: list[SedeModel] = Field(default_factory=list[SedeModel])
 
 
-class FooterLinkModel(BaseModel):
-    label: str
-    href: str
-
-
-class FooterGroupModel(BaseModel):
+class SeoModel(BaseModel):
     title: str
-    links: list[FooterLinkModel]
+    cta: str | None = None
+    description: str
+    canonical_url: str
+    site_name: str
+    og_image: str
 
 
 class FooterModel(BaseModel):
-    navigation_groups: list[FooterGroupModel]
     cta_title: str
     cta_label: str
     whatsapp_text: str | None = None
@@ -317,52 +375,6 @@ class GuiaModel(BaseModel):
 
 class GuiasContainerModel(BaseModel):
     guias: list[GuiaModel]
-
-
-class LandingBenefitModel(BaseModel):
-    title: str
-    text: str
-
-
-class LandingCalculatorModel(BaseModel):
-    title: str
-    subtitle: str
-    default_kw: float = 50.0
-    default_cos_phi: float = 0.78
-    target_cos_phi: float = 0.96
-    help_text: str | None = None
-
-
-class LandingFormModel(BaseModel):
-    title: str
-    subtitle: str
-    cta_button: str = "Solicitar Diagnóstico Express"
-
-
-class LandingProofItemModel(BaseModel):
-    title: str
-    description: str
-
-
-class LandingCampaignModel(BaseModel):
-    slug: str
-    badge: str
-    hero_title: str
-    hero_subtitle: str
-    primary_cta_label: str
-    primary_cta_whatsapp_text: str
-    secondary_cta_label: str | None = None
-    secondary_cta_href: str | None = None
-    benefits: list[LandingBenefitModel]
-    calculator: LandingCalculatorModel | None = None
-    form: LandingFormModel | None = None
-    proof_items: list[LandingProofItemModel] = Field(default_factory=list[LandingProofItemModel])
-    faqs: list[FaqItemModel] = Field(default_factory=list[FaqItemModel])
-
-
-class LandingCampaignsContainerModel(BaseModel):
-    calidad_energia: LandingCampaignModel
-    telemetria_industrial: LandingCampaignModel
 
 
 class CarreraModel(BaseModel):

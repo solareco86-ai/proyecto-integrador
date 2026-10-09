@@ -134,13 +134,14 @@ def calcular_distancias_alucinado(X_historico, x_nuevo):
 **Diagnóstico del Revisor Humano:**
 1. **Pérdida de Vectorización:** El código destruye el beneficio de NumPy implementando dos bucles anidados en Python interpretado, ralentizando la inferencia hasta 500 veces.
 2. **Corrección Idiomática Vectorizada ($0 bucles):**
-   ```python
-   def calcular_distancias_vectorizado(
-       X_historico: np.ndarray, x_nuevo: np.ndarray
-   ) -> np.ndarray:
-       # Broadcasting de la resta, elevación al cuadrado y suma por fila (axis=1)
-       return np.linalg.norm(X_historico - x_nuevo, axis=1)
-   ```
+
+```python
+def calcular_distancias_vectorizado(
+    X_historico: np.ndarray, x_nuevo: np.ndarray
+) -> np.ndarray:
+    # Broadcasting de la resta, elevación al cuadrado y suma por fila (axis=1)
+    return np.linalg.norm(X_historico - x_nuevo, axis=1)
+```
 
 ---
 

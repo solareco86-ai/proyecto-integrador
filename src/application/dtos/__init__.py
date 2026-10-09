@@ -17,20 +17,12 @@ from src.application.dtos.content_dto import (
     CtaModel,
     FaqItemModel,
     FaqModel,
-    FooterGroupModel,
-    FooterLinkModel,
     FooterModel,
     GuiaModel,
     GuiasContainerModel,
     GuiasHeroModel,
     HeroModel,
     IndustriaModel,
-    LandingBenefitModel,
-    LandingCalculatorModel,
-    LandingCampaignModel,
-    LandingCampaignsContainerModel,
-    LandingFormModel,
-    LandingProofItemModel,
     LegalModel,
     LegalPageModel,
     LegalPagesModel,
@@ -44,6 +36,7 @@ from src.application.dtos.content_dto import (
     ProfileModel,
     ProofStripItemModel,
     ProofStripModel,
+    SeoModel,
     ServiceCardModel,
     ServicesModel,
     TechnicianModel,
@@ -76,11 +69,6 @@ from src.application.dtos.pricing_dto import (
     ItemDescuentoDTO,
     PresupuestoCalculadoDTO,
     SubitemPresupuestoDTO,
-)
-from src.application.dtos.seo_dto import (
-    LandingContentItemModel,
-    LandingContentModel,
-    SeoModel,
 )
 
 __all__ = [
@@ -120,8 +108,6 @@ __all__ = [
     "CoursesHeroModel",
     "CasesHeroModel",
     "ContentModel",
-    "FooterLinkModel",
-    "FooterGroupModel",
     "FooterModel",
     "ContenidoModel",
     "IndustriaModel",
@@ -130,12 +116,6 @@ __all__ = [
     "GuiasHeroModel",
     "GuiaModel",
     "GuiasContainerModel",
-    "LandingBenefitModel",
-    "LandingCalculatorModel",
-    "LandingFormModel",
-    "LandingProofItemModel",
-    "LandingCampaignModel",
-    "LandingCampaignsContainerModel",
     # Leads & Contact
     "OptionModel",
     "FieldModel",
@@ -159,6 +139,4 @@ __all__ = [
     "CursoEspecificacionModel",
     # SEO
     "SeoModel",
-    "LandingContentItemModel",
-    "LandingContentModel",
 ]

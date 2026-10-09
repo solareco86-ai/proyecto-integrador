@@ -17,9 +17,6 @@ from src.application.dtos import (
     IndustriaModel,
     InstructoresContainerModel,
     InstructorModel,
-    LandingCampaignModel,
-    LandingCampaignsContainerModel,
-    LandingContentModel,
     LessonModel,
     QuizModel,
     TelemetryPlanModel,
@@ -46,10 +43,8 @@ class DataService:
         self.legal_path = os.path.join(self.data_dir, "content", "legal.yaml")
         self.carreras_path = os.path.join(self.data_dir, "content", "carreras.yaml")
         self.planes_path = os.path.join(self.data_dir, "content", "planes.yaml")
-        self.landings_path = os.path.join(self.data_dir, "content", "landings.yaml")
 
         self.seo_path = os.path.join(self.data_dir, "seo", "seo.yaml")
-        self.landing_content_path = os.path.join(self.data_dir, "seo", "landing_content.yaml")
 
         self.geography_path = os.path.join(self.data_dir, "meta", "geografia.yaml")
         self.industry_path = os.path.join(self.data_dir, "meta", "industrias.yaml")
@@ -66,10 +61,8 @@ class DataService:
         self._cached_geografia: dict[str, Any] | None = None
         self._cached_industrias: IndustriaModel | None = None
         self._cached_cursos: CursosContainerModel | None = None
-        self._cached_landings: LandingCampaignsContainerModel | None = None
         self._cached_instructores: dict[str, InstructorModel] | None = None
         self._cached_redirects: dict[str, str] | None = None
-        self._cached_landing_content: LandingContentModel | None = None
         self._cached_casos: CasosContainerModel | None = None
         self._cached_especificaciones: dict[str, CursoEspecificacionModel] = {}
         self._cached_guias: GuiasContainerModel | None = None
@@ -101,55 +94,6 @@ class DataService:
                 "legal_pages": legal_data,
                 "footer": footer_data,
             }
-
-            # --- Generar Footer Dinámico ---
-            if "navigation_groups" not in raw_data["footer"]:
-                raw_data["footer"]["navigation_groups"] = []
-
-            # 1. Grupo de Navegación (mantener o definir por defecto)
-            nav_group: dict[str, Any] | None = None
-            for group in raw_data["footer"].get("navigation_groups", []):
-                if group.get("title") == "Navegación":
-                    nav_group = group
-                    break
-
-            if not nav_group:
-                nav_group = {
-                    "title": "Navegación",
-                    "links": [
-                        {"label": "Inicio", "href": "/"},
-                        {"label": "Casos", "href": "/casos"},
-                        {"label": "Cursos", "href": "/cursos"},
-                        {"label": "Contacto", "href": "/contact"},
-                    ],
-                }
-
-            # 2. Grupo de Cobertura dinámica
-            geografia_data = self.get_geografia()
-            cobertura_links: list[dict[str, str]] = []
-            localidades: dict[str, Any] = geografia_data.get("localidades", {})
-            for provincia_key, provincia in localidades.items():
-                for municipio_key, municipio in provincia.items():
-                    for localidad_key, nombre_localidad in municipio.items():
-                        cobertura_links.append(
-                            {
-                                "label": nombre_localidad,
-                                "href": f"/{provincia_key}/{municipio_key}/{localidad_key}.html",
-                            }
-                        )
-
-            cobertura_group: dict[str, Any] = {"title": "Cobertura", "links": cobertura_links}
-
-            # 3. Grupo de Industrias dinámica
-            industrias_data = self.get_industrias()
-            industrias_links: list[dict[str, str]] = []
-            for industria_key, nombre_industria in industrias_data.industrias.items():
-                label = nombre_industria.replace("Industria ", "")
-                industrias_links.append({"label": label, "href": f"/industria/{industria_key}.html"})
-
-            industrias_group: dict[str, Any] = {"title": "Industrias", "links": industrias_links}
-
-            raw_data["footer"]["navigation_groups"] = [nav_group, cobertura_group, industrias_group]
 
             self._cached_contenido = ContenidoModel.model_validate(raw_data)
         return self._cached_contenido
@@ -258,15 +202,6 @@ class DataService:
                         self._cached_redirects[str(k)] = str(v)
         return self._cached_redirects
 
-    def get_landing_content(self) -> LandingContentModel:
-        if self._cached_landing_content is None:
-            self._cached_landing_content = LandingContentModel()
-            if self.landing_content_path and os.path.exists(self.landing_content_path):
-                with open(self.landing_content_path, encoding="utf-8") as f:
-                    raw_data: dict[str, Any] = yaml.safe_load(f) or {}
-                self._cached_landing_content = LandingContentModel.model_validate(raw_data)
-        return self._cached_landing_content
-
     def get_casos_container(self) -> CasosContainerModel:
         if self._cached_casos is None:
             casos_list: list[CasoModel] = []
@@ -339,24 +274,6 @@ class DataService:
                 planes.append(plan_model)
             self._cached_planes = planes
         return self._cached_planes
-
-    def get_landing_campaigns(self) -> LandingCampaignsContainerModel:
-        if self._cached_landings is None:
-            if os.path.exists(self.landings_path):
-                with open(self.landings_path, encoding="utf-8") as f:
-                    raw_data: dict[str, Any] = yaml.safe_load(f) or {}
-                self._cached_landings = LandingCampaignsContainerModel.model_validate(raw_data)
-            else:
-                raise FileNotFoundError(f"No se encontró el archivo de landings en {self.landings_path}")
-        return self._cached_landings
-
-    def get_landing_campaign(self, slug: str) -> LandingCampaignModel | None:
-        campaigns = self.get_landing_campaigns()
-        if slug == "calidad-energia":
-            return campaigns.calidad_energia
-        elif slug == "telemetria-industrial":
-            return campaigns.telemetria_industrial
-        return None
 
     def get_carreras(self) -> list[CarreraModel]:
         if self._cached_carreras is None:

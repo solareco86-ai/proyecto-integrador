@@ -1196,6 +1196,23 @@
     border-color: #16a34a;
 }
 
+/* Comandos inline copiables con un clic */
+.c-lesson-body code.c-inline-copy {
+    cursor: copy;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.c-lesson-body code.c-inline-copy:hover,
+.c-lesson-body code.c-inline-copy:focus-visible {
+    background-color: rgba(var(--dm-accent-orange-rgb, 249, 115, 22), 0.18);
+    outline: 1px solid var(--dm-accent-orange);
+    outline-offset: 1px;
+}
+.c-lesson-body code.c-inline-copy.is-copied {
+    color: #ffffff;
+    background-color: #16a34a;
+    outline-color: #16a34a;
+}
+
 /* Badges e indicadores visuales de bloques de código */
 .c-code-badge {
     position: absolute;
