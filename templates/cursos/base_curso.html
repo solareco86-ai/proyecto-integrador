@@ -4,5 +4,9 @@
 {{ super() }}
 {% endblock %}
 
-{# Entorno de Cursos: Layout enfocado de aprendizaje sin footer #}
-{% block footer %}{% endblock %}
+{# Entorno de Cursos: Layout enfocado de aprendizaje sin footer completo; solo se muestra la versión desplegada #}
+{% block footer %}
+{% if commit_sha and commit_sha != 'dev' %}
+<p style="text-align: center; font-size: 0.75rem; opacity: 0.75; padding: 1rem 0;" title="Versión de despliegue">Versión de despliegue: commit {{ commit_sha }}</p>
+{% endif %}
+{% endblock %}
