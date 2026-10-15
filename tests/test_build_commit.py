@@ -25,3 +25,23 @@ def test_sin_archivo_ni_git_devuelve_dev(monkeypatch: pytest.MonkeyPatch, tmp_pa
     monkeypatch.delenv("GITHUB_SHA", raising=False)
 
     assert _get_git_commit_sha(tmp_path) == "dev"
+
+
+def test_archivo_vacio_no_impide_seguir_al_siguiente_mecanismo(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.delenv("GIT_COMMIT_SHA", raising=False)
+    monkeypatch.delenv("GITHUB_SHA", raising=False)
+    (tmp_path / ".build_commit").write_text("   \n", encoding="utf-8")
+
+    assert _get_git_commit_sha(tmp_path) == "dev"
+
+
+def test_archivo_con_bytes_invalidos_no_impide_seguir_al_siguiente_mecanismo(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.delenv("GIT_COMMIT_SHA", raising=False)
+    monkeypatch.delenv("GITHUB_SHA", raising=False)
+    (tmp_path / ".build_commit").write_bytes(b"\xff\xfe\x00\x01")
+
+    assert _get_git_commit_sha(tmp_path) == "dev"

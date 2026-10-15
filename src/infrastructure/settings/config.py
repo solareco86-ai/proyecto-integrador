@@ -125,7 +125,10 @@ def _get_git_commit_sha(root: Path = _PROJECT_ROOT) -> str:
         return sha[:7]
     build_file = root / ".build_commit"
     if build_file.is_file():
-        registrado = build_file.read_text(encoding="utf-8").strip()
+        try:
+            registrado = build_file.read_text(encoding="utf-8").strip()
+        except (OSError, UnicodeDecodeError):
+            registrado = ""
         if registrado:
             return registrado[:7]
     try:
