@@ -45,26 +45,34 @@
 /* --- 1. Tokens ----------------------------------------------------------- */
 
 :root {
-  /* Papel y tinta. Base cálida: lo primero que separa esto de un SaaS. */
-  --papel:        #F6F3EC;
-  --papel-alto:   #FFFFFF;
-  --papel-hundido:#EDE8DE;
+  /* Base: blanco y gris claro institucional, unificada con InstitucionalHome.css. */
+  --papel:        #f4f7f9;
+  --papel-alto:   #ffffff;
+  --papel-hundido:#e6ebee;
 
-  --tinta:        #1A1714;
-  --tinta-media:  #554D42;
-  --tinta-suave:  #857B6D;
+  --tinta:        #1c2a30;
+  --tinta-media:  #55676e;
+  --tinta-suave:  #7d8c92;
 
-  /* Institucional: verde del escudo, oro del laurel. Planos, sin degradados. */
+  /* Azul y celeste institucionales, reutilizados de InstitucionalHome.css
+     (--inst-azul / --inst-celeste) para no inventar códigos nuevos. */
+  --azul:         #145a94;
+  --celeste:      #1e88c7;
+
+  /* Verde del escudo: vuelve a ser verde real (se había recoloreado a azul
+     en una iteración anterior). Se usa como acento puntual —botones de
+     acción, etiquetas, tildes—, no como color dominante. */
   --verde:        #0E4A2B;
   --verde-claro:  #16734A;
-  --oro:          #A67C00;
+  --oro:          #1e88c7;
 
-  /* Señales */
+  /* Señales: se conservan rojo/verde semánticos (error/éxito), independientes
+     de la identidad institucional. */
   --alerta:       #9E3620;
   --ok:           #2F6B4F;
 
-  --linea:        #E5DFD4;
-  --linea-fuerte: #CCC3B2;
+  --linea:        #e6ebee;
+  --linea-fuerte: #d3dbe0;
 
   /* Tipografías */
   --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
@@ -91,19 +99,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-tema="claro"]) {
-    --papel:        #14120F;
-    --papel-alto:   #1C1A16;
-    --papel-hundido:#0D0C0A;
-    --tinta:        #F2EDE3;
-    --tinta-media:  #B5AC9C;
-    --tinta-suave:  #8A8173;
+    --papel:        #0a192f;
+    --papel-alto:   #112240;
+    --papel-hundido:#071326;
+    --tinta:        #f8fafc;
+    --tinta-media:  #b8c4cc;
+    --tinta-suave:  #8a98a1;
+    --azul:         #4a9fd8;
+    --celeste:      #7cc3f0;
     --verde:        #4FA87A;
     --verde-claro:  #6FC396;
-    --oro:          #D2A63C;
+    --oro:          #7cc3f0;
     --alerta:       #E0745A;
     --ok:           #6FC396;
-    --linea:        #35302A;
-    --linea-fuerte: #4E4740;
+    --linea:        #1e3a63;
+    --linea-fuerte: #2b4e7e;
     --sombra-sutil: 0 1px 2px rgba(0,0,0,.30), 0 3px 10px -2px rgba(0,0,0,.35);
     --sombra-media: 0 2px 4px rgba(0,0,0,.30), 0 10px 28px -8px rgba(0,0,0,.45);
     --sombra-alta:  0 18px 48px -16px rgba(0,0,0,.60);
@@ -111,19 +121,21 @@
 }
 
 :root[data-tema="oscuro"] {
-  --papel:        #14120F;
-  --papel-alto:   #1C1A16;
-  --papel-hundido:#0D0C0A;
-  --tinta:        #F2EDE3;
-  --tinta-media:  #B5AC9C;
-  --tinta-suave:  #8A8173;
+  --papel:        #0a192f;
+  --papel-alto:   #112240;
+  --papel-hundido:#071326;
+  --tinta:        #f8fafc;
+  --tinta-media:  #b8c4cc;
+  --tinta-suave:  #8a98a1;
+  --azul:         #4a9fd8;
+  --celeste:      #7cc3f0;
   --verde:        #4FA87A;
   --verde-claro:  #6FC396;
-  --oro:          #D2A63C;
+  --oro:          #7cc3f0;
   --alerta:       #E0745A;
   --ok:           #6FC396;
-  --linea:        #35302A;
-  --linea-fuerte: #4E4740;
+  --linea:        #1e3a63;
+  --linea-fuerte: #2b4e7e;
   --sombra-sutil: 0 1px 2px rgba(0,0,0,.30), 0 3px 10px -2px rgba(0,0,0,.35);
   --sombra-media: 0 2px 4px rgba(0,0,0,.30), 0 10px 28px -8px rgba(0,0,0,.45);
   --sombra-alta:  0 18px 48px -16px rgba(0,0,0,.60);
@@ -151,13 +163,13 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
 :focus-visible {
-  outline: 2px solid var(--verde);
+  outline: 2px solid var(--azul);
   outline-offset: 2px;
 }
 
 .salto-contenido {
   position: absolute; left: -9999px;
-  background: var(--verde); color: #fff;
+  background: var(--azul); color: #fff;
   padding: var(--e3) var(--e4); z-index: 100;
 }
 .salto-contenido:focus { left: var(--e4); top: var(--e4); }
@@ -265,8 +277,8 @@ a { color: inherit; text-decoration: none; }
 /* --- 5. Barra oficial y cabecera ---------------------------------------- */
 
 .barra-oficial {
-  background: var(--verde);
-  color: #F2EDE3;
+  background: var(--azul);
+  color: #ffffff;
   font-family: var(--dato);
   font-size: 0.7rem;
   letter-spacing: 0.06em;
@@ -561,7 +573,7 @@ a { color: inherit; text-decoration: none; }
 .carrera__ir {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--verde);
+  color: var(--azul);
   white-space: nowrap;
   opacity: 0;
   transform: translateX(-6px);
