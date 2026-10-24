@@ -38,42 +38,6 @@ carreras:
   - Ingeniero/a de Datos Junior (ETL / Pipelines)
   - Consultor/a de Business Intelligence (BI) y Analítica Predictiva
   - Especialista en Automatización Inteligente de Procesos
-- id: mecatronica
-  slug: mecatronica
-  title: Tecnicatura Superior en Mecatrónica
-  titulo_otorgado: Técnico/a Superior en Mecatrónica
-  duracion: 3 años
-  modalidad: Presencial
-  turno: Vespertino (18:00 a 22:30)
-  resolucion: Resolución DGCyE N° 5885/10
-  badge: Industria 4.0
-  icon: bi-gear-wide-connected
-  description_short: Integración multidisciplinaria de mecánica, electrónica, control
-    automático y programación para automatización de líneas industriales y sistemas
-    robóticos.
-  description_long: La carrera integra conocimientos de mecánica de precisión, electrónica
-    analógica y digital, microcontroladores y programación industrial para diseñar,
-    montar, calibrar y mantener sistemas mecatrónicos complejos, celdas robotizadas
-    y líneas de producción continuas.
-  perfil_egresado: El/la egresado/a está capacitado/a para programar autómatas programables
-    (PLCs), sistemas SCADA, brazos robóticos industriales, sensores avanzados e instrumentación
-    de procesos, garantizando la continuidad operativa y la modernización tecnológica
-    de las plantas productivas.
-  materias_destacadas:
-  - Electrónica Industrial y Circuitos
-  - Control Automático y Servomecanismos
-  - Programación de PLCs y Sistemas SCADA
-  - Robótica Industrial y Cinemática
-  - Neumática, Hidráulica y Electroneumática
-  - Microcontroladores y Sistemas Embebidos
-  - Instrumentación y Sensores Industriales
-  - Mantenimiento de Sistemas Mecatrónicos
-  salida_laboral:
-  - Programador/a de PLCs y Sistemas de Automatización
-  - Técnico/a de Mantenimiento Electromecánico y Robótica
-  - Integrador/a de Celdas de Manufactura Automatizada
-  - Instrumentista Industrial y Calibrador de Sensores
-  - Supervisor/a de Líneas de Producción Automatizadas
 - id: logistica
   slug: logistica
   title: Tecnicatura Superior en Logística
@@ -81,7 +45,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
-  resolucion: Resolución DGCyE N° 1243/19
+  resolucion: Resolución DGCyE N° 5312/24
   badge: Estratégica en Tigre
   icon: bi-truck
   description_short: Gestión integral de la cadena de suministro, almacenamiento,
@@ -117,7 +81,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
-  resolucion: Resolución DGCyE N° 320/13
+  resolucion: Resolución DGCyE N° 6183/25
   badge: Matrícula Habilitante
   icon: bi-shield-check
   description_short: Prevención de riesgos laborales, auditoría de condiciones ambientales,
@@ -151,7 +115,7 @@ carreras:
   duracion: 3 años
   modalidad: Presencial
   turno: Vespertino (18:00 a 22:30)
-  resolucion: Resolución DGCyE N° 276/03
+  resolucion: Resolución DGCyE N° 5311/24
   badge: Gestión & Personas
   icon: bi-people
   description_short: Gestión del talento humano, relaciones laborales, liquidación

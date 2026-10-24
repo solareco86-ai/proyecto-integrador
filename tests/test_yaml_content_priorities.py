@@ -1,7 +1,7 @@
 """Contrato: prioridades de la propuesta institucional y académica de ISFT N° 199 en la home.
 
 Verifica que la home comunica Educación Pública Superior Técnica, con foco en Carreras y Tecnicaturas
-(Ciencia de Datos e IA, Mecatrónica, Logística, Higiene y Seguridad) y el Campus Virtual.
+(Ciencia de Datos e IA, Logística, Higiene y Seguridad) y el Campus Virtual.
 """
 
 import pytest
@@ -13,7 +13,6 @@ from src.infrastructure.fastapi.app import app
 
 ORDEN_TARJETAS_ACADEMICAS = [
     "ciencia-de-datos-ia",
-    "mecatronica",
     "logistica",
     "higiene-y-seguridad",
 ]
@@ -38,7 +37,7 @@ def test_q2_ctas_hero_academicos() -> None:
     assert hero.secondaryCta.href in ("#ingreso", "/contact")
 
 
-# --- Q3: 4 tarjetas de ejes formativos académicos ---
+# --- Q3: tarjetas de ejes formativos académicos ---
 def test_q3_tarjetas_ejes_academicos() -> None:
     ids = [card.id for card in _contenido().services.cards]
     assert ids == ORDEN_TARJETAS_ACADEMICAS
@@ -61,7 +60,7 @@ def test_q5_select_offers_tecnicaturas() -> None:
     assert select.options is not None
     valores = [opcion.value for opcion in select.options]
     assert "ciencia-de-datos-ia" in valores
-    assert "mecatronica" in valores
+    assert "mecatronica" not in valores
     assert "logistica" in valores
     assert "higiene-y-seguridad" in valores
 
@@ -93,7 +92,7 @@ async def test_q8_home_renders_ejes_academicos() -> None:
     assert response.status_code == 200
     html = response.text
     assert "Ciencia de Datos" in html
-    assert "Mecatrónica" in html
+    assert "Mecatrónica" not in html
     # El carácter público y oficial ya no se comunica con una pastilla de color
     # sino con las cifras institucionales del encabezado.
     assert "Validez nacional" in html

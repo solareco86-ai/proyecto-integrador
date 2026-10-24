@@ -8,11 +8,11 @@ from src.infrastructure.fastapi.app import app
 def test_data_service_carreras_catalog():
     data_svc = DataService(data_dir="data")
     carreras = data_svc.get_carreras()
-    assert len(carreras) == 7
+    assert len(carreras) == 6
 
     slugs = [c.slug for c in carreras]
     assert "ciencia-de-datos-ia" in slugs
-    assert "mecatronica" in slugs
+    assert "mecatronica" not in slugs
     assert "logistica" in slugs
     assert "higiene-y-seguridad" in slugs
     assert "recursos-humanos" in slugs
@@ -42,7 +42,7 @@ async def test_carreras_catalog_page():
     # El "&" del hero se emite como entidad HTML (&amp;), no como carácter crudo.
     assert "Oferta Académica &amp; Tecnicaturas Superiores" in html
     assert "Ciencia de Datos e Inteligencia Artificial" in html
-    assert "Mecatrónica" in html
+    assert "Mecatrónica" not in html
     assert "Logística" in html
     assert "Higiene y Seguridad" in html
     assert "Recursos Humanos" in html
@@ -107,4 +107,4 @@ async def test_sitemap_includes_carreras():
     xml = response.text
     assert "/carreras" in xml
     assert "/carreras/ciencia-de-datos-ia" in xml
-    assert "/carreras/mecatronica" in xml
+    assert "/carreras/mecatronica" not in xml

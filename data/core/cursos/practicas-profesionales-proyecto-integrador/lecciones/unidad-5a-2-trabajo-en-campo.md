@@ -160,7 +160,7 @@ Responsable de seguridad en lugar: [Nombre]
 **Feedback:** "Hubiera estado bien un video de egresados mostrando qué laboran"
 
 ### Alumno 2
-**Carrera elegida:** Mecatrónica
+**Carrera elegida:** Logística
 **¿Cómo elegiste?** "Consulté portal web, pero no había mucha info"
 **Dudas:** "¿Requisitos exactos?" "¿Cómo es el primer cuatrimestre?"
 **Información usada:** Portal web (escaso), consulta a secretaría (lenta, 20 min esperando)
@@ -170,7 +170,7 @@ Responsable de seguridad en lugar: [Nombre]
 
 **Preguntas frecuentes en 1 hora:**
 - "¿Cómo ingreso a Ciencia de Datos?" (x3)
-- "¿Qué es Mecatrónica?" (x2)
+- "¿Qué salida laboral tiene Logística?" (x2)
 - "¿Hay cursada vespertina?" (x1)
 
 **Tiempo promedio:** 10-15 min por consulta

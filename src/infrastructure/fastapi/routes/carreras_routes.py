@@ -26,7 +26,7 @@ async def listado_carreras(
 
     seo: dict[str, Any] = {
         "title": f"Oferta Académica y Tecnicaturas Superiores | {brand_data['brandName']}",
-        "description": "Tecnicaturas superiores oficiales, públicas y gratuitas en Tigre. Ciencia de Datos e IA, Mecatrónica, Logística y más. Turno vespertino.",
+        "description": "Tecnicaturas superiores oficiales, públicas y gratuitas en Tigre. Ciencia de Datos e IA, Logística y más. Turno vespertino.",
         "canonical_url": canonical_url(request.url),
         "site_name": brand_data["brandName"],
         "og_image": presented["seo"]["og_image"],

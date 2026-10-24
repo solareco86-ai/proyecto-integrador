@@ -30,12 +30,12 @@ async def test_home_renders_with_all_key_sections():
 
     # Estado de admisión
     assert "ISFT N° 199" in html
-    assert "Siete tecnicaturas superiores" in html
+    assert "Seis tecnicaturas superiores" in html
     assert "$0 · Gratuita" in html
 
     # Oferta académica (se arma desde data/content/carreras.yaml)
     assert "Oferta académica" in html
-    assert "Mecatrónica" in html
+    assert "Mecatrónica" not in html
     assert "Turismo" in html
     assert "Hotelería" in html
 
