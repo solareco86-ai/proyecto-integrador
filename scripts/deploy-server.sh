@@ -59,21 +59,28 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
 
     echo "==> Guardando commit actual para posible rollback..."
     PREVIOUS_COMMIT=$(git rev-parse HEAD)
+    PREVIOUS_SHORT=$(git rev-parse --short HEAD)
 
-    echo "==> Verificando permisos de escritura sobre el repositorio git..."
-    NOT_WRITABLE=$(find .git -maxdepth 2 ! -writable 2>/dev/null | head -1)
+    echo "==> Verificando permisos de escritura (.git, archivos rastreados y .build_commit)..."
+    # reset --hard reescribe todos los archivos rastreados: hay que validarlos antes de tocar nada.
+    NOT_WRITABLE=$({
+        find .git -maxdepth 2 ! -writable 2>/dev/null
+        git ls-files | while IFS= read -r f; do [ -e "$f" ] && [ ! -w "$f" ] && echo "$f"; done
+        [ -w . ] || echo "."
+        [ -e .build_commit ] && [ ! -w .build_commit ] && echo ".build_commit"
+    } | head -1)
     if [ -n "$NOT_WRITABLE" ]; then
         echo "ERROR: Sin permiso de escritura en '$NOT_WRITABLE'."
-        echo "Corregí el ownership del repositorio en el VPS:"
-        echo "  sudo chown -R <usuario_despliegue>:<grupo> $DEPLOY_REMOTE_DIR"
+        echo "Corregí solo ese elemento como root en el VPS, sin ejecutar git como root:"
+        echo "  sudo chown <usuario_despliegue>:<grupo> '$NOT_WRITABLE'"
         exit 1
     fi
 
     echo "==> Actualizando código..."
     git fetch origin "$DEPLOY_BRANCH"
+    # Registra el commit a desplegar ANTES del reset: si la escritura falla, no queda código nuevo sin reiniciar el servicio.
+    git rev-parse --short "origin/$DEPLOY_BRANCH" > .build_commit
     git reset --hard "origin/$DEPLOY_BRANCH"
-    # Registra el commit desplegado para que el footer muestre la versión real
-    git rev-parse --short HEAD > .build_commit
 
     echo "==> Instalando dependencias..."
     ./.venv/bin/pip install -r requirements.txt
@@ -105,8 +112,8 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
         echo "==> Logs recientes del servicio $DEPLOY_SERVICE_NAME (últimas 30 líneas):"
         sudo journalctl -u "$DEPLOY_SERVICE_NAME" -n 30 --no-pager || true
         echo "==> Ejecutando rollback a $PREVIOUS_COMMIT..."
+        echo "$PREVIOUS_SHORT" > .build_commit
         git reset --hard "$PREVIOUS_COMMIT"
-        git rev-parse --short HEAD > .build_commit
         echo "==> Reiniciando servicio $DEPLOY_SERVICE_NAME con versión anterior..."
         sudo systemctl restart "$DEPLOY_SERVICE_NAME"
         echo "ERROR: Deploy fallido. Rollback ejecutado."
