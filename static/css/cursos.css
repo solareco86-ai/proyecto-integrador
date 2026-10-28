@@ -43,11 +43,14 @@
 }
 
 .c-cursos-hero__title {
-    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-size: clamp(1.5rem, 5vw, 3rem);
     font-weight: 800;
     line-height: 1.15;
     color: var(--dm-text-0);
     margin-bottom: 1rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
     text-wrap: balance;
 }
 
@@ -68,7 +71,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2rem;
-    padding-top: 3rem;
+    padding-top: 1rem;
 }
 
 .c-curso-card {
@@ -93,6 +96,21 @@
     overflow: hidden;
     background-color: var(--dm-bg-0);
     border-bottom: 1px solid var(--dm-border-0);
+}
+
+/* Fallback cuando la imagen de la tarjeta no existe o falla al cargar
+   (agregado vía onerror en templates/cursos/list.html, que además quita el
+   <img> del DOM): mismo azul oscuro institucional en cualquier tema, sin
+   depender de que exista un archivo de imagen real. */
+.c-curso-card__media--fallback {
+    background-color: var(--dm-bg-0) !important;
+    /* Mismo detalle de grilla "blueprint" celeste que ya usa .c-cursos-hero:before,
+       aquí sutil y discreto para que la tarjeta no quede vacía. */
+    background-image:
+        linear-gradient(rgba(var(--dm-line-blueprint-rgb), 0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--dm-line-blueprint-rgb), 0.22) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: center;
 }
 
 .c-curso-card__media img {

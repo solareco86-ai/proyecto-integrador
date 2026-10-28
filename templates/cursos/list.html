@@ -58,7 +58,8 @@
                         {% if curso.og_image %}
                             <div class="c-curso-card__media">
                                 <img src="{{ curso.og_image }}" alt="{{ curso.title }}" loading="lazy" decoding="async"
-                                     {% if curso.og_image_width and curso.og_image_height %}width="{{ curso.og_image_width }}" height="{{ curso.og_image_height }}"{% endif %}>
+                                     {% if curso.og_image_width and curso.og_image_height %}width="{{ curso.og_image_width }}" height="{{ curso.og_image_height }}"{% endif %}
+                                     onerror="this.closest('.c-curso-card__media').classList.add('c-curso-card__media--fallback'); this.remove();">
                             </div>
                         {% endif %}
                         <div class="c-curso-card__content">

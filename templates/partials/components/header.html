@@ -4,6 +4,12 @@
    Eventos / Comunicados / Profesores / Contacto). Es intencionalmente independiente de
    `nav_links` (la lista plana de data/content/home_sections.yaml): esta es una reorganización
    puramente visual del header, no un cambio de datos. #}
+<div class="barra-oficial">
+    <div class="marco">
+        <span>Dirección General de Cultura y Educación · Provincia de Buenos Aires · Región 6</span>
+        <span><a href="/cursos">Campus virtual</a> · <a href="/contact">Secretaría</a></span>
+    </div>
+</div>
 {% set estudiantes_links = [
     {'href': '/cursos', 'label': 'Campus Virtual'},
     {'href': '/#estudiantes', 'label': 'Información para estudiantes'},
@@ -19,7 +25,7 @@
                 <span class="c-inst-header__subtitle">Instituto Superior de Formación Técnica N.º 199</span>
             </span>
         </a>
-        <nav data-v-236fef00="" class="c-home-header__nav tw:hidden tw:lg:flex" aria-label="Navegación principal">
+        <nav data-v-236fef00="" class="c-home-header__nav tw:hidden tw:xl:flex" aria-label="Navegación principal">
             <a href="/carreras" class="c-home-header__nav-link">Carreras</a>
 
             <div class="c-inst-dropdown">
@@ -46,13 +52,19 @@
             <a href="/contact" class="c-home-header__nav-link">Contacto</a>
         </nav>
         <div data-v-236fef00="" class="c-home-header__actions">
-            <a data-v-236fef00="" href="/contact" class="c-home-header__icon-link tw:lg:hidden" aria-label="Preinscripción y Consultas" title="Contacto">
+            <a data-v-236fef00="" href="/contact" class="c-home-header__icon-link tw:xl:hidden" aria-label="Preinscripción y Consultas" title="Contacto">
                 {{ icon_macro.bootstrap_icon('telephone-forward-fill') }}
             </a>
-            <a data-v-236fef00="" href="/inscripciones" class="tw:btn-primary c-home-header__cta tw:hidden tw:lg:inline-flex">Requisitos de ingreso</a>
-            <input type="checkbox" id="c-inst-nav-toggle" class="c-inst-nav-toggle" aria-hidden="true">
-            <label for="c-inst-nav-toggle" class="c-inst-nav-toggle-label tw:lg:hidden" aria-label="Abrir menú de navegación">☰</label>
+            <a data-v-236fef00="" href="/inscripciones" class="tw:btn-primary c-home-header__cta tw:hidden tw:xl:inline-flex">Requisitos de ingreso</a>
+            <label for="c-inst-nav-toggle" class="c-inst-nav-toggle-label tw:xl:hidden" aria-label="Abrir menú de navegación">☰</label>
         </div>
+        {# El checkbox se mueve a este nivel (hermano directo de .c-home-header__mobile-nav,
+           no de .c-home-header__actions) porque el selector CSS
+           ".c-inst-nav-toggle:checked ~ .c-home-header__mobile-nav" es un combinador de
+           hermanos generales: solo funciona entre elementos con el mismo padre. El <label>
+           de arriba sigue abriendo/cerrando este mismo checkbox por su atributo "for",
+           sin necesidad de estar anidados juntos. #}
+        <input type="checkbox" id="c-inst-nav-toggle" class="c-inst-nav-toggle" aria-hidden="true">
         <nav class="c-home-header__mobile-nav" aria-label="Navegación principal (móvil)">
             <a href="/carreras">Carreras</a>
 
