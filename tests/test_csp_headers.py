@@ -1,5 +1,6 @@
 """Tests unitarios para validar Content-Security-Policy y cabeceras de seguridad con soporte de Google Ads."""
 
+import json
 import logging
 from collections.abc import Iterator
 
@@ -81,6 +82,63 @@ async def test_csp_report_endpoint_loguea(caplog: pytest.LogCaptureFixture) -> N
             )
     assert resp.status_code == 204
     assert any("Violación CSP" in record.message for record in caplog.records)
+
+
+async def _post_reporte(cuerpo: str) -> None:
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        resp = await client.post("/csp-report", content=cuerpo, headers={"content-type": "application/csp-report"})
+    assert resp.status_code == 204
+
+
+@pytest.mark.asyncio
+async def test_csp_report_cloudflare_no_emite_warning(caplog: pytest.LogCaptureFixture) -> None:
+    cuerpo = json.dumps(
+        {
+            "csp-report": {
+                "document-uri": "https://isftn199.com.ar/",
+                "blocked-uri": "https://static.cloudflareinsights.com/beacon.min.js/vce70",
+                "violated-directive": "script-src-elem",
+            }
+        }
+    )
+    with caplog.at_level(logging.INFO):
+        await _post_reporte(cuerpo)
+    assert not any(r.levelno >= logging.WARNING and "CSP" in r.message for r in caplog.records)
+    assert any(r.levelno == logging.INFO and "ruido conocido" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+async def test_csp_report_extension_y_wasm_eval_son_info(caplog: pytest.LogCaptureFixture) -> None:
+    cuerpo = json.dumps({"csp-report": {"document-uri": "https://isftn199.com.ar/", "blocked-uri": "wasm-eval"}})
+    with caplog.at_level(logging.INFO):
+        await _post_reporte(cuerpo)
+    assert not any(r.levelno >= logging.WARNING and "CSP" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+async def test_csp_report_texto_cloudflare_en_campo_libre_emite_warning(caplog: pytest.LogCaptureFixture) -> None:
+    cuerpo = json.dumps(
+        {
+            "csp-report": {
+                "document-uri": "https://isftn199.com.ar/",
+                "blocked-uri": "https://evil.example/x.js",
+                "script-sample": "static.cloudflareinsights.com beacon",
+            }
+        }
+    )
+    with caplog.at_level(logging.INFO):
+        await _post_reporte(cuerpo)
+    assert any(r.levelno == logging.WARNING and "Violación CSP" in r.message for r in caplog.records)
+
+
+@pytest.mark.asyncio
+async def test_csp_report_trunca_warning_a_4096(caplog: pytest.LogCaptureFixture) -> None:
+    cuerpo = json.dumps({"csp-report": {"blocked-uri": "https://evil.example/x.js", "script-sample": "x" * 10000}})
+    with caplog.at_level(logging.INFO):
+        await _post_reporte(cuerpo)
+    mensaje = next(r.getMessage() for r in caplog.records if "Violación CSP" in r.message)
+    assert len(mensaje) <= len("Violación CSP reportada: ") + 4096
 
 
 @pytest.mark.asyncio

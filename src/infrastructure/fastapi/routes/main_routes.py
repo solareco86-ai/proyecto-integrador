@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 
 from src.adapters.presenters.content_presenter import present_contenido
+from src.application.csp_report import es_ruido_csp
 from src.application.data_service import DataService
 from src.application.dtos import ContenidoModel, IndustriaModel
 from src.application.use_cases.content.list_comunicados import ListComunicadosUseCase
@@ -119,7 +120,10 @@ async def csp_report_endpoint(request: Request) -> Response:
     """Endpoint receptor de reportes de violación de Content-Security-Policy."""
     body = await request.body()
     report = body.decode("utf-8", errors="replace")
-    logger.warning("Violación CSP reportada: %s", report[:4096])
+    if es_ruido_csp(report):
+        logger.info("Reporte CSP de ruido conocido (Cloudflare, extensión o wasm-eval): %s", report[:4096])
+    else:
+        logger.warning("Violación CSP reportada: %s", report[:4096])
     return Response(status_code=204)
 
 
