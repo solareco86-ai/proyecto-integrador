@@ -56,7 +56,7 @@ Quiero ver listado de carreras disponibles con descripción
 Para elegir la carrera que mejor se ajuste a mí
 
 CA:
-- Listar 6 carreras (Ciencia de Datos, Mecatrónica, Logística, HST, RRHH, Turismo)
+- Listar 6 carreras (Ciencia de Datos, Logística, HST, RRHH, Turismo, Hotelería)
 - Cada carrera: nombre, duración, requisitos de ingreso, % de inserción laboral
 - Filtro por área (técnica, humanística)
 - Responsive en celular

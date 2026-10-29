@@ -29,13 +29,25 @@ El curso tiene **3 notas parciales + 1 defensa oral**:
 
 **Nota final = (N1 + N2 + N3 + N4) / 4**
 
+Todas las notas se expresan en escala de **0 a 10**. Las notas N1, N2 y N3 son evaluadas por un **agente de IA**, que tiene el criterio final sobre ellas; el docente a cargo ajusta el entorno de trabajo del agente. La nota N4 la evalúa el docente.
+
+---
+
+## Evaluación de Contribuciones en GitHub (aplica a N1, N2 y N3)
+
+El agente relevará la actividad del equipo en los repositorios indicados por la cátedra, mediante la herramienta `gh` (commits, issues, pull requests y comentarios). Reglas de valoración:
+
+1. **Commits atómicos:** cada commit debe representar un cambio único y coherente, con un mensaje que explique qué cambia y por qué.
+2. **Valor real:** la calidad de la contribución pesa más que la cantidad. Commits, issues o comentarios sin contenido (repetición, cambios cosméticos, mensajes vacíos) son **penalizados**.
+3. **Mérito:** con las notas de N1 a N3 se publica un **orden de alumnos de mayor a menor mérito**.
+
 ---
 
 ## RÚBRICA 1: Canvas + SRS (N1 — 25%)
 
 **Fecha límite:** Fin Trayecto I (semana 3, ~20 de abril)  
 **Entrega:** Canvas + documento SRS en GitHub (Issue o PDF)  
-**Evaluador:** Instructor
+**Evaluador:** Agente de IA (criterio final), con el entorno ajustado por el docente a cargo
 
 ### 1.1 Lean Canvas (5 puntos)
 
@@ -137,7 +149,7 @@ El curso tiene **3 notas parciales + 1 defensa oral**:
 
 **Fecha límite:** Fin semana 12 (semana del 2 de junio)  
 **Entrega:** Demostración en vivo de prototipo + estado del código  
-**Evaluador:** Instructor + pares (si hay co-evaluación)
+**Evaluador:** Agente de IA (criterio final), con el entorno ajustado por el docente a cargo
 
 ### 2.1 Avance Técnico (15 puntos)
 
@@ -207,7 +219,7 @@ El curso tiene **3 notas parciales + 1 defensa oral**:
 
 **Fecha límite:** Fin semana 15 (pre-defensa, 1 semana antes de la defensa)  
 **Entrega:** Código finalizado + reportes de test + documentación  
-**Evaluador:** Instructor + automatización (coverage, linters)
+**Evaluador:** Agente de IA (criterio final), con el entorno ajustado por el docente a cargo; la automatización (coverage, linters) es insumo del agente
 
 ### 3.1 Testing (15 puntos)
 
@@ -282,7 +294,7 @@ El curso tiene **3 notas parciales + 1 defensa oral**:
 
 **Fecha:** Semana 16 (últimas semanas de cursada)  
 **Duración:** 20-30 minutos (presentación + preguntas + demo en vivo)  
-**Evaluador:** Instructor + tribunal externo (si aplica)
+**Evaluador:** Docente a cargo (+ tribunal externo, si aplica)
 
 ### 4.1 Presentación Oral (12 puntos)
 
@@ -369,6 +381,6 @@ El curso tiene **3 notas parciales + 1 defensa oral**:
 
 ## ¿Preguntas?
 
-- 📧 Email: agustin-bustos@isftn199.com.ar
+- 📧 Email: agustinbustos@abc.gob.ar
 - 📍 Consultorio: Aula 12, martes 15:00-16:00 (previa coordinación)
 - 💬 Slack (canal #proyecto-integrador): Respuesta en 24 horas

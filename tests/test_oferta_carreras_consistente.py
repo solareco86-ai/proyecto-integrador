@@ -1,8 +1,7 @@
 """La oferta de carreras publicada debe coincidir con carreras.yaml (fuente de verdad).
 
-Caso real que motiva este test: README, llms*.txt y el JSON-LD de SEO describían
-6 carreras ("Servicios Gastronómicos y Turismo") cuando el catálogo oficial tiene
-7 (Turismo y Hotelería por separado).
+README, llms*.txt y el JSON-LD de SEO deben mantenerse sincronizados con el
+catálogo oficial, incluso cuando cambia la oferta confirmada.
 """
 
 import json

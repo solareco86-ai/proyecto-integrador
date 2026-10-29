@@ -40,27 +40,7 @@
   - Ingeniero/a de datos junior (Pipelines ETL)
   - Consultor/a en Business Intelligence (BI)
 
-### 2.2 Tecnicatura Superior en Mecatrónica
-* **Resolución Ministerial:** DGCyE N° 5885/10.
-* **Título Otorgado:** Técnico/a Superior en Mecatrónica.
-* **Duración:** 3 años (presencial, turno vespertino).
-* **Descripción:** Integración de mecánica, electrónica analógica y digital, control automático y programación para automatización industrial y robótica.
-* **Materias Destacadas del Plan de Estudios:**
-  - Electrónica Industrial y Circuitos
-  - Control Automático y Servomecanismos
-  - Programación de PLCs y Sistemas SCADA
-  - Robótica Industrial y Cinemática
-  - Neumática, Hidráulica y Electroneumática
-  - Microcontroladores y Sistemas Embebidos
-  - Instrumentación y Sensores Industriales
-  - Mantenimiento de Sistemas Mecatrónicos
-* **Perfil del Egresado y Salida Laboral:**
-  - Programador/a de autómatas programables (PLC) y SCADA
-  - Técnico/a de mantenimiento electromecánico y robótica
-  - Integrador/a de celdas de manufactura automatizada
-  - Instrumentista industrial y calibrador de sensores
-
-### 2.3 Tecnicatura Superior en Logística
+### 2.2 Tecnicatura Superior en Logística
 * **Resolución Ministerial:** DGCyE N° 1243/19.
 * **Título Otorgado:** Técnico/a Superior en Logística.
 * **Duración:** 3 años (presencial, turno vespertino).
@@ -80,7 +60,7 @@
   - Planificador/a de flotas y rutas de distribución
   - Operador/a de logística internacional
 
-### 2.4 Tecnicatura Superior en Higiene y Seguridad en el Trabajo
+### 2.3 Tecnicatura Superior en Higiene y Seguridad en el Trabajo
 * **Resolución Ministerial:** DGCyE N° 320/13.
 * **Título Otorgado:** Técnico/a Superior en Higiene y Seguridad en el Trabajo (Habilita Matrícula Profesional).
 * **Duración:** 3 años (presencial, turno vespertino).
@@ -100,7 +80,7 @@
   - Auditor/a en Aseguradoras de Riesgos del Trabajo (ART)
   - Consultor/a externo/a matriculado/a
 
-### 2.5 Tecnicatura Superior en Administración de Recursos Humanos
+### 2.4 Tecnicatura Superior en Administración de Recursos Humanos
 * **Resolución Ministerial:** DGCyE N° 276/03.
 * **Título Otorgado:** Técnico/a Superior en Administración de Recursos Humanos.
 * **Duración:** 3 años (presencial, turno vespertino).
@@ -120,7 +100,7 @@
   - Administrador/a de legajos y compensaciones
   - Coordinador/a de clima y cultura de trabajo
 
-### 2.6 Tecnicatura Superior en Turismo
+### 2.5 Tecnicatura Superior en Turismo
 * **Resolución:** Res. N° 2686/20.
 * **Título Otorgado:** Técnico/a Superior en Turismo.
 * **Duración:** 3 años (presencial, turno vespertino).
@@ -140,7 +120,7 @@
   - Técnico/a en Promoción y Desarrollo Turístico
   - Gestor/a de Proyectos Culturales y Sustentables
   - Consultor/a o Emprendedor/a en servicios turísticos
-### 2.7 Tecnicatura Superior en Hotelería
+### 2.6 Tecnicatura Superior en Hotelería
 * **Resolución:** Res. N° 2685/20.
 * **Título Otorgado:** Técnico/a Superior en Hotelería.
 * **Duración:** 3 años (presencial, turno vespertino).

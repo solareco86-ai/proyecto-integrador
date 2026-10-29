@@ -18,7 +18,7 @@ description_long: |
 
   Ambos proyectos siguen **spec** como guía de calidad y arquitectura.
 
-  **Evaluación:** 3 notas parciales (Canvas+SRS, progreso, testing+docs) + defensa oral.
+  **Evaluación:** 3 notas parciales (Canvas+SRS, progreso, testing+docs) + defensa oral. Las notas parciales son evaluadas por un agente de IA que releva las contribuciones del equipo en los repositorios de GitHub indicados por la cátedra (commits, issues, pull requests y comentarios), mediante la herramienta `gh`. El agente tiene el criterio final sobre esas notas; el docente a cargo ajusta el entorno de trabajo del agente y evalúa la defensa oral. Los commits deben ser atómicos y aportar valor: el exceso de commits, issues o comentarios sin contenido es penalizado. Cada nota se expresa en escala de 0 a 10, y el curso publica un orden de alumnos de mayor a menor mérito.
 duration: 64 horas de cursada (4 horas semanales × 16 semanas, 2do semestre de 3er año)
 level: Avanzado
 language: Español
