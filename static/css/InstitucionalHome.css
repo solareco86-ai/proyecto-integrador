@@ -6,6 +6,11 @@
    ========================================================================== */
 
 :root {
+    /* Verde del escudo institucional: restaurado a verde real (había
+       quedado recoloreado a azul en una iteración anterior, que resultó
+       en demasiado monocromatismo). Se usa como acento puntual —botones
+       de acción, tildes, íconos— no como color dominante; la navegación,
+       los títulos y los fondos destacados siguen en azul/celeste. */
     --inst-verde: #0f7a4c;
     --inst-verde-oscuro: #0b5e3a;
     --inst-celeste: #1e88c7;
@@ -19,6 +24,42 @@
     --inst-texto-muted: #55676e;
     --inst-radius: 1rem;
     --inst-shadow: 0 6px 20px rgba(20, 40, 50, 0.08);
+}
+
+/* --- Barra oficial DGCyE: ahora parte de partials/components/header.html,
+   común a todas las páginas públicas (antes solo existía en Inicio). --- */
+.barra-oficial {
+    background: var(--inst-azul);
+    color: #fff;
+    font-size: .72rem;
+    letter-spacing: .02em;
+}
+.barra-oficial .marco {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem 1rem;
+    min-height: 34px;
+    flex-wrap: wrap;
+}
+.barra-oficial .marco > span {
+    /* Evita el desbordamiento clásico de flex: sin esto, un hijo con texto
+       largo puede no achicarse y quedar cortado en vez de pasar a la línea
+       siguiente (el contenedor ya tiene flex-wrap, pero cada span necesita
+       poder reducir su propio ancho mínimo para respetarlo). */
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+.barra-oficial a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.barra-oficial a:hover {
+    color: rgba(255, 255, 255, .8);
 }
 
 /* --- Header institucional (afecta todo el sitio: es un partial global) --- */
@@ -55,12 +96,15 @@
     border-color: var(--inst-gris-300) !important;
 }
 .c-home-header__cta {
-    background: var(--inst-verde) !important;
-    border-color: var(--inst-verde) !important;
+    /* Botón principal de navegación/acceso institucional ("Requisitos de
+       ingreso"): azul, no verde — aparece en el header de todas las
+       páginas, así que es el elemento con más peso visual repetido. */
+    background: var(--inst-azul) !important;
+    border-color: var(--inst-azul) !important;
     color: #fff !important;
 }
 .c-home-header__cta:hover {
-    background: var(--inst-verde-oscuro) !important;
+    background: color-mix(in srgb, var(--inst-azul) 85%, black) !important;
 }
 
 /* --- Dropdown "Estudiantes" (desktop, hover + foco, sin JS) --- */
@@ -161,7 +205,7 @@
 .c-home-header__mobile-nav {
     display: none;
 }
-@media (max-width: 991.98px) {
+@media (max-width: 1279.98px) {
     .c-inst-nav-toggle-label {
         display: inline-flex;
     }
@@ -170,18 +214,22 @@
     }
     .c-home-header__mobile-nav {
         position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
+        top: calc(100% + .5rem);
+        left: auto;
+        right: .75rem;
+        width: min(calc(100% - 1.5rem), 22rem);
+        max-height: 70vh;
+        overflow-y: auto;
         background: var(--inst-blanco);
-        border-bottom: 1px solid var(--inst-gris-300);
+        border: 1px solid var(--inst-gris-300);
+        border-radius: var(--inst-radius);
         box-shadow: var(--inst-shadow);
-        padding: .5rem 1rem 1rem;
+        padding: .3rem .75rem .5rem;
         display: none;
     }
     .c-home-header__mobile-nav a {
         display: block;
-        padding: .65rem .25rem;
+        padding: .4rem .25rem;
         color: var(--inst-texto);
         text-decoration: none;
         border-bottom: 1px solid var(--inst-gris-200);
@@ -196,7 +244,7 @@
     }
     .c-inst-mobile-nav__group-title {
         display: block;
-        padding: .65rem .25rem 0;
+        padding: .35rem .25rem 0;
         font-size: .8rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -205,12 +253,14 @@
     }
     .c-home-header__mobile-nav a.c-inst-mobile-nav__sublink {
         padding-left: 1rem;
+        padding-top: .3rem;
+        padding-bottom: .3rem;
         font-size: .9rem;
         color: var(--inst-texto-muted);
     }
     .c-home-header__mobile-nav .c-inst-nav-link--disabled {
         display: flex;
-        padding: .65rem .25rem;
+        padding: .4rem .25rem;
         border-bottom: 1px solid var(--inst-gris-200);
     }
 }
@@ -622,7 +672,10 @@
 
 /* --- Ingresantes --- */
 .c-inst-ingresantes {
-    background: linear-gradient(120deg, var(--inst-verde-oscuro), var(--inst-verde));
+    /* Fondo destacado/degradado: azul→celeste, igual que el resto de los
+       héroes del sitio (antes era un fondo 100% verde, demasiado dominante
+       para un bloque tan grande; el verde queda para acentos puntuales). */
+    background: linear-gradient(120deg, var(--inst-azul), var(--inst-celeste));
     color: #fff;
     text-align: center;
     border-radius: var(--inst-radius);
@@ -636,7 +689,7 @@
 }
 .c-inst-ingresantes__cta {
     background: #fff;
-    color: var(--inst-verde-oscuro);
+    color: var(--inst-azul);
 }
 .c-inst-ingresantes__cta:hover {
     background: var(--inst-gris-100);
@@ -933,6 +986,19 @@
     border-color: var(--inst-gris-300);
     box-shadow: var(--inst-shadow);
 }
+.c-inst-newsish .c-curso-card__media {
+    background-color: var(--inst-gris-150);
+    border-bottom: 1px solid var(--inst-gris-300);
+}
+.c-inst-newsish .tw\:bg-cyan-500\/20 {
+    background-color: rgba(30, 136, 199, .12) !important;
+}
+.c-inst-newsish .tw\:text-cyan-400 {
+    color: var(--inst-azul) !important;
+}
+.c-inst-newsish .tw\:border-cyan-500\/30 {
+    border-color: rgba(30, 136, 199, .3) !important;
+}
 .c-inst-newsish .c-curso-card__badge {
     color: var(--inst-celeste);
     background-color: rgba(30, 136, 199, .1);
@@ -995,4 +1061,117 @@
 }
 .c-inst-home .c-contact-hero__subtitle {
     color: var(--inst-texto-muted);
+}
+/* La sección del formulario (#contacto) seguía con el fondo azul oscuro y
+   texto blanco del tema heredado por debajo de la tarjeta ya corregida
+   (ver las reglas .app-shell--home #contacto .c-contact__card más abajo). */
+.app-shell--home[data-v-236fef00] #contacto {
+    background: var(--inst-gris-150) !important;
+    color: var(--inst-texto) !important;
+}
+
+/* --- Páginas de error (404/500): sobrescribe las utilidades Tailwind del
+   tema oscuro heredado (tw:bg-dm-*, tw:text-white) sin editar cada clase en
+   el HTML. Mismo criterio que .c-inst-newsish para /cursos. --- */
+.c-inst-errorpage {
+    background: var(--inst-gris-150);
+}
+.c-inst-errorpage .tw\:text-white {
+    color: var(--inst-texto) !important;
+}
+.c-inst-errorpage .tw\:text-dm-text-muted {
+    color: var(--inst-texto-muted) !important;
+}
+.c-inst-errorpage .tw\:bg-dm-surface {
+    background-color: var(--inst-blanco) !important;
+}
+.c-inst-errorpage .tw\:bg-dm-bg-0 {
+    background-color: var(--inst-blanco) !important;
+    box-shadow: var(--inst-shadow);
+}
+.c-inst-errorpage .tw\:border-dm-border-0 {
+    border-color: var(--inst-gris-300) !important;
+}
+.c-inst-errorpage .tw\:bg-red-900\/30 {
+    background-color: rgba(158, 54, 32, .08) !important;
+}
+.c-inst-errorpage .tw\:text-red-300 {
+    color: #9e3620 !important;
+}
+.c-inst-errorpage .tw\:border-red-700\/40 {
+    border-color: rgba(158, 54, 32, .35) !important;
+}
+.c-inst-errorpage .tw\:text-amber-400 {
+    color: var(--inst-celeste) !important;
+}
+.c-inst-errorpage .hover\:tw\:border-dm-accent-orange\/50:hover {
+    border-color: var(--inst-celeste) !important;
+}
+
+/* --- Términos y condiciones (/terminos-y-condiciones) --- */
+.c-legal-page {
+    background: var(--inst-gris-150);
+    color: var(--inst-texto);
+}
+.c-legal-page__container {
+    background: var(--inst-blanco);
+    border: 1px solid var(--inst-gris-300);
+    border-radius: var(--inst-radius);
+    box-shadow: var(--inst-shadow);
+    padding: 2rem;
+}
+.c-legal-page__title {
+    color: var(--inst-azul);
+}
+.c-legal-page__updated {
+    color: var(--inst-texto-muted);
+}
+.c-legal-page__section-title {
+    color: var(--inst-azul);
+}
+.c-legal-page__paragraph,
+.c-legal-page__intro {
+    color: var(--inst-texto);
+}
+
+/* --- Detalle de carrera (/carreras/<slug>): única página pública que
+   quedaba sin ningún CSS institucional propio, todavía con las utilidades
+   Tailwind del tema oscuro heredado. Mismo criterio que .c-inst-errorpage:
+   sobrescribe esas utilidades puntuales sin tocar el HTML. --- */
+.c-inst-carreradetail {
+    background: var(--inst-gris-150);
+}
+.c-inst-carreradetail .tw\:text-dm-text-0 {
+    color: var(--inst-texto) !important;
+}
+.c-inst-carreradetail .tw\:text-dm-text-muted {
+    color: var(--inst-texto-muted) !important;
+}
+.c-inst-carreradetail .tw\:text-dm-text-1 {
+    color: var(--inst-texto) !important;
+}
+.c-inst-carreradetail .tw\:bg-dm-surface,
+.c-inst-carreradetail .tw\:bg-dm-surface\/70 {
+    background-color: var(--inst-blanco) !important;
+}
+.c-inst-carreradetail .tw\:border-dm-border {
+    border-color: var(--inst-gris-300) !important;
+}
+.c-inst-carreradetail .tw\:bg-dm-accent-orange\/15 {
+    background-color: rgba(30, 136, 199, .12) !important;
+}
+.c-inst-carreradetail .tw\:text-dm-accent-orange {
+    color: var(--inst-celeste) !important;
+}
+.c-inst-carreradetail .tw\:border-dm-accent-orange\/30 {
+    border-color: rgba(30, 136, 199, .3) !important;
+}
+.c-inst-carreradetail .tw\:text-cyan-400 {
+    color: var(--inst-azul) !important;
+}
+.c-inst-carreradetail .tw\:text-emerald-400 {
+    color: var(--inst-verde) !important;
+}
+.c-inst-carreradetail a.hover\:tw\:text-dm-text-0:hover {
+    color: var(--inst-azul) !important;
 }

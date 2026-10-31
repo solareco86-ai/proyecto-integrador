@@ -59,21 +59,38 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
 
     echo "==> Guardando commit actual para posible rollback..."
     PREVIOUS_COMMIT=$(git rev-parse HEAD)
+    PREVIOUS_SHORT=$(git rev-parse --short HEAD)
 
-    echo "==> Verificando permisos de escritura sobre el repositorio git..."
-    NOT_WRITABLE=$(find .git -maxdepth 2 ! -writable 2>/dev/null | head -1)
+    echo "==> Verificando permisos de escritura (.git, archivos rastreados, directorios y .build_commit)..."
+    # reset --hard reescribe todos los archivos rastreados: hay que validarlos antes de tocar nada.
+    # BEGIN_PERM_CHECK
+    NOT_WRITABLE=$({
+        find .git -maxdepth 2 ! -writable 2>/dev/null
+        git ls-files | while IFS= read -r f; do [ -e "$f" ] && [ ! -w "$f" ] && echo "$f"; done
+        # git ls-files solo lista archivos: un directorio existente puede volverse no
+        # escribible (p. ej. por ownership root) sin que ninguno de sus archivos
+        # internos cambie, y reset --hard fallaría igual al intentar crear ahí un
+        # archivo nuevo del commit remoto. Por eso se valida cada directorio que
+        # contiene al menos un archivo rastreado, además de los archivos en sí.
+        git ls-files | xargs -n1 dirname -- | sort -u | while IFS= read -r d; do
+            [ "$d" != "." ] && [ ! -w "$d" ] && echo "$d/"
+        done
+        [ -w . ] || echo "."
+        [ -e .build_commit ] && [ ! -w .build_commit ] && echo ".build_commit"
+    } | head -1)
+    # END_PERM_CHECK
     if [ -n "$NOT_WRITABLE" ]; then
         echo "ERROR: Sin permiso de escritura en '$NOT_WRITABLE'."
-        echo "Corregí el ownership del repositorio en el VPS:"
-        echo "  sudo chown -R <usuario_despliegue>:<grupo> $DEPLOY_REMOTE_DIR"
+        echo "Corregí solo ese elemento como root en el VPS, sin ejecutar git como root:"
+        echo "  sudo chown <usuario_despliegue>:<grupo> '$NOT_WRITABLE'"
         exit 1
     fi
 
     echo "==> Actualizando código..."
     git fetch origin "$DEPLOY_BRANCH"
+    # Registra el commit a desplegar ANTES del reset: si la escritura falla, no queda código nuevo sin reiniciar el servicio.
+    git rev-parse --short "origin/$DEPLOY_BRANCH" > .build_commit
     git reset --hard "origin/$DEPLOY_BRANCH"
-    # Registra el commit desplegado para que el footer muestre la versión real
-    git rev-parse --short HEAD > .build_commit
 
     echo "==> Instalando dependencias..."
     ./.venv/bin/pip install -r requirements.txt
@@ -105,8 +122,16 @@ ssh -T -p "$DEPLOY_SSH_PORT" "$DEPLOY_SSH_USER@$DEPLOY_SSH_HOST" \
         echo "==> Logs recientes del servicio $DEPLOY_SERVICE_NAME (últimas 30 líneas):"
         sudo journalctl -u "$DEPLOY_SERVICE_NAME" -n 30 --no-pager || true
         echo "==> Ejecutando rollback a $PREVIOUS_COMMIT..."
+        # BEGIN_ROLLBACK
+        # Prioridad: restaurar el servicio. Si no se puede escribir .build_commit
+        # (p. ej. quedó con un ownership que ya no es escribible), no debe abortar
+        # el rollback: se avisa y se sigue con el reset y el restart de todos modos.
+        if ! echo "$PREVIOUS_SHORT" > .build_commit 2>/dev/null; then
+            echo "ADVERTENCIA: no se pudo registrar '$PREVIOUS_SHORT' en .build_commit."
+            echo "ADVERTENCIA: el footer de versión podría mostrar el commit incorrecto hasta corregir el permiso."
+        fi
         git reset --hard "$PREVIOUS_COMMIT"
-        git rev-parse --short HEAD > .build_commit
+        # END_ROLLBACK
         echo "==> Reiniciando servicio $DEPLOY_SERVICE_NAME con versión anterior..."
         sudo systemctl restart "$DEPLOY_SERVICE_NAME"
         echo "ERROR: Deploy fallido. Rollback ejecutado."

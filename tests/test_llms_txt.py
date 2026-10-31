@@ -31,7 +31,7 @@ async def test_llms_full_txt_endpoint_returns_200() -> None:
     assert "text/plain" in response.headers["content-type"]
     text = response.text
     assert "Ciencia de Datos e Inteligencia Artificial" in text
-    assert "Mecatrónica" in text
+    assert "Mecatrónica" not in text
     assert "Logística" in text
     assert "Higiene y Seguridad" in text
     assert "Agustín Bustos" in text

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import 'partials/head.html' as seo_macro %}
-{% import 'partials/components/header_institucional.html' as header_macro %}
-{% import 'partials/components/footer_institucional.html' as footer_macro %}
+{% import 'partials/components/header.html' as header_macro %}
+{% import 'partials/components/footer.html' as footer_macro %}
 {% import 'partials/components/faq_item.html' as faq_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 
@@ -10,6 +10,7 @@
 <link rel="preload" href="{{ request.url_for('static', path='fonts/source-serif-4-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ request.url_for('static', path='fonts/archivo-latin-wght-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ request.url_for('static', path='css/sistema.css') }}?v={{ static_version() }}">
+<link rel="stylesheet" href="{{ request.url_for('static', path='css/InstitucionalHome.css') }}?v={{ static_version() }}">
 {% endblock %}
 
 {# La portada ya no usa el shell heredado de DataMaq (fondo oscuro, CTA flotante):
@@ -19,7 +20,7 @@
 {% block main_class %}capa-institucional__main{% endblock %}
 
 {% block header %}
-{{ header_macro.header_institucional(content.navbar.links, brand) }}
+{{ header_macro.header() }}
 {% endblock %}
 
 {% block main_content %}
@@ -267,7 +268,7 @@
 {% endblock %}
 
 {% block footer %}
-{{ footer_macro.footer_institucional(brand, content.legal.text, content.navbar.links) }}
+{{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}
 {% endblock %}
 
 {% block cookie_banner %}

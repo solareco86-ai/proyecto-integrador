@@ -54,8 +54,16 @@ Construye el header `Content-Security-Policy` desde el diccionario declarativo
 
 ### 3.2 Endpoint `POST /csp-report`
 
-- Lee el body crudo (`await request.body()`).
-- Decodifica con `errors="replace"` y loguea `warning` truncado a 4096 caracteres.
+- Lee el body crudo (`await request.body()`) y lo decodifica con `errors="replace"`.
+- Clasifica el reporte con `es_ruido_csp()` (`src/application/csp_report.py`), parseando el JSON y evaluando solo campos estructurados:
+  - `blocked-uri` / `blockedURL` y `source-file` / `sourceFile`.
+  - Coincidencia por **host o esquema exacto**, nunca por substring del body.
+- Ruido conocido, que se loguea en `info`:
+  - Host `cloudflareinsights.com` o subdominio `*.cloudflareinsights.com` (beacon de Cloudflare Web Analytics).
+  - Esquemas `chrome-extension`, `moz-extension` o `safari-extension` (extensiones del visitante).
+  - Valor `wasm-eval`.
+- Todo lo demás se loguea en `warning` (`Violación CSP reportada`), truncado a 4096 caracteres. Incluye body que no es JSON, reportes sin `csp-report` o `body` reconocible, y lotes Reporting API con al menos un reporte no clasificable.
+- `connect.facebook.net` no está en la lista de ruido: su origen no está confirmado, así que queda en `warning`.
 - Responde siempre `204 No Content`.
 
 ## 4. Matriz de Pruebas (RED Suite)

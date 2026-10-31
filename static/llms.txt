@@ -14,32 +14,27 @@
    - Formación: Python, Machine Learning, Deep Learning, SQL, Big Data, FastAPI, Computer Vision y NLP.
    - Salida laboral: Científico/a de datos, desarrollador/a de Machine Learning, analista de Business Intelligence e ingeniero/a de datos junior.
 
-2. [Tecnicatura Superior en Mecatrónica](https://isftn199.com.ar/carreras):
-   - Resolución oficial: DGCyE N° 5885/10.
-   - Formación: Automatización industrial, robótica, programación de PLC, sistemas SCADA, circuitos neumáticos e hidráulicos y mantenimiento electromecánico.
-   - Salida laboral: Programador/a de PLCs, técnico/a en mantenimiento electromecánico y robótica, e integrador/a de manufactura automatizada.
-
-3. [Tecnicatura Superior en Logística](https://isftn199.com.ar/carreras):
+2. [Tecnicatura Superior en Logística](https://isftn199.com.ar/carreras):
    - Resolución oficial: DGCyE N° 1243/19.
    - Formación: Cadena de suministro (Supply Chain), gestión de almacenes (WMS), ruteo de distribución, comercio exterior y logística multimodal en el Corredor Norte.
    - Salida laboral: Coordinador/a de centros de distribución y almacenes, analista de supply chain y responsable de stock.
 
-4. [Tecnicatura Superior en Higiene y Seguridad en el Trabajo](https://isftn199.com.ar/carreras):
+3. [Tecnicatura Superior en Higiene y Seguridad en el Trabajo](https://isftn199.com.ar/carreras):
    - Resolución oficial: DGCyE N° 320/13 (Habilita matrícula profesional).
    - Formación: Prevención de riesgos laborales, normativas SRT, ergonomía, toxicología, auditoría ambiental y planes de emergencia.
    - Salida laboral: Técnico/a en plantas industriales, obras civiles, auditorías en ART y consultoría externa matriculada.
 
-5. [Tecnicatura Superior en Administración de Recursos Humanos](https://isftn199.com.ar/carreras):
+4. [Tecnicatura Superior en Administración de Recursos Humanos](https://isftn199.com.ar/carreras):
    - Resolución oficial: DGCyE N° 276/03.
    - Formación: Gestión del talento, legislación laboral, liquidación de haberes y cargas sociales, relaciones sindicales y clima organizacional.
    - Salida laboral: Analista de selección (Talent Acquisition), responsable de nóminas, administración de personal y mediación laboral.
 
-6. [Tecnicatura Superior en Turismo](https://isftn199.com.ar/carreras):
+5. [Tecnicatura Superior en Turismo](https://isftn199.com.ar/carreras):
    - Resolución oficial: Res. N° 2686/20.
    - Formación: Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
    - Salida laboral: Guía o Coordinador/a de Turismo, Asesor/a o Agente de Viajes, Técnico/a en Promoción y Desarrollo Turístico, Gestor/a de Proyectos Culturales y Sustentables, Consultor/a o Emprendedor/a en servicios turísticos.
 
-7. [Tecnicatura Superior en Hotelería](https://isftn199.com.ar/carreras):
+6. [Tecnicatura Superior en Hotelería](https://isftn199.com.ar/carreras):
    - Resolución oficial: Res. N° 2685/20.
    - Formación: Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
    - Salida laboral: Recepcionista o Coordinador/a de Reservas, Encargado/a de Piso o Supervisor/a de Servicios, Jefe/a de Recepción o de Alimentos y Bebidas, Gerente/a de Hotel o Emprendedor/a turístico, Asesor/a en gestión hotelera o calidad de servicios.

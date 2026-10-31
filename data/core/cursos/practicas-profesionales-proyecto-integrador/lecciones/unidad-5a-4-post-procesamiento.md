@@ -31,7 +31,7 @@ Con post-procesamiento: Alerta clara para operador tomar acción (revisar máqui
 
 **Ejemplo 2 (Portal):**
 ```
-Modelo ML retorna: score de similitud [0.8, 0.6, 0.4] para [CienciaDatos, Mecatrónica, Logística]
+Modelo ML retorna: score de similitud [0.8, 0.6, 0.4] para [CienciaDatos, Turismo, Logística]
 Post-procesamiento:
   - Convierte scores a "recomendación" (top 3 carreras)
   - Agrega contexto: "Recomendamos Ciencia de Datos porque coincide con tu interés en programación"
@@ -90,9 +90,9 @@ Afinidad con Carreras Técnicas
                            │    Ciencia Datos
                            │    ⭐⭐⭐⭐⭐
                            │    (Lógica + Datos)
-            Mecatrónica    │
+            Turismo        │
             ⭐⭐⭐⭐         │
-            (Electrónica)  │
+            (Hospitalidad) │
                            │
                            │
                     Logística

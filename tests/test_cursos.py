@@ -1,7 +1,10 @@
+from typing import Any, cast
+
 import pytest
 from httpx import ASGITransport, AsyncClient
 
 from src.infrastructure.fastapi.app import app
+from src.infrastructure.fastapi.dependencies import templates
 
 
 @pytest.mark.asyncio
@@ -564,9 +567,12 @@ async def test_aprendizaje_automatico_lecciones_con_caza_de_alucinaciones(slug: 
 
 
 @pytest.mark.asyncio
-async def test_listado_cursos_muestra_version_desplegada():
+async def test_listado_cursos_muestra_version_desplegada(monkeypatch: pytest.MonkeyPatch) -> None:
+    env_globals = cast(dict[str, Any], templates.env.globals)
+    monkeypatch.setitem(env_globals, "commit_sha", "abc1234")
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get("/cursos")
     assert response.status_code == 200
     assert "Versión de despliegue" in response.text
+    assert "abc1234" in response.text
