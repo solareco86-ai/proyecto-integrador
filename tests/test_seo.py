@@ -72,7 +72,10 @@ async def override_get_contenido():
                 "title": "Test",
                 "subtitle": "Test",
                 "cta": "Test",
-                "alt_email": {"label": "Test", "title": "Test", "email": "test@test.com"},
+                "alt_contacts": {
+                    "title": "Test",
+                    "emails": [{"label": "Test", "email": "test@test.com"}],
+                },
                 "progress_text": "Test",
                 "privacy_note": "Test",
                 "error_message": "Test",
