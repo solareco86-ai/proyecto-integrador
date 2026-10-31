@@ -60,8 +60,10 @@
     </div>
 </form>
 <article class="c-contact__email-card" aria-label="Contacto alternativo por e-mail">
-    <p class="c-contact__email-label">{{ data.alt_email.label }}</p>
-    <p class="c-contact__email-title">{{ data.alt_email.title }}</p>
-    <a class="c-contact__email-link js-email-protect" href="#" data-u="ifst199alumnos" data-d="gmail.com" aria-label="Escribir correo a ifst199alumnos@gmail.com"><span class="js-email-display">ifst199alumnos [en] gmail.com</span></a>
+    <p class="c-contact__email-title">{{ data.alt_contacts.title }}</p>
+    {% for contacto in data.alt_contacts.emails %}
+    <p class="c-contact__email-label">{{ contacto.label }}</p>
+    <a class="c-contact__email-link js-email-protect" href="#" data-u="{{ contacto.email.split('@')[0] }}" data-d="{{ contacto.email.split('@')[1] }}" aria-label="Escribir correo a {{ contacto.email }}"><span class="js-email-display">{{ contacto.email.split('@')[0] }} [en] {{ contacto.email.split('@')[1] }}</span></a>
+    {% endfor %}
 </article>
 {% endmacro %}
