@@ -56,7 +56,8 @@ from src.application.dtos.course_dto import (
     QuizModel,
 )
 from src.application.dtos.lead_dto import (
-    AltEmailModel,
+    AltContactModel,
+    AltContactsModel,
     ContactModel,
     ContactSubmitPayload,
     DirectContactPayload,
@@ -120,7 +121,8 @@ __all__ = [
     "OptionModel",
     "FieldModel",
     "StepModel",
-    "AltEmailModel",
+    "AltContactModel",
+    "AltContactsModel",
     "ContactModel",
     "ContactSubmitPayload",
     "WhatsAppClickPayload",

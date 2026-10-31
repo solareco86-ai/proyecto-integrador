@@ -57,7 +57,7 @@ async def test_home_renders_with_all_key_sections():
     assert 'id="faq"' in html
 
     # Contacto
-    assert "Preinscripción y Consultas Institucionales" in html
+    assert "Consultas sobre carreras y preinscripción" in html
 
     # No debe reaparecer contenido comercial DataMaq en la Home institucional
     assert "c-home-proof-strip" not in html

@@ -69,7 +69,7 @@
  * @description DTO para notificación de interacciones directas con email/teléfono hacia el backend.
  * Espejo del DTO Python `DirectContactPayload` en `src/application/dtos/lead_dto.py`.
  * @property {DirectContactAction} action - Tipo de interacción efectuada.
- * @property {string | null} [targetValue] - Valor con el que se interactuó (ej. 'ifst199alumnos@gmail.com', '+54 11 5629 7160').
+ * @property {string | null} [targetValue] - Valor con el que se interactuó (ej. 'isft199alumnos@gmail.com', '+54 11 5629 7160').
  * @property {string | null} [pageLocation] - URL actual del usuario al interactuar.
  * @property {string | null} [trafficSource] - Fuente de tráfico calculada (atribución first-touch).
  * @property {string | null} [element] - Elemento del DOM o contexto (Navbar, Footer, Contact, etc.).

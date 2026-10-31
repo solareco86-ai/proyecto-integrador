@@ -108,7 +108,7 @@ export function initDirectContactTracking() {
         mailtoLinks.forEach((link) => {
             link.addEventListener('click', () => {
                 const href = link.getAttribute('href') || '';
-                const email = href.replace('mailto:', '').split('?')[0].trim() || 'ifst199alumnos@gmail.com';
+                const email = href.replace('mailto:', '').split('?')[0].trim() || 'isft199alumnos@gmail.com';
                 const context = link.closest('footer') ? 'Footer' : (link.closest('.c-contact') ? 'Página de Contacto' : 'Enlace Mail');
                 sendDirectContactTelemetry('email_click', email, context);
             });
@@ -134,9 +134,9 @@ export function initDirectContactTracking() {
                 const now = Date.now();
                 if (now - lastCopyEventTime < COPY_DEBOUNCE_MS) return;
 
-                if (selection.includes('ifst199alumnos') || selection.includes('isft199') || selection.includes('datamaq.com.ar') || selection.includes('info@datamaq')) {
+                if (selection.includes('isft199') || selection.includes('datamaq.com.ar') || selection.includes('info@datamaq')) {
                     lastCopyEventTime = now;
-                    sendDirectContactTelemetry('email_copy', 'ifst199alumnos@gmail.com', 'Selección y Copia de Texto');
+                    sendDirectContactTelemetry('email_copy', 'isft199alumnos@gmail.com', 'Selección y Copia de Texto');
                 } else if (selection.includes('56297160') || selection.includes('5629 7160') || selection.includes('5629-7160')) {
                     lastCopyEventTime = now;
                     sendDirectContactTelemetry('phone_copy', '+54 11 5629 7160', 'Selección y Copia de Texto');

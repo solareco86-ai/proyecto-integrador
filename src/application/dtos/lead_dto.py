@@ -24,18 +24,21 @@ class StepModel(BaseModel):
     fields: list[FieldModel]
 
 
-class AltEmailModel(BaseModel):
+class AltContactModel(BaseModel):
     label: str
-    title: str
-    cta: str | None = None
     email: str
+
+
+class AltContactsModel(BaseModel):
+    title: str
+    emails: list[AltContactModel]
 
 
 class ContactModel(BaseModel):
     title: str
     subtitle: str
     cta: str
-    alt_email: AltEmailModel
+    alt_contacts: AltContactsModel
     progress_text: str
     privacy_note: str
     error_message: str

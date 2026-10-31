@@ -204,14 +204,18 @@ about:
     src: /static/media/logo-isft199.webp
     width: 184
 contact:
-  title: Preinscripción y Consultas Institucionales
-  subtitle: Completá el formulario para recibir información sobre las carreras, fechas
-    de ingreso o consultar a Secretaría.
+  title: Consultas sobre carreras y preinscripción
+  subtitle: ¿Tenés dudas sobre las carreras, los requisitos de ingreso, las fechas
+    de preinscripción o la documentación necesaria? Completá el formulario y nos
+    pondremos en contacto con vos.
   cta: Enviar Consulta
-  alt_email:
-    email: isft199inscripciones@gmail.com
-    label: Correo de preinscripción
-    title: Escribinos directamente
+  alt_contacts:
+    title: Escribinos
+    emails:
+    - label: Preceptoría
+      email: isft199preceptoria@gmail.com
+    - label: Consultas de alumnos y preinscripción
+      email: isft199alumnos@gmail.com
   progress_text: Paso 1 de 3
   privacy_note: Tus datos se gestionan de forma confidencial exclusivamente para fines
     informativos y académicos.
@@ -382,8 +386,9 @@ admision:
   pasos_eyebrow: Cómo se ingresa
   pasos:
   - title: Consultá o preinscribite
-    text: Completá el formulario en línea, escribinos por WhatsApp o acercate
-      directamente a Secretaría. No hace falta documentación en este paso.
+    text: Completá el formulario en línea para realizar consultas sobre las carreras
+      y el ingreso, o acercate directamente a Secretaría. No hace falta presentar
+      documentación en este paso.
   - title: Reuní la documentación
     text: Es la lista de requisitos de ingreso. Si todavía adeudás materias del
       secundario, podés presentar la constancia de título en trámite.
