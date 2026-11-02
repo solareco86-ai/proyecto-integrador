@@ -62,7 +62,7 @@ async def test_carrera_detail_page():
     assert "Perfil Profesional del Egresado" in html
     assert "Ejes Temáticos y Materias Destacadas" in html
     assert "Alcance y Salida Laboral" in html
-    assert "Preinscribirme a esta Carrera" in html
+    assert "Consultar por esta carrera" in html
 
 
 @pytest.mark.asyncio
