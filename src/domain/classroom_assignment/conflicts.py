@@ -6,6 +6,7 @@ from datetime import time
 from itertools import combinations
 from typing import Literal
 
+from src.domain.classroom_assignment.compatibility import room_can_host
 from src.domain.classroom_assignment.entities import Aula, Comision
 
 ConflictSeverity = Literal["error", "warning"]
@@ -59,24 +60,23 @@ def detect_conflicts(comisiones: Iterable[Comision], aulas: Iterable[Aula]) -> C
     room_list = tuple(aulas)
     conflicts: list[Conflict] = []
     compatible_rooms = {
-        commission.id_comision: tuple(
-            room.id_aula for room in room_list if room.capacidad >= commission.cantidad_estudiantes
+        commission.id_sesion: tuple(
+            room.id_aula for room in room_list if room_can_host(room, commission)
         )
         for commission in commission_list
     }
 
     for commission in commission_list:
-        candidates = compatible_rooms[commission.id_comision]
+        candidates = compatible_rooms[commission.id_sesion]
         if not candidates:
             conflicts.append(
                 Conflict(
                     code="NO_COMPATIBLE_ROOM",
                     severity="error",
                     message=(
-                        f"La comisión '{commission.id_comision}' necesita capacidad para "
-                        f"{commission.cantidad_estudiantes} estudiantes y no tiene aulas compatibles."
+                        f"La sesión '{commission.id_sesion}' no tiene un aula compatible."
                     ),
-                    comision_ids=(commission.id_comision,),
+                    comision_ids=(commission.id_sesion,),
                     dia=commission.dia,
                     hora_inicio=commission.hora_inicio,
                     hora_fin=commission.hora_fin,
@@ -87,14 +87,14 @@ def detect_conflicts(comisiones: Iterable[Comision], aulas: Iterable[Aula]) -> C
         if first.dia != second.dia or not _overlaps(first, second):
             continue
         shared_candidate_rooms = tuple(
-            sorted(set(compatible_rooms[first.id_comision]) | set(compatible_rooms[second.id_comision]))
+            sorted(set(compatible_rooms[first.id_sesion]) | set(compatible_rooms[second.id_sesion]))
         )
         conflicts.append(
             Conflict(
                 code="TIME_OVERLAP",
                 severity="warning",
                 message="Las comisiones se dictan simultáneamente y necesitan aulas diferentes.",
-                comision_ids=(first.id_comision, second.id_comision),
+                comision_ids=(first.id_sesion, second.id_sesion),
                 aula_ids=shared_candidate_rooms,
                 dia=first.dia,
                 hora_inicio=max(first.hora_inicio, second.hora_inicio),
@@ -121,16 +121,16 @@ def _detect_room_shortages(
                 for commission in day_commissions
                 if commission.hora_inicio <= start_time < commission.hora_fin
             )
-            if len(active) < 2 or any(not compatible_rooms[item.id_comision] for item in active):
+            if len(active) < 2 or any(not compatible_rooms[item.id_sesion] for item in active):
                 continue
-            group_ids = tuple(sorted(item.id_comision for item in active))
+            group_ids = tuple(sorted(item.id_sesion for item in active))
             if group_ids in seen_groups:
                 continue
             seen_groups.add(group_ids)
             matching = _maximum_room_matching(active, compatible_rooms)
             if matching == len(active):
                 continue
-            room_ids = tuple(sorted({room for item in active for room in compatible_rooms[item.id_comision]}))
+            room_ids = tuple(sorted({room for item in active for room in compatible_rooms[item.id_sesion]}))
             shortages.append(
                 Conflict(
                     code="SIMULTANEOUS_ROOM_SHORTAGE",
@@ -164,7 +164,7 @@ def _maximum_room_matching(
                 return True
         return False
 
-    return sum(visit(commission.id_comision, set()) for commission in commissions)
+    return sum(visit(commission.id_sesion, set()) for commission in commissions)
 
 
 def _overlaps(first: Comision, second: Comision) -> bool:

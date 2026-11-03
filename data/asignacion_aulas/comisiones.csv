@@ -1,9 +1,10 @@
-id_comision,materia,carrera,cantidad_estudiantes,dia,hora_inicio,hora_fin
-C001,Programación I,Ciencia de Datos e Inteligencia Artificial,28,Lunes,18:00,20:00
-C002,Matemática I,Logística,45,Lunes,18:00,20:00
-C003,Introducción a la Mecatrónica,Mecatrónica,18,Lunes,18:00,20:00
-C004,Base de Datos,Ciencia de Datos e Inteligencia Artificial,22,Lunes,20:00,22:00
-C005,Comunicación,Administración de Recursos Humanos,35,Martes,18:00,20:00
-C006,Inglés Técnico,Turismo,24,Martes,18:00,20:00
-C007,Seguridad e Higiene,Higiene y Seguridad en el Trabajo,38,Martes,20:00,22:00
-C008,Práctica Profesional,Hotelería,15,Miércoles,18:00,21:00
+id_comision,id_sesion,materia,carrera,cantidad_estudiantes,dia,hora_inicio,hora_fin,requerimientos
+C001,S001,Programación I,Ciencia de Datos e Inteligencia Artificial,24,Lunes,18:30,21:30,"laboratorio_computacion"
+C001,S002,Programación I,Ciencia de Datos e Inteligencia Artificial,24,Miércoles,18:30,21:30,"laboratorio_computacion"
+C002,S003,Matemática I,Ciencia de Datos e Inteligencia Artificial,45,Lunes,18:30,21:30,""
+C003,S004,Introducción a la Gestión,Recursos Humanos,18,Lunes,18:30,21:30,""
+C004,S005,Base de Datos,Ciencia de Datos e Inteligencia Artificial,22,Martes,18:30,21:30,"laboratorio_computacion"
+C005,S006,Comunicación,Recursos Humanos,35,Martes,18:30,21:30,"biblioteca"
+C006,S007,Inglés Técnico,Recursos Humanos,24,Martes,18:30,21:30,""
+C007,S008,Práctica de Datos,Ciencia de Datos e Inteligencia Artificial,20,Miércoles,18:30,21:30,"laboratorio_computacion"
+C008,S009,Administración General,Recursos Humanos,15,Viernes,18:30,21:40,"biblioteca"

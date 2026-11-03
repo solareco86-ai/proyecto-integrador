@@ -4,6 +4,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from itertools import combinations
 
+from src.domain.classroom_assignment.compatibility import room_can_host
 from src.domain.classroom_assignment.entities import Aula, Comision
 
 
@@ -30,10 +31,10 @@ def build_overlap_graph(comisiones: Iterable[Comision]) -> OverlapGraph:
     edges: list[tuple[str, str]] = []
     for first, second in combinations(commission_list, 2):
         if first.dia == second.dia and _overlaps(first, second):
-            edge = (first.id_comision, second.id_comision)
+            edge = (first.id_sesion, second.id_sesion)
             edges.append(edge if edge[0] < edge[1] else (edge[1], edge[0]))
     return OverlapGraph(
-        nodes=tuple(commission.id_comision for commission in commission_list),
+        nodes=tuple(commission.id_sesion for commission in commission_list),
         edges=tuple(sorted(edges)),
     )
 
@@ -45,13 +46,13 @@ def build_compatibility_graph(
     commission_list = tuple(comisiones)
     room_list = tuple(aulas)
     edges = tuple(
-        (commission.id_comision, room.id_aula)
+        (commission.id_sesion, room.id_aula)
         for commission in commission_list
         for room in room_list
-        if room.capacidad >= commission.cantidad_estudiantes
+        if room_can_host(room, commission)
     )
     return CompatibilityGraph(
-        commission_nodes=tuple(commission.id_comision for commission in commission_list),
+        commission_nodes=tuple(commission.id_sesion for commission in commission_list),
         room_nodes=tuple(room.id_aula for room in room_list),
         edges=edges,
     )

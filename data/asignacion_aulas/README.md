@@ -6,8 +6,8 @@ Esta carpeta contiene el dataset sintético inicial del Proyecto Integrador. Se 
 
 | Archivo | Contenido |
 |---|---|
-| `aulas.csv` | Aulas disponibles, capacidad, sede y equipamiento. |
-| `comisiones.csv` | Comisiones con cantidad de estudiantes y horario definido. |
+| `aulas.csv` | Aulas disponibles, capacidad, tipo, sede y equipamiento. |
+| `comisiones.csv` | Sesiones de comisiones con cantidad de estudiantes, horario y requerimientos. |
 
 ## Importante
 
@@ -22,8 +22,11 @@ Esta carpeta contiene el dataset sintético inicial del Proyecto Integrador. Se 
 - Separador: coma (`,`).
 - Primera fila: encabezados obligatorios.
 - Horarios: formato de 24 horas `HH:MM`.
+- Horario institucional de prueba: lunes a viernes, aproximadamente de 18:30 a 21:30/21:40.
 - Capacidades y cantidades: números enteros positivos.
-- Identificadores: únicos dentro de cada archivo.
+- `id_aula` e `id_sesion`: únicos dentro de cada archivo.
+- `id_comision`: puede repetirse cuando una materia tiene más de una sesión semanal.
+- `requerimientos`: capacidades separadas por comas, por ejemplo `laboratorio_computacion` o `biblioteca`.
 
 ## Casos incluidos
 
@@ -31,6 +34,9 @@ El conjunto permite probar:
 
 - Comisiones con cantidad de estudiantes menor que la capacidad de varias aulas.
 - Comisiones que requieren aulas grandes.
+- Comisiones que requieren laboratorio de computación o biblioteca.
+- Una comisión con dos sesiones semanales identificadas por el mismo `id_comision`.
+- Competencia por el único laboratorio de computación.
 - Horarios superpuestos el mismo día.
 - Horarios diferentes que permiten reutilizar un aula.
 - Aulas ubicadas en dos sedes ficticias.

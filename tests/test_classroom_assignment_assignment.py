@@ -21,14 +21,15 @@ def _valid_data() -> tuple[tuple[Comision, ...], tuple[Aula, ...]]:
     return result.comisiones, result.aulas
 
 
-def test_asigna_todas_las_comisiones_sinteticas() -> None:
+def test_asigna_todas_las_sesiones_posibles() -> None:
     comisiones, aulas = _valid_data()
 
     result = AssignRoomsUseCase().execute(comisiones, aulas)
 
-    assert result.is_complete
+    assert not result.is_complete
     assert len(result.assignments) == 8
-    assert {item.id_comision for item in result.assignments} == {item.id_comision for item in comisiones}
+    assert len(result.unassigned) == 1
+    assert result.unassigned[0].id_sesion == "S008"
 
 
 def test_reutiliza_un_aula_en_horarios_diferentes() -> None:
@@ -46,6 +47,7 @@ def test_informa_comision_sin_aula_por_capacidad() -> None:
     comisiones, aulas = _valid_data()
     impossible = Comision(
         id_comision="C999",
+        id_sesion="S999",
         materia="Materia grande",
         carrera="Carrera de prueba",
         cantidad_estudiantes=100,
@@ -57,14 +59,15 @@ def test_informa_comision_sin_aula_por_capacidad() -> None:
     result = AssignRoomsUseCase().execute((*comisiones, impossible), aulas)
 
     assert not result.is_complete
-    assert result.unassigned[0].id_comision == "C999"
-    assert "capacidad" in result.unassigned[0].reason
+    impossible_result = next(item for item in result.unassigned if item.id_comision == "C999")
+    assert "capacidad" in impossible_result.reason
 
 
 def test_matching_resuelve_dos_comisiones_que_comparten_alternativas() -> None:
     comisiones, aulas = _valid_data()
     first = Comision(
         id_comision="C997",
+        id_sesion="S997",
         materia="Materia A",
         carrera="Carrera de prueba",
         cantidad_estudiantes=45,
@@ -74,6 +77,7 @@ def test_matching_resuelve_dos_comisiones_que_comparten_alternativas() -> None:
     )
     second = Comision(
         id_comision="C998",
+        id_sesion="S998",
         materia="Materia B",
         carrera="Carrera de prueba",
         cantidad_estudiantes=28,

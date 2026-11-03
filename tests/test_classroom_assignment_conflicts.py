@@ -21,21 +21,22 @@ def _valid_data() -> tuple[tuple[Comision, ...], tuple[Aula, ...]]:
     return result.comisiones, result.aulas
 
 
-def test_datos_sinteticos_no_tienen_conflictos_bloqueantes() -> None:
+def test_datos_sinteticos_detectan_conflicto_por_unico_laboratorio() -> None:
     comisiones, aulas = _valid_data()
 
     report, graph = DetectConflictsUseCase().execute(comisiones, aulas)
 
-    assert report.is_feasible
-    assert not report.errors
-    assert graph.nodes == tuple(item.id_comision for item in comisiones)
-    assert ("C001", "C002") in graph.edges
+    assert not report.is_feasible
+    assert any(conflict.code == "SIMULTANEOUS_ROOM_SHORTAGE" for conflict in report.errors)
+    assert graph.nodes == tuple(item.id_sesion for item in comisiones)
+    assert ("S001", "S003") in graph.edges
 
 
 def test_detecta_comision_sin_aula_por_capacidad() -> None:
     comisiones, aulas = _valid_data()
     oversized = Comision(
         id_comision="C999",
+        id_sesion="S999",
         materia="Materia grande",
         carrera="Carrera de prueba",
         cantidad_estudiantes=100,
@@ -53,6 +54,7 @@ def test_detecta_falta_de_aulas_para_comisiones_simultaneas() -> None:
     comisiones, aulas = _valid_data()
     first = Comision(
         id_comision="C997",
+        id_sesion="S997",
         materia="Materia A",
         carrera="Carrera de prueba",
         cantidad_estudiantes=48,
@@ -62,6 +64,7 @@ def test_detecta_falta_de_aulas_para_comisiones_simultaneas() -> None:
     )
     second = Comision(
         id_comision="C998",
+        id_sesion="S998",
         materia="Materia B",
         carrera="Carrera de prueba",
         cantidad_estudiantes=49,

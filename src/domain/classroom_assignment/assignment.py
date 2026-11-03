@@ -3,6 +3,7 @@
 from collections.abc import Iterable
 from dataclasses import dataclass
 
+from src.domain.classroom_assignment.compatibility import room_can_host
 from src.domain.classroom_assignment.entities import Aula, Comision
 
 
@@ -11,6 +12,7 @@ class RoomAssignment:
     """Asignación concreta de una comisión a un aula."""
 
     id_comision: str
+    id_sesion: str
     id_aula: str
     dia: str
     hora_inicio: str
@@ -22,6 +24,7 @@ class UnassignedCommission:
     """Comisión que no pudo ser asignada en su franja horaria."""
 
     id_comision: str
+    id_sesion: str
     reason: str
 
 
@@ -53,33 +56,34 @@ def assign_rooms(comisiones: Iterable[Comision], aulas: Iterable[Aula]) -> Assig
     groups = _group_by_slot(commission_list)
     for group in groups.values():
         candidates = {
-            commission.id_comision: tuple(
-                room.id_aula for room in room_list if room.capacidad >= commission.cantidad_estudiantes
+            commission.id_sesion: tuple(
+                room.id_aula for room in room_list if room_can_host(room, commission)
             )
             for commission in group
         }
         matching = _maximum_matching(group, candidates)
         for commission in group:
-            room_id = matching.get(commission.id_comision)
+            room_id = matching.get(commission.id_sesion)
             if room_id is None:
                 reason = (
                     "No existe un aula compatible disponible en esta franja horaria."
-                    if candidates[commission.id_comision]
+                    if candidates[commission.id_sesion]
                     else "No existe un aula con capacidad suficiente."
                 )
-                unassigned.append(UnassignedCommission(commission.id_comision, reason))
+                unassigned.append(UnassignedCommission(commission.id_comision, commission.id_sesion, reason))
                 continue
             assignments.append(
                 RoomAssignment(
                     id_comision=commission.id_comision,
+                    id_sesion=commission.id_sesion,
                     id_aula=room_id,
                     dia=commission.dia,
                     hora_inicio=commission.hora_inicio.strftime("%H:%M"),
                     hora_fin=commission.hora_fin.strftime("%H:%M"),
                 )
             )
-    assignments.sort(key=lambda item: item.id_comision)
-    unassigned.sort(key=lambda item: item.id_comision)
+    assignments.sort(key=lambda item: item.id_sesion)
+    unassigned.sort(key=lambda item: item.id_sesion)
     return AssignmentResult(tuple(assignments), tuple(unassigned))
 
 
@@ -112,8 +116,8 @@ def _maximum_matching(
                 return True
         return False
 
-    ordered = sorted(commissions, key=lambda item: (len(candidates[item.id_comision]), item.id_comision))
+    ordered = sorted(commissions, key=lambda item: (len(candidates[item.id_sesion]), item.id_sesion))
     for commission in ordered:
-        visit(commission.id_comision, set())
-    return {commission_id: room_id for room_id, commission_id in room_to_commission.items()}
+        visit(commission.id_sesion, set())
+    return {session_id: room_id for room_id, session_id in room_to_commission.items()}
 

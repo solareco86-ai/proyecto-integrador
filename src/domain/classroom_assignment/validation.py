@@ -16,9 +16,11 @@ REQUIRED_AULA_FIELDS: tuple[str, ...] = (
     "nombre",
     "capacidad",
     "edificio",
+    "tipo_aula",
 )
 REQUIRED_COMISION_FIELDS: tuple[str, ...] = (
     "id_comision",
+    "id_sesion",
     "materia",
     "carrera",
     "cantidad_estudiantes",
@@ -68,12 +70,14 @@ def validate_aulas(rows: Iterable[Mapping[str, str | None]]) -> AulasValidationR
         aula_id = _value(row, "id_aula")
         nombre = _value(row, "nombre")
         edificio = _value(row, "edificio")
+        tipo_aula = _value(row, "tipo_aula")
         equipamiento = _value(row, "equipamiento")
         capacidad = _positive_integer(row, "capacidad", row_number, row_issues)
 
         _check_required_text(row, "id_aula", row_number, row_issues)
         _check_required_text(row, "nombre", row_number, row_issues)
         _check_required_text(row, "edificio", row_number, row_issues)
+        _check_required_text(row, "tipo_aula", row_number, row_issues)
         if aula_id and aula_id in seen_ids:
             row_issues.append(
                 ValidationIssue(row_number, "id_aula", "duplicate", "El identificador del aula está repetido.")
@@ -90,6 +94,7 @@ def validate_aulas(rows: Iterable[Mapping[str, str | None]]) -> AulasValidationR
                 nombre=nombre,
                 capacidad=capacidad,
                 edificio=edificio,
+                tipo_aula=tipo_aula,
                 equipamiento=_split_equipment(equipamiento),
             )
         )
@@ -105,18 +110,20 @@ def validate_comisiones(rows: Iterable[Mapping[str, str | None]]) -> ComisionesV
         return ComisionesValidationResult(comisiones=(), issues=tuple(issues))
 
     comisiones: list[Comision] = []
-    seen_ids: set[str] = set()
+    seen_session_ids: set[str] = set()
     for row_number, row in enumerate(rows_list, start=2):
         row_issues: list[ValidationIssue] = []
         comision_id = _value(row, "id_comision")
+        session_id = _value(row, "id_sesion")
         materia = _value(row, "materia")
         carrera = _value(row, "carrera")
         dia = _value(row, "dia")
+        requirements = _split_equipment(_value(row, "requerimientos"))
         cantidad = _positive_integer(row, "cantidad_estudiantes", row_number, row_issues)
         hora_inicio = _parse_time(row, "hora_inicio", row_number, row_issues)
         hora_fin = _parse_time(row, "hora_fin", row_number, row_issues)
 
-        for field in ("id_comision", "materia", "carrera", "dia"):
+        for field in ("id_comision", "id_sesion", "materia", "carrera", "dia"):
             _check_required_text(row, field, row_number, row_issues)
         if hora_inicio is not None and hora_fin is not None and hora_inicio >= hora_fin:
             row_issues.append(
@@ -127,13 +134,13 @@ def validate_comisiones(rows: Iterable[Mapping[str, str | None]]) -> ComisionesV
                     "La hora de fin debe ser posterior a la hora de inicio.",
                 )
             )
-        if comision_id and comision_id in seen_ids:
+        if session_id and session_id in seen_session_ids:
             row_issues.append(
                 ValidationIssue(
                     row_number,
-                    "id_comision",
+                    "id_sesion",
                     "duplicate",
-                    "El identificador de la comisión está repetido.",
+                    "El identificador de la sesión está repetido.",
                 )
             )
 
@@ -143,16 +150,18 @@ def validate_comisiones(rows: Iterable[Mapping[str, str | None]]) -> ComisionesV
 
         assert hora_inicio is not None
         assert hora_fin is not None
-        seen_ids.add(comision_id)
+        seen_session_ids.add(session_id)
         comisiones.append(
             Comision(
                 id_comision=comision_id,
+                id_sesion=session_id,
                 materia=materia,
                 carrera=carrera,
                 cantidad_estudiantes=cantidad,
                 dia=dia,
                 hora_inicio=hora_inicio,
                 hora_fin=hora_fin,
+                requerimientos=requirements,
             )
         )
 

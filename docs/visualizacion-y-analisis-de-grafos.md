@@ -40,7 +40,7 @@ Este grafo muestra competencia temporal, pero una arista no significa necesariam
 
 - Los nodos de comisión representan clases que deben ubicarse.
 - Los nodos de aula representan espacios disponibles.
-- Una arista conecta una comisión con un aula si la capacidad del aula es suficiente.
+- Una arista conecta una sesión con un aula si la capacidad, el tipo y los recursos del aula son suficientes.
 
 Patrones relevantes:
 
