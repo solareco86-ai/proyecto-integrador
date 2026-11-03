@@ -6,8 +6,7 @@ from datetime import time
 from itertools import combinations
 from typing import Literal
 
-from src.domain.classroom_assignment.compatibility import room_can_host
-from src.domain.classroom_assignment.entities import Aula, Comision
+from src.domain.classroom_assignment.entities import Aula, Comision, room_can_host
 
 ConflictSeverity = Literal["error", "warning"]
 

@@ -112,60 +112,52 @@ def validate_comisiones(rows: Iterable[Mapping[str, str | None]]) -> ComisionesV
     comisiones: list[Comision] = []
     seen_session_ids: set[str] = set()
     for row_number, row in enumerate(rows_list, start=2):
-        row_issues: list[ValidationIssue] = []
-        comision_id = _value(row, "id_comision")
-        session_id = _value(row, "id_sesion")
-        materia = _value(row, "materia")
-        carrera = _value(row, "carrera")
-        dia = _value(row, "dia")
-        requirements = _split_equipment(_value(row, "requerimientos"))
-        cantidad = _positive_integer(row, "cantidad_estudiantes", row_number, row_issues)
-        hora_inicio = _parse_time(row, "hora_inicio", row_number, row_issues)
-        hora_fin = _parse_time(row, "hora_fin", row_number, row_issues)
-
-        for field in ("id_comision", "id_sesion", "materia", "carrera", "dia"):
-            _check_required_text(row, field, row_number, row_issues)
-        if hora_inicio is not None and hora_fin is not None and hora_inicio >= hora_fin:
-            row_issues.append(
-                ValidationIssue(
-                    row_number,
-                    "hora_fin",
-                    "invalid_interval",
-                    "La hora de fin debe ser posterior a la hora de inicio.",
-                )
-            )
-        if session_id and session_id in seen_session_ids:
-            row_issues.append(
-                ValidationIssue(
-                    row_number,
-                    "id_sesion",
-                    "duplicate",
-                    "El identificador de la sesión está repetido.",
-                )
-            )
-
-        if row_issues:
+        comision, row_issues = _validate_comision_row(row, row_number, seen_session_ids)
+        if comision is None:
             issues.extend(row_issues)
             continue
-
-        assert hora_inicio is not None
-        assert hora_fin is not None
-        seen_session_ids.add(session_id)
-        comisiones.append(
-            Comision(
-                id_comision=comision_id,
-                id_sesion=session_id,
-                materia=materia,
-                carrera=carrera,
-                cantidad_estudiantes=cantidad,
-                dia=dia,
-                hora_inicio=hora_inicio,
-                hora_fin=hora_fin,
-                requerimientos=requirements,
-            )
-        )
+        seen_session_ids.add(comision.id_sesion)
+        comisiones.append(comision)
 
     return ComisionesValidationResult(comisiones=tuple(comisiones), issues=tuple(issues))
+
+
+def _validate_comision_row(
+    row: Mapping[str, str | None], row_number: int, seen_session_ids: set[str]
+) -> tuple[Comision | None, list[ValidationIssue]]:
+    row_issues: list[ValidationIssue] = []
+    values = {field: _value(row, field) for field in ("id_comision", "id_sesion", "materia", "carrera", "dia")}
+    cantidad = _positive_integer(row, "cantidad_estudiantes", row_number, row_issues)
+    hora_inicio = _parse_time(row, "hora_inicio", row_number, row_issues)
+    hora_fin = _parse_time(row, "hora_fin", row_number, row_issues)
+
+    for field in values:
+        _check_required_text(row, field, row_number, row_issues)
+    if hora_inicio is not None and hora_fin is not None and hora_inicio >= hora_fin:
+        row_issues.append(
+            ValidationIssue(row_number, "hora_fin", "invalid_interval", "La hora de fin debe ser posterior a la hora de inicio.")
+        )
+    if values["id_sesion"] and values["id_sesion"] in seen_session_ids:
+        row_issues.append(
+            ValidationIssue(row_number, "id_sesion", "duplicate", "El identificador de la sesión está repetido.")
+        )
+    if row_issues or hora_inicio is None or hora_fin is None:
+        return None, row_issues
+
+    return (
+        Comision(
+            id_comision=values["id_comision"],
+            id_sesion=values["id_sesion"],
+            materia=values["materia"],
+            carrera=values["carrera"],
+            cantidad_estudiantes=cantidad,
+            dia=values["dia"],
+            hora_inicio=hora_inicio,
+            hora_fin=hora_fin,
+            requerimientos=_split_equipment(_value(row, "requerimientos")),
+        ),
+        [],
+    )
 
 
 def _validate_headers(
