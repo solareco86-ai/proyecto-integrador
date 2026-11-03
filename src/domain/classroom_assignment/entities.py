@@ -12,6 +12,7 @@ class Aula:
     nombre: str
     capacidad: int
     edificio: str
+    tipo_aula: str = "aula_comun"
     equipamiento: tuple[str, ...] = ()
 
 
@@ -20,10 +21,12 @@ class Comision:
     """Comisión con horario previamente definido."""
 
     id_comision: str
+    id_sesion: str
     materia: str
     carrera: str
     cantidad_estudiantes: int
     dia: str
     hora_inicio: time
     hora_fin: time
+    requerimientos: tuple[str, ...] = ()
 

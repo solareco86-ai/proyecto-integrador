@@ -20,10 +20,10 @@ def test_grafo_bipartito_conecta_comisiones_y_aulas_compatibles() -> None:
 
     graph = build_compatibility_graph(result.comisiones, result.aulas)
 
-    assert "C001" in graph.commission_nodes
+    assert "S001" in graph.commission_nodes
     assert "A001" in graph.room_nodes
-    assert ("C001", "A001") in graph.edges
-    assert ("C002", "A003") not in graph.edges
+    assert ("S001", "A004") in graph.edges
+    assert ("S003", "A003") not in graph.edges
 
 
 def test_grafo_de_superposicion_crea_aristas_por_horario() -> None:
@@ -31,8 +31,8 @@ def test_grafo_de_superposicion_crea_aristas_por_horario() -> None:
 
     graph = build_overlap_graph(result.comisiones)
 
-    assert ("C001", "C002") in graph.edges
-    assert ("C001", "C004") not in graph.edges
+    assert ("S001", "S003") in graph.edges
+    assert ("S001", "S005") not in graph.edges
 
 
 def test_exporta_grafo_bipartito_en_graphml(tmp_path: Path) -> None:
@@ -44,5 +44,5 @@ def test_exporta_grafo_bipartito_en_graphml(tmp_path: Path) -> None:
 
     content = destination.read_text(encoding="utf-8")
     assert "<graphml" in content
-    assert 'id="C001"' in content
+    assert 'id="S001"' in content
     assert 'id="A001"' in content

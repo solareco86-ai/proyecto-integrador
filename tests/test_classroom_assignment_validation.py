@@ -22,7 +22,7 @@ def test_lee_los_csv_sinteticos() -> None:
     comisiones = read_csv_rows(DATA_DIR / "comisiones.csv")
 
     assert len(aulas) == 5
-    assert len(comisiones) == 8
+    assert len(comisiones) == 9
 
 
 def test_valida_los_datos_sinteticos() -> None:
@@ -30,7 +30,7 @@ def test_valida_los_datos_sinteticos() -> None:
 
     assert result.is_valid
     assert len(result.aulas) == 5
-    assert len(result.comisiones) == 8
+    assert len(result.comisiones) == 9
     assert result.comisiones[0].hora_inicio.hour == 18
 
 

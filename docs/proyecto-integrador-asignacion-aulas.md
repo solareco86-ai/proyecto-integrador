@@ -42,33 +42,39 @@ Procesar archivos de aulas y comisiones para:
 | `nombre` | texto | Sí | Nombre visible del aula. |
 | `capacidad` | entero | Sí | Cantidad máxima de estudiantes. |
 | `edificio` | texto | Sí | Edificio o sede. |
+| `tipo_aula` | texto | Sí | Tipo de espacio: aula común, laboratorio o biblioteca. |
 | `equipamiento` | texto | No | Equipamiento separado por comas. |
 
 ### `comisiones.csv`
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|---:|---|
-| `id_comision` | texto | Sí | Identificador único de la comisión. |
+| `id_comision` | texto | Sí | Identificador de la comisión o materia. Puede repetirse. |
+| `id_sesion` | texto | Sí | Identificador único de cada encuentro semanal. |
 | `materia` | texto | Sí | Nombre de la materia. |
 | `carrera` | texto | Sí | Carrera a la que pertenece. |
 | `cantidad_estudiantes` | entero | Sí | Cantidad estimada de estudiantes. |
 | `dia` | texto | Sí | Día de cursada. |
 | `hora_inicio` | `HH:MM` | Sí | Inicio de la clase. |
 | `hora_fin` | `HH:MM` | Sí | Fin de la clase. |
+| `requerimientos` | texto | No | Tipo o capacidades requeridas, separadas por comas. |
+
+Una materia que cursa dos veces por semana se representa con dos filas distintas y el mismo `id_comision`, pero con distinto `id_sesion` y posiblemente distinto día.
 
 ## Restricciones obligatorias
 
-1. Una comisión no puede superar la capacidad del aula.
+1. Una sesión no puede superar la capacidad del aula.
 2. Un aula no puede tener dos comisiones en horarios superpuestos.
 3. La hora de inicio debe ser anterior a la hora de fin.
-4. Los identificadores deben ser únicos.
+4. `id_aula` e `id_sesion` deben ser únicos.
 5. Los registros inválidos deben informarse y no utilizarse silenciosamente.
+6. El aula debe satisfacer los requerimientos de la sesión.
 
 ## Datos sintéticos
 
 Los archivos ubicados en `data/asignacion_aulas/` son únicamente de prueba. No representan datos reales del instituto y no deben utilizarse para tomar decisiones institucionales.
 
-El conjunto actual contiene aulas de una sede ficticia y comisiones con horarios superpuestos para poder probar tanto asignaciones válidas como conflictos de capacidad y disponibilidad.
+El conjunto actual representa dos carreras de una sede ficticia, cursadas de lunes a viernes en el turno vespertino. Incluye un único laboratorio de computación, una biblioteca, materias con requerimientos especiales y una comisión con dos sesiones semanales.
 
 ## Flujo previsto
 

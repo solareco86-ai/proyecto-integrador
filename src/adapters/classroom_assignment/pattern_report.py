@@ -65,6 +65,14 @@ def write_pattern_report(
         "",
         f"- {', '.join(without_room) if without_room else 'No se encontraron comisiones sin aula compatible.'}",
         "",
+        "### Sesiones sin asignación",
+        "",
+        *(
+            [f"- `{item.id_sesion}` ({item.id_comision}): {item.reason}" for item in assignment.unassigned]
+            if assignment is not None and assignment.unassigned
+            else ["- Todas las sesiones recibieron un aula en el matching."]
+        ),
+        "",
         "## Decisiones tomadas",
         "",
         "1. Una superposición horaria se informa como advertencia porque puede resolverse usando aulas distintas.",
