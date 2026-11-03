@@ -85,5 +85,5 @@ async def test_contact_page_renders_honeypot_and_email_protect() -> None:
     assert "website_url_hp" in html
     assert "js-email-protect" in html
     assert 'data-u="isft199preceptoria"' in html
-    assert 'data-u="isft199alumnos"' in html
+    assert 'data-u="isft199consultas"' in html
     assert 'data-d="gmail.com"' in html

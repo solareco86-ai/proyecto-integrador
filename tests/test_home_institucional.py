@@ -81,7 +81,7 @@ async def test_portada_no_publica_plazos_sin_fecha_oficial() -> None:
 
     html = await _home_html()
     if admision.cierre is None:
-        assert "Cierre de la preinscripción" not in html
+        assert "Cierre de la inscripción" not in html
         assert "días restantes" not in html
     else:
         assert admision.cierre.fecha_texto in html

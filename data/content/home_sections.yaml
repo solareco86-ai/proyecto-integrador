@@ -10,7 +10,7 @@ hero:
     label: Explorar Carreras
   secondaryCta:
     href: '#ingreso'
-    label: Preinscripción e Ingreso
+    label: Consultas e Ingreso
   responseNote: 'Sede El Talar: Maestra Celina Voena 1750 (Tigre) · Turno vespertino
     (18:00 a 22:30 hs) · Tel. 11 4736-0013'
   benefits:
@@ -115,7 +115,7 @@ process:
   - title: 1. Elegí tu Carrera
     text: Consultá los planes de estudio y perfiles profesionales de las 6 tecnicaturas
       oficiales.
-  - title: 2. Preinscripción en Línea
+  - title: 2. Consulta en Línea
     text: Completá el formulario web con tus datos personales y la carrera seleccionada.
   - title: 3. Entrega de Documentación
     text: Presentá fotocopia de DNI vigente, constancia o título secundario y la planilla
@@ -204,9 +204,9 @@ about:
     src: /static/media/logo-isft199.webp
     width: 184
 contact:
-  title: Consultas sobre carreras y preinscripción
+  title: Consultas sobre carreras
   subtitle: ¿Tenés dudas sobre las carreras, los requisitos de ingreso, las fechas
-    de preinscripción o la documentación necesaria? Completá el formulario y nos
+    de ingreso o la documentación necesaria? Completá el formulario y nos
     pondremos en contacto con vos.
   cta: Enviar Consulta
   alt_contacts:
@@ -214,12 +214,12 @@ contact:
     emails:
     - label: Preceptoría
       email: isft199preceptoria@gmail.com
-    - label: Consultas de alumnos y preinscripción
-      email: isft199alumnos@gmail.com
+    - label: Consultas
+      email: isft199consultas@gmail.com
   progress_text: Paso 1 de 3
   privacy_note: Tus datos se gestionan de forma confidencial exclusivamente para fines
     informativos y académicos.
-  error_message: Servicio temporalmente no disponible. Podés escribirnos a isft199@abc.gob.ar.
+  error_message: Servicio temporalmente no disponible. Podés escribirnos a isft199consultas@gmail.com.
   optional_text: Opcional
   required_text: Obligatorio
   contact_channel_note: Completá al menos uno de los dos datos de contacto (correo
@@ -247,7 +247,7 @@ contact:
   - title: Carrera de Interés
     fields:
     - id: contacto-servicio
-      label: ¿En qué tecnicatura te interesa realizar la preinscripción?
+      label: ¿Sobre qué tecnicatura querés consultar?
       required: true
       options:
       - label: Tecnicatura Superior en Turismo
@@ -385,7 +385,7 @@ admision:
     text: Título
   pasos_eyebrow: Cómo se ingresa
   pasos:
-  - title: Consultá o preinscribite
+  - title: Hacé tu consulta
     text: Completá el formulario en línea para realizar consultas sobre las carreras
       y el ingreso, o acercate directamente a Secretaría. No hace falta presentar
       documentación en este paso.
