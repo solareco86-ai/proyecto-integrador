@@ -30,3 +30,11 @@ class Comision:
     hora_fin: time
     requerimientos: tuple[str, ...] = ()
 
+
+def room_can_host(room: Aula, commission: Comision) -> bool:
+    """Indica si un aula cumple capacidad, tipo y equipamiento requerido."""
+    if room.capacidad < commission.cantidad_estudiantes:
+        return False
+    available = {room.tipo_aula, *room.equipamiento}
+    return set(commission.requerimientos).issubset(available)
+

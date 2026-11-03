@@ -3,8 +3,7 @@
 from collections.abc import Iterable
 from dataclasses import dataclass
 
-from src.domain.classroom_assignment.compatibility import room_can_host
-from src.domain.classroom_assignment.entities import Aula, Comision
+from src.domain.classroom_assignment.entities import Aula, Comision, room_can_host
 
 
 @dataclass(frozen=True)
