@@ -1,4 +1,4 @@
-"""Asignación de aulas mediante matching bipartito por franja horaria."""
+"""Asignación de aulas mediante matching con intervalos horarios."""
 
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -41,18 +41,13 @@ class AssignmentResult:
 
 
 def assign_rooms(comisiones: Iterable[Comision], aulas: Iterable[Aula]) -> AssignmentResult:
-    """Asigna aulas compatibles dentro de cada franja horaria exacta.
-
-    El MVP considera una franja como la combinación exacta de día, hora de
-    inicio y hora de fin. Las aulas pueden reutilizarse en franjas diferentes.
-    Dentro de cada franja se busca un matching máximo entre comisiones y aulas.
-    """
+    """Asigna aulas compatibles sin reutilizarlas durante intervalos superpuestos."""
     commission_list = tuple(comisiones)
     room_list = tuple(aulas)
     assignments: list[RoomAssignment] = []
     unassigned: list[UnassignedCommission] = []
 
-    groups = _group_by_slot(commission_list)
+    groups = _group_by_day(commission_list)
     for group in groups.values():
         candidates = {
             commission.id_sesion: tuple(
@@ -60,12 +55,12 @@ def assign_rooms(comisiones: Iterable[Comision], aulas: Iterable[Aula]) -> Assig
             )
             for commission in group
         }
-        matching = _maximum_matching(group, candidates)
+        matching = _maximum_interval_matching(group, candidates)
         for commission in group:
             room_id = matching.get(commission.id_sesion)
             if room_id is None:
                 reason = (
-                    "No existe un aula compatible disponible en esta franja horaria."
+                    "No existe un aula compatible disponible en este intervalo."
                     if candidates[commission.id_sesion]
                     else "No existe un aula con capacidad suficiente."
                 )
@@ -86,37 +81,56 @@ def assign_rooms(comisiones: Iterable[Comision], aulas: Iterable[Aula]) -> Assig
     return AssignmentResult(tuple(assignments), tuple(unassigned))
 
 
-def _group_by_slot(comisiones: tuple[Comision, ...]) -> dict[tuple[str, str, str], tuple[Comision, ...]]:
-    groups: dict[tuple[str, str, str], list[Comision]] = {}
+def _group_by_day(comisiones: tuple[Comision, ...]) -> dict[str, tuple[Comision, ...]]:
+    groups: dict[str, list[Comision]] = {}
     for commission in comisiones:
-        key = (
-            commission.dia,
-            commission.hora_inicio.strftime("%H:%M"),
-            commission.hora_fin.strftime("%H:%M"),
-        )
+        key = commission.dia
         groups.setdefault(key, []).append(commission)
-    return {key: tuple(value) for key, value in groups.items()}
+    return {
+        key: tuple(sorted(value, key=lambda item: (item.hora_inicio, item.hora_fin, item.id_sesion)))
+        for key, value in groups.items()
+    }
 
 
-def _maximum_matching(
+def _maximum_interval_matching(
     commissions: tuple[Comision, ...], candidates: dict[str, tuple[str, ...]]
 ) -> dict[str, str]:
-    """Encuentra un matching máximo con búsqueda aumentante."""
-    room_to_commission: dict[str, str] = {}
+    """Busca un matching máximo respetando superposiciones parciales."""
+    ordered = tuple(sorted(commissions, key=lambda item: (len(candidates[item.id_sesion]), item.hora_inicio, item.id_sesion)))
+    best: dict[str, str] = {}
 
-    def visit(commission_id: str, visited_rooms: set[str]) -> bool:
-        for room_id in candidates[commission_id]:
-            if room_id in visited_rooms:
-                continue
-            visited_rooms.add(room_id)
-            assigned_commission = room_to_commission.get(room_id)
-            if assigned_commission is None or visit(assigned_commission, visited_rooms):
-                room_to_commission[room_id] = commission_id
-                return True
-        return False
+    def visit(index: int, assigned: dict[str, str]) -> None:
+        nonlocal best
+        if len(assigned) > len(best):
+            best = dict(assigned)
+        if index >= len(ordered) or len(assigned) + len(ordered) - index <= len(best):
+            return
 
-    ordered = sorted(commissions, key=lambda item: (len(candidates[item.id_sesion]), item.id_sesion))
-    for commission in ordered:
-        visit(commission.id_sesion, set())
-    return {session_id: room_id for room_id, session_id in room_to_commission.items()}
+        commission = ordered[index]
+        for room_id in candidates[commission.id_sesion]:
+            if _room_is_available(room_id, commission, assigned, ordered):
+                assigned[commission.id_sesion] = room_id
+                visit(index + 1, assigned)
+                del assigned[commission.id_sesion]
+        visit(index + 1, assigned)
+
+    visit(0, {})
+    return best
+
+
+def _room_is_available(
+    room_id: str,
+    commission: Comision,
+    assigned: dict[str, str],
+    commissions: tuple[Comision, ...],
+) -> bool:
+    by_session = {item.id_sesion: item for item in commissions}
+    return all(
+        assigned_session != room_id or not _overlaps(commission, by_session[session_id])
+        for session_id, assigned_session in assigned.items()
+    )
+
+
+def _overlaps(first: Comision, second: Comision) -> bool:
+    return first.hora_inicio < second.hora_fin and second.hora_inicio < first.hora_fin
 

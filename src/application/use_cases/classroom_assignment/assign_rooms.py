@@ -7,10 +7,10 @@ from src.domain.classroom_assignment.entities import Aula, Comision
 
 
 class AssignRoomsUseCase:
-    """Genera una propuesta explicable de aulas por franja horaria."""
+    """Genera una propuesta explicable de aulas por intervalos horarios."""
 
     def execute(self, comisiones: Iterable[Comision], aulas: Iterable[Aula]) -> AssignmentResult:
-        """Busca un matching máximo para cada franja horaria exacta."""
+        """Busca un matching máximo sin reutilizar aulas en intervalos superpuestos."""
         return assign_rooms(tuple(comisiones), tuple(aulas))
 
     def execute_for_session(self, comision: Comision, aulas: Iterable[Aula]) -> AssignmentResult:

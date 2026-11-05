@@ -1,6 +1,7 @@
 """Pruebas de asignación automática mediante matching."""
 
 import csv
+from datetime import time
 from pathlib import Path
 
 from src.application.use_cases.classroom_assignment.assign_rooms import AssignRoomsUseCase
@@ -87,6 +88,20 @@ def test_matching_resuelve_dos_comisiones_que_comparten_alternativas() -> None:
     )
 
     result = AssignRoomsUseCase().execute((first, second), aulas)
+
+    assert result.is_complete
+    assert len({item.id_aula for item in result.assignments}) == 2
+
+
+def test_matching_no_reutiliza_aula_en_superposiciones_parciales() -> None:
+    aulas = (
+        Aula("A001", "Aula 1", 30, "Sede Principal"),
+        Aula("A002", "Aula 2", 30, "Sede Principal"),
+    )
+    primera = Comision("C100", "S100", "Materia A", "Carrera", 20, "Lunes", time(18, 30), time(20, 0))
+    segunda = Comision("C101", "S101", "Materia B", "Carrera", 20, "Lunes", time(19, 0), time(21, 0))
+
+    result = AssignRoomsUseCase().execute((primera, segunda), aulas)
 
     assert result.is_complete
     assert len({item.id_aula for item in result.assignments}) == 2

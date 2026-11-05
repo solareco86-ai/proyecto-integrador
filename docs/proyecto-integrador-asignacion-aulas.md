@@ -1,14 +1,15 @@
 # Proyecto Integrador: asignación de aulas
 
-Documento inicial para definir el alcance, los datos y el primer entregable del proyecto integrador. El objetivo es construir un prototipo que procese información académica y proponga asignaciones de aulas sin conflictos.
+Documento de alcance y seguimiento del Proyecto Integrador. El MVP ya cuenta con un núcleo ejecutable que procesa datos académicos sintéticos, detecta conflictos y propone asignaciones de aulas. Este documento distingue lo cumplido de las mejoras pendientes.
 
-## Resultado de esta etapa
+## Estado actual
 
-- Se define un MVP limitado a la asignación de aulas.
-- Los horarios de las comisiones ya están definidos como datos de entrada.
-- Se priorizan archivos CSV y Excel.
-- Se utilizan datos sintéticos hasta obtener autorización y archivos reales del instituto.
-- El procesamiento de PDF queda fuera de esta primera etapa.
+- ✅ Se definió un MVP limitado a la asignación de aulas.
+- ✅ Los horarios de las comisiones se reciben como datos de entrada.
+- ✅ Se implementó el flujo CSV: lectura, validación, conflictos, matching y exportación.
+- ✅ Se utilizan datos sintéticos hasta obtener autorización y archivos reales del instituto.
+- ⏳ El soporte Excel/XLSX queda para una etapa posterior.
+- ✅ El procesamiento de PDF queda fuera del alcance actual.
 
 ## Problema
 
@@ -79,27 +80,66 @@ El conjunto actual representa dos carreras de una sede ficticia, cursadas de lun
 ## Flujo previsto
 
 ```text
-CSV/XLSX → carga → validación → normalización → conflictos → asignación → resultados
+CSV → carga → validación → normalización → conflictos → asignación → resultados
+
+> XLSX se incorporará en una etapa posterior mediante el mismo puerto de entrada tabular.
 ```
 
-La lógica de procesamiento se implementará separada de los endpoints FastAPI. FastAPI podrá encargarse de recibir archivos y devolver resultados, pero no contendrá las reglas principales del dominio.
+La lógica de procesamiento se mantiene separada de los endpoints FastAPI. Si más adelante se incorpora una interfaz web, FastAPI podrá recibir archivos y devolver resultados, pero no contendrá las reglas principales del dominio.
 
-## Criterios de aceptación de esta etapa
+## Criterios de aceptación y estado
 
-- [ ] Los dos CSV tienen encabezados documentados.
-- [ ] Los identificadores no se repiten.
-- [ ] Las capacidades y cantidades de estudiantes son positivas.
-- [ ] Los horarios respetan el formato `HH:MM`.
-- [ ] Existe al menos un caso con aula suficiente.
-- [ ] Existe al menos un caso que requiera detectar un conflicto.
-- [ ] Los archivos se pueden leer con Python y pandas.
+- [x] Los dos CSV tienen encabezados documentados.
+- [x] Los identificadores `id_aula` e `id_sesion` no se repiten en el dataset y se validan al cargarlo.
+- [x] Las capacidades y cantidades de estudiantes son positivas.
+- [x] Los horarios respetan el formato `HH:MM` y la hora inicial es anterior a la final.
+- [x] Existe al menos un caso con aula suficiente.
+- [x] Existe al menos un caso que requiere detectar un conflicto.
+- [x] Los archivos se pueden leer con Python mediante el adaptador CSV de la librería estándar.
+- [x] Se valida que las sesiones estén dentro del rango institucional `18:30–21:40`.
+- [x] Se validan días permitidos y se prueban superposiciones parciales, por ejemplo `18:30–20:00` y `19:00–21:00`.
+- [x] Existe una prueba end-to-end que recorre el flujo completo y verifica los artefactos exportados.
 
-## Próximo work unit
+> **Decisión sobre Excel:** CSV es el formato oficial del MVP. La lectura de Excel/XLSX se implementará en una etapa posterior mediante un adaptador, sin introducir dependencias de archivos tabulares en el dominio.
 
-Implementar la carga y validación de estos dos archivos, comenzando por pruebas unitarias con los datos sintéticos.
+## Evidencia disponible
 
-Commit sugerido:
+El núcleo actual cuenta con pruebas específicas para:
+
+- Validación de aulas, comisiones, identificadores, capacidades y horarios.
+- Conflictos de capacidad, aulas especiales, superposición y laboratorio único.
+- Matching, asignaciones y sesiones sin aula.
+- Grafos de superposición, compatibilidad y exportaciones.
+
+También se verificó que el módulo respeta las reglas de Clean Architecture, Hexagonal y DDD. La suite específica del módulo queda cubierta por 24 pruebas. La suite general del portal sigue como tarea separada porque el entorno de ejecución se bloquea en `tests/test_additional_routes.py::test_sitemap_rendered`, incluso con `-n 0` y con un timeout de `faulthandler`.
+
+## Cómo agregar la prueba end-to-end
+
+Se recomienda crear `tests/test_classroom_assignment_e2e.py` con este flujo:
+
+1. Leer `data/asignacion_aulas/aulas.csv` y `comisiones.csv` con `read_csv_rows`.
+2. Ejecutar `ValidateInputDataUseCase` y verificar que el resultado sea válido.
+3. Ejecutar `DetectConflictsUseCase` y comprobar el conflicto del laboratorio único.
+4. Ejecutar `AssignRoomsUseCase`.
+5. Construir los grafos de superposición y compatibilidad.
+6. Exportar los resultados a `tmp_path` y verificar que existan los CSV, GraphML, DOT y Markdown esperados.
+7. Comprobar que las asignaciones no reutilicen un aula en la misma franja y que las sesiones sin asignar incluyan un motivo.
+
+La prueba debe usar `tmp_path` para no modificar `tmp/grafos-asignacion-aulas` ni depender de archivos generados previamente.
+
+## Próximos work units
+
+1. ✅ **Validar rango horario y días:** se impone `18:30 <= hora_inicio`, `hora_fin <= 21:40` y se validan lunes a viernes.
+2. ✅ **Agregar prueba end-to-end:** se verifica el flujo completo y sus archivos de salida usando `tmp_path`.
+3. **Corregir la suite completa:** investigar el bloqueo de `test_sitemap_rendered` sin mezclarlo con la lógica de asignación de aulas.
+4. ✅ **Resolver superposiciones parciales:** el matching ya evita reutilizar un aula en intervalos como `18:30–20:00` y `19:00–21:00`.
+5. **Etapa posterior:** incorporar lectura XLSX mediante un adaptador y evaluar una interfaz de usuario. La interfaz no es necesaria para la evaluación actual, porque el foco está en el proceso, las decisiones técnicas y la evidencia de pruebas.
+
+Los dos primeros work units son los prioritarios para cerrar el MVP académico.
+
+Commits sugeridos:
 
 ```text
-docs(aulas): definir contrato inicial de datos
+feat(aulas): validar rango horario institucional
+test(aulas): cubrir flujo end-to-end
 ```

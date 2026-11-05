@@ -2,7 +2,6 @@
 
 import csv
 from pathlib import Path
-from typing import cast
 
 
 class CsvReader:
@@ -16,7 +15,9 @@ class CsvReader:
     def read_headers(self, path: Path) -> tuple[str, ...]:
         """Lee únicamente los encabezados para validar un archivo antes de procesarlo."""
         with path.open(mode="r", encoding="utf-8-sig", newline="") as file:
-            headers = cast(list[str], next(csv.reader(file), []))
+            reader = csv.reader(file)
+            empty_headers: list[str] = []
+            headers = next(reader, empty_headers)
             return tuple(headers)
 
 
