@@ -95,6 +95,14 @@
     background: var(--inst-gris-100) !important;
     border-color: var(--inst-gris-300) !important;
 }
+@media (min-width: 1280px) {
+    .c-home-header__icon-link[data-v-236fef00] {
+        display: none;
+    }
+    .c-home-header__brand[data-v-236fef00] {
+        max-width: 220px;
+    }
+}
 .c-home-header__cta {
     /* Botón principal de navegación/acceso institucional ("Requisitos de
        ingreso"): azul, no verde — aparece en el header de todas las
