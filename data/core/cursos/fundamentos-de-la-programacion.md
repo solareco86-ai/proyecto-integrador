@@ -3,6 +3,8 @@ id: "fundamentos-de-la-programacion"
 titulo: "Fundamentos de la Programación"
 nivel: "Inicial"
 duracion: "64 horas de cursada (4 horas semanales × 16 semanas, 1er año)"
+tipo: "Material complementario"
+etiqueta: "Recomendado"
 instructor:
   nombre: "Agustin Bustos"
   cargo: "Técnico Universitario · Docente ISFT 199"
