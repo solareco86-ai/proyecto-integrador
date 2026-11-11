@@ -43,6 +43,52 @@ El agente relevará la actividad del equipo en los repositorios indicados por la
 
 ---
 
+## Evaluación de Contribuciones en GitHub (aplica a N1, N2 y N3)
+
+Se relevará la actividad del equipo en los repositorios indicados por la cátedra, mediante `gh` (commits, issues, pull requests, revisiones y comentarios). Se evalúa **qué aporta cada contribución**, no cuántas hay.
+
+### 1. Atribución
+
+1. **Registro previo:** cada estudiante informa su usuario de GitHub a la cátedra en la Semana 1. Solo se valora la actividad de usuarios registrados.
+2. **Co-autoría:** los commits con `Co-Authored-By:` cuentan para todos los co-autores declarados.
+3. **Asistentes de IA:** su uso está permitido si se declara (trailer `Co-Authored-By` o mención en la PR). Se evalúa el resultado y la comprensión del equipo, que se verifica en la defensa (N4).
+
+### 2. Qué se valora en cada tipo de contribución
+
+| Contribución | Se valora | Se penaliza |
+|---|---|---|
+| **Commits** | Un cambio lógico por commit; mensaje Conventional Commits que explica el *porqué*; el código pasa las validaciones locales (pre-push) | Mensajes vacíos o genéricos (`fix`, `wip`, `cambios`); mezclar funcionalidad, formato y dependencias; commits que rompen la build |
+| **Issues abiertos** | Título concreto; contexto; criterios de aceptación verificables; referencia al ID del SRS (FR-xx, NFR-xx); cierre vinculado a un PR | Duplicados; títulos vagos; issues sin criterio verificable; issues creados solo para sumar actividad |
+| **Comentarios** | Aportan información nueva: una decisión con su fundamento, evidencia (logs, métricas, capturas), una pregunta precisa o una alternativa | "+1", "ok", "gracias" repetidos; texto genérico o pegado sin adaptar al proyecto |
+| **Pull requests** | Vinculado a un issue (`Fixes #n`); descripción con resumen y plan de pruebas; tamaño razonable; respuesta a cada revisión | PR sin descripción; PR que solo reformatea; merge sin revisión de un compañero |
+| **Revisiones de código** | Comentarios sobre líneas concretas; sugerencias con justificación; aprobación o cambios solicitados fundamentados | Aprobaciones sin lectura; autorrevisión; comentarios sin contenido técnico |
+
+### 3. Niveles de desempeño colaborativo
+
+| Nivel | Descriptor |
+|---|---|
+| **Excelente (9-10)** | Contribuciones de calidad sostenidas en el tiempo; issues y revisiones que mejoran decisiones del equipo; el historial permite reconstruir el proceso |
+| **Bueno (7-8)** | La mayoría de las contribuciones aporta valor; algunas carecen de contexto o de vínculo con issues |
+| **Satisfactorio (5-6)** | Contribuciones correctas pero superficiales o concentradas en un solo tipo; varias sin descripción |
+| **Insuficiente (0-4)** | Actividad mayormente sin contenido, o ausente |
+
+### 4. Reglas anti-distorsión
+
+1. Ningún número de contribuciones otorga puntaje por sí solo. Las cifras de referencia de las rúbricas son mínimos orientativos, no metas.
+2. La actividad concentrada en la última semana se evalúa por contenido y se analiza en su cronología.
+3. Contribuciones duplicadas o generadas en lote cuentan como una sola.
+4. Cada nota de N1 a N3 se publica con un informe que enlaza (URL) cada contribución considerada, para que el estudiante pueda verificarla.
+
+### 5. Revisión humana
+
+Cualquier estudiante puede solicitar revisión de sus notas de N1 a N3 ante la cátedra dentro de los 7 días corridos desde su publicación. La cátedra puede modificar la nota con la misma evidencia.
+
+### 6. Entregables grupales y mérito individual
+
+Los entregables de N1 a N3 son del equipo. El **orden de mérito** es individual y se construye con las contribuciones de cada estudiante según los puntos 2 y 3.
+
+---
+
 ## RÚBRICA 1: Canvas + SRS (N1 — 25%)
 
 **Fecha límite:** Fin Trayecto I (semana 3, ~20 de abril)  
@@ -171,16 +217,14 @@ El agente relevará la actividad del equipo en los repositorios indicados por la
 │                          │funciona│parcial│integradas│        │
 │                          │        │mente │       │        │
 ├──────────────────────────┼──────┼──────┼──────┼──────────────┤
-│ 3. Commits Atómicos      │10+  │5-9  │2-4  │0-1 o messy │
-│ (¿Git está limpio?)      │commits│commits│commits│history    │
-│                          │claros│claros│con   │            │
-│                          │y ded│        │mensajes│          │
-│                          │icados│      │vagos  │            │
+│ 3. Commits Atómicos      │Un cambio por commit,│Mayoría atómica,     │Mezclados o mensajes │Ruido, cambios masivos│
+│ (calidad, no cantidad)   │mensaje explica el   │mensajes claros      │pobres en varios     │o historial ilegible  │
+│                          │porqué               │                     │                     │                      │
 ├──────────────────────────┼──────┼──────┼──────┼──────────────┤
-│ 4. Ramas y PRs           │3+ PR│2 PR │1 PR │Sin PRs o   │
-│ (¿Trabajo colaborativo?) │con  │con  │sin  │history    │
-│                          │code │code │review│limpio     │
-│                          │review│review│      │            │
+│ 4. Ramas, PRs e Issues   │PR con Fixes #n,     │PR con descripción   │PR sin vínculo a     │Sin PRs, o PRs sin    │
+│ (colaboración)           │descripción y        │y revisión, algunas  │issues o sin revisión│contenido ni revisión │
+│                          │revisión de un      │faltas               │                     │                      │
+│                          │compañero            │                     │                     │                      │
 └──────────────────────────┴──────┴──────┴──────┴──────────────┘
 ```
 

@@ -274,6 +274,37 @@ npm run lint                       # ESLint + Prettier
 # Si falla, PR muestra rojo. Debes arreglarlo.
 ```
 
+### 8. Issues y Comentarios: Contribuciones que También Cuentan
+
+Un proyecto se gestiona tanto en el código como en las conversaciones del equipo. Las contribuciones en GitHub se evalúan por su contenido (ver Unidad 6.4).
+
+**Issue bien escrito:**
+```
+Título: Validar formato de DNI en el formulario de inscripción (FR-03)
+
+Contexto: el formulario acepta DNI con letras; el backend lo rechaza con 500.
+
+Criterios de aceptación:
+- [ ] DNI de 7 u 8 dígitos se acepta
+- [ ] Otros formatos muestran mensaje de error en el formulario
+- [ ] Test de integración cubre ambos casos
+
+Referencia: SRS FR-03
+```
+
+**Comentario que aporta:**
+- Propone una decisión con su fundamento: «Propongo validar en el dominio y no en el adaptador, para que la regla sea reutilizable».
+- Adjunta evidencia: log, métrica o captura reproducible.
+- Hace una pregunta precisa: «¿El DNI de extranjeros entra en FR-03 o queda fuera del MVP?».
+
+**Lo que no aporta:** «+1», «ok», «gracias» repetidos, o un texto genérico que no menciona el proyecto.
+
+**Reglas básicas:**
+1. Antes de abrir un issue, buscá duplicados.
+2. Todo issue tiene criterios de aceptación verificables.
+3. Cerrá el issue desde el PR (`Fixes #n`), no a mano.
+4. Abrir muchos issues sin contenido no suma: se evalúan la claridad y la utilidad de cada uno.
+
 ## Actividad Práctica
 
 1. **Setup local (antes de Sprint 1):**
