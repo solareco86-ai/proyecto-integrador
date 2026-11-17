@@ -24,15 +24,14 @@ El **Instituto Superior de Formación Técnica N° 199 de Tigre** es una institu
 
 ## 2. Oferta Académica Oficial (Catálogo de Tecnicaturas)
 
-La institución ofrece 7 tecnicaturas superiores diseñadas en articulación directa con el entorno socio-productivo:
+La institución ofrece 6 tecnicaturas superiores diseñadas en articulación directa con el entorno socio-productivo. El catálogo y sus resoluciones se mantienen en [data/content/carreras.yaml](../data/content/carreras.yaml), fuente de verdad para esta sección:
 
 1. **Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial (Res. 2730/22):** Formación en programación Python, pipelines de datos, machine learning, deep learning y gobierno ético del dato.
-2. **Tecnicatura Superior en Mecatrónica (Res. 5885/10):** Integración de mecánica, electrónica industrial, robótica, automatización y control programable (PLC).
-3. **Tecnicatura Superior en Logística (Res. 1243/19):** Gestión integral de suministros, centros de almacenamiento, distribución física y comercio exterior.
-4. **Tecnicatura Superior en Higiene y Seguridad en el Trabajo (Res. 320/13):** Prevención de riesgos laborales, ergonomía, auditoría de seguridad y normativa SRT.
-5. **Tecnicatura Superior en Administración de Recursos Humanos (Res. 276/03):** Gestión del talento humano, relaciones laborales, liquidación de haberes y clima organizacional.
-6. **Tecnicatura Superior en Turismo (Res. 2686/20):** Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
-7. **Tecnicatura Superior en Hotelería (Res. 2685/20):** Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
+2. **Tecnicatura Superior en Logística (Res. 5312/24):** Gestión integral de suministros, centros de almacenamiento, distribución física y comercio exterior.
+3. **Tecnicatura Superior en Higiene y Seguridad en el Trabajo (Res. 6183/25):** Prevención de riesgos laborales, ergonomía, auditoría de seguridad y normativa SRT.
+4. **Tecnicatura Superior en Administración de Recursos Humanos (Res. 5311/24):** Gestión del talento humano, relaciones laborales, liquidación de haberes y clima organizacional.
+5. **Tecnicatura Superior en Turismo (Res. 2686/20):** Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
+6. **Tecnicatura Superior en Hotelería (Res. 2685/20):** Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
 
 ---
 
