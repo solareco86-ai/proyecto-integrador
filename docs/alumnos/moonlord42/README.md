@@ -2,7 +2,7 @@
 
 Mi aporte al Proyecto Integrador tiene dos partes:
 
-1. **Generador de actas de examen** para Secretaría: [isft199datos.vercel.app](https://isft199datos.vercel.app)
+1. **Generador de actas de examen**, que Secretaría ya usa en cada turno de mesas: [isft199datos.vercel.app](https://isft199datos.vercel.app)
    (repo [MoonLord42/isft199datos](https://github.com/MoonLord42/isft199datos)). Es un proyecto propio
    y todos los commits son míos.
 2. **Rediseño del portal institucional** en este repo: auditoría UX/UI, prototipo y migración de la

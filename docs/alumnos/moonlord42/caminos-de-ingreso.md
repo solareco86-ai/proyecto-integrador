@@ -21,12 +21,14 @@ Ofrecer el generador de actas a otros institutos de nivel superior.
 - **A quién:** Secretarías de institutos superiores (técnicos y de formación docente) que inscriben a
   finales con un formulario de Google.
 - **Cómo cobro:** una puesta en marcha por instituto (adaptar la herramienta a su Forms y su
-  plantilla) y un abono por cada turno de mesas, que incluye el soporte.
+  plantilla) y un abono por cada turno de mesas, que incluye el soporte. Los montos están en el
+  [Canvas](canvas.md#precios).
 
 ## Por qué elijo B
 
-1. **Ya funciona con datos reales.** Lo probé con las inscripciones de agosto de 2026 del ISFT N° 199:
-   304 respuestas, 864 inscripciones y 213 actas en unos 40 segundos.
+1. **Ya está en uso.** La Secretaría del ISFT N° 199 arma sus actas con la herramienta. Con las
+   inscripciones de agosto de 2026 procesó 304 respuestas y 864 inscripciones, y armó 213 actas en
+   unos 40 segundos.
 2. **El problema se repite en cada instituto.** Las mesas son tres veces por año (febrero-marzo,
    julio-agosto y diciembre), y en cada turno alguien arma las actas una por una.
 3. **El costo de mantenerlo es casi cero.** La página es estática y procesa todo en el navegador:
@@ -35,5 +37,7 @@ Ofrecer el generador de actas a otros institutos de nivel superior.
    de Secretaría, así que no hay que pedir permiso para subirlos a ningún sistema.
 5. **Ya tengo experiencia cobrando trabajos a medida** (una aplicación de gestión de clientes y la web
    de un estudio de arquitectura), así que conozco el circuito de presupuestar, entregar y dar soporte.
+6. **Puede crecer.** Para el ciclo 2027 voy a sumar la inscripción a materias, que es otro trámite que
+   hoy se hace a mano en cada instituto. Con dos funciones, el abono vale más para el cliente.
 
 El camino A no queda descartado: lo que aprendo vendiendo el servicio también me sirve para un puesto.

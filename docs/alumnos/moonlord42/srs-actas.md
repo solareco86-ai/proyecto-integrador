@@ -12,12 +12,14 @@ respuestas del formulario de inscripción a la plantilla los alumnos de cada mat
 Con más de 200 actas por turno, es mucho trabajo y es fácil equivocarse.
 
 La herramienta recibe tres archivos Excel y devuelve un ZIP con todas las actas listas para imprimir.
+Secretaría ya la usa para armar las actas de cada turno de mesas.
 
 **Queda fuera del alcance:**
 - cargar notas;
 - firmar las actas;
 - guardar datos en un servidor;
-- inscribir alumnos (eso sigue haciéndose con el Forms).
+- inscribir alumnos (eso sigue haciéndose con el Forms). La inscripción a materias está planificada
+  para el ciclo 2027 (ver sección 8).
 
 ## 2. Usuarios
 
@@ -118,3 +120,12 @@ Cada criterio tiene un test automático en
 | RF-11 | El ZIP trae `00 - Resumen.xlsx` con una fila por acta y la hoja de avisos. | «el ZIP trae el resumen…» |
 | RF-12 | Con un archivo equivocado, el error dice qué columna o tabla falta. | 5 tests «error claro si…» |
 | RNF-05 | La cobertura de `js/actas.js` es de al menos 85 %. Hoy está en 98,7 % de líneas. | `npm test` en GitHub Actions |
+
+## 8. Próximos pasos
+
+- **Inscripción a materias (ciclo 2027):** hoy se hace a mano en Secretaría. Va a tener su propio SRS,
+  con sus requisitos, casos de uso y criterios de aceptación, antes de empezar a programarla.
+- **Arquitectura preparada para crecer:** el código está separado en capas (reglas del negocio,
+  lectura y escritura de Excel, y coordinación), como explica el
+  [README del repo](https://github.com/MoonLord42/isft199datos#arquitectura). La nueva función se
+  suma como otro módulo sin tocar las reglas de las actas.
