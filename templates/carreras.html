@@ -71,6 +71,39 @@
         </div>
     </section>
 
+    {# ============ COMPARADOR ============
+       Todas comparten duración, modalidad y turno: la tabla responde de un
+       vistazo en qué se diferencian. Sale de data/content/carreras.yaml. #}
+    <section id="comparar" class="c-inst-section c-inst-comparador" aria-labelledby="titulo-comparar">
+        <div class="c-inst-container">
+            <div class="c-inst-head--center">
+                <h2 class="c-inst-title" id="titulo-comparar">Comparar las {{ carreras | length }} carreras</h2>
+                <p class="c-inst-subtitle">Todas duran 3 años, son presenciales y se cursan en turno vespertino. Lo que cambia es el título y el campo de trabajo.</p>
+            </div>
+            <div class="c-inst-comparador__desliza" role="region" aria-labelledby="titulo-comparar" tabindex="0">
+                <table class="c-inst-comparador__tabla">
+                    <caption class="c-inst-comparador__sr">Comparación de las tecnicaturas superiores</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Tecnicatura</th>
+                            <th scope="col">Resolución</th>
+                            <th scope="col">Título que otorga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for carrera in carreras %}
+                        <tr>
+                            <th scope="row"><a href="/carreras/{{ carrera.slug }}">{{ carrera.title | replace('Tecnicatura Superior en ', '') }}</a></th>
+                            <td class="c-inst-comparador__dato">{{ carrera.resolucion or '—' }}</td>
+                            <td>{{ carrera.titulo_otorgado }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <section id="requisitos" class="c-inst-section c-inst-section--alt">
         <div class="c-inst-container">
             <div class="c-inst-head--center">
