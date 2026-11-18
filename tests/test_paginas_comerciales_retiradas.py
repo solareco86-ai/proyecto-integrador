@@ -98,7 +98,7 @@ async def test_los_redirects_no_afectan_estaticos_ni_paginas_vigentes() -> None:
         carreras = await ac.get("/carreras")
         casos = await ac.get("/casos/madygraf-eficiencia-y-vision-40")
     assert carreras.status_code == 200
-    assert casos.status_code == 200
+    assert casos.status_code == 404
 RUTAS_PUBLICAS: tuple[str, ...] = ("/", "/carreras", "/contact", "/terminos-y-condiciones")
 @pytest.mark.asyncio
 @pytest.mark.parametrize("ruta", RUTAS_PUBLICAS)

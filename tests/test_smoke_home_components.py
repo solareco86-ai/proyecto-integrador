@@ -125,17 +125,16 @@ async def test_home_no_enlaza_el_caso_comercial_madygraf():
 
 
 @pytest.mark.asyncio
-async def test_casos_detail_renders_all_fields():
-    """Verifica que el detalle del caso MadyGraf renderiza los campos clave."""
+async def test_casos_retirados_responden_404():
+    """El detalle de un caso retirado no se sirve; el listado sigue disponible y vacío."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/casos/madygraf-eficiencia-y-vision-40")
+        detalle = await ac.get("/casos/madygraf-eficiencia-y-vision-40")
+        listado = await ac.get("/casos")
 
-    assert response.status_code == 200
-    html = response.text
-
-    assert "MadyGraf" in html
-    assert "visión artificial" in html.lower() or "iot" in html.lower()
+    assert detalle.status_code == 404
+    assert listado.status_code == 200
+    assert "MadyGraf" not in listado.text
 
 
 @pytest.mark.asyncio

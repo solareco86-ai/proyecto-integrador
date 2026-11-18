@@ -37,10 +37,9 @@ def test_yaml_files_integrity():
     assert len(instructores) > 0
 
     # 5. Validar Casos de estudio
+    # Los casos de estudio fueron retirados del portal: el catálogo debe cargar vacío sin errores.
     casos = service.get_casos()
-    assert len(casos) > 0
-    for caso in casos:
-        assert caso.slug is not None
+    assert casos == []
 
     # 6. Validar Redirects
     redirects = service.get_redirects()
