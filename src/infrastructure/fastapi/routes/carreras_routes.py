@@ -8,6 +8,7 @@ from src.application.data_service import DataService
 from src.application.dtos import ContenidoModel
 from src.infrastructure.fastapi.dependencies import get_contenido, get_cursos_service, templates
 from src.infrastructure.fastapi.utils.seo import canonical_url
+from src.infrastructure.settings import config
 
 router = APIRouter(tags=["carreras"])
 
@@ -77,6 +78,43 @@ async def detalle_carrera(
         "footer": presented.get("footer"),
     }
     return templates.TemplateResponse(request=request, name="carrera_detail.html", context=context)
+
+
+@router.get("/campus")
+async def campus(
+    request: Request,
+    contenido: ContenidoModel = Depends(get_contenido),
+    data_svc: DataService = Depends(get_cursos_service),
+):
+    """Pantalla de estructura del campus virtual.
+
+    El módulo todavía no está construido: la vista se alimenta de datos de
+    muestra declarados en `data/campus/muestra.yaml`. Por eso solo existe con
+    DEBUG=true (en producción da 404) y además lleva un aviso permanente y
+    `noindex`, para que no se confunda con información real de ninguna persona.
+    """
+    if not config.DEBUG:
+        raise HTTPException(status_code=404, detail="Campus no disponible")
+    presented = present_contenido(contenido)
+    brand_data = presented["brand"]
+
+    seo: dict[str, Any] = {
+        "title": f"Campus virtual | {brand_data['brandName']}",
+        "description": "Estructura del campus virtual del ISFT N° 199.",
+        "canonical_url": canonical_url(request.url),
+        "site_name": brand_data["brandName"],
+        "og_image": presented["seo"]["og_image"],
+        "og_image_width": 1200,
+        "og_image_height": 630,
+    }
+
+    context: dict[str, Any] = {
+        "brand": brand_data,
+        "content": presented["content"],
+        "campus": data_svc.get_campus_muestra(),
+        "seo": seo,
+    }
+    return templates.TemplateResponse(request=request, name="campus.html", context=context)
 
 
 @router.get("/inscripciones")
