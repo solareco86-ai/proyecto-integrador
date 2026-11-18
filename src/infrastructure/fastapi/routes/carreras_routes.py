@@ -73,6 +73,7 @@ async def detalle_carrera(
         "brand": brand_data,
         "content": content_data,
         "carrera": carrera,
+        "otras_carreras": data_svc.get_otras_carreras(carrera_slug),
         "seo": seo,
         "footer": presented.get("footer"),
     }

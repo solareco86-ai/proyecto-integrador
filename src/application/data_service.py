@@ -291,6 +291,18 @@ class DataService:
                 return carrera
         return None
 
+    def get_otras_carreras(self, slug: str, limite: int = 2) -> list[CarreraModel]:
+        """Las carreras que siguen a `slug` en el catálogo, dando la vuelta al final.
+
+        Alimenta el bloque «Seguir mirando» del detalle: así cada página enlaza a
+        carreras distintas y ninguna queda sin enlaces que lleguen a ella.
+        """
+        carreras = self.get_carreras()
+        slugs = [carrera.slug for carrera in carreras]
+        inicio = slugs.index(slug) + 1 if slug in slugs else 0
+        siguientes = carreras[inicio:] + carreras[:inicio]
+        return [carrera for carrera in siguientes if carrera.slug != slug][:limite]
+
     def get_curso_especificacion(self, curso_id: str) -> CursoEspecificacionModel | None:
         """Carga la especificación oficial de un curso desde YAML."""
         if curso_id not in self._cached_especificaciones:
