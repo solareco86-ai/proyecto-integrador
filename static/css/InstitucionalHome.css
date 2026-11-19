@@ -1183,3 +1183,67 @@
 .c-inst-carreradetail a.hover\:tw\:text-dm-text-0:hover {
     color: var(--inst-azul) !important;
 }
+
+/* --- Comparador de carreras (/carreras#comparar) ---
+   Tabla con desplazamiento propio: en celular se desliza dentro de su caja
+   en lugar de ensanchar la página. */
+.c-inst-comparador__desliza {
+    position: relative;
+    overflow-x: auto;
+    background: var(--inst-blanco);
+    border: 1px solid var(--inst-gris-300);
+    border-radius: var(--inst-radius);
+    box-shadow: var(--inst-shadow);
+}
+.c-inst-comparador__desliza:focus-visible {
+    outline: 3px solid var(--inst-celeste);
+    outline-offset: 2px;
+}
+.c-inst-comparador__tabla {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    font-size: .92rem;
+    color: var(--inst-texto);
+}
+.c-inst-comparador__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.c-inst-comparador__tabla th,
+.c-inst-comparador__tabla td {
+    text-align: left;
+    padding: .85rem 1.1rem;
+    border-bottom: 1px solid var(--inst-gris-200);
+    vertical-align: top;
+}
+.c-inst-comparador__tabla thead th {
+    background: var(--inst-gris-100);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--inst-texto-muted);
+}
+.c-inst-comparador__tabla tbody tr:last-child th,
+.c-inst-comparador__tabla tbody tr:last-child td {
+    border-bottom: 0;
+}
+.c-inst-comparador__tabla tbody th a {
+    color: var(--inst-azul);
+    font-weight: 700;
+    text-decoration: none;
+}
+.c-inst-comparador__tabla tbody th a:hover {
+    text-decoration: underline;
+}
+.c-inst-comparador__dato {
+    font-family: monospace;
+    font-size: .82rem;
+    color: var(--inst-azul);
+    white-space: nowrap;
+}
