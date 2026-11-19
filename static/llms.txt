@@ -9,23 +9,25 @@
 
 ## Oferta Académica Oficial (Tecnicaturas Superiores de 3 Años)
 
+Oferta vigente: 6 tecnicaturas. Fuente del catálogo y sus resoluciones: `data/content/carreras.yaml` del repositorio institucional.
+
 1. [Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial](https://isftn199.com.ar/carreras):
    - Resolución oficial: DGCyE N° 2730/22.
    - Formación: Python, Machine Learning, Deep Learning, SQL, Big Data, FastAPI, Computer Vision y NLP.
    - Salida laboral: Científico/a de datos, desarrollador/a de Machine Learning, analista de Business Intelligence e ingeniero/a de datos junior.
 
 2. [Tecnicatura Superior en Logística](https://isftn199.com.ar/carreras):
-   - Resolución oficial: DGCyE N° 1243/19.
+   - Resolución oficial: DGCyE N° 5312/24.
    - Formación: Cadena de suministro (Supply Chain), gestión de almacenes (WMS), ruteo de distribución, comercio exterior y logística multimodal en el Corredor Norte.
    - Salida laboral: Coordinador/a de centros de distribución y almacenes, analista de supply chain y responsable de stock.
 
 3. [Tecnicatura Superior en Higiene y Seguridad en el Trabajo](https://isftn199.com.ar/carreras):
-   - Resolución oficial: DGCyE N° 320/13 (Habilita matrícula profesional).
+   - Resolución oficial: DGCyE N° 6183/25 (Habilita matrícula profesional).
    - Formación: Prevención de riesgos laborales, normativas SRT, ergonomía, toxicología, auditoría ambiental y planes de emergencia.
    - Salida laboral: Técnico/a en plantas industriales, obras civiles, auditorías en ART y consultoría externa matriculada.
 
 4. [Tecnicatura Superior en Administración de Recursos Humanos](https://isftn199.com.ar/carreras):
-   - Resolución oficial: DGCyE N° 276/03.
+   - Resolución oficial: DGCyE N° 5311/24.
    - Formación: Gestión del talento, legislación laboral, liquidación de haberes y cargas sociales, relaciones sindicales y clima organizacional.
    - Salida laboral: Analista de selección (Talent Acquisition), responsable de nóminas, administración de personal y mediación laboral.
 

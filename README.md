@@ -9,13 +9,15 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
 * **Nivel:** Educación Superior Técnica Terciaria (Pública y 100% Gratuita). Títulos oficiales con validez nacional.
 * **Sede Principal:** Maestra Celina Voena 1750, El Talar, Partido de Tigre, Pcia. de Buenos Aires (CP 1618).
 * **Dominio Oficial:** [https://isftn199.com.ar](https://isftn199.com.ar)
-* **Oferta Académica Principal (Tecnicaturas Superiores de 3 Años):**
+* **Oferta Académica Principal (6 Tecnicaturas Superiores de 3 Años):**
   1. *Ciencia de Datos e Inteligencia Artificial* (Resolución DGCyE N° 2730/22)
-  2. *Logística* (Resolución DGCyE N° 1243/19)
-  3. *Higiene y Seguridad en el Trabajo* (Resolución DGCyE N° 320/13)
-  4. *Administración de Recursos Humanos* (Resolución DGCyE N° 276/03)
+  2. *Logística* (Resolución DGCyE N° 5312/24)
+  3. *Higiene y Seguridad en el Trabajo* (Resolución DGCyE N° 6183/25)
+  4. *Administración de Recursos Humanos* (Resolución DGCyE N° 5311/24)
   5. *Turismo* (Resolución N° 2686/20)
   6. *Hotelería* (Resolución N° 2685/20)
+
+El catálogo vigente y sus resoluciones se mantienen en [data/content/carreras.yaml](data/content/carreras.yaml), fuente de verdad para esta documentación.
 
 ---
 
@@ -23,6 +25,7 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
 
 * **[docs/](docs)**: Suite canónica de documentación viva (SSOT):
   * **[srs.md](docs/srs.md)**: Especificación de requerimientos, catálogo oficial de tecnicaturas, requisitos de admisión, campus virtual y modelo educativo 100% público y gratuito.
+  * **[notificaciones/](docs/notificaciones/README.md)**: Canvas y SRS de la propuesta de notificaciones discontinuada, con trazabilidad a las issues #44–#49.
   * **[specs.md](docs/specs.md)**: Arquitectura Hexagonal/DDD, catálogo de carreras, campus virtual LMS, Critical CSS, observabilidad (`X-Request-ID`) y testing.
   * **[ops.md](docs/ops.md)**: Manual de operaciones en VPS, Systemd, Nginx, despliegues seguros y gestión de incidentes.
   * **[todo.md](docs/todo.md)**: Registro de Certezas vigentes (C-01 a C-20) y roadmap de desarrollo.
