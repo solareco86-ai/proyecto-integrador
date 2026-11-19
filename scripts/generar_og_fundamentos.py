@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 WIDTH, HEIGHT = 1200, 630
 
 # Ajustá esta ruta a la que indique el curso / PR #83
-output_path = Path("static/img/og-fundamentos-programacion.webp")
+output_path = Path("static/media/cursos/og-fundamentos-programacion.webp")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
 # Lienzo con gradiente horizontal limpio
