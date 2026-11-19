@@ -128,3 +128,23 @@ def test_otras_carreras_son_las_siguientes_y_dan_la_vuelta():
 
     # Un slug que no existe empieza desde el principio del catálogo.
     assert [c.slug for c in data_svc.get_otras_carreras("no-existe")] == slugs[:2]
+
+
+@pytest.mark.asyncio
+async def test_carreras_compara_todas_las_tecnicaturas():
+    """El comparador tiene una fila por carrera de data/, con su resolución y su título."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/carreras")
+
+    html = response.text
+    carreras = DataService(data_dir="data").get_carreras()
+    assert 'id="comparar"' in html
+    assert f"Comparar las {len(carreras)} carreras" in html
+    seccion = html.split('id="comparar"', 1)[1].split("</table>", 1)[0]
+    assert seccion.count('<th scope="row">') == len(carreras)
+    for carrera in carreras:
+        assert f'href="/carreras/{carrera.slug}"' in seccion
+        assert carrera.titulo_otorgado in seccion
+        if carrera.resolucion:
+            assert carrera.resolucion in seccion

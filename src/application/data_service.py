@@ -4,6 +4,7 @@ from typing import Any, cast
 import yaml  # type: ignore
 
 from src.application.dtos import (
+    CampusMuestraModel,
     CarreraModel,
     CarrerasContainerModel,
     CasoModel,
@@ -302,6 +303,13 @@ class DataService:
         inicio = slugs.index(slug) + 1 if slug in slugs else 0
         siguientes = carreras[inicio:] + carreras[:inicio]
         return [carrera for carrera in siguientes if carrera.slug != slug][:limite]
+
+    def get_campus_muestra(self) -> CampusMuestraModel:
+        """Datos de muestra que alimentan la pantalla de estructura del campus."""
+        ruta = os.path.join(self.data_dir, "campus", "muestra.yaml")
+        with open(ruta, encoding="utf-8") as archivo:
+            crudo: Any = yaml.safe_load(archivo)
+        return CampusMuestraModel.model_validate(crudo)
 
     def get_curso_especificacion(self, curso_id: str) -> CursoEspecificacionModel | None:
         """Carga la especificación oficial de un curso desde YAML."""
