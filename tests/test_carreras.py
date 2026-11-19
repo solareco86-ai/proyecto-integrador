@@ -108,3 +108,23 @@ async def test_sitemap_includes_carreras():
     assert "/carreras" in xml
     assert "/carreras/ciencia-de-datos-ia" in xml
     assert "/carreras/mecatronica" not in xml
+
+
+@pytest.mark.asyncio
+async def test_carreras_compara_todas_las_tecnicaturas():
+    """El comparador tiene una fila por carrera de data/, con su resolución y su título."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/carreras")
+
+    html = response.text
+    carreras = DataService(data_dir="data").get_carreras()
+    assert 'id="comparar"' in html
+    assert f"Comparar las {len(carreras)} carreras" in html
+    seccion = html.split('id="comparar"', 1)[1].split("</table>", 1)[0]
+    assert seccion.count('<th scope="row">') == len(carreras)
+    for carrera in carreras:
+        assert f'href="/carreras/{carrera.slug}"' in seccion
+        assert carrera.titulo_otorgado in seccion
+        if carrera.resolucion:
+            assert carrera.resolucion in seccion
