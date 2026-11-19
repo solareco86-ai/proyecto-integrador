@@ -11,6 +11,10 @@ from datetime import datetime, time
 
 from src.domain.classroom_assignment.entities import Aula, Comision
 
+VALID_DAYS: frozenset[str] = frozenset(("Lunes", "Martes", "Miércoles", "Jueves", "Viernes"))
+SCHEDULE_START = time(18, 30)
+SCHEDULE_END = time(21, 40)
+
 REQUIRED_AULA_FIELDS: tuple[str, ...] = (
     "id_aula",
     "nombre",
@@ -133,9 +137,28 @@ def _validate_comision_row(
 
     for field in values:
         _check_required_text(row, field, row_number, row_issues)
+    _check_allowed_day(values["dia"], row_number, row_issues)
     if hora_inicio is not None and hora_fin is not None and hora_inicio >= hora_fin:
         row_issues.append(
             ValidationIssue(row_number, "hora_fin", "invalid_interval", "La hora de fin debe ser posterior a la hora de inicio.")
+        )
+    if hora_inicio is not None and hora_inicio < SCHEDULE_START:
+        row_issues.append(
+            ValidationIssue(
+                row_number,
+                "hora_inicio",
+                "outside_schedule",
+                "La hora de inicio debe ser igual o posterior a las 18:30.",
+            )
+        )
+    if hora_fin is not None and hora_fin > SCHEDULE_END:
+        row_issues.append(
+            ValidationIssue(
+                row_number,
+                "hora_fin",
+                "outside_schedule",
+                "La hora de fin debe ser igual o anterior a las 21:40.",
+            )
         )
     if values["id_sesion"] and values["id_sesion"] in seen_session_ids:
         row_issues.append(
@@ -183,6 +206,18 @@ def _check_required_text(
 ) -> None:
     if not _value(row, field):
         issues.append(ValidationIssue(row_number, field, "required", "El campo es obligatorio."))
+
+
+def _check_allowed_day(day: str, row_number: int, issues: list[ValidationIssue]) -> None:
+    if day and day not in VALID_DAYS:
+        issues.append(
+            ValidationIssue(
+                row_number,
+                "dia",
+                "invalid_day",
+                "El día debe ser de lunes a viernes.",
+            )
+        )
 
 
 def _positive_integer(

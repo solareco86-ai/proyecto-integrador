@@ -89,3 +89,30 @@ def test_rechaza_hora_con_formato_invalido() -> None:
 
     assert any(issue.code == "invalid_time" and issue.field == "hora_inicio" for issue in result.issues)
 
+
+def test_rechaza_horario_anterior_al_turno_institucional() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["hora_inicio"] = "18:00"
+
+    result = validate_comisiones(rows)
+
+    assert any(issue.code == "outside_schedule" and issue.field == "hora_inicio" for issue in result.issues)
+
+
+def test_rechaza_horario_posterior_al_turno_institucional() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["hora_fin"] = "21:41"
+
+    result = validate_comisiones(rows)
+
+    assert any(issue.code == "outside_schedule" and issue.field == "hora_fin" for issue in result.issues)
+
+
+def test_rechaza_dia_fuera_del_turno_semanal() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["dia"] = "Sábado"
+
+    result = validate_comisiones(rows)
+
+    assert any(issue.code == "invalid_day" and issue.field == "dia" for issue in result.issues)
+
