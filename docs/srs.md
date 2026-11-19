@@ -24,15 +24,14 @@ El **Instituto Superior de Formación Técnica N° 199 de Tigre** es una institu
 
 ## 2. Oferta Académica Oficial (Catálogo de Tecnicaturas)
 
-La institución ofrece 7 tecnicaturas superiores diseñadas en articulación directa con el entorno socio-productivo:
+La institución ofrece 6 tecnicaturas superiores diseñadas en articulación directa con el entorno socio-productivo:
 
 1. **Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial (Res. 2730/22):** Formación en programación Python, pipelines de datos, machine learning, deep learning y gobierno ético del dato.
-2. **Tecnicatura Superior en Mecatrónica (Res. 5885/10):** Integración de mecánica, electrónica industrial, robótica, automatización y control programable (PLC).
-3. **Tecnicatura Superior en Logística (Res. 1243/19):** Gestión integral de suministros, centros de almacenamiento, distribución física y comercio exterior.
-4. **Tecnicatura Superior en Higiene y Seguridad en el Trabajo (Res. 320/13):** Prevención de riesgos laborales, ergonomía, auditoría de seguridad y normativa SRT.
-5. **Tecnicatura Superior en Administración de Recursos Humanos (Res. 276/03):** Gestión del talento humano, relaciones laborales, liquidación de haberes y clima organizacional.
-6. **Tecnicatura Superior en Turismo (Res. 2686/20):** Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
-7. **Tecnicatura Superior en Hotelería (Res. 2685/20):** Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
+2. **Tecnicatura Superior en Logística (Res. 5312/24):** Gestión integral de suministros, centros de almacenamiento, distribución física y comercio exterior.
+3. **Tecnicatura Superior en Higiene y Seguridad en el Trabajo (Res. 6183/25):** Prevención de riesgos laborales, ergonomía, auditoría de seguridad y normativa SRT.
+4. **Tecnicatura Superior en Administración de Recursos Humanos (Res. 5311/24):** Gestión del talento humano, relaciones laborales, liquidación de haberes y clima organizacional.
+5. **Tecnicatura Superior en Turismo (Res. 2686/20):** Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles.
+6. **Tecnicatura Superior en Hotelería (Res. 2685/20):** Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio.
 
 ---
 
@@ -58,3 +57,22 @@ La institución ofrece 7 tecnicaturas superiores diseñadas en articulación dir
 * **RNF-03 (Tipado Estricto):** 100% del código en `src/`, `scripts/` y `tests/` verificado con `pyright` (0 errores), y código JavaScript en `static/js/` tipado con JSDoc validado con `npm run typecheck:js` (0 errores LSP).
 * **RNF-04 (Cobertura de Pruebas):** Suite automatizada de pruebas unitarias y de integración con `pytest` manteniendo cobertura >= 85%.
 * **RNF-05 (Observabilidad y Seguridad):** Middleware de `X-Request-ID`, registro de logs estructurados con tiempo de respuesta, headers de seguridad HTTP y protección de datos conforme a la normativa vigente.
+
+---
+
+## 5. Especificación del Módulo: Fundamentos de la Programación (Proyecto Integrador)
+
+### 5.1 Introducción
+El presente documento especifica los requisitos técnicos y funcionales para el módulo de *Fundamentos de la Programación* del Proyecto Integrador.
+
+### 5.2 Descripción General
+El sistema provee una estructura modular en Markdown y YAML para la enseñanza de pseudocódigo (PSeInt) y lógica de programación, integrada con flujos de control de versiones en GitHub.
+
+### 5.3 Requisitos Funcionales
+* **RF01:** El repositorio debe almacenar las definiciones del curso en archivos estructurados (`curso.yaml` y lecciones en formato `.md`).
+* **RF02:** El sistema de validación debe verificar la sintaxis de las lecciones para asegurar que cumplan con los estándares pedagógicos.
+* **RF03:** Toda incorporación de contenido curricular debe realizarse exclusivamente a través de Pull Requests revisados y aprobados por al menos un par.
+
+### 5.4 Criterios de Aceptación
+* Validación exitosa de esquemas YAML sin errores de sintaxis.
+* Renderizado correcto de las lecciones en Markdown dentro de la plataforma de visualización del curso.
