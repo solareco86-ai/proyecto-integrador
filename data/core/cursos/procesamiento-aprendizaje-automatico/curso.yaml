@@ -240,13 +240,6 @@ sections:
       title: '5.4 Del if/else de Firmas Eléctricas a la Inferencia Basada en Datos (Machine Learning)'
       duration: 30 min
       content_file: cap-5-4-reglas-manuales-vs-datos.md
-    - type: lesson
-      id: les-paa-ini-5-5
-      slug: paa-ini-comparacion-modelos
-      title: '5.5 Comparación Crítica y Selección de Modelos — ¿Cuándo Usar Bayes, k-NN o CART?'
-      duration: 40 min
-      content_file: cap-5-5-comparacion-seleccion-modelos.md
-      case_study_reference: "energy-ml requiere decisión: ¿Bayes para probabilidades calibradas, CART para reglas explícitas, o k-NN para firmas geométricas? Esta lección enseña comparación empírica."
 - id: unit-2
   title: 'Unidad 2: Parte I - Inferencia Estadística, Modelado y MLOps'
   description: Puente activo con NumPy, APIs de inferencia robustas con Pydantic, algoritmos estadísticos (Bayes, k-NN) y evaluación TDD en energy-ml.
@@ -411,6 +404,13 @@ sections:
       title: '6.6 Optimización y Algoritmos Genéticos: Selección, Cruzamiento, Mutación y Búsqueda Estocástica'
       duration: 30 min
       content_file: cap-6-6-optimizacion-algoritmos-geneticos.md
+    - type: lesson
+      id: les-paa-int-6-7
+      slug: paa-int-comparacion-seleccion-modelos
+      title: '6.7 Comparación Crítica y Selección de Modelos: Supervisados (Bayes, k-NN, CART) y No Supervisados (k-medias, Aglomerativo)'
+      duration: 40 min
+      content_file: cap-5-5-comparacion-seleccion-modelos.md
+      case_study_reference: "energy-ml requiere decidir: ¿clustering no supervisado (k-medias/aglomerativo) para descubrir cargas, o clasificación supervisada (Bayes/k-NN/CART) para diagnóstico en tiempo real?"
 - id: unit-3
   title: 'Unidad 3: Parte II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
   description: Aprendizaje de conceptos, inducción de reglas formales (AQ/FOIL), explicabilidad en árboles CART y servidores Model Context Protocol (MCP).

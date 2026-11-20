@@ -57,14 +57,16 @@ trayectos:
           - cap-6-4-laboratorio-clustering-energy-ml
           - cap-6-5-aprendizaje-por-refuerzo-introduccion
           - cap-6-6-optimizacion-algoritmos-geneticos
-        hito: Desagregación no supervisada, toma de decisiones con Q-Learning y optimización con algoritmos genéticos en energy-ml
+          - cap-5-5-comparacion-seleccion-modelos
+        hito: Desagregación no supervisada, optimización y comparación crítica de modelos supervisados y no supervisados en energy-ml
     criterios_de_acreditacion:
-      - completitud: Aprobar 100% de las 19 lecciones (lecturas + laboratorios)
+      - completitud: Aprobar 100% de las 20 lecciones (lecturas + laboratorios)
       - evaluacion_formativa: Responder correctamente ≥ 80% de preguntas de razonamiento
       - caza_de_alucinaciones: Identificar bugs de IA en ≥ 80% de ejemplos de código
       - tdd: Implementar ≥ 2 endpoints con ciclo TDD (test-first) en energy-ml
       - clustering: Implementar pipeline de agrupamiento no supervisado con k óptimo validado por silueta
       - optimizacion: Implementar optimización metaheurística con algoritmo genético bajo restricciones físicas
+      - seleccion_modelos: Justificar técnicamente la selección entre modelos supervisados y no supervisados
       - metricas: Exposición de ≥ 4 métricas (TP, FP, FN, TN, precision, recall, F1) en GET /metrics
       - integracion: Tests de integración pasan (≥ 85% de cobertura)
     habilidades_certificadas:
@@ -74,6 +76,7 @@ trayectos:
       - Algoritmo k-medias y Selección de k (Método del Codo y Silueta)
       - Fundamentos de Aprendizaje por Refuerzo (Q-Learning y Bellman)
       - Optimización con Algoritmos Genéticos (Selección, Crossover, Mutación)
+      - Comparación y Selección de Modelos (Supervisados vs No Supervisados)
       - Validación de Datos con Pydantic
       - Construcción de APIs REST con FastAPI
       - TDD y Testing en Machine Learning

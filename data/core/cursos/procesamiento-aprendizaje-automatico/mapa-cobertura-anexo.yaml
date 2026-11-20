@@ -230,11 +230,10 @@ contenidos_bloques:
   - id: bloque-nosup-comparacion-seleccion
     bloque: "Bloque Aprendizaje No Supervisado"
     contenido_literal: "Comparación y selección de modelos"
-    estado: pendiente
-    entregable_asociado: "Entregable 6 (Épica #107)"
+    estado: cubierto
     lecciones:
-      - "lecciones/cap-5-5-comparacion-seleccion-modelos.md"  # Lección existente a reubicar y ampliar
-    observaciones: "cap-5-5 compara solo supervisados. Se reubicará y ampliará con modelos no supervisados en el Entregable 6."
+      - "lecciones/cap-5-5-comparacion-seleccion-modelos.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6, lección 6.7: comparación y selección entre modelos supervisados Bayes/k-NN/CART y no supervisados k-medias/Aglomerativo)."
 
   - id: bloque-nosup-agrupamiento
     bloque: "Bloque Aprendizaje No Supervisado"
