@@ -399,6 +399,12 @@ sections:
       duration: 35 min
       content_file: cap-6-4-laboratorio-clustering-energy-ml.md
       case_study_reference: "energy-ml aplica clustering sobre saltos de potencia activa y reactiva para desagregar cargas eléctricas (NILM) sin requerir etiquetas supervisadas previas."
+    - type: lesson
+      id: les-paa-int-6-5
+      slug: paa-int-aprendizaje-por-refuerzo-introduccion
+      title: '6.5 Introducción al Aprendizaje por Refuerzo: Agentes, Entornos, Recompensas y Políticas'
+      duration: 30 min
+      content_file: cap-6-5-aprendizaje-por-refuerzo-introduccion.md
 - id: unit-3
   title: 'Unidad 3: Parte II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
   description: Aprendizaje de conceptos, inducción de reglas formales (AQ/FOIL), explicabilidad en árboles CART y servidores Model Context Protocol (MCP).
