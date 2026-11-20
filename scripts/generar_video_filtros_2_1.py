@@ -1,6 +1,7 @@
 import shutil
 import subprocess
 from pathlib import Path
+
 from PIL import Image, ImageDraw, ImageFont
 
 src_dir = Path("static/img/cap_2_1")
@@ -36,6 +37,7 @@ ffmpeg_bin = shutil.which("ffmpeg")
 if not ffmpeg_bin:
     try:
         import imageio_ffmpeg
+
         ffmpeg_bin = imageio_ffmpeg.get_ffmpeg_exe()
     except Exception:
         pass
@@ -50,9 +52,18 @@ if ffmpeg_bin:
         f.write(f"file '{slide_paths[-1].resolve()}'\n")
 
     cmd = [
-        ffmpeg_bin, "-y", "-f", "concat", "-safe", "0",
-        "-i", str(list_file),
-        "-fps_mode", "vfr", "-pix_fmt", "yuv420p",
+        ffmpeg_bin,
+        "-y",
+        "-f",
+        "concat",
+        "-safe",
+        "0",
+        "-i",
+        str(list_file),
+        "-fps_mode",
+        "vfr",
+        "-pix_fmt",
+        "yuv420p",
         str(out_video),
     ]
     subprocess.run(cmd, check=True)
