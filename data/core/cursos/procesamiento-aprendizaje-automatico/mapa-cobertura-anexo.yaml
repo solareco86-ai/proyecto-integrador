@@ -1,0 +1,299 @@
+# Mapa de Cobertura Curricular: Anexo I (Resolución DGCyE N° 2730/22) -> Lecciones
+# Espacio Curricular 12: Procesamiento de Aprendizaje Automático
+# Carrera: Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
+# Ubicación: 2.º año, 2.º cuatrimestre, Trayecto F (128 h anuales, 64 h cuatrimestrales deducidas)
+
+metadata:
+  resolucion: "Resolución DGCyE N° 2730/22 (Anexo I)"
+  espacio: "12 - Procesamiento de Aprendizaje Automático"
+  curso_slug: "procesamiento-aprendizaje-automatico"
+  version: "1.0"
+  modo_estricto: false  # Se activará en true al finalizar todos los entregables de la épica #107
+
+contenidos_bloques:
+  # =========================================================================
+  # BLOQUE 1: Aprendizaje automático
+  # =========================================================================
+  - id: bloque-aa-concepto
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Concepto de Aprendizaje automático"
+    estado: pendiente
+    entregable_asociado: "Entregable 7 (Épica #107)"
+    lecciones: []
+    observaciones: "Sin lección dedicada actualmente. Se incorporará en el Entregable 7."
+
+  - id: bloque-aa-tecnicas
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Técnicas de aprendizaje automático"
+    estado: pendiente
+    entregable_asociado: "Entregable 7 (Épica #107)"
+    lecciones: []
+    observaciones: "Sin lección dedicada de panorama general de técnicas. Se completará en el Entregable 7."
+
+  - id: bloque-aa-objetivos
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Objetivos de la tarea de Aprendizaje"
+    estado: pendiente
+    entregable_asociado: "Entregable 7 (Épica #107)"
+    lecciones: []
+    observaciones: "Se abordará formalmente en el Entregable 7."
+
+  - id: bloque-aa-busqueda
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "El aprendizaje como una tarea de búsqueda"
+    estado: pendiente
+    entregable_asociado: "Entregable 7 (Épica #107)"
+    lecciones: []
+    observaciones: "El concepto de búsqueda en el espacio de hipótesis/parámetros se desarrollará en el Entregable 7."
+
+  - id: bloque-aa-subtareas
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Sub tareas relacionadas con la tarea de aprendizaje"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-2-subtareas-del-aprendizaje.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 2, lección 2.2: partición de datos, feature engineering, entrenamiento e inferencia)."
+
+  - id: bloque-aa-diseno-modelos
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Diseño de modelos"
+    estado: pendiente
+    entregable_asociado: "Entregable 7 (Épica #107)"
+    lecciones: []
+    observaciones: "Principios de diseño e inducción de representaciones de modelos; se completará en el Entregable 7."
+
+  - id: bloque-aa-evaluacion-modelo
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Evaluación del modelo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-5-1-metricas-confusion-f1.md"
+      - "lecciones/cap-5-3-endpoint-metricas-observabilidad.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 5: matriz de confusión, precisión, recall, F1 y exposición en API)."
+
+  - id: bloque-aa-inductivo-deductivo
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Aprendizaje Inductivo y Deductivo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-1-deduccion-vs-induccion.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 2, lección 2.1: deducción lógica vs inducción estadística y sesgo inductivo)."
+
+  # =========================================================================
+  # BLOQUE 2: Aprendizaje Supervisado
+  # =========================================================================
+  - id: bloque-sup-clasificadores
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Clasificadores"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+      - "lecciones/cap-3-1-entropia-ganancia-gini.md"
+    observaciones: "Cubierto mediante clasificadores probabilísticos, por instancias y basados en árboles."
+
+  - id: bloque-sup-conceptos-reglas
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Aprendizaje de Conceptos y de Reglas"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-1-espacio-versiones-ce.md"
+      - "lecciones/cap-2-1-algoritmo-aq-cobertura.md"
+      - "lecciones/cap-2-3-endpoint-rules-auditoria.md"
+    observaciones: "Cubierto en Unidad 3 (aprendizaje de conceptos y extracción de reglas lógicas interpretables)."
+
+  - id: bloque-sup-espacio-versiones
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Espacio de Versiones"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-1-espacio-versiones-ce.md"
+      - "lecciones/cap-1-2-endpoint-version-space-step.md"
+    observaciones: "Cubierto en Unidad 3 (fronteras S y G, algoritmo Candidate-Elimination y endpoint iterativo)."
+
+  - id: bloque-sup-aq
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Algoritmo AQ"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-1-algoritmo-aq-cobertura.md"
+    observaciones: "Cubierto en Unidad 3 (cobertura secuencial y complejos estrella de Michalski)."
+
+  - id: bloque-sup-foil
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Programación Lógica Inductiva: Algoritmo FOIL"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-2-programacion-logica-inductiva-foil.md"
+    observaciones: "Cubierto en Unidad 3 (inducción de cláusulas de Horn de primer orden y ganancia de información FOIL)."
+
+  - id: bloque-sup-arboles
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Árboles de Decisión y de Regresión"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-entropia-ganancia-gini.md"
+      - "lecciones/cap-3-2-arboles-regresion-continuos.md"
+      - "lecciones/cap-3-3-exportacion-arbol-json.md"
+    observaciones: "Cubierto en Unidad 3 (árboles de clasificación CART, árboles de regresión continua y exportación JSON)."
+
+  - id: bloque-sup-instancias
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Aprendizaje basado en Instancias"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+      - "lecciones/cap-4-2-endpoint-knn-fastapi.md"
+    observaciones: "Cubierto en Unidad 2 (k-NN, métricas de distancia, normalización e inferencia)."
+
+  - id: bloque-sup-bayesianos
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Clasificadores Bayesianos"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+    observaciones: "Cubierto en Unidad 2 (probabilidad a priori, verosimilitud y regla de decisión de Bayes)."
+
+  - id: bloque-sup-naive-bayes
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Algoritmo Naive-Bayes"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+      - "lecciones/cap-3-2-endpoint-naive-bayes-opencode.md"
+    observaciones: "Cubierto en Unidad 2 (supuesto de independencia condicional e implementación en endpoint)."
+
+  - id: bloque-sup-elaboracion-modelo
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Elaboración del modelo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-2-subtareas-del-aprendizaje.md"
+      - "lecciones/cap-5-2-primer-servidor-fastapi.md"
+    observaciones: "Cubierto en Unidad 2 (ciclo de construcción, entrenamiento e instanciación de modelos supervisados)."
+
+  - id: bloque-sup-caracteristicas
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Características"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-0-1-numpy-vectores-telemetria.md"
+      - "lecciones/cap-1-1-pydantic-esquemas-ml.md"
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+    observaciones: "Cubierto mediante ingeniería de características, esquemas de entrada y escalado."
+
+  - id: bloque-sup-medidas-rendimiento
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Medidas de rendimiento"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-5-1-metricas-confusion-f1.md"
+    observaciones: "Cubierto en Unidad 2 (accuracy, precision, recall, F1-score y análisis de errores)."
+
+  - id: bloque-sup-ajustes-modelo
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Ajustes del modelo"
+    estado: pendiente
+    entregable_asociado: "Entregable 8 (Épica #107)"
+    lecciones:
+      - "lecciones/cap-3-2-arboles-regresion-continuos.md"  # Poda de árboles existente
+    observaciones: "Parcialmente cubierto con poda de árboles. Se incorporará validación cruzada y búsqueda de hiperparámetros en el Entregable 8."
+
+  # =========================================================================
+  # BLOQUE 3: Aprendizaje No Supervisado
+  # =========================================================================
+  - id: bloque-nosup-elaboracion-modelo
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Elaboración del modelo"
+    estado: pendiente
+    entregable_asociado: "Entregable 3 (Épica #107)"
+    lecciones: []
+    observaciones: "Construcción de modelos no supervisados; se desarrollará en el Entregable 3."
+
+  - id: bloque-nosup-caracteristicas
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Características"
+    estado: pendiente
+    entregable_asociado: "Entregable 3 (Épica #107)"
+    lecciones: []
+    observaciones: "Espacios de atributos no etiquetados y representaciones; se desarrollará en el Entregable 3."
+
+  - id: bloque-nosup-ejemplos-aplicaciones
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Ejemplos y aplicaciones"
+    estado: pendiente
+    entregable_asociado: "Entregable 3 (Épica #107)"
+    lecciones: []
+    observaciones: "Casos reales de clustering en energía/telemetría (energy-ml); se desarrollará en el Entregable 3."
+
+  - id: bloque-nosup-comparacion-seleccion
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Comparación y selección de modelos"
+    estado: pendiente
+    entregable_asociado: "Entregable 6 (Épica #107)"
+    lecciones:
+      - "lecciones/cap-5-5-comparacion-seleccion-modelos.md"  # Lección existente a reubicar y ampliar
+    observaciones: "cap-5-5 compara solo supervisados. Se reubicará y ampliará con modelos no supervisados en el Entregable 6."
+
+  - id: bloque-nosup-agrupamiento
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Agrupamiento (Clustering)"
+    estado: pendiente
+    entregable_asociado: "Entregable 3 (Épica #107)"
+    lecciones: []
+    observaciones: "Fundamentos y taxonomía de agrupamiento; se desarrollará en el Entregable 3."
+
+  - id: bloque-nosup-estrategia-aglomerativa
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Estrategia Aglomerativa"
+    estado: pendiente
+    entregable_asociado: "Entregable 3 (Épica #107)"
+    lecciones: []
+    observaciones: "Clustering jerárquico aglomerativo (dendrogramas, criterios de enlace); se desarrollará en el Entregable 3."
+
+  - id: bloque-nosup-k-medias
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Algoritmo k-medias"
+    estado: pendiente
+    entregable_asociado: "Entregable 3 (Épica #107)"
+    lecciones: []
+    observaciones: "Algoritmo k-means, convergencia, método del codo y coeficiente de silueta; se desarrollará en el Entregable 3."
+
+  - id: bloque-nosup-refuerzo
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Aprendizaje por refuerzo"
+    estado: pendiente
+    entregable_asociado: "Entregable 4 (Épica #107)"
+    lecciones: []
+    observaciones: "Introducción conceptual al aprendizaje por refuerzo según contenido literal del bloque; se desarrollará en el Entregable 4."
+
+capacidades_profesionales:
+  - id: cap-prof-1-tecnicas-seleccion
+    numero: 1
+    texto_literal: "Aplicar las distintas técnicas de aprendizaje automático, así como determinar cuál de ellas es apropiada para resolver un determinado problema."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+      - "lecciones/cap-3-1-entropia-ganancia-gini.md"
+      - "lecciones/cap-5-5-comparacion-seleccion-modelos.md"
+    observaciones: "Aplicación y selección entre familias de modelos predictivos según la naturaleza del problema."
+
+  - id: cap-prof-2-validacion-verificacion
+    numero: 2
+    texto_literal: "Utilizar técnicas de validación y verificación de modelos y experimentar con dichas técnicas en diferentes problemas reales."
+    estado: pendiente
+    entregable_asociado: "Entregable 8 (Épica #107)"
+    lecciones:
+      - "lecciones/cap-2-2-subtareas-del-aprendizaje.md"
+      - "lecciones/cap-5-1-metricas-confusion-f1.md"
+      - "lecciones/cap-5-2-tdd-pytest-aider-agy.md"
+    observaciones: "Parcialmente cubierto con partición temporal y TDD. Se completará con validación cruzada rigurosa en el Entregable 8."
+
+  - id: cap-prof-3-optimizacion-geneticos
+    numero: 3
+    texto_literal: "Resolver problemas de predicción y optimización usando algoritmos de clasificación, clustering y genéticos."
+    estado: pendiente
+    entregable_asociado: "Entregable 5 (Épica #107)"
+    lecciones: []
+    observaciones: "La componente de optimización y algoritmos genéticos se desarrollará en el Entregable 5."
