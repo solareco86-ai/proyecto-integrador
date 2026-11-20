@@ -7,7 +7,18 @@ description_long: Domina el ciclo completo de Machine Learning desde los fundame
   de desarrollo, control de versiones y APIs, pasando por algoritmos clásicos de clasificación,
   hasta la programación lógica inductiva y árboles de decisión. Modalidad 100% práctica
   con laboratorios.
-duration: 64 horas de cursada (4 horas semanales × 16 semanas, según Anexo DGCyE Resolución DGCyE N° 2730/22)
+duration: 64 horas reloj cuatrimestrales (deducidas de las 128 horas anuales del Trayecto F, a 4 módulos semanales de 60 min, según Anexo I Res. 2730/22, secciones 7 y 10)
+ubicacion_curricular:
+  carrera: "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial"
+  resolucion: "Resolución DGCyE N° 2730/22 (Anexo I)"
+  anio: "2.º año"
+  cuatrimestre: "2.º cuatrimestre"
+  espacio_curricular: "12-Procesamiento de Aprendizaje Automático"
+  campo_formativo: "Campo Específico"
+  trayecto: "Trayecto F (compartido con espacio 11: Técnicas de Procesamiento del Habla)"
+  carga_semanal: "4 módulos (horas reloj) por semana (sección 10)"
+  carga_anual_trayecto: "128 horas reloj anuales para el Trayecto F (sección 7)"
+  carga_cuatrimestral_estimada: "64 horas reloj (deducidas)"
 level: Inicial a Avanzado
 language: Español
 case_study_url: https://github.com/datamaq-automation/energy-ml
@@ -21,17 +32,17 @@ instructor_id: agustin-bustos
 academic_only: false
 sections:
 - id: unit-0
-  title: 'Unidad 0: Diagnóstico de Correlatividades (Año 1)'
-  description: Autoevaluación interactiva de requisitos previos (álgebra lineal, probabilidad, programación Python) con rutas de recuperación. TOMA ESTA PRUEBA PRIMERO.
+  title: 'Unidad 0: Diagnóstico de Conocimientos Previos Recomendados'
+  description: Autoevaluación interactiva de conocimientos previos recomendados (álgebra lineal, probabilidad, programación Python) con rutas de nivelación.
   chapters:
   - id: chap-paa-diag-0
-    title: "Cap 0: Autoevaluación de Correlatividades (Diagnóstico)"
-    description: "Verifica que dominas matrices, probabilidad condicional y Python básico. Sin estos, PAA será imposible. Rutas de recuperación disponibles."
+    title: "Cap 0: Autoevaluación de Conocimientos Previos (Diagnóstico)"
+    description: "Verifica el dominio de matrices, probabilidad condicional y Python básico. El espacio 12 no posee correlatividades formales en el Anexo I (sección 8), pero estos saberes son indispensables para el desarrollo de modelos."
     items:
     - type: lesson
       id: les-paa-diag-0-1
       slug: paa-diag-correlatividades-autoeval
-      title: "0.1 ¿Estás Listo para PAA? Diagnóstico de Requisitos Previos"
+      title: "0.1 ¿Estás listo para PAA? Diagnóstico de conocimientos previos recomendados"
       duration: 30 min
       content_file: cap-0-0-diagnostico-correlatividades.md
 - id: unit-1
@@ -229,13 +240,6 @@ sections:
       title: '5.4 Del if/else de Firmas Eléctricas a la Inferencia Basada en Datos (Machine Learning)'
       duration: 30 min
       content_file: cap-5-4-reglas-manuales-vs-datos.md
-    - type: lesson
-      id: les-paa-ini-5-5
-      slug: paa-ini-comparacion-modelos
-      title: '5.5 Comparación Crítica y Selección de Modelos — ¿Cuándo Usar Bayes, k-NN o CART?'
-      duration: 40 min
-      content_file: cap-5-5-comparacion-seleccion-modelos.md
-      case_study_reference: "energy-ml requiere decisión: ¿Bayes para probabilidades calibradas, CART para reglas explícitas, o k-NN para firmas geométricas? Esta lección enseña comparación empírica."
 - id: unit-2
   title: 'Unidad 2: Parte I - Inferencia Estadística, Modelado y MLOps'
   description: Puente activo con NumPy, APIs de inferencia robustas con Pydantic, algoritmos estadísticos (Bayes, k-NN) y evaluación TDD en energy-ml.
@@ -247,8 +251,8 @@ sections:
     - type: lesson
       id: les-paa-int-mapa-0
       slug: paa-int-mapa-conceptual-u2
-      title: '0.0 Mapa Conceptual de Unidad 2 — Cómo Convergen Probabilidad → Bayes → k-NN → CART'
-      duration: 20 min
+      title: '0.0 Fundamentos del Aprendizaje Automático: Concepto, Técnicas, Búsqueda y Diseño de Modelos'
+      duration: 35 min
       content_file: cap-1-0-mapa-conceptual-unidad2.md
   - id: chap-paa-int-0
     title: 'Cap 0: Nivelación Activa con NumPy, Vectores y Tensores en energy-ml'
@@ -359,6 +363,60 @@ sections:
       title: '5.3 Exposición de métricas de rendimiento en el endpoint GET /metrics'
       duration: 25 min
       content_file: cap-5-3-endpoint-metricas-observabilidad.md
+    - type: lesson
+      id: les-paa-int-5-4
+      slug: paa-int-ajustes-modelo-validacion-cruzada
+      title: '5.4 Ajustes del modelo, hiperparámetros y validación cruzada (temporal y K-Fold)'
+      duration: 35 min
+      content_file: cap-5-4-ajustes-modelo-validacion-cruzada.md
+  - id: chap-paa-int-6
+    title: 'Cap 6: Bloque Aprendizaje No Supervisado y Agrupamiento (Clustering)'
+    description: Elaboración del modelo no supervisado, características y aplicaciones, agrupamiento con estrategia aglomerativa y algoritmo k-medias con selección de k (codo y silueta) en energy-ml.
+    items:
+    - type: lesson
+      id: les-paa-int-6-1
+      slug: paa-int-aprendizaje-no-supervisado-clustering
+      title: '6.1 Aprendizaje No Supervisado: Elaboración del modelo, características, ejemplos y aplicaciones'
+      duration: 25 min
+      content_file: cap-6-1-aprendizaje-no-supervisado-clustering.md
+    - type: lesson
+      id: les-paa-int-6-2
+      slug: paa-int-estrategia-aglomerativa-clustering-jerarquico
+      title: '6.2 Estrategia Aglomerativa: Clustering jerárquico y dendrogramas'
+      duration: 25 min
+      content_file: cap-6-2-estrategia-aglomerativa-clustering-jerarquico.md
+    - type: lesson
+      id: les-paa-int-6-3
+      slug: paa-int-algoritmo-k-medias-codo-silueta
+      title: '6.3 Algoritmo k-medias: Centroides, convergencia y selección de k (codo y silueta)'
+      duration: 30 min
+      content_file: cap-6-3-algoritmo-k-medias-codo-silueta.md
+    - type: lesson
+      id: les-paa-int-6-4
+      slug: paa-int-laboratorio-clustering-energy-ml
+      title: '6.4 Laboratorio Práctico: Agrupamiento de firmas de consumo en energy-ml'
+      duration: 35 min
+      content_file: cap-6-4-laboratorio-clustering-energy-ml.md
+      case_study_reference: "energy-ml aplica clustering sobre saltos de potencia activa y reactiva para desagregar cargas eléctricas (NILM) sin requerir etiquetas supervisadas previas."
+    - type: lesson
+      id: les-paa-int-6-5
+      slug: paa-int-aprendizaje-por-refuerzo-introduccion
+      title: '6.5 Introducción al Aprendizaje por Refuerzo: Agentes, Entornos, Recompensas y Políticas'
+      duration: 30 min
+      content_file: cap-6-5-aprendizaje-por-refuerzo-introduccion.md
+    - type: lesson
+      id: les-paa-int-6-6
+      slug: paa-int-optimizacion-algoritmos-geneticos
+      title: '6.6 Optimización y Algoritmos Genéticos: Selección, Cruzamiento, Mutación y Búsqueda Estocástica'
+      duration: 30 min
+      content_file: cap-6-6-optimizacion-algoritmos-geneticos.md
+    - type: lesson
+      id: les-paa-int-6-7
+      slug: paa-int-comparacion-seleccion-modelos
+      title: '6.7 Comparación Crítica y Selección de Modelos: Supervisados (Bayes, k-NN, CART) y No Supervisados (k-medias, Aglomerativo)'
+      duration: 40 min
+      content_file: cap-5-5-comparacion-seleccion-modelos.md
+      case_study_reference: "energy-ml requiere decidir: ¿clustering no supervisado (k-medias/aglomerativo) para descubrir cargas, o clasificación supervisada (Bayes/k-NN/CART) para diagnóstico en tiempo real?"
 - id: unit-3
   title: 'Unidad 3: Parte II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
   description: Aprendizaje de conceptos, inducción de reglas formales (AQ/FOIL), explicabilidad en árboles CART y servidores Model Context Protocol (MCP).
