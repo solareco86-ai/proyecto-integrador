@@ -48,16 +48,37 @@ trayectos:
           - cap-5-1-metricas-confusion-f1
           - cap-5-2-tdd-pytest-aider-agy
           - cap-5-3-endpoint-metricas-observabilidad
-        hito: Exposición de métricas de rendimiento en tiempo real (GET /metrics)
+          - cap-5-4-ajustes-modelo-validacion-cruzada
+        hito: Exposición de métricas de rendimiento en tiempo real (GET /metrics) y validación cruzada temporal sin data leakage
+      - semana: 7-8
+        capitulos:
+          - cap-6-1-aprendizaje-no-supervisado-clustering
+          - cap-6-2-estrategia-aglomerativa-clustering-jerarquico
+          - cap-6-3-algoritmo-k-medias-codo-silueta
+          - cap-6-4-laboratorio-clustering-energy-ml
+          - cap-6-5-aprendizaje-por-refuerzo-introduccion
+          - cap-6-6-optimizacion-algoritmos-geneticos
+          - cap-5-5-comparacion-seleccion-modelos
+        hito: Desagregación no supervisada, optimización y comparación crítica de modelos supervisados y no supervisados en energy-ml
     criterios_de_acreditacion:
-      - completitud: Aprobar 100% de las 13 lecciones (lecturas + laboratorios)
+      - completitud: Aprobar 100% de las 21 lecciones (lecturas + laboratorios)
       - evaluacion_formativa: Responder correctamente ≥ 80% de preguntas de razonamiento
       - caza_de_alucinaciones: Identificar bugs de IA en ≥ 80% de ejemplos de código
       - tdd: Implementar ≥ 2 endpoints con ciclo TDD (test-first) en energy-ml
+      - clustering: Implementar pipeline de agrupamiento no supervisado con k óptimo validado por silueta
+      - optimizacion: Implementar optimización metaheurística con algoritmo genético bajo restricciones físicas
+      - seleccion_modelos: Justificar técnicamente la selección entre modelos supervisados y no supervisados
       - metricas: Exposición de ≥ 4 métricas (TP, FP, FN, TN, precision, recall, F1) en GET /metrics
       - integracion: Tests de integración pasan (≥ 85% de cobertura)
     habilidades_certificadas:
       - Machine Learning Aplicado (Bayes, k-NN)
+      - Aprendizaje No Supervisado y Agrupamiento (Clustering)
+      - Estrategia Aglomerativa y Dendrogramas
+      - Algoritmo k-medias y Selección de k (Método del Codo y Silueta)
+      - Fundamentos de Aprendizaje por Refuerzo (Q-Learning y Bellman)
+      - Optimización con Algoritmos Genéticos (Selección, Crossover, Mutación)
+      - Comparación y Selección de Modelos (Supervisados vs No Supervisados)
+      - Ajuste de Hiperparámetros y Validación Cruzada (K-Fold y TimeSeriesSplit)
       - Validación de Datos con Pydantic
       - Construcción de APIs REST con FastAPI
       - TDD y Testing en Machine Learning
@@ -131,7 +152,7 @@ estructura_temporal_total:
   inicio: 'Semana 1 (Unidad 1: Fundamentos)'
   trayecto_i: 'Semanas 1-7 (Unidad 2)'
   trayecto_ii: 'Semanas 8-12 (Unidad 3)'
-  duracion_total: 60 horas de cursada
+  duracion_total: 64 horas reloj de cursada (deducidas de las 128 horas anuales del Trayecto F, a 4 módulos semanales de 60 min, según Anexo I Res. 2730/22, secciones 7 y 10)
   modalidad: 100% práctica con laboratorios en energy-ml
   regimen: Cursada continua (semanal) o Trayectos independientes
 
@@ -142,17 +163,24 @@ flujo_permitido:
     descripcion: 'Unidad 1 → Trayecto I (EN PARALELO) Trayecto II (con prereq)'
 
 certificaciones:
-  - nivel: Certificado de Trayecto I
-    requisito: Completar Trayecto I con ≥ 80% en evaluación formativa + caza de alucinaciones
-    duracion_estimada: 4-5 semanas
-    titulo_otorgado: Especialista en Machine Learning y MLOps (Nivel Intermedio)
+  nota_aclaratoria: >-
+    Las certificaciones listadas a continuación corresponden exclusivamente a constancias internas
+    de acreditación pedagógica por trayecto formativo emitidas por la cátedra. No constituyen títulos
+    habilitantes ni certificaciones de validez nacional. El único título oficial otorgado por la
+    carrera es Técnica/o Superior en Ciencia de Datos e Inteligencia Artificial (Resolución DGCyE
+    N° 2730/22, Anexo I, sección 9).
+  items:
+    - nivel: Certificado de Trayecto I
+      requisito: Completar Trayecto I con ≥ 80% en evaluación formativa + caza de alucinaciones
+      duracion_estimada: 4-5 semanas
+      constancia_interna: Acreditación de Trayecto I: Inferencia Estadística, Modelado y MLOps (Constancia interna de cátedra)
 
-  - nivel: Certificado de Trayecto II
-    requisito: Completar Trayecto II con ≥ 80% en evaluación formativa + caza de alucinaciones
-    duracion_estimada: 3-4 semanas
-    titulo_otorgado: Especialista en Inteligencia Neuro-Simbólica y Orquestación de Agentes
+    - nivel: Certificado de Trayecto II
+      requisito: Completar Trayecto II con ≥ 80% en evaluación formativa + caza de alucinaciones
+      duracion_estimada: 3-4 semanas
+      constancia_interna: Acreditación de Trayecto II: Inteligencia Neuro-Simbólica y Orquestación de Agentes (Constancia interna de cátedra)
 
-  - nivel: Certificado Integral
-    requisito: Completar Unidad 1 + Trayecto I + Trayecto II con ≥ 85% en todas las evaluaciones
-    duracion_estimada: 8-10 semanas
-    titulo_otorgado: Especialista en Procesamiento de Aprendizaje Automático y Agentes IA
+    - nivel: Certificado Integral
+      requisito: Completar Unidad 1 + Trayecto I + Trayecto II con ≥ 85% en todas las evaluaciones
+      duracion_estimada: 8-10 semanas
+      constancia_interna: Acreditación Integral de Procesamiento de Aprendizaje Automático (Constancia interna de cátedra)

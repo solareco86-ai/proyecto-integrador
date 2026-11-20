@@ -1,20 +1,23 @@
-# Lección Diagnóstica: ¿Estás Listo para PAA? Autoevaluación de Correlatividades (Año 1)
+# Lección Diagnóstica: ¿Estás listo para PAA? Autoevaluación de conocimientos previos recomendados
 
 **Asignatura:** Unidad 0 — Diagnóstico Inicial  
 **Carga horaria:** 30 min (autopauseada)  
 **Prerrequisitos:** Ninguno. Toma esta prueba ANTES de iniciar Cap 0.  
-**Objetivo:** Verificar que has dominado las correlatividades oficiales de Año 1 (Elementos de Análisis Matemático, Estadística y Probabilidades, Técnicas de Programación).
+**Objetivo:** Verificar el dominio de los conocimientos previos recomendados para el espacio (álgebra lineal y matrices de Elementos de Análisis Matemático, probabilidad condicional de Estadística y Probabilidades para la Gestión de Datos, y programación estructurada en Python de Técnicas de Programación).
+
+> **Aclaración sobre el marco normativo (Resolución DGCyE N° 2730/22, Anexo I):**  
+> El espacio curricular 12 (*Procesamiento de Aprendizaje Automático*, 2.º año, 2.º cuatrimestre, Trayecto F) **no figura en la tabla de correlatividades formales obligatorias** de la sección 8 del Anexo I. Sin embargo, pedagógicamente se asume el dominio de los saberes desarrollados en los espacios curriculares de 1.er año para poder modelar, entrenar y evaluar sistemas predictivos y estadísticos.
 
 ---
 
 ## ¿Por Qué Este Diagnóstico?
 
-El Anexo 1 DGCyE prescribe que PAA (Unidad 2) se dicta en **2do año**, asumiendo que completaste:
-- **Elementos de Análisis Matemático:** matrices, determinantes, vectores, sistemas de ecuaciones
-- **Estadística y Probabilidades:** distribuciones, media, varianza, regla de Bayes
-- **Técnicas de Programación:** funciones, listas, Python básico, pruebas unitarias
+Aunque normativamente no existe correlatividad formal previa, el diseño curricular prescribe que este módulo profundiza en modelos predictivos, agrupamiento y análisis estadístico avanzado. Para aprovechar el curso plenamente, se recomienda contar con los conocimientos previos de:
+- **Elementos de Análisis Matemático (Espacio 3):** matrices, determinantes, vectores, sistemas de ecuaciones
+- **Estadística y Probabilidades para la Gestión de Datos (Espacio 4):** distribuciones, media, varianza, regla de Bayes
+- **Técnicas de Programación (Espacio 7):** funciones, listas, Python básico, pruebas unitarias
 
-Si faltas competencias en estas áreas, el contenido de PAA será incomprensible. Esta lección te permite diagnosticar y recuperar.
+Si detectás dificultades en estas áreas, esta lección te orientará con rutas de nivelación y repaso antes de abordar los laboratorios prácticos.
 
 ---
 
@@ -147,16 +150,16 @@ resultado = [x ** 2 for x in [1, 2, 3]]
 
 **Si contestaste MAL en Bloque 1 (Álgebra):**
 - 📚 Repasa: [Khan Academy — Introducción a Matrices](https://www.khanacademy.org/) (30 min)
-- 💡 Recurso: "Elementos de Análisis Matemático" (material de Año 1)
+- 💡 Recurso: "Elementos de Análisis Matemático" (espacio curricular de 1.er año)
 - ⏭️ **Después de repasar**, vuelve a intentar las preguntas
 
 **Si contestaste MAL en Bloque 2 (Probabilidad):**
-- 📚 Repasa: "Estadística y Probabilidades para Gestión de Datos" (material de Año 1)
+- 📚 Repasa: "Estadística y Probabilidades para Gestión de Datos" (espacio curricular de 1.er año)
 - 💡 Clave: Recuerda que P(A|B) = "probabilidad de A **dado** B"
 - ⏭️ Unidad 2 Cap 3 (Bayes) depende críticamente de esto
 
 **Si contestaste MAL en Bloque 3 (Python):**
-- 📚 Repasa: "Técnicas de Programación" (material de Año 1) — especialmente funciones y listas
+- 📚 Repasa: "Técnicas de Programación" (espacio curricular de 1.er año) — especialmente funciones y listas
 - 💡 Practica: Escribe 3-5 funciones simples en un archivo `.py` y ejecuta con `python mi_archivo.py`
 - ⏭️ Sin Python fluido, no podrás seguir laboratorios en PAA
 
