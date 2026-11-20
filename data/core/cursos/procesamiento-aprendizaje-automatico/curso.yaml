@@ -405,6 +405,12 @@ sections:
       title: '6.5 Introducción al Aprendizaje por Refuerzo: Agentes, Entornos, Recompensas y Políticas'
       duration: 30 min
       content_file: cap-6-5-aprendizaje-por-refuerzo-introduccion.md
+    - type: lesson
+      id: les-paa-int-6-6
+      slug: paa-int-optimizacion-algoritmos-geneticos
+      title: '6.6 Optimización y Algoritmos Genéticos: Selección, Cruzamiento, Mutación y Búsqueda Estocástica'
+      duration: 30 min
+      content_file: cap-6-6-optimizacion-algoritmos-geneticos.md
 - id: unit-3
   title: 'Unidad 3: Parte II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
   description: Aprendizaje de conceptos, inducción de reglas formales (AQ/FOIL), explicabilidad en árboles CART y servidores Model Context Protocol (MCP).
