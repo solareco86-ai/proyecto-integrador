@@ -17,34 +17,34 @@ contenidos_bloques:
   - id: bloque-aa-concepto
     bloque: "Bloque Aprendizaje automático"
     contenido_literal: "Concepto de Aprendizaje automático"
-    estado: pendiente
-    entregable_asociado: "Entregable 7 (Épica #107)"
-    lecciones: []
-    observaciones: "Sin lección dedicada actualmente. Se incorporará en el Entregable 7."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Definición formal de Mitchell T, P, E y contraste con programación tradicional)."
 
   - id: bloque-aa-tecnicas
     bloque: "Bloque Aprendizaje automático"
     contenido_literal: "Técnicas de aprendizaje automático"
-    estado: pendiente
-    entregable_asociado: "Entregable 7 (Épica #107)"
-    lecciones: []
-    observaciones: "Sin lección dedicada de panorama general de técnicas. Se completará en el Entregable 7."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Taxonomía de aprendizaje supervisado, no supervisado, por refuerzo y semi-supervisado)."
 
   - id: bloque-aa-objetivos
     bloque: "Bloque Aprendizaje automático"
     contenido_literal: "Objetivos de la tarea de Aprendizaje"
-    estado: pendiente
-    entregable_asociado: "Entregable 7 (Épica #107)"
-    lecciones: []
-    observaciones: "Se abordará formalmente en el Entregable 7."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Generalización empírica, optimización de función de pérdida y explicabilidad)."
 
   - id: bloque-aa-busqueda
     bloque: "Bloque Aprendizaje automático"
     contenido_literal: "El aprendizaje como una tarea de búsqueda"
-    estado: pendiente
-    entregable_asociado: "Entregable 7 (Épica #107)"
-    lecciones: []
-    observaciones: "El concepto de búsqueda en el espacio de hipótesis/parámetros se desarrollará en el Entregable 7."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Navegación del espacio de hipótesis H, minimización de riesgo empírico y sesgo inductivo)."
 
   - id: bloque-aa-subtareas
     bloque: "Bloque Aprendizaje automático"
@@ -57,10 +57,10 @@ contenidos_bloques:
   - id: bloque-aa-diseno-modelos
     bloque: "Bloque Aprendizaje automático"
     contenido_literal: "Diseño de modelos"
-    estado: pendiente
-    entregable_asociado: "Entregable 7 (Épica #107)"
-    lecciones: []
-    observaciones: "Principios de diseño e inducción de representaciones de modelos; se completará en el Entregable 7."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Metodología de 4 etapas: formulación, espacio de hipótesis, función objetivo y algoritmo de búsqueda)."
 
   - id: bloque-aa-evaluacion-modelo
     bloque: "Bloque Aprendizaje automático"
