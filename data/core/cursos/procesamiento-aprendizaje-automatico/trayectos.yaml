@@ -49,15 +49,26 @@ trayectos:
           - cap-5-2-tdd-pytest-aider-agy
           - cap-5-3-endpoint-metricas-observabilidad
         hito: Exposición de métricas de rendimiento en tiempo real (GET /metrics)
+      - semana: 7-8
+        capitulos:
+          - cap-6-1-aprendizaje-no-supervisado-clustering
+          - cap-6-2-estrategia-aglomerativa-clustering-jerarquico
+          - cap-6-3-algoritmo-k-medias-codo-silueta
+          - cap-6-4-laboratorio-clustering-energy-ml
+        hito: Desagregación no supervisada de cargas con k-medias y clustering aglomerativo en energy-ml
     criterios_de_acreditacion:
-      - completitud: Aprobar 100% de las 13 lecciones (lecturas + laboratorios)
+      - completitud: Aprobar 100% de las 17 lecciones (lecturas + laboratorios)
       - evaluacion_formativa: Responder correctamente ≥ 80% de preguntas de razonamiento
       - caza_de_alucinaciones: Identificar bugs de IA en ≥ 80% de ejemplos de código
       - tdd: Implementar ≥ 2 endpoints con ciclo TDD (test-first) en energy-ml
+      - clustering: Implementar pipeline de agrupamiento no supervisado con k óptimo validado por silueta
       - metricas: Exposición de ≥ 4 métricas (TP, FP, FN, TN, precision, recall, F1) en GET /metrics
       - integracion: Tests de integración pasan (≥ 85% de cobertura)
     habilidades_certificadas:
       - Machine Learning Aplicado (Bayes, k-NN)
+      - Aprendizaje No Supervisado y Agrupamiento (Clustering)
+      - Estrategia Aglomerativa y Dendrogramas
+      - Algoritmo k-medias y Selección de k (Método del Codo y Silueta)
       - Validación de Datos con Pydantic
       - Construcción de APIs REST con FastAPI
       - TDD y Testing en Machine Learning

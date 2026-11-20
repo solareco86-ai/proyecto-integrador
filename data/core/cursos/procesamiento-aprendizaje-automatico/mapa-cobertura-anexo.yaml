@@ -205,26 +205,27 @@ contenidos_bloques:
   - id: bloque-nosup-elaboracion-modelo
     bloque: "Bloque Aprendizaje No Supervisado"
     contenido_literal: "Elaboración del modelo"
-    estado: pendiente
-    entregable_asociado: "Entregable 3 (Épica #107)"
-    lecciones: []
-    observaciones: "Construcción de modelos no supervisados; se desarrollará en el Entregable 3."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: definición de espacio de características, métricas de disimilitud y criterios de agrupamiento)."
 
   - id: bloque-nosup-caracteristicas
     bloque: "Bloque Aprendizaje No Supervisado"
     contenido_literal: "Características"
-    estado: pendiente
-    entregable_asociado: "Entregable 3 (Épica #107)"
-    lecciones: []
-    observaciones: "Espacios de atributos no etiquetados y representaciones; se desarrollará en el Entregable 3."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: espacio de features no etiquetado, estandarización crítica y maldición de la dimensionalidad)."
 
   - id: bloque-nosup-ejemplos-aplicaciones
     bloque: "Bloque Aprendizaje No Supervisado"
     contenido_literal: "Ejemplos y aplicaciones"
-    estado: pendiente
-    entregable_asociado: "Entregable 3 (Épica #107)"
-    lecciones: []
-    observaciones: "Casos reales de clustering en energía/telemetría (energy-ml); se desarrollará en el Entregable 3."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: desagregación de cargas NILM en energy-ml, segmentación de consumo y detección de anomalías)."
 
   - id: bloque-nosup-comparacion-seleccion
     bloque: "Bloque Aprendizaje No Supervisado"
@@ -238,26 +239,31 @@ contenidos_bloques:
   - id: bloque-nosup-agrupamiento
     bloque: "Bloque Aprendizaje No Supervisado"
     contenido_literal: "Agrupamiento (Clustering)"
-    estado: pendiente
-    entregable_asociado: "Entregable 3 (Épica #107)"
-    lecciones: []
-    observaciones: "Fundamentos y taxonomía de agrupamiento; se desarrollará en el Entregable 3."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+      - "lecciones/cap-6-2-estrategia-aglomerativa-clustering-jerarquico.md"
+      - "lecciones/cap-6-3-algoritmo-k-medias-codo-silueta.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: fundamentos matemáticos, partición dura, métricas de cohesión y separación)."
 
   - id: bloque-nosup-estrategia-aglomerativa
     bloque: "Bloque Aprendizaje No Supervisado"
     contenido_literal: "Estrategia Aglomerativa"
-    estado: pendiente
-    entregable_asociado: "Entregable 3 (Épica #107)"
-    lecciones: []
-    observaciones: "Clustering jerárquico aglomerativo (dendrogramas, criterios de enlace); se desarrollará en el Entregable 3."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-2-estrategia-aglomerativa-clustering-jerarquico.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: enfoque bottom-up, criterios de enlace simple/completo/promedio/Ward y dendrogramas)."
 
   - id: bloque-nosup-k-medias
     bloque: "Bloque Aprendizaje No Supervisado"
     contenido_literal: "Algoritmo k-medias"
-    estado: pendiente
-    entregable_asociado: "Entregable 3 (Épica #107)"
-    lecciones: []
-    observaciones: "Algoritmo k-means, convergencia, método del codo y coeficiente de silueta; se desarrollará en el Entregable 3."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-3-algoritmo-k-medias-codo-silueta.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: algoritmo de Lloyd, minimización de inercia WCSS, método del codo y coeficiente de silueta)."
 
   - id: bloque-nosup-refuerzo
     bloque: "Bloque Aprendizaje No Supervisado"

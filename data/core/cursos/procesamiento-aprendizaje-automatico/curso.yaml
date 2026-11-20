@@ -370,6 +370,35 @@ sections:
       title: '5.3 Exposición de métricas de rendimiento en el endpoint GET /metrics'
       duration: 25 min
       content_file: cap-5-3-endpoint-metricas-observabilidad.md
+  - id: chap-paa-int-6
+    title: 'Cap 6: Bloque Aprendizaje No Supervisado y Agrupamiento (Clustering)'
+    description: Elaboración del modelo no supervisado, características y aplicaciones, agrupamiento con estrategia aglomerativa y algoritmo k-medias con selección de k (codo y silueta) en energy-ml.
+    items:
+    - type: lesson
+      id: les-paa-int-6-1
+      slug: paa-int-aprendizaje-no-supervisado-clustering
+      title: '6.1 Aprendizaje No Supervisado: Elaboración del modelo, características, ejemplos y aplicaciones'
+      duration: 25 min
+      content_file: cap-6-1-aprendizaje-no-supervisado-clustering.md
+    - type: lesson
+      id: les-paa-int-6-2
+      slug: paa-int-estrategia-aglomerativa-clustering-jerarquico
+      title: '6.2 Estrategia Aglomerativa: Clustering jerárquico y dendrogramas'
+      duration: 25 min
+      content_file: cap-6-2-estrategia-aglomerativa-clustering-jerarquico.md
+    - type: lesson
+      id: les-paa-int-6-3
+      slug: paa-int-algoritmo-k-medias-codo-silueta
+      title: '6.3 Algoritmo k-medias: Centroides, convergencia y selección de k (codo y silueta)'
+      duration: 30 min
+      content_file: cap-6-3-algoritmo-k-medias-codo-silueta.md
+    - type: lesson
+      id: les-paa-int-6-4
+      slug: paa-int-laboratorio-clustering-energy-ml
+      title: '6.4 Laboratorio Práctico: Agrupamiento de firmas de consumo en energy-ml'
+      duration: 35 min
+      content_file: cap-6-4-laboratorio-clustering-energy-ml.md
+      case_study_reference: "energy-ml aplica clustering sobre saltos de potencia activa y reactiva para desagregar cargas eléctricas (NILM) sin requerir etiquetas supervisadas previas."
 - id: unit-3
   title: 'Unidad 3: Parte II - Inteligencia Neuro-Simbólica y Orquestación con Agentes'
   description: Aprendizaje de conceptos, inducción de reglas formales (AQ/FOIL), explicabilidad en árboles CART y servidores Model Context Protocol (MCP).
