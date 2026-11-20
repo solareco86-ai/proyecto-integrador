@@ -11,9 +11,9 @@ Sitio web institucional oficial y campus virtual del **Instituto Superior de For
 * **Dominio Oficial:** [https://isftn199.com.ar](https://isftn199.com.ar)
 * **Oferta Académica Principal (Tecnicaturas Superiores de 3 Años):**
   1. *Ciencia de Datos e Inteligencia Artificial* (Resolución DGCyE N° 2730/22)
-  2. *Logística* (Resolución DGCyE N° 1243/19)
-  3. *Higiene y Seguridad en el Trabajo* (Resolución DGCyE N° 320/13)
-  4. *Administración de Recursos Humanos* (Resolución DGCyE N° 276/03)
+  2. *Logística* (Resolución DGCyE N° 5312/24)
+  3. *Higiene y Seguridad en el Trabajo* (Resolución DGCyE N° 6183/25)
+  4. *Administración de Recursos Humanos* (Resolución DGCyE N° 5311/24)
   5. *Turismo* (Resolución N° 2686/20)
   6. *Hotelería* (Resolución N° 2685/20)
 
