@@ -7,7 +7,18 @@ description_long: Domina el ciclo completo de Machine Learning desde los fundame
   de desarrollo, control de versiones y APIs, pasando por algoritmos clásicos de clasificación,
   hasta la programación lógica inductiva y árboles de decisión. Modalidad 100% práctica
   con laboratorios.
-duration: 64 horas de cursada (4 horas semanales × 16 semanas, según Anexo DGCyE Resolución DGCyE N° 2730/22)
+duration: 64 horas reloj cuatrimestrales (deducidas de las 128 horas anuales del Trayecto F, a 4 módulos semanales de 60 min, según Anexo I Res. 2730/22, secciones 7 y 10)
+ubicacion_curricular:
+  carrera: "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial"
+  resolucion: "Resolución DGCyE N° 2730/22 (Anexo I)"
+  anio: "2.º año"
+  cuatrimestre: "2.º cuatrimestre"
+  espacio_curricular: "12-Procesamiento de Aprendizaje Automático"
+  campo_formativo: "Campo Específico"
+  trayecto: "Trayecto F (compartido con espacio 11: Técnicas de Procesamiento del Habla)"
+  carga_semanal: "4 módulos (horas reloj) por semana (sección 10)"
+  carga_anual_trayecto: "128 horas reloj anuales para el Trayecto F (sección 7)"
+  carga_cuatrimestral_estimada: "64 horas reloj (deducidas)"
 level: Inicial a Avanzado
 language: Español
 case_study_url: https://github.com/datamaq-automation/energy-ml
@@ -21,17 +32,17 @@ instructor_id: agustin-bustos
 academic_only: false
 sections:
 - id: unit-0
-  title: 'Unidad 0: Diagnóstico de Correlatividades (Año 1)'
-  description: Autoevaluación interactiva de requisitos previos (álgebra lineal, probabilidad, programación Python) con rutas de recuperación. TOMA ESTA PRUEBA PRIMERO.
+  title: 'Unidad 0: Diagnóstico de Conocimientos Previos Recomendados'
+  description: Autoevaluación interactiva de conocimientos previos recomendados (álgebra lineal, probabilidad, programación Python) con rutas de nivelación.
   chapters:
   - id: chap-paa-diag-0
-    title: "Cap 0: Autoevaluación de Correlatividades (Diagnóstico)"
-    description: "Verifica que dominas matrices, probabilidad condicional y Python básico. Sin estos, PAA será imposible. Rutas de recuperación disponibles."
+    title: "Cap 0: Autoevaluación de Conocimientos Previos (Diagnóstico)"
+    description: "Verifica el dominio de matrices, probabilidad condicional y Python básico. El espacio 12 no posee correlatividades formales en el Anexo I (sección 8), pero estos saberes son indispensables para el desarrollo de modelos."
     items:
     - type: lesson
       id: les-paa-diag-0-1
       slug: paa-diag-correlatividades-autoeval
-      title: "0.1 ¿Estás Listo para PAA? Diagnóstico de Requisitos Previos"
+      title: "0.1 ¿Estás listo para PAA? Diagnóstico de conocimientos previos recomendados"
       duration: 30 min
       content_file: cap-0-0-diagnostico-correlatividades.md
 - id: unit-1

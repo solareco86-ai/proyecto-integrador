@@ -131,7 +131,7 @@ estructura_temporal_total:
   inicio: 'Semana 1 (Unidad 1: Fundamentos)'
   trayecto_i: 'Semanas 1-7 (Unidad 2)'
   trayecto_ii: 'Semanas 8-12 (Unidad 3)'
-  duracion_total: 60 horas de cursada
+  duracion_total: 64 horas reloj de cursada (deducidas de las 128 horas anuales del Trayecto F, a 4 módulos semanales de 60 min, según Anexo I Res. 2730/22, secciones 7 y 10)
   modalidad: 100% práctica con laboratorios en energy-ml
   regimen: Cursada continua (semanal) o Trayectos independientes
 
@@ -142,17 +142,24 @@ flujo_permitido:
     descripcion: 'Unidad 1 → Trayecto I (EN PARALELO) Trayecto II (con prereq)'
 
 certificaciones:
-  - nivel: Certificado de Trayecto I
-    requisito: Completar Trayecto I con ≥ 80% en evaluación formativa + caza de alucinaciones
-    duracion_estimada: 4-5 semanas
-    titulo_otorgado: Especialista en Machine Learning y MLOps (Nivel Intermedio)
+  nota_aclaratoria: >-
+    Las certificaciones listadas a continuación corresponden exclusivamente a constancias internas
+    de acreditación pedagógica por trayecto formativo emitidas por la cátedra. No constituyen títulos
+    habilitantes ni certificaciones de validez nacional. El único título oficial otorgado por la
+    carrera es Técnica/o Superior en Ciencia de Datos e Inteligencia Artificial (Resolución DGCyE
+    N° 2730/22, Anexo I, sección 9).
+  items:
+    - nivel: Certificado de Trayecto I
+      requisito: Completar Trayecto I con ≥ 80% en evaluación formativa + caza de alucinaciones
+      duracion_estimada: 4-5 semanas
+      constancia_interna: Acreditación de Trayecto I: Inferencia Estadística, Modelado y MLOps (Constancia interna de cátedra)
 
-  - nivel: Certificado de Trayecto II
-    requisito: Completar Trayecto II con ≥ 80% en evaluación formativa + caza de alucinaciones
-    duracion_estimada: 3-4 semanas
-    titulo_otorgado: Especialista en Inteligencia Neuro-Simbólica y Orquestación de Agentes
+    - nivel: Certificado de Trayecto II
+      requisito: Completar Trayecto II con ≥ 80% en evaluación formativa + caza de alucinaciones
+      duracion_estimada: 3-4 semanas
+      constancia_interna: Acreditación de Trayecto II: Inteligencia Neuro-Simbólica y Orquestación de Agentes (Constancia interna de cátedra)
 
-  - nivel: Certificado Integral
-    requisito: Completar Unidad 1 + Trayecto I + Trayecto II con ≥ 85% en todas las evaluaciones
-    duracion_estimada: 8-10 semanas
-    titulo_otorgado: Especialista en Procesamiento de Aprendizaje Automático y Agentes IA
+    - nivel: Certificado Integral
+      requisito: Completar Unidad 1 + Trayecto I + Trayecto II con ≥ 85% en todas las evaluaciones
+      duracion_estimada: 8-10 semanas
+      constancia_interna: Acreditación Integral de Procesamiento de Aprendizaje Automático (Constancia interna de cátedra)
