@@ -48,7 +48,8 @@ trayectos:
           - cap-5-1-metricas-confusion-f1
           - cap-5-2-tdd-pytest-aider-agy
           - cap-5-3-endpoint-metricas-observabilidad
-        hito: Exposición de métricas de rendimiento en tiempo real (GET /metrics)
+          - cap-5-4-ajustes-modelo-validacion-cruzada
+        hito: Exposición de métricas de rendimiento en tiempo real (GET /metrics) y validación cruzada temporal sin data leakage
       - semana: 7-8
         capitulos:
           - cap-6-1-aprendizaje-no-supervisado-clustering
@@ -60,7 +61,7 @@ trayectos:
           - cap-5-5-comparacion-seleccion-modelos
         hito: Desagregación no supervisada, optimización y comparación crítica de modelos supervisados y no supervisados en energy-ml
     criterios_de_acreditacion:
-      - completitud: Aprobar 100% de las 20 lecciones (lecturas + laboratorios)
+      - completitud: Aprobar 100% de las 21 lecciones (lecturas + laboratorios)
       - evaluacion_formativa: Responder correctamente ≥ 80% de preguntas de razonamiento
       - caza_de_alucinaciones: Identificar bugs de IA en ≥ 80% de ejemplos de código
       - tdd: Implementar ≥ 2 endpoints con ciclo TDD (test-first) en energy-ml
@@ -77,6 +78,7 @@ trayectos:
       - Fundamentos de Aprendizaje por Refuerzo (Q-Learning y Bellman)
       - Optimización con Algoritmos Genéticos (Selección, Crossover, Mutación)
       - Comparación y Selección de Modelos (Supervisados vs No Supervisados)
+      - Ajuste de Hiperparámetros y Validación Cruzada (K-Fold y TimeSeriesSplit)
       - Validación de Datos con Pydantic
       - Construcción de APIs REST con FastAPI
       - TDD y Testing en Machine Learning

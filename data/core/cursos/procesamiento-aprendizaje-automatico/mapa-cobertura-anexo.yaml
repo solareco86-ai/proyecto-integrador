@@ -8,7 +8,7 @@ metadata:
   espacio: "12 - Procesamiento de Aprendizaje Automático"
   curso_slug: "procesamiento-aprendizaje-automatico"
   version: "1.0"
-  modo_estricto: false  # Se activará en true al finalizar todos los entregables de la épica #107
+  modo_estricto: true  # Activado al finalizar todos los entregables de la épica #107
 
 contenidos_bloques:
   # =========================================================================
@@ -193,11 +193,11 @@ contenidos_bloques:
   - id: bloque-sup-ajustes-modelo
     bloque: "Bloque Aprendizaje Supervisado"
     contenido_literal: "Ajustes del modelo"
-    estado: pendiente
-    entregable_asociado: "Entregable 8 (Épica #107)"
+    estado: cubierto
     lecciones:
-      - "lecciones/cap-3-2-arboles-regresion-continuos.md"  # Poda de árboles existente
-    observaciones: "Parcialmente cubierto con poda de árboles. Se incorporará validación cruzada y búsqueda de hiperparámetros en el Entregable 8."
+      - "lecciones/cap-5-4-ajustes-modelo-validacion-cruzada.md"
+      - "lecciones/cap-3-2-arboles-regresion-continuos.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo 5, lección 5.4: optimización de hiperparámetros con Grid/Random Search, prevención de fuga de datos; y poda de árboles en lección 3.2)."
 
   # =========================================================================
   # BLOQUE 3: Aprendizaje No Supervisado
@@ -287,13 +287,13 @@ capacidades_profesionales:
   - id: cap-prof-2-validacion-verificacion
     numero: 2
     texto_literal: "Utilizar técnicas de validación y verificación de modelos y experimentar con dichas técnicas en diferentes problemas reales."
-    estado: pendiente
-    entregable_asociado: "Entregable 8 (Épica #107)"
+    estado: cubierto
     lecciones:
       - "lecciones/cap-2-2-subtareas-del-aprendizaje.md"
       - "lecciones/cap-5-1-metricas-confusion-f1.md"
       - "lecciones/cap-5-2-tdd-pytest-aider-agy.md"
-    observaciones: "Parcialmente cubierto con partición temporal y TDD. Se completará con validación cruzada rigurosa en el Entregable 8."
+      - "lecciones/cap-5-4-ajustes-modelo-validacion-cruzada.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 5, lecciones 5.1 a 5.4: partición temporal, matriz de confusión, TDD, K-Fold, TimeSeriesSplit y pruebas unitarias de verificación causal)."
 
   - id: cap-prof-3-optimizacion-geneticos
     numero: 3

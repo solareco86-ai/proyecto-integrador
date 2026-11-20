@@ -363,6 +363,12 @@ sections:
       title: '5.3 Exposición de métricas de rendimiento en el endpoint GET /metrics'
       duration: 25 min
       content_file: cap-5-3-endpoint-metricas-observabilidad.md
+    - type: lesson
+      id: les-paa-int-5-4
+      slug: paa-int-ajustes-modelo-validacion-cruzada
+      title: '5.4 Ajustes del modelo, hiperparámetros y validación cruzada (temporal y K-Fold)'
+      duration: 35 min
+      content_file: cap-5-4-ajustes-modelo-validacion-cruzada.md
   - id: chap-paa-int-6
     title: 'Cap 6: Bloque Aprendizaje No Supervisado y Agrupamiento (Clustering)'
     description: Elaboración del modelo no supervisado, características y aplicaciones, agrupamiento con estrategia aglomerativa y algoritmo k-medias con selección de k (codo y silueta) en energy-ml.
