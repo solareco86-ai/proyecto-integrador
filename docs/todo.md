@@ -70,5 +70,6 @@ Todas las decisiones del backlog de pricing han sido formalmente analizadas, res
 - [x] **T-24:** Configurar redirección permanente 301 de rutas de pricing/planes (`/pricing`, `/planes`) hacia `/carreras`.
 - [x] **T-25:** Actualizar identidad visual, branding institucional, SEO y navegación general (`brand.yaml`, `footer.yaml`, `seo.yaml`, `home_sections.yaml`).
 - [x] **T-26:** Actualizar la suite documental y de agentes (`AGENTS.md`, `docs/srs.md`, `docs/specs.md`, `docs/todo.md`) reflejando la misión educativa pública y gratuita del ISFT N° 199.
+- [x] **T-32:** Ajustar concordancias de negativas en Google Ads (`negative_keywords_clean.txt` y `negative_keywords_editor.csv`) según la política de la sección 2.1.1 de la estrategia SEO/SEM/GEO: sin exclusión de búsquedas genéricas de precio y con exacta/frase en términos que coinciden con contenidos de las tecnicaturas.
 
 

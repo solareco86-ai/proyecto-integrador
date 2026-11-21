@@ -2,6 +2,19 @@
 
 Este documento consolida cronológicamente las decisiones estratégicas, refactorizaciones arquitectónicas y evoluciones del portal institucional y campus virtual del **Instituto Superior de Formación Técnica N° 199** (`isftn199.com.ar`).
 
+## [2026-11-20] — Política de Concordancias de Palabras Clave Negativas (Google Ads)
+
+* **Lista maestra de negativas (`data/ads/negative_keywords_clean.txt` y `data/ads/negative_keywords_editor.csv`):**
+  * La lista pasa de 108 a 102 términos: se eliminan 49 negativas, se agregan 43 y se modifica 1 concordancia. Ambos archivos se mantienen sincronizados en el mismo orden.
+  * Eliminación de los 40 términos heredados de DataMaq (servicios residenciales, electricidad domiciliaria y oficios: `casa`, `hogar`, `electricista`, `enchufe`, `edenor`, `baja tension`, `plomero`, `gasista`, etc.).
+  * Eliminación de 8 negativas genéricas de precio, cuota y costo (`arancel`, `aranceles`, `cuota mensual`, `precio de la carrera`, `cuanto cuesta la carrera`, `costo por mes`, `cuanto sale la cuota`, `precio mensual`): la gratuidad es la propuesta de valor y esas búsquedas provienen de aspirantes potenciales.
+  * Eliminación de `convenio colectivo`, contenido curricular de Recursos Humanos protegido por la política de concordancias.
+  * Concordancia de frase para intención explícitamente privada o de financiación y para nombres ambiguos: `"matricula de pago"` pasa de amplia a frase, y se agregan `"medio arancel"`, `"planes de pago carrera"`, `"beca arancelaria"`, `"universidad de san isidro"`, `"universidad kennedy"` y `"trabajo social"`.
+  * Concordancia exacta para carreras no ofrecidas que coinciden con contenidos propios (`[derecho]`, `[medicina]`, `[psicologia]`, `[psicologo]`, `[arquitectura]`, `[arquitecto]`, `[nutricion]`, `[farmacia]`).
+  * Incorporación, en concordancia amplia, de universidades privadas (`usi`, `uces`, `usal`, `universidad del salvador`), carreras no dictadas por la institución (`abogacia`, `enfermeria`, `odontologia`, `veterinaria`, `profesorado`, etc.), bootcamps (`digital house`, `ironhack`, `le wagon`, `mindhub`, `ada itw`, `bootcamp`) y búsquedas docentes (`concurso docente`, `postulacion docente`).
+* **Tests (`tests/test_negative_keywords.py`):** verificación de que 8 búsquedas genéricas de precio no queden bloqueadas por ninguna negativa.
+* **Backlog (`docs/todo.md`):** Registro de la tarea T-32 como completada.
+
 ## [2026-09-03] — Migración Integral hacia Portal Institucional y Campus Virtual ISFT N° 199
 
 * **Catálogo Académico Oficial (`data/content/carreras.yaml`):**
