@@ -2,7 +2,7 @@
 
 import json
 import re
-from typing import Any
+from typing import Any, cast
 
 import pytest
 from httpx import ASGITransport, AsyncClient
@@ -28,7 +28,7 @@ async def _organizacion_home() -> tuple[dict[str, Any], str]:
     for bloque in bloques:
         data: Any = json.loads(bloque)  # falla si algún bloque no es JSON válido
         if isinstance(data, dict) and "@graph" in data:
-            for nodo in data["@graph"]:
+            for nodo in cast(list[dict[str, Any]], data["@graph"]):
                 if isinstance(nodo, dict) and nodo.get("@type") == "Organization":
                     return nodo, bloque
     pytest.fail("La home no publica un nodo Organization en JSON-LD")
