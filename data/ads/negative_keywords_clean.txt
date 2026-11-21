@@ -4,39 +4,19 @@ hogar
 hogares
 domicilio
 domiciliario
-domiciliaria
 residencial
-residenciales
 departamento
-departamentos
 depto
-deptos
 ph
-edificio residencial
-consorcio
-vecino
-propiedad horizontal
-particular
-familia
-unifamiliar
-habitacion
-cocina
-baño
 electricista
 electricistas
 electricista matriculado
 electricista de urgencia
-electricista 24 hs
 electricista a domicilio
-electricista zona norte
-electricista cerca
-instalacion electrica casa
 cableado casa
 enchufe
 toma corriente
 disyuntor casa
-termica casa
-cable canal
 termotanque
 calefon
 estufa electrica
@@ -47,73 +27,82 @@ cortocircuito casa
 luz cortada
 sin luz
 corte de luz
-edenor me corto la luz
-monofasico
-monofasica
-monofasicos
-220v
-110v
-baja tension casa
-tarifa t1
-t1
-t1r
-t1g
-pequeña demanda residencial
-arduino
-raspberry
-esp32
-esp8266
-diy
-casero
-como hacer
-tutorial
-guia
-curso gratis
-capacitacion gratis
-pdf
-monografia
-tesis
-definicion
-que es
-significado
-manual de usuario
-descargar
-empleo
-trabajo
-sueldo
-cv
-curriculum
-vacantes
-busqueda laboral
-pasantia
-usado
-segunda mano
-mercadolibre
-olx
-aliexpress
-ebay
-amazon
-costo electricista por boca
-cuanto cobra un electricista
+edenor
 edesur
-enel
-epe
-epsa
-edersa
-edelap
-edes
-edest
-cooperativa electrica
-sonoff
-shelly
-tuya
-smart life
-broadlink
-xiaomi
-zigbee casa
-desarme
-repuesto usado
-chatarra
-scrap
-segunda mano
-lote usado
+monofasico
+220v
+baja tension
+tarifa t1
+plomero
+gasista
+cerrajero
+flete
+mudanza
+uade
+uai
+siglo 21
+universidad siglo 21
+udesa
+universidad de san andres
+austral
+universidad austral
+itba
+uca
+universidad catolica
+ucema
+torcuato di tella
+universidad de belgrano
+universidad de palermo
+cuota mensual
+arancel
+aranceles
+matricula de pago
+precio de la carrera
+costo por mes
+cuanto sale la cuota
+cuanto cuesta la carrera
+precio mensual
+primaria
+primario
+escuela primaria
+jardin
+jardin de infantes
+maternal
+secundario acelerado
+secundaria acelerada
+terminar la secundaria
+terminar el secundario
+plan fines
+fines
+bachillerato de adultos
+cens
+educacion especial
+coderhouse
+soyhenry
+henry
+platzi
+udemy
+coursera
+edx
+curso de 1 semana
+curso de 2 semanas
+curso de un mes
+curso corto
+taller de 3 dias
+computrabajo
+bumeran
+zonajobs
+linkedin empleos
+postularse
+vacantes de empleo
+busco trabajo de
+ofertas de empleo
+bolsa de trabajo
+cuanto gana
+sueldo de
+salario de
+cuanto se cobra
+sueldos promedio
+recibo de sueldo
+convenio colectivo
+escala salarial
