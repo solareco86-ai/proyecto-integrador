@@ -69,6 +69,7 @@
         "@graph": [
             {
                 "@type": "Organization",
+                "additionalType": "https://schema.org/EducationalOrganization",
                 "name": "{{ seo_data.site_name }}",
                 "url": "{{ seo_data.canonical_url }}",
                 "logo": "{{ request.url_for('static', path='favicon.svg') }}",
@@ -84,77 +85,20 @@
                     "addressCountry": "{{ brand.address.addressCountry }}"
                 },
                 {% endif %}
+                {% if brand.geo %}
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": {{ brand.geo.lat }},
+                    "longitude": {{ brand.geo.lng }}
+                },
+                {% endif %}
+                {% if brand.openingHours %}
+                "openingHours": "{{ brand.openingHours }}",
+                {% endif %}
                 {% if brand.sameAs %}"sameAs": [{% for url in brand.sameAs %}"{{ url }}"{% if not loop.last %},{% endif %}{% endfor %}],{% endif %}
-                "knowsAbout": [
-                    "Eficiencia Energética Industrial",
-                    "Resolución ENRE 544/2024",
-                    "Factor de Potencia y Energía Reactiva",
-                    "Analizador de Redes Powermeter SmartPlus",
-                    "Powermeter Gateway IoT",
-                    "Powermeter Automate PLC",
-                    "Protocolo Modbus RS485 y 4-20mA",
-                    "Integración ERP Xubio",
-                    "Norma ISO 50001 e IDEn",
-                    "Sub-metering en Parques Industriales"
-                ],
-                "areaServed": [
-                    {"@type": "AdministrativeArea", "name": "Garín"},
-                    {"@type": "AdministrativeArea", "name": "Pilar"},
-                    {"@type": "AdministrativeArea", "name": "Escobar"},
-                    {"@type": "AdministrativeArea", "name": "Tigre"},
-                    {"@type": "AdministrativeArea", "name": "Campana"},
-                    {"@type": "AdministrativeArea", "name": "San Martín"},
-                    {"@type": "AdministrativeArea", "name": "Zona Norte GBA"}
-                ],
-                "founder": {
-                    "@type": "Person",
-                    "name": "{{ brand.technician.name }}",
-                    "jobTitle": "{{ brand.technician.role }}",
-                    {% if brand.technician.linkedin_url %}"url": "{{ brand.technician.linkedin_url }}",
-                    "sameAs": ["{{ brand.technician.linkedin_url }}"],{% endif %}
-                    "description": "{{ (brand.technician.bio or brand.technician.role) | replace('\"', '\\\"') }}"
-                },
-                "hasOfferCatalog": {
-                    "@type": "OfferCatalog",
-                    "name": "Servicios de Ingeniería y Telemetría DataMaq",
-                    "itemListElement": [
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Service",
-                                "name": "Instalación de Powermeter SmartPlus: Auditoría & Telemetría Energética",
-                                "description": "Auditoría eléctrica, instalación de analizadores inteligentes SmartPlus en tableros y optimización de potencia contratada."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Service",
-                                "name": "Retrofit IoT & Automatización con Gateway y Automate",
-                                "description": "Captura de variables de proceso (temperatura, pesaje, VFD) y control inteligente de demanda máxima."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Service",
-                                "name": "Consultoría en Gestión de la Energía & Recontratación de Potencia ENRE 544/2024",
-                                "description": "Línea de base ISO 50001, eliminación de multas por factor de potencia cos φ y recontratación de potencia contratada."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Service",
-                                "name": "Integración IoT & Transformación de Datos a Xubio ERP",
-                                "description": "Traducción de tramas industriales e inyección automática en el ERP Xubio vía API REST."
-                            }
-                        }
-                    ]
-                },
                 "contactPoint": {
                     "@type": "ContactPoint",
-                    "contactType": "Soporte técnico y ventas",
+                    "contactType": "Secretaría",
                     "telephone": "+{{ config.WHATSAPP_PHONE }}",
                     "email": "{{ brand.contactEmail }}",
                     "areaServed": "AR",
