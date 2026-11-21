@@ -24,4 +24,4 @@ Allow: /
 User-agent: Cohere-ai
 Allow: /
 
-Sitemap: https://datamaq.com.ar/sitemap.xml
+Sitemap: https://isftn199.com.ar/sitemap.xml

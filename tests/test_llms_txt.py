@@ -49,4 +49,5 @@ async def test_robots_txt_allows_ai_bots() -> None:
     assert "User-agent: GPTBot" in text
     assert "User-agent: ClaudeBot" in text
     assert "User-agent: PerplexityBot" in text
-    assert "Sitemap: https://datamaq.com.ar/sitemap.xml" in text
+    assert "Sitemap: https://isftn199.com.ar/sitemap.xml" in text
+    assert "datamaq.com.ar" not in text
