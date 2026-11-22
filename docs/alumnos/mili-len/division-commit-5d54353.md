@@ -7,7 +7,7 @@
 
 Este documento distingue dos conjuntos de commits:
 
-- **Commits históricos (sección 2):** la división del commit original, hecha en una rama de trabajo local (`alumno/mili-len/seo-atomico-n2`), que **no forma parte de este PR**.
+- **Commits históricos (sección 2):** la división del commit original, en la rama `alumno/mili-len/seo-atomico-n2`, publicada en GitHub solo como evidencia y **sin PR propio**. **No forma parte de este PR**.
 - **Commits nuevos (sección 4):** los que se crean en la rama `alumno/mili-len/seo-sem-pendientes` y **sí forman parte de este PR** hacia `develop`.
 
 ---
@@ -33,9 +33,9 @@ Este documento distingue dos conjuntos de commits:
 
 Con esa mezcla no se podía revisar, revertir ni probar un tema sin arrastrar los otros. Como el commit ya está integrado en `develop`, no se reescribió: la división se hizo en una rama aparte.
 
-## 2. La división histórica (rama local, no incluida en este PR)
+## 2. La división histórica (rama de evidencia, no incluida en este PR)
 
-Rama `alumno/mili-len/seo-atomico-n2`, creada desde `2beb760` (el padre de `5d54353`). No está publicada en GitHub.
+Rama [`alumno/mili-len/seo-atomico-n2`](https://github.com/solareco86-ai/proyecto-integrador/tree/alumno/mili-len/seo-atomico-n2), creada desde `2beb760` (el padre de `5d54353`). Está publicada en GitHub como evidencia de N2 y **no tiene PR propio**: no se integra a `develop`, por los motivos de la sección 3. Los commits de la división se pueden ver en la [comparación desde `2beb760`](https://github.com/solareco86-ai/proyecto-integrador/compare/2beb760...alumno/mili-len/seo-atomico-n2).
 
 | # | Commit | Tema | Qué hace |
 |---|---|---|---|
