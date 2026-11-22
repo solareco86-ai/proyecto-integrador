@@ -96,3 +96,40 @@ def test_negative_keywords_do_not_block_official_careers() -> None:
             ):
                 bloqueos.append(f"{kw!r} ({tipo}) bloquea: {texto}")
     assert bloqueos == [], "\n".join(bloqueos)
+
+
+CONSULTAS_DE_PRECIO: tuple[str, ...] = (
+    "cuanto cuesta la carrera de turismo",
+    "precio de la carrera de logistica",
+    "arancel tecnicatura higiene y seguridad",
+    "aranceles isft 199",
+    "cuota mensual tecnicatura en ciencia de datos",
+    "cuanto sale la cuota de la tecnicatura",
+    "costo por mes de la tecnicatura",
+    "precio mensual tecnicatura recursos humanos",
+)
+
+
+def _bloquea(kw: str, tipo: str, consulta: str) -> bool:
+    """Regla de coincidencia de una negativa de Google Ads (amplia, frase o exacta) sobre una búsqueda."""
+    kw_palabras = _palabras(kw)
+    palabras = _palabras(consulta)
+    if tipo == "Broad":
+        return set(kw_palabras) <= set(palabras)
+    if tipo == "Phrase":
+        return f" {' '.join(kw_palabras)} " in f" {' '.join(palabras)} "
+    if tipo == "Exact":
+        return kw_palabras == palabras
+    raise ValueError(f"Tipo de concordancia desconocido: {tipo!r}")
+
+
+def test_negative_keywords_do_not_exclude_generic_price_searches() -> None:
+    """La gratuidad es la propuesta de valor: ninguna negativa debe excluir búsquedas genéricas de precio."""
+    negativas = _negativas_txt()
+    bloqueadas: list[str] = [
+        f"{consulta!r} <- {kw!r} ({tipo})"
+        for consulta in CONSULTAS_DE_PRECIO
+        for kw, tipo in negativas
+        if _bloquea(kw, tipo, consulta)
+    ]
+    assert bloqueadas == [], "\n".join(bloqueadas)
