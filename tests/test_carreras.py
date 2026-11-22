@@ -59,10 +59,16 @@ async def test_carrera_detail_page():
     assert response.status_code == 200
     html = response.text
     assert "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial" in html
-    assert "Perfil Profesional del Egresado" in html
-    assert "Ejes Temáticos y Materias Destacadas" in html
-    assert "Alcance y Salida Laboral" in html
+    assert "Perfil del egresado" in html
+    assert "Contenidos centrales" in html
+    assert "Alcance y salida laboral" in html
     assert "Consultar por esta carrera" in html
+    # La ficha lateral y las migas son parte del recorrido nuevo, y la página
+    # ya no cae en el shell heredado de DataMaq.
+    assert "Ficha de la carrera" in html
+    assert 'aria-label="Migas de pan"' in html
+    assert "capa-institucional" in html
+    assert "Seguir mirando" in html
 
 
 @pytest.mark.asyncio
@@ -108,3 +114,37 @@ async def test_sitemap_includes_carreras():
     assert "/carreras" in xml
     assert "/carreras/ciencia-de-datos-ia" in xml
     assert "/carreras/mecatronica" not in xml
+
+
+def test_otras_carreras_son_las_siguientes_y_dan_la_vuelta():
+    """«Seguir mirando» muestra las que siguen en el catálogo, sin repetir la actual."""
+    data_svc = DataService(data_dir="data")
+    slugs = [c.slug for c in data_svc.get_carreras()]
+
+    for i, slug in enumerate(slugs):
+        otras = [c.slug for c in data_svc.get_otras_carreras(slug)]
+        assert otras == [slugs[(i + 1) % len(slugs)], slugs[(i + 2) % len(slugs)]]
+        assert slug not in otras
+
+    # Un slug que no existe empieza desde el principio del catálogo.
+    assert [c.slug for c in data_svc.get_otras_carreras("no-existe")] == slugs[:2]
+
+
+@pytest.mark.asyncio
+async def test_carreras_compara_todas_las_tecnicaturas():
+    """El comparador tiene una fila por carrera de data/, con su resolución y su título."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/carreras")
+
+    html = response.text
+    carreras = DataService(data_dir="data").get_carreras()
+    assert 'id="comparar"' in html
+    assert f"Comparar las {len(carreras)} carreras" in html
+    seccion = html.split('id="comparar"', 1)[1].split("</table>", 1)[0]
+    assert seccion.count('<th scope="row">') == len(carreras)
+    for carrera in carreras:
+        assert f'href="/carreras/{carrera.slug}"' in seccion
+        assert carrera.titulo_otorgado in seccion
+        if carrera.resolucion:
+            assert carrera.resolucion in seccion

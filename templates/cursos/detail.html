@@ -19,7 +19,7 @@
         <nav class="c-breadcrumbs" aria-label="Breadcrumb">
             <ol class="c-breadcrumbs__list">
                 <li class="c-breadcrumbs__item"><a href="/">Inicio</a></li>
-                <li class="c-breadcrumbs__item"><a href="{{ url_for('listado_cursos') }}">Cursos</a></li>
+                <li class="c-breadcrumbs__item"><a href="{{ url_for('listado_cursos') }}">Materias</a></li>
                 <li class="c-breadcrumbs__item aria-current-page" aria-current="page">{{ curso.title }}</li>
             </ol>
         </nav>
@@ -266,7 +266,7 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Cursos",
+      "name": "Materias",
       "item": "{{ request.url_for('listado_cursos') }}"
     },
     {
@@ -281,7 +281,7 @@
 {% endblock %}
 
 {% block dock %}
-{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Cursos'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
+{{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Materias'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}
 {% endblock %}
 
 {% block cookie_banner %}

@@ -1,0 +1,13 @@
+file '/home/pc/fundamentos-programacion/static/img/cap_2_1/slides_video/slide_01.png'
+duration 6
+file '/home/pc/fundamentos-programacion/static/img/cap_2_1/slides_video/slide_02.png'
+duration 6
+file '/home/pc/fundamentos-programacion/static/img/cap_2_1/slides_video/slide_03.png'
+duration 6
+file '/home/pc/fundamentos-programacion/static/img/cap_2_1/slides_video/slide_04.png'
+duration 6
+file '/home/pc/fundamentos-programacion/static/img/cap_2_1/slides_video/slide_05.png'
+duration 6
+file '/home/pc/fundamentos-programacion/static/img/cap_2_1/slides_video/slide_06.png'
+duration 6
+file '/home/pc/fundamentos-programacion/static/img/cap_2_1/slides_video/slide_06.png'
