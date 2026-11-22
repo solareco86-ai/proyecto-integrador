@@ -1,4 +1,7 @@
+from pathlib import Path
+
 import pytest
+import yaml
 from httpx import ASGITransport, AsyncClient
 
 from src.application.data_service import DataService
@@ -96,3 +99,18 @@ async def test_llms_full_lists_official_subjects_and_job_profiles() -> None:
     assert response.status_code == 200
     faltantes: list[str] = [item for item in esperados if item not in response.text]
     assert faltantes == [], f"llms-full.txt no refleja carreras.yaml: {faltantes}"
+
+
+@pytest.mark.asyncio  # type: ignore
+async def test_llms_full_conserva_codigo_postal_de_la_sede() -> None:
+    """La dirección física de llms-full.txt incluye el código postal declarado en brand.yaml."""
+    brand_path: Path = Path(__file__).resolve().parent.parent / "data" / "config" / "brand.yaml"
+    brand: dict[str, dict[str, str]] = yaml.safe_load(brand_path.read_text(encoding="utf-8"))
+    codigo_postal: str = brand["address"]["postalCode"]
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/llms-full.txt")
+
+    assert response.status_code == 200
+    assert codigo_postal == "1618"
+    assert f"Maestra Celina Voena 1750, B{codigo_postal} El Talar" in response.text
