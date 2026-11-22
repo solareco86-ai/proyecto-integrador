@@ -26,6 +26,8 @@ print(f"Ancho: {ancho} px, alto: {alto} px, canales: {canales}")
 # Ancho: 600 px, alto: 400 px, canales: 3
 ```
 
+Para abreviar, los bloques siguientes omiten la comprobación de `None`. En tus programas conviene mantenerla, porque `cv2.imread` no lanza un error si no encuentra el archivo: devuelve `None`, y el fallo aparece recién en la línea siguiente, con un mensaje confuso.
+
 El origen de coordenadas `(0, 0)` está en la **esquina superior izquierda**. La coordenada `x` crece hacia la derecha y la `y` crece hacia abajo. Tené presente este detalle, porque OpenCV usa dos convenciones distintas según la función:
 
 | Contexto | Orden | Ejemplo |
@@ -120,9 +122,10 @@ taza = imagen[y1:y2, x1:x2].copy()
 print("Recorte:", taza.shape)  # (290, 260, 3)
 
 # Para visualizar qué se recortó, se marca la zona sobre una copia de la original.
-# cv2.rectangle recibe los puntos como (x, y).
+# cv2.rectangle recibe los puntos como (x, y) e incluye el punto final,
+# mientras que el slicing lo excluye: por eso se usa x2 - 1 e y2 - 1.
 marcada = imagen.copy()
-cv2.rectangle(marcada, (x1, y1), (x2, y2), (0, 255, 0), 3)
+cv2.rectangle(marcada, (x1, y1), (x2 - 1, y2 - 1), (0, 255, 0), 3)
 
 cv2.imwrite("cafe-zona-recorte.png", marcada)
 cv2.imwrite("cafe-recorte-taza.png", taza)
@@ -134,9 +137,11 @@ cv2.imwrite("cafe-recorte-taza.png", taza)
 
 **Después:** el recorte de 260 × 290 px.
 
-![Recorte que muestra solo la taza de café](/static/media/cursos/pdi/cafe-recorte-taza.webp)
+![Recorte centrado en la taza de café, con parte del plato y de la cuchara](/static/media/cursos/pdi/cafe-recorte-taza.webp)
 
 > **¿Por qué `.copy()`?** El slicing de NumPy no crea una imagen nueva: devuelve una *vista* que comparte memoria con la original. Si dibujás sobre un recorte sin `.copy()`, también modificás la imagen original. Usá `.copy()` cada vez que vayas a editar el recorte por separado.
+
+> **Recortes fuera de los límites.** NumPy no avisa si el rango se sale de la imagen: `imagen[300:500, 500:700]` devuelve un recorte de 100 × 100 px en lugar de 200 × 200, y un índice negativo cuenta desde el final. Si las coordenadas se calculan (por ejemplo, alrededor de un punto), limitálas antes de recortar con `x1 = max(0, x1)` y `x2 = min(ancho, x2)`, y lo mismo en `y`, y comprobá el `shape` del resultado.
 
 ### Rotación con matrices afines
 
@@ -163,9 +168,11 @@ cv2.imwrite("cafe-rotada.png", rotada)
 
 #### Rotar sin perder las esquinas
 
-Para conservar toda la imagen hay que calcular un lienzo más grande y desplazar la matriz para que el resultado quede centrado en él. El nuevo ancho y el nuevo alto salen del seno y el coseno del ángulo, que ya están dentro de la matriz:
+Para conservar toda la imagen hay que calcular un lienzo más grande y desplazar la matriz para que el resultado quede centrado en él. El nuevo ancho y el nuevo alto salen del seno y el coseno del ángulo, que ya están dentro de la matriz. Se redondean hacia arriba con `math.ceil`: si se truncaran con `int()`, las puntas de la imagen rotada podrían quedar fuera del lienzo por una fracción de píxel.
 
 ```python
+import math
+
 import cv2
 
 imagen = cv2.imread("cafe.png")
@@ -175,8 +182,8 @@ matriz = cv2.getRotationMatrix2D(centro, 30, 1.0)
 
 coseno = abs(matriz[0, 0])
 seno = abs(matriz[0, 1])
-nuevo_ancho = int(alto * seno + ancho * coseno)
-nuevo_alto = int(alto * coseno + ancho * seno)
+nuevo_ancho = math.ceil(alto * seno + ancho * coseno)  # 719,6 → 720
+nuevo_alto = math.ceil(alto * coseno + ancho * seno)   # 646,4 → 647
 
 # Desplazar la imagen para que quede centrada en el lienzo nuevo
 matriz[0, 2] += nuevo_ancho / 2 - centro[0]
@@ -185,14 +192,14 @@ matriz[1, 2] += nuevo_alto / 2 - centro[1]
 rotada_completa = cv2.warpAffine(
     imagen, matriz, (nuevo_ancho, nuevo_alto), borderValue=(255, 255, 255)
 )
-print("Rotada completa:", rotada_completa.shape)  # (646, 719, 3)
+print("Rotada completa:", rotada_completa.shape)  # (647, 720, 3)
 
 cv2.imwrite("cafe-rotada-completa.png", rotada_completa)
 ```
 
 ![Foto rotada 30 grados sobre un lienzo más grande con fondo blanco, sin perder ninguna esquina](/static/media/cursos/pdi/cafe-rotada-completa.webp)
 
-*Rotada 30° en un lienzo de 719 × 646 px con fondo blanco (`borderValue`). No se pierde ninguna parte de la foto.*
+*Rotada 30° en un lienzo de 720 × 647 px con fondo blanco (`borderValue`). No se pierde ninguna parte de la foto.*
 
 Para giros de 90° o 180° conviene `cv2.rotate`, que es exacto y no interpola:
 
@@ -227,7 +234,7 @@ Una tienda necesita una miniatura **cuadrada de 200 × 200 px** de cada foto de 
 1. Recortá el **cuadrado central más grande** posible. Su lado es la medida menor entre el ancho y el alto.
 2. Reducí ese cuadrado a **200 × 200 px** con la interpolación adecuada para reducir.
 3. Girá el resultado **90° en sentido horario**.
-4. Comprobá con `assert` que la miniatura mide 200 × 200 px y tiene 3 canales, y guardala como `cafe_miniatura.png`.
+4. Comprobá con `assert` que la miniatura mide 200 × 200 px y tiene 3 canales, y guardala como `cafe-miniatura.png`.
 
 Intentá resolverlo antes de mirar la solución.
 
@@ -265,7 +272,7 @@ print("Miniatura lista:", miniatura.shape)  # (200, 200, 3)
 
 - ¿Qué pasaría si en el paso 2 redimensionaras la foto completa a 200 × 200 sin recortar antes?
 - ¿Por qué en el paso 3 conviene `cv2.rotate` en lugar de `cv2.getRotationMatrix2D` con 90°?
-- ¿Cómo adaptarías la solución para que funcione con una foto vertical, más alta que ancha?
+- ¿La solución funciona sin cambios con una foto vertical, más alta que ancha? ¿Qué valores toman `y1` y `x1` en ese caso?
 
 ### Resumen
 
