@@ -3,7 +3,7 @@
 **Proyecto:** Desarrollo y posicionamiento del sitio web institucional del ISFT N.º 199.  
 **Institución:** Instituto Superior de Formación Técnica N.º 199.  
 **Responsable:** Lencina Milagros.  
-**Versión:** 1.0
+**Versión:** 1.1
 
 ## 1. Problema
 
@@ -64,11 +64,11 @@ Se proponen los siguientes indicadores para evaluar el funcionamiento y los resu
 |---|---|---|
 | Disponibilidad del sitio web | Alcanzar una disponibilidad mensual igual o superior al 99 %. | Monitoreo de disponibilidad del sitio. |
 | Rendimiento de páginas principales | Alcanzar una puntuación de 80 o superior en PageSpeed Insights para las páginas principales, según las condiciones de evaluación. | Google PageSpeed Insights. |
-| Visibilidad orgánica | Incrementar progresivamente las impresiones orgánicas respecto de la medición inicial. | Google Search Console. |
-| Consultas recibidas | Registrar y analizar la cantidad de consultas recibidas mediante los formularios del sitio. | Registro de consultas y base de datos. |
-| Indexación | Verificar que las páginas institucionales relevantes puedan ser rastreadas e indexadas correctamente. | Google Search Console y herramientas de inspección. |
+| Visibilidad orgánica | Incrementar al menos un 20 % las impresiones orgánicas mensuales respecto de la línea base registrada al inicio del proyecto. | Google Search Console (informe de rendimiento). |
+| Consultas recibidas | Registrar el 100 % de las consultas enviadas por el formulario y medir su cantidad mensual para comparar contra la línea base. | Registro de consultas (leads) en la base de datos. |
+| Indexación | Lograr que el 100 % de las URLs declaradas en el sitemap estén indexadas y sin errores de rastreo. | Google Search Console (informe de indexación) e inspección de URLs. |
 
-Los valores establecidos representan objetivos propuestos y no resultados actualmente alcanzados. Su cumplimiento deberá evaluarse mediante mediciones durante el funcionamiento del sitio.
+La línea base se tomará en la primera medición disponible al comenzar la implementación. Los valores establecidos representan objetivos propuestos y no resultados actualmente alcanzados. Su cumplimiento deberá evaluarse mediante mediciones durante el funcionamiento del sitio.
 
 ## 7. Ventaja diferencial
 
@@ -80,11 +80,16 @@ El proyecto cuenta con las siguientes características que pueden diferenciarlo:
 - Incorpora estrategias de posicionamiento SEO y GEO, contemplando tanto buscadores tradicionales como sistemas de inteligencia artificial.
 - Se desarrolla dentro de un Proyecto Integrador académico, aplicando conocimientos de programación, desarrollo web, bases de datos, documentación, pruebas y control de versiones.
 
+- La oferta académica es oficial, pública y 100 % gratuita (seis tecnicaturas superiores con validez nacional), lo que permite comunicar un valor que no compite por precio.
+- El contenido institucional (carreras, cursos, cobertura) se mantiene desacoplado del código en archivos de datos, lo que facilita su actualización sin reprogramar el sitio.
+
 La principal ventaja diferencial es la combinación del conocimiento del contexto institucional con el desarrollo tecnológico y las estrategias de posicionamiento digital.
 
 ## 8. Alcance del MVP (Producto Mínimo Viable)
 
 El MVP contempla una primera versión funcional del sitio web institucional con las funcionalidades esenciales para brindar información y facilitar el contacto.
+
+**Límite de la iteración:** el alcance se acota a una iteración de 4 semanas dentro del período de implementación del Proyecto Integrador. Lo que no pueda completarse en ese plazo pasa a la siguiente iteración y no amplía el MVP.
 
 ### Funcionalidades incluidas
 
@@ -102,7 +107,6 @@ El MVP contempla una primera versión funcional del sitio web institucional con 
 
 ### Funcionalidades fuera del alcance inicial
 
-- Migración completa y definitiva de todas las funcionalidades a FastAPI.
 - Implementación completa de un sistema administrativo propio.
 - Automatización integral de la gestión de noticias, eventos y comunicados.
 - Ejecución permanente de campañas publicitarias SEM.
@@ -115,7 +119,7 @@ Estas funcionalidades podrán evaluarse e incorporarse en futuras etapas del pro
 
 Se propone como alternativa de sostenibilidad económica el desarrollo de capacitaciones técnicas destinadas a empresas y organizaciones, aprovechando los conocimientos y contenidos educativos de la institución, mediante acuerdos institucionales y/o participación de la cooperadora.
 
-El objetivo es generar una alternativa de sostenibilidad económica sin cobrar por el acceso a la información institucional del sitio.
+El objetivo es generar una alternativa de sostenibilidad económica sin cobrar por el acceso a la información institucional del sitio. La formación de las tecnicaturas es pública y gratuita, por lo que estas alternativas no implican aranceles, matrículas ni cuotas para estudiantes.
 
 ### Alternativa principal: Capacitaciones para empresas
 
