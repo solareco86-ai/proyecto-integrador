@@ -131,3 +131,55 @@ Los conocimientos y experiencia adquiridos también pueden utilizarse
 para buscar oportunidades laborales en áreas de desarrollo web,
 programación, backend o soporte técnico, continuando con la formación
 profesional.
+
+## 11. Caminos de ingreso y elección
+
+A partir de los conocimientos y la experiencia práctica adquiridos en
+el desarrollo del sitio institucional del ISFT N.º 199, identifico dos
+caminos posibles para generar ingresos, y elijo uno de ellos.
+
+### Camino 1 — Relación laboral
+
+Podría desempeñarme en un puesto de **desarrolladora web junior** o
+**programadora junior**, aplicando lo aprendido durante el Proyecto
+Integrador.
+
+Tareas que podría realizar:
+
+-   Desarrollo y mantenimiento de páginas web y funcionalidades
+    backend sencillas.
+-   Maquetación y adaptación de interfaces (HTML, CSS, JavaScript).
+-   Integración de formularios, APIs y herramientas de comunicación.
+-   Soporte técnico y corrección de errores.
+-   Trabajo en equipo con control de versiones (Git y GitHub).
+
+Tipo de empresa donde podría trabajar: estudios de desarrollo web,
+agencias digitales, o pequeñas y medianas empresas que necesiten
+incorporar o mantener su presencia web propia.
+
+### Camino 2 — Comercial
+
+Ofrecer, de manera independiente, servicios de desarrollo web a:
+
+-   Pequeños comercios.
+-   Emprendedores.
+-   Profesionales.
+-   Instituciones.
+
+Servicios posibles:
+
+-   Creación de páginas web.
+-   Landing pages.
+-   Formularios de contacto.
+-   Configuración de dominio y hosting.
+-   Actualización y mantenimiento de sitios web.
+-   Mejoras de presencia y visibilidad online.
+
+Este camino se desarrolla con más detalle en la sección 10 ("Fuente de
+ingresos propuesta").
+
+### Elección
+
+Elijo el **camino comercial**: ofrecer servicios de desarrollo web por
+cuenta propia, aprovechando los conocimientos adquiridos en el
+Proyecto Integrador para brindar soluciones digitales a clientes.
