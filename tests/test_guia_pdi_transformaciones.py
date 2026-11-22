@@ -26,6 +26,8 @@ IMAGENES_ESPERADAS: list[str] = [
     "/static/media/cursos/pdi/cafe-recorte-taza.webp",
     "/static/media/cursos/pdi/cafe-rotada.webp",
     "/static/media/cursos/pdi/cafe-rotada-completa.webp",
+    "/static/media/cursos/pdi/cafe-girada-90.webp",
+    "/static/media/cursos/pdi/cafe-trasladada.webp",
     "/static/media/cursos/pdi/cafe-miniatura.webp",
 ]
 

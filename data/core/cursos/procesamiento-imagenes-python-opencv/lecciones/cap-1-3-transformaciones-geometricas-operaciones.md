@@ -209,7 +209,13 @@ import cv2
 imagen = cv2.imread("cafe.png")
 girada = cv2.rotate(imagen, cv2.ROTATE_90_CLOCKWISE)
 print("Girada 90°:", girada.shape)  # (600, 400, 3): el ancho y el alto se intercambian
+
+cv2.imwrite("cafe-girada-90.png", girada)
 ```
+
+![Foto girada 90 grados en sentido horario: queda vertical, de 400 × 600 px](/static/media/cursos/pdi/cafe-girada-90.webp)
+
+*Girada 90° en sentido horario. La imagen pasa de 600 × 400 a 400 × 600 px sin bordes vacíos, porque cada píxel solo cambia de lugar. Las otras opciones son `cv2.ROTATE_90_COUNTERCLOCKWISE` y `cv2.ROTATE_180`.*
 
 #### Traslación
 
@@ -225,7 +231,13 @@ alto, ancho = imagen.shape[:2]
 matriz = np.float32([[1, 0, 80], [0, 1, 40]])  # 80 px a la derecha y 40 px hacia abajo
 trasladada = cv2.warpAffine(imagen, matriz, (ancho, alto))
 print("Trasladada:", trasladada.shape)  # (400, 600, 3)
+
+cv2.imwrite("cafe-trasladada.png", trasladada)
 ```
+
+![Foto desplazada 80 px a la derecha y 40 px hacia abajo, con franjas negras arriba y a la izquierda](/static/media/cursos/pdi/cafe-trasladada.webp)
+
+*Trasladada 80 px a la derecha y 40 px hacia abajo. Como el lienzo conserva el tamaño original, aparecen franjas negras arriba y a la izquierda, y se pierden 80 px del borde derecho y 40 px del inferior.*
 
 ### Ejercicio de cierre: miniatura cuadrada para un catálogo
 
