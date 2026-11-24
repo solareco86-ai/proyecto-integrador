@@ -96,7 +96,8 @@ La lógica de procesamiento se mantiene separada de los endpoints FastAPI. Si m�
 - [x] Existe al menos un caso con aula suficiente.
 - [x] Existe al menos un caso que requiere detectar un conflicto.
 - [x] Los archivos se pueden leer con Python mediante el adaptador CSV de la librería estándar.
-- [x] Se valida que las sesiones estén dentro del rango institucional `18:30–21:40`.
+- [x] Se valida que las sesiones respeten reglas configurables por sede; el valor institucional por defecto es `18:00–22:30`.
+- [x] Se prueba explícitamente el rango sintético `18:30–21:40` mediante reglas específicas, sin fijarlo en el dominio.
 - [x] Se validan días permitidos y se prueban superposiciones parciales, por ejemplo `18:30–20:00` y `19:00–21:00`.
 - [x] Existe una prueba end-to-end que recorre el flujo completo y verifica los artefactos exportados.
 
@@ -111,7 +112,7 @@ El núcleo actual cuenta con pruebas específicas para:
 - Matching, asignaciones y sesiones sin aula.
 - Grafos de superposición, compatibilidad y exportaciones.
 
-También se verificó que el módulo respeta las reglas de Clean Architecture, Hexagonal y DDD. La suite específica del módulo queda cubierta por 24 pruebas. La suite general del portal sigue como tarea separada porque el entorno de ejecución se bloquea en `tests/test_additional_routes.py::test_sitemap_rendered`, incluso con `-n 0` y con un timeout de `faulthandler`.
+También se verificó que el módulo respeta las reglas de Clean Architecture, Hexagonal y DDD. La suite específica del módulo cubre validación, matching acotado, exportadores y flujo end-to-end. La corrida de la suite general y de `pyright` debe registrarse en el plan de pruebas con el resultado obtenido en el entorno de integración.
 
 ## Cómo agregar la prueba end-to-end
 
@@ -129,11 +130,12 @@ La prueba debe usar `tmp_path` para no modificar `tmp/grafos-asignacion-aulas` n
 
 ## Próximos work units
 
-1. ✅ **Validar rango horario y días:** se impone `18:30 <= hora_inicio`, `hora_fin <= 21:40` y se validan lunes a viernes.
+1. ✅ **Validar rango horario y días:** se parametrizan las reglas de sede; el valor institucional por defecto es `18:00 <= hora_inicio` y `hora_fin <= 22:30`, con días configurables.
 2. ✅ **Agregar prueba end-to-end:** se verifica el flujo completo y sus archivos de salida usando `tmp_path`.
-3. **Corregir la suite completa:** investigar el bloqueo de `test_sitemap_rendered` sin mezclarlo con la lógica de asignación de aulas.
+3. **Verificar la suite completa:** ejecutar la suite general y `pyright`, registrando cualquier incidencia del portal por separado de la lógica de asignación de aulas.
 4. ✅ **Resolver superposiciones parciales:** el matching ya evita reutilizar un aula en intervalos como `18:30–20:00` y `19:00–21:00`.
-5. **Etapa posterior:** incorporar lectura XLSX mediante un adaptador y evaluar una interfaz de usuario. La interfaz no es necesaria para la evaluación actual, porque el foco está en el proceso, las decisiones técnicas y la evidencia de pruebas.
+5. ✅ **Acotar el matching:** se precalculan las sesiones por aula y se aplica un presupuesto configurable de nodos; el resultado informa si es óptimo o aproximado.
+6. **Etapa posterior:** incorporar lectura XLSX mediante un adaptador y evaluar una interfaz de usuario. La interfaz no es necesaria para la evaluación actual, porque el foco está en el proceso, las decisiones técnicas y la evidencia de pruebas.
 
 Los dos primeros work units son los prioritarios para cerrar el MVP académico.
 

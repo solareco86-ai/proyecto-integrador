@@ -22,7 +22,8 @@ Esta carpeta contiene el dataset sintético inicial del Proyecto Integrador. Se 
 - Separador: coma (`,`).
 - Primera fila: encabezados obligatorios.
 - Horarios: formato de 24 horas `HH:MM`.
-- Horario institucional de prueba: lunes a viernes, aproximadamente de 18:30 a 21:30/21:40.
+- Horario institucional por defecto: lunes a viernes, de 18:00 a 22:30.
+- Este dataset sintético usa sesiones dentro de 18:30 a 21:40; ese rango se prueba pasando reglas específicas, no mediante constantes del dominio.
 - Capacidades y cantidades: números enteros positivos.
 - `id_aula` e `id_sesion`: únicos dentro de cada archivo.
 - `id_comision`: puede repetirse cuando una materia tiene más de una sesión semanal.

@@ -50,11 +50,11 @@ Una comisión puede tener varias filas. Cada sesión semanal debe tener un `id_s
 | RF-02 | Debe informar archivo, fila y campo cuando falte una columna, haya un valor nulo o exista un formato inválido. |
 | RF-03 | Debe rechazar `id_aula` e `id_sesion` duplicados. Debe permitir repetir `id_comision` cuando las sesiones sean distintas. |
 | RF-04 | Debe validar capacidades y cantidades de estudiantes positivas. |
-| RF-05 | Debe aceptar únicamente días de lunes a viernes y horarios entre 18:30 y 21:40, con inicio anterior al fin. |
+| RF-05 | Debe aceptar días y horarios según reglas configurables por sede; por defecto, lunes a viernes de 18:00 a 22:30, con inicio anterior al fin. |
 | RF-06 | Debe verificar que el aula tenga capacidad, tipo y equipamiento compatibles con cada sesión. |
 | RF-07 | Debe informar falta de aulas compatibles como conflicto bloqueante y las superposiciones resolubles como advertencias. |
 | RF-08 | Debe generar un matching por día e intervalo, sin reutilizar un aula durante intervalos superpuestos y permitiendo reutilizarla en horarios diferentes. |
-| RF-09 | Debe priorizar sesiones con menos alternativas y producir una salida determinista para los mismos datos. |
+| RF-09 | Debe priorizar sesiones con menos alternativas, producir una salida determinista y limitar la exploración para evitar tiempos no acotados. |
 | RF-10 | Debe informar cada sesión sin asignar junto con un motivo explicable. |
 | RF-11 | Debe generar CSV de asignaciones y de sesiones sin asignar. |
 | RF-12 | Debe generar grafos de superposición y compatibilidad en GraphML y DOT, además de un informe Markdown de patrones. |
@@ -114,7 +114,8 @@ Una comisión puede tener varias filas. Cada sesión semanal debe tener un `id_s
 ## 9. Limitaciones y evolución
 
 - El matching maximiza la cantidad de sesiones asignadas, pero no es un optimizador institucional completo.
+- La búsqueda exacta tiene un presupuesto configurable de exploración. Si se alcanza, devuelve la mejor solución encontrada y la marca como aproximada.
 - No se consideran preferencias docentes, distancias entre edificios ni cambios de aula durante una misma comisión.
 - XLSX, PDF, una API y una interfaz web se evaluarán en etapas posteriores.
-- La configuración de horarios, días, tipos de aula y requerimientos deberá externalizarse antes de generalizar el sistema a múltiples instituciones.
+- La configuración de horarios, días, tipos de aula y requerimientos debe externalizarse antes de generalizar el sistema a múltiples instituciones.
 

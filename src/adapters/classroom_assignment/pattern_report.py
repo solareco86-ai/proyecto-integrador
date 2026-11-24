@@ -67,6 +67,8 @@ def _summary_lines(
         lines.extend([
             f"- Comisiones asignadas: **{len(assignment.assignments)}**",
             f"- Comisiones sin asignar: **{len(assignment.unassigned)}**",
+            f"- Estado del matching: **{'óptimo' if assignment.optimal else 'aproximado'}**",
+            f"- Nodos explorados: **{assignment.search_nodes}**",
         ])
     return [*lines, ""]
 
