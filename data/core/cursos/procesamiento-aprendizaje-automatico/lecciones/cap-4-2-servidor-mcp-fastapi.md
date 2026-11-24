@@ -2,7 +2,7 @@
 
 Hasta ahora, para que un modelo de lenguaje interactúe con una API REST tradicional, un desarrollador debía escribir manualmente prompts complejos o invocar llamadas `curl` ad-hoc. En 2024, la industria convergió hacia un estándar universal de interoperabilidad entre modelos de IA y aplicaciones externas: el **Model Context Protocol (MCP)**.
 
-En esta lección transformamos ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md) en un **Servidor MCP nativo** sobre FastAPI. Esto permite que asistentes de desarrollo y agentes autónomos (**Antigravity CLI**, **OpenCode**, **Claude Code** y **Aider**) descubran dinámicamente las herramientas del sistema eléctrico, soliciten diagnósticos de telemetría y consulten reglas lógicas de manera transparente.
+En esta lección transformamos ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml) en un **Servidor MCP nativo** sobre FastAPI. Esto permite que asistentes de desarrollo y agentes autónomos (**Antigravity CLI**, **OpenCode**, **Claude Code** y **Aider**) descubran dinámicamente las herramientas del sistema eléctrico, soliciten diagnósticos de telemetría y consulten reglas lógicas de manera transparente.
 
 ---
 

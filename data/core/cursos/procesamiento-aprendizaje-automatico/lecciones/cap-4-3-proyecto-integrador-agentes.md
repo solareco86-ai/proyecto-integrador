@@ -1,6 +1,6 @@
 # Lección 4.3: Taller Integrador: Pipeline de Inferencia y Auditoría Orquestado por Agentes Autónomos
 
-Llegamos a la culminación del trayecto formativo en **Procesamiento y Aprendizaje Automático** del **ISFT N° 199**. A lo largo de tres unidades temáticas, transformamos un script rudimentario de consola en una plataforma integral de ingeniería de datos y Machine Learning: ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md).
+Llegamos a la culminación del trayecto formativo en **Procesamiento y Aprendizaje Automático** del **ISFT N° 199**. A lo largo de tres unidades temáticas, transformamos un script rudimentario de consola en una plataforma integral de ingeniería de datos y Machine Learning: ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml).
 
 Este **Taller Integrador Final** constituye la evaluación práctica de la cátedra. El desafío consiste en orquestar el ciclo de vida completo del microservicio, colaborando en forma activa con el cuarteto de agentes de IA (**OpenCode**, **Antigravity CLI**, **Claude Code** y **Aider**), manteniendo el control total de la arquitectura, la calidad del software y la gobernanza del repositorio.
 

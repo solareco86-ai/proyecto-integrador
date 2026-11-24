@@ -1,6 +1,6 @@
 # Lección 1.2: Endpoint POST /version-space/step para Refinamiento Interactivo en energy-ml
 
-En la lección anterior analizamos formalmente la dinámica del algoritmo Candidate-Elimination. Ahora integraremos este motor de aprendizaje simbólico en la arquitectura de microservicios de ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md), implementando el endpoint `POST /api/v1/version-space/step` en FastAPI.
+En la lección anterior analizamos formalmente la dinámica del algoritmo Candidate-Elimination. Ahora integraremos este motor de aprendizaje simbólico en la arquitectura de microservicios de ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml), implementando el endpoint `POST /api/v1/version-space/step` en FastAPI.
 
 Este servicio permite a los ingenieros de despacho y a los agentes de software enviar eventos de telemetría de forma incremental y recibir en tiempo real el estado actualizado de las fronteras $S$ y $G$.
 
