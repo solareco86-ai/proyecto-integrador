@@ -4,6 +4,14 @@ Para aislar un objeto en una imagen, primero hay que entender cómo se reparten 
 
 En esta lección vas a aplicar cada técnica sobre fotos reales y vas a ver el antes y el después. Al final vas a programar el método de Otsu con NumPy y vas a comprobar que da el mismo umbral que OpenCV.
 
+### Video: histogramas, brillo y contraste
+
+Antes de empezar, mirá este video de un minuto y medio. Muestra qué le pasa al histograma cuando cambiás el brillo y el contraste de una foto, y adelanta la ecualización, CLAHE y el umbral de Otsu, que vas a programar en esta lección.
+
+<video controls="controls" preload="none" poster="/static/media/cursos/pdi/video-histogramas-brillo-contraste.webp"><source src="/static/media/cursos/pdi/video-histogramas-brillo-contraste.mp4" type="video/mp4"></video>
+
+*El video no tiene voz: las explicaciones aparecen escritas en pantalla y la música de fondo se generó por computadora. Todo lo que muestra se explica con más detalle en esta lección.*
+
 ### Las imágenes de trabajo
 
 Descargá estas tres imágenes y guardalas, con estos nombres, en la carpeta donde vas a ejecutar el código:

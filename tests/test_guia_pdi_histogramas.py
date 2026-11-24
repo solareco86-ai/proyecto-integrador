@@ -86,3 +86,34 @@ async def test_imagenes_de_la_leccion_se_sirven() -> None:
             response = await ac.get(imagen)
             assert response.status_code == 200, imagen
             assert response.headers["content-type"].startswith("image/"), imagen
+
+
+VIDEO: str = "/static/media/cursos/pdi/video-histogramas-brillo-contraste.mp4"
+PORTADA_VIDEO: str = "/static/media/cursos/pdi/video-histogramas-brillo-contraste.webp"
+
+
+@pytest.mark.asyncio
+async def test_leccion_muestra_el_video_y_se_sirve() -> None:
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        pagina = await ac.get(URL_LECCION)
+        video = await ac.get(VIDEO)
+        portada = await ac.get(PORTADA_VIDEO)
+
+    assert f'poster="{PORTADA_VIDEO}"' in pagina.text
+    assert f'<source src="{VIDEO}" type="video/mp4">' in pagina.text
+    assert video.status_code == 200
+    assert video.headers["content-type"] == "video/mp4"
+    assert portada.status_code == 200
+    assert portada.headers["content-type"] == "image/webp"
+
+
+def test_el_parser_permite_video_pero_filtra_atributos_peligrosos() -> None:
+    from src.application.markdown_parser import MarkdownParser
+
+    html: str = MarkdownParser().to_html(
+        '<video controls="controls" autoplay="autoplay" onplay="robar()" poster="/p.webp">'
+        '<source src="/v.mp4" type="video/mp4"></video>'
+    )
+
+    assert html == '<video controls="controls" poster="/p.webp"><source src="/v.mp4" type="video/mp4"></video>'
