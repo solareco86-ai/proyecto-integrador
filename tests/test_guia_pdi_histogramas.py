@@ -30,6 +30,10 @@ IMAGENES_ESPERADAS: list[str] = [
     "/static/media/cursos/pdi/retina.jpg",
     "/static/media/cursos/pdi/monedas.png",
     "/static/media/cursos/pdi/texto.png",
+    "/static/media/cursos/pdi/camara.jpg",
+    "/static/media/cursos/pdi/astronauta.jpg",
+    "/static/media/cursos/pdi/cafe.jpg",
+    "/static/media/cursos/pdi/cohete.jpg",
     "/static/media/cursos/pdi/retina-histograma.webp",
     "/static/media/cursos/pdi/retina-ecualizada.webp",
     "/static/media/cursos/pdi/retina-clahe.webp",
@@ -38,6 +42,7 @@ IMAGENES_ESPERADAS: list[str] = [
     "/static/media/cursos/pdi/texto-otsu-vs-adaptativa.webp",
     "/static/media/cursos/pdi/monedas-sobel.webp",
     "/static/media/cursos/pdi/monedas-canny.webp",
+    "/static/media/cursos/pdi/decision-antes-despues.webp",
 ]
 
 SECCIONES_ESPERADAS: list[str] = [
@@ -49,6 +54,7 @@ SECCIONES_ESPERADAS: list[str] = [
     "Detección de bordes: Sobel",
     "Detección de bordes: Canny",
     "Ejercicio de cierre: el método de Otsu con NumPy",
+    "Caso integrador: decidir qué corrección necesita una foto",
 ]
 
 

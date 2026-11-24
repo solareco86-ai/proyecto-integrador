@@ -14,15 +14,19 @@ Antes de empezar, mirá este video de un minuto y medio. Muestra qué le pasa al
 
 ### Las imágenes de trabajo
 
-Descargá estas tres imágenes y guardalas, con estos nombres, en la carpeta donde vas a ejecutar el código:
+Descargá estas siete imágenes y guardalas, con estos nombres, en la carpeta donde vas a ejecutar el código:
 
 | Archivo | Qué muestra | Para qué se usa |
 |---|---|---|
 | [retina.jpg](/static/media/cursos/pdi/retina.jpg) | Fondo de ojo, 600 × 600 px | Histograma y ecualización |
 | [monedas.png](/static/media/cursos/pdi/monedas.png) | Monedas griegas sobre un fondo gris, 384 × 303 px | Umbral de Otsu y bordes |
 | [texto.png](/static/media/cursos/pdi/texto.png) | Fórmulas escritas a mano, con luz despareja | Límites del umbral global |
+| [camara.jpg](/static/media/cursos/pdi/camara.jpg) | Un fotógrafo con su cámara, 512 × 512 px | Caso integrador |
+| [astronauta.jpg](/static/media/cursos/pdi/astronauta.jpg) | La astronauta Eileen Collins, 512 × 512 px | Caso integrador |
+| [cafe.jpg](/static/media/cursos/pdi/cafe.jpg) | Una taza de café, 600 × 400 px | Caso integrador |
+| [cohete.jpg](/static/media/cursos/pdi/cohete.jpg) | Un cohete en la plataforma, de noche, 640 × 427 px | Caso integrador |
 
-*Fotos: «Fundus photograph of normal left eye», de Mikael Häggström (CC0); monedas de Pompeya de la colección del Brooklyn Museum (sin restricciones de copyright conocidas); texto manuscrito de Stéfan van der Walt (dominio público). Las tres forman parte de los datos de ejemplo de scikit-image. La retina se redujo de 1411 a 600 px.*
+*Fotos: «Fundus photograph of normal left eye», de Mikael Häggström (CC0); monedas de Pompeya de la colección del Brooklyn Museum (sin restricciones de copyright conocidas); texto manuscrito de Stéfan van der Walt (dominio público); cámara de Lav Varshney (CC0); astronauta, de la NASA (dominio público); café de Rachel Michetti (CC0); cohete, de SpaceX (dominio público). Todas forman parte de los datos de ejemplo de scikit-image. La retina se redujo de 1411 a 600 px.*
 
 Los ejemplos usan `opencv-python`, `numpy` y `matplotlib`, que ya están en el `requirements.txt` de la lección 0.1.
 
@@ -316,6 +320,162 @@ assert mejor_t == int(umbral_opencv)
 - ¿Qué umbral da tu función para `texto.png`? ¿Coincide con el de OpenCV? ¿Por qué el resultado igual no sirve para leer las fórmulas?
 - Si el histograma tuviera una sola montaña, como la retina, ¿qué pasaría con el umbral de Otsu?
 
+### Caso integrador: decidir qué corrección necesita una foto
+
+Hasta acá elegiste vos qué técnica aplicar, mirando la imagen. Ahora vas a hacer que **lo decida el programa, mirando solo el histograma**. Es una decisión de categoría: cada foto cae en una de cuatro clases, y cada clase tiene su corrección.
+
+| Categoría | Cómo se ve el histograma | Regla | Corrección |
+|---|---|---|---|
+| Oscura | Amontonado a la izquierda | Media menor que 80 | Aclarar (gamma 0,5) |
+| Clara | Amontonado a la derecha | Media mayor que 175 | Oscurecer (gamma 2) |
+| Poco contraste | Angosto | Rango menor que 100 | CLAHE |
+| Correcta | Ancho y centrado | Ninguna de las anteriores | Nada |
+
+La **media** es el brillo promedio. El **rango** mide el contraste: es la distancia entre el percentil 5 y el 95, o sea, cuánto ancho ocupa el histograma si dejás afuera el 5 % más oscuro y el 5 % más claro. Así, unos pocos píxeles sueltos no lo engañan. Los umbrales (80, 175 y 100) salieron de mirar estas fotos: son un punto de partida, no una ley.
+
+Para saber si el programa acierta, hace falta conocer de antemano la respuesta correcta de cada foto. Siete son fotos reales. Las otras tres son la cámara, el café y el astronauta con la exposición alterada a propósito, porque no había fotos reales sobreexpuestas con licencia libre:
+
+```python
+import cv2
+import numpy as np
+
+
+def diagnosticar(gris, mascara=None):
+    """Decide la categoría de la foto mirando solo su histograma."""
+    pixeles = gris[mascara > 0] if mascara is not None else gris.ravel()
+    media = pixeles.mean()
+    p5, p95 = np.percentile(pixeles, [5, 95])
+    rango = p95 - p5
+    if media < 80:
+        return "oscura"
+    if media > 175:
+        return "clara"
+    if rango < 100:
+        return "poco contraste"
+    return "correcta"
+
+
+def leer(nombre):
+    return cv2.imread(nombre, cv2.IMREAD_GRAYSCALE)
+
+
+camara = leer("camara.jpg")
+astronauta = leer("astronauta.jpg")
+cafe = leer("cafe.jpg")
+cohete = leer("cohete.jpg")
+texto = leer("texto.png")
+retina = leer("retina.jpg")
+
+# Versiones con la exposición alterada a propósito
+camara_oscura = cv2.convertScaleAbs(camara, alpha=0.35)
+cafe_claro = cv2.convertScaleAbs(cafe, alpha=0.5, beta=140)
+astronauta_lavado = cv2.convertScaleAbs(astronauta, alpha=0.35, beta=85)
+
+# (nombre, imagen, categoría correcta)
+casos = [
+    ("camara.jpg", camara, "correcta"),
+    ("astronauta.jpg", astronauta, "correcta"),
+    ("cafe.jpg", cafe, "correcta"),
+    ("monedas.png", leer("monedas.png"), "correcta"),
+    ("cohete.jpg", cohete, "oscura"),
+    ("texto.png", texto, "poco contraste"),
+    ("retina.jpg", retina, "poco contraste"),
+    ("cámara oscurecida", camara_oscura, "oscura"),
+    ("café sobreexpuesto", cafe_claro, "clara"),
+    ("astronauta lavado", astronauta_lavado, "poco contraste"),
+]
+
+errores = [nombre for nombre, imagen, correcta in casos if diagnosticar(imagen) != correcta]
+print("Aciertos:", len(casos) - len(errores), "de", len(casos))  # Aciertos: 9 de 10
+print("Errores:", errores)  # Errores: ['retina.jpg']
+
+# La retina, mirando solo el ojo
+ojo = cv2.inRange(retina, 16, 255)
+print("Retina, solo el ojo:", diagnosticar(retina, ojo))  # Retina, solo el ojo: poco contraste
+```
+
+Así quedan las diez fotos:
+
+| Foto | Media | Rango | Diagnóstico | Correcta |
+|---|---|---|---|---|
+| camara.jpg | 129 | 201 | correcta | correcta |
+| astronauta.jpg | 115 | 217 | correcta | correcta |
+| cafe.jpg | 104 | 194 | correcta | correcta |
+| monedas.png | 97 | 161 | correcta | correcta |
+| cohete.jpg | 61 | 81 | oscura | oscura |
+| texto.png | 129 | 72 | poco contraste | poco contraste |
+| **retina.jpg** | **90** | **143** | **correcta** | **poco contraste** |
+| cámara oscurecida | 45 | 71 | oscura | oscura |
+| café sobreexpuesto | 192 | 98 | clara | clara |
+| astronauta lavado | 125 | 76 | poco contraste | poco contraste |
+
+El único error es la **retina**. Ya lo viste al principio de la lección: el fondo negro ocupa casi un cuarto de la foto. Esos píxeles en 0 estiran el rango hasta 143 y esconden que el ojo, solo, tiene un rango de 54. Con la máscara del ojo, el diagnóstico sale bien.
+
+Falta aplicar la corrección. Pero al probar con el cohete aparece un problema: después de aclararlo, el histograma ya no está a la izquierda, pero sigue angosto. **Aclarar no agrega contraste.** Por eso, después de cada corrección conviene volver a diagnosticar, con un tope de pasos para no quedarse corrigiendo para siempre. La **corrección gamma** aclara u oscurece con una curva: con un valor menor que 1, levanta mucho los tonos oscuros y casi no toca los claros, así que no quema las luces como sumar brillo.
+
+```python
+# Continúa el bloque anterior: usa diagnosticar() y las imágenes que ya leyó.
+
+
+def gamma(gris, valor):
+    tabla = ((np.arange(256) / 255) ** valor * 255).round().astype(np.uint8)
+    return cv2.LUT(gris, tabla)
+
+
+def corregir(gris, categoria):
+    if categoria == "oscura":
+        return gamma(gris, 0.5)
+    if categoria == "clara":
+        return gamma(gris, 2.0)
+    if categoria == "poco contraste":
+        return cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8)).apply(gris)
+    return gris
+
+
+def mejorar(gris, mascara=None, maximo=3):
+    """Diagnostica y corrige hasta que la foto quede correcta (o hasta `maximo` pasos)."""
+    pasos = []
+    for _ in range(maximo):
+        categoria = diagnosticar(gris, mascara)
+        if categoria == "correcta":
+            break
+        pasos.append(categoria)
+        gris = corregir(gris, categoria)
+    return gris, pasos
+
+
+resultados = [mejorar(imagen) for nombre, imagen, correcta in casos]
+quedan_bien = sum(diagnosticar(imagen) == "correcta" for imagen, pasos in resultados)
+print("Correctas después de mejorar:", quedan_bien, "de", len(casos))  # Correctas después de mejorar: 10 de 10
+
+cohete_mejorado, pasos = mejorar(cohete)
+print("Cohete:", pasos)  # Cohete: ['oscura', 'poco contraste']
+
+retina_mejorada, pasos = mejorar(retina, ojo)
+print("Retina, solo el ojo:", pasos)  # Retina, solo el ojo: ['poco contraste', 'poco contraste']
+
+
+def fila(antes, despues, ancho=480):
+    alto = round(antes.shape[0] * ancho / antes.shape[1])
+    return cv2.hconcat([cv2.resize(antes, (ancho, alto)), cv2.resize(despues, (ancho, alto))])
+
+
+cv2.imwrite("decision-antes-despues.png", cv2.vconcat([
+    fila(cohete, cohete_mejorado),
+    fila(cafe_claro, mejorar(cafe_claro)[0]),
+    fila(texto, mejorar(texto)[0]),
+]))
+```
+
+![Tres filas con el antes a la izquierda y el después a la derecha: el cohete de noche, oscuro y apagado, que después se ve más claro y con más detalle en el cielo y las torres; el café sobreexpuesto, que recupera los tonos de la taza y la madera; y las fórmulas manuscritas, que ganan contraste y se leen mejor](/static/media/cursos/pdi/decision-antes-despues.webp)
+
+**Conclusión:**
+
+- Con cuatro reglas sobre el histograma, el programa clasificó bien **9 de 10 fotos**. Después de corregirlas, las 10 quedan «correctas» según el mismo criterio.
+- El error de la retina muestra el límite principal: **el histograma no sabe qué parte de la foto importa**. Si el fondo es grande, decide por el fondo. Con una máscara se resuelve, pero hay que saber de antemano dónde está el objeto.
+- **Una corrección puede destapar otro problema**, como en el cohete. Por eso el programa vuelve a diagnosticar después de cada paso, y frena a los tres pasos como máximo.
+- «Correcta» quiere decir que cumple la regla, no que se vea bien para una persona. Una foto de noche puede estar oscura a propósito. Antes de usar esto en un sistema real, los umbrales se ajustan con fotos del problema concreto.
+
 ### Resumen
 
 | Técnica | Función de OpenCV | Para qué sirve |
@@ -328,3 +488,5 @@ assert mejor_t == int(umbral_opencv)
 | Umbral adaptativo | `cv2.adaptiveThreshold` | Binarizar con iluminación despareja |
 | Sobel | `cv2.Sobel` y `cv2.magnitude` | Medir el gradiente en cada dirección |
 | Canny | `cv2.Canny` | Obtener bordes finos y continuos |
+| Corrección gamma | `cv2.LUT` con una tabla de 256 valores | Aclarar u oscurecer sin quemar las luces ni empastar las sombras |
+| Diagnóstico por histograma | Media y percentiles con NumPy | Decidir sola qué corrección necesita cada foto |

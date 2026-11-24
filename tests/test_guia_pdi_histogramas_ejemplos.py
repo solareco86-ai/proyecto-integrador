@@ -33,8 +33,18 @@ LECCION: Path = (
     / "cap-2-2-histogramas-umbralizacion-bordes-canny.md"
 )
 MEDIOS: Path = RAIZ / "static" / "media" / "cursos" / "pdi"
-IMAGENES_DE_TRABAJO: list[str] = ["retina.jpg", "monedas.png", "texto.png"]
-CANTIDAD_BLOQUES: int = 8
+IMAGENES_DE_TRABAJO: list[str] = [
+    "retina.jpg",
+    "monedas.png",
+    "texto.png",
+    "camara.jpg",
+    "astronauta.jpg",
+    "cafe.jpg",
+    "cohete.jpg",
+]
+CANTIDAD_BLOQUES: int = 10
+# Un bloque que empieza así usa lo que definió el bloque anterior: se corre después de él.
+CONTINUACION: str = "# Continúa el bloque anterior"
 
 AYUDA_INSTALACION: str = (
     "OpenCV, NumPy y Matplotlib no están instalados, y no son dependencias del proyecto. "
@@ -107,7 +117,12 @@ def test_ejemplo_de_la_leccion_corre_y_coincide_con_lo_documentado(
     for nombre in IMAGENES_DE_TRABAJO:
         shutil.copy(MEDIOS / nombre, tmp_path / nombre)
     monkeypatch.chdir(tmp_path)
-    exec(compile(codigo, f"{LECCION.name} (bloque {numero})", "exec"), {"__name__": "__main__"})
+    espacio: dict[str, object] = {"__name__": "__main__"}
+    if codigo.startswith(CONTINUACION):
+        anterior: str = BLOQUES[numero - 2]
+        exec(compile(anterior, f"{LECCION.name} (bloque {numero - 1})", "exec"), espacio)
+        capsys.readouterr()  # la salida del bloque anterior ya se verifica en su propio caso
+    exec(compile(codigo, f"{LECCION.name} (bloque {numero})", "exec"), espacio)
 
     salidas: list[str] = capsys.readouterr().out.splitlines()
     assert len(salidas) == len(esperadas), salidas
