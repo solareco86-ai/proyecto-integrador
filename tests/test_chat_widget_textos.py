@@ -39,7 +39,11 @@ def test_configuracion_del_cliente_sale_de_los_datos(textos: ChatWidgetModel) ->
     assert config["longitudMaxima"] == textos.longitudMaxima
     assert all(config["interfaz"].values())
     assert config["api"]["baseUrl"] == "/api/v1/chat"
-    assert set(config["errores"]) == {"timeout", "red", "servidor", "validacion", "audioVacio", "respuestaInvalida"}
+    assert set(config["errores"]) == {
+        "timeout", "red", "servidor", "validacion", "audioVacio", "respuestaInvalida",
+        "permisoDenegado", "sinMicrofono", "noDisponible",
+    }
+    assert 0 < config["audio"]["duracionMaximaSeg"] <= 300
     assert all(config["errores"].values())
     assert "{mensaje}" in config["mock"]["respuesta"]
 
