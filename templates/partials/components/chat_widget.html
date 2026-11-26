@@ -3,9 +3,10 @@
   Solo estructura y estilos: el comportamiento lo agregan los módulos JS de FE 4.2 a 4.4.
   Los textos vienen de data/config/chat_widget.yaml (función global `chat_widget_textos`).
   `abierto` muestra la ventana desplegada (vista previa y pruebas).
+  `contacto` (función global `chat_widget_contacto`) ofrece WhatsApp o el correo de Secretaría.
 #}
 {% import 'partials/components/icon.html' as icon_macro %}
-{% macro chat_widget(textos, abierto=false) %}
+{% macro chat_widget(textos, contacto=none, abierto=false) %}
 <div class="c-chat-widget{% if abierto %} is-open{% endif %}" data-component="chat-widget" data-max-length="{{ textos.longitudMaxima }}">
     <button type="button"
             class="c-chat-widget__fab"
@@ -40,6 +41,11 @@
         </div>
 
         <p class="c-chat-widget__notice">{{ textos.aviso }}</p>
+        {% if contacto and contacto.whatsappUrl %}
+        <a class="c-chat-widget__contact" href="{{ contacto.whatsappUrl }}" target="_blank" rel="noopener noreferrer">{{ textos.contacto.whatsapp }}</a>
+        {% elif contacto and contacto.correoUsuario %}
+        <a class="c-chat-widget__contact js-email-protect" href="#" data-u="{{ contacto.correoUsuario }}" data-d="{{ contacto.correoDominio }}">{{ textos.contacto.correo }}</a>
+        {% endif %}
 
         <form class="c-chat-widget__composer" novalidate data-chat-form>
             <label for="chat-widget-input" class="c-chat-widget__sr-only">{{ textos.etiquetas.campo }}</label>

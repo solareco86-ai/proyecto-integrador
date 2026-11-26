@@ -128,7 +128,7 @@ export function buildDynamicWhatsAppMessage(defaultMessage = 'Hola! Vi tu sitio 
 }
 
 /**
- * Actualiza todos los enlaces de WhatsApp (a[href*="wa.me"] y .c-whatsapp-fab) presentes en el DOM.
+ * Actualiza todos los enlaces de WhatsApp (a[href*="wa.me"], incluido el del widget de chat) presentes en el DOM.
  *
  * @param {string} [phone='5491100000000'] - Número telefónico de WhatsApp institucional con código de país.
  * @returns {void}
@@ -139,7 +139,7 @@ export function updateWhatsAppLinks(phone = '5491100000000') {
     const targetUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
 
     /** @type {NodeListOf<HTMLAnchorElement>} */
-    const whatsappElements = document.querySelectorAll('a[href*="wa.me"], .c-whatsapp-fab');
+    const whatsappElements = document.querySelectorAll('a[href*="wa.me"]');
     whatsappElements.forEach((el) => {
         el.setAttribute('href', targetUrl);
     });

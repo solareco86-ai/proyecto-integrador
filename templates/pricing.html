@@ -7,7 +7,6 @@
 {% import 'partials/components/section_wrapper.html' as section_macro %}
 {% import 'partials/components/contact_section.html' as contact_section_macro %}
 {% import 'partials/components/contact_form.html' as contact_macro %}
-{% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
 
 {% block head %}
@@ -63,9 +62,6 @@
 </script>
 {% endblock %}
 
-{% block fab %}
-{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
-{% endblock %}
 
 {% block footer %}
 {{ footer_macro.footer(brand, content.legal.text, footer, content.cookie_banner) }}

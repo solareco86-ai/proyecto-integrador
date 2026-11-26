@@ -8,6 +8,10 @@ avatar:
 saludo: "¡Hola! Soy el asistente de consultas del ISFT N° 199. Escribime tu pregunta sobre carreras, inscripción o cursada."
 aviso: "Las respuestas se arman automáticamente con la información publicada en este sitio. Para trámites puntuales, consultá con Secretaría."
 placeholder: "Escribí tu consulta…"
+# Alternativa al asistente (FE 4.5): WhatsApp si está habilitado; si no, el correo de Secretaría.
+contacto:
+  whatsapp: "¿Preferís hablar con una persona? Escribinos por WhatsApp"
+  correo: "¿Preferís hablar con una persona? Escribinos a Secretaría"
 longitudMaxima: 500
 etiquetas:
   abrir: "Abrir el chat de consultas"

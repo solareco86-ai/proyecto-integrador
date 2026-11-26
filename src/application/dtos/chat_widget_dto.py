@@ -23,6 +23,13 @@ class ChatWidgetEtiquetasModel(BaseModel):
     enviarGrabacion: str
 
 
+class ChatWidgetContactoModel(BaseModel):
+    """Textos de los enlaces de contacto humano (FE 4.5)."""
+
+    whatsapp: str
+    correo: str
+
+
 class ChatWidgetInterfazModel(BaseModel):
     """Textos que el JavaScript muestra durante la conversación (FE 4.2)."""
 
@@ -81,6 +88,7 @@ class ChatWidgetModel(BaseModel):
     saludo: str
     aviso: str
     placeholder: str
+    contacto: ChatWidgetContactoModel
     longitudMaxima: int = Field(gt=0)
     etiquetas: ChatWidgetEtiquetasModel
     interfaz: ChatWidgetInterfazModel
