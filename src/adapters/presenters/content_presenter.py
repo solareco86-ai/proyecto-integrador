@@ -1,7 +1,8 @@
+from collections.abc import Sequence
 from dataclasses import asdict
 from typing import Any
 
-from src.application.dtos import CasoModel, ContenidoModel, CourseModel, GuiaModel
+from src.application.dtos import CarreraModel, CasoModel, ContenidoModel, CourseModel, GuiaModel
 from src.domain.content.entities import Comunicado, Evento, Noticia
 
 
@@ -66,3 +67,22 @@ def present_comunicado(comunicado: Comunicado) -> dict[str, Any]:
     data = asdict(comunicado)
     data.pop("autor_id", None)
     return data
+
+
+def present_catalogo_carreras_json_ld(carreras: Sequence[CarreraModel]) -> list[dict[str, Any]]:
+    """Arma los elementos del `OfferCatalog` del JSON-LD: un `Offer` con su `Course` por carrera.
+
+    Toma nombre y descripción del catálogo oficial (carreras.yaml), en su mismo orden,
+    para que el JSON-LD no mantenga una copia escrita a mano de la oferta académica.
+    """
+    return [
+        {
+            "@type": "Offer",
+            "itemOffered": {
+                "@type": "Course",
+                "name": carrera.title,
+                "description": carrera.description_short,
+            },
+        }
+        for carrera in carreras
+    ]

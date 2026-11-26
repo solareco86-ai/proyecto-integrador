@@ -1,6 +1,6 @@
 # Lección 2.2: Programación Lógica Inductiva (FOIL): Aprendizaje de Relaciones de Primer Orden en Redes Eléctricas
 
-En las lecciones anteriores trabajamos con representaciones **atributivas** (vectores de características o tablas de datos planas). Si bien una tabla es apta para describir el estado termomecánico puntual de un transformador individual, fracasa rotundamente al intentar modelar sistemas interconectados en red, tales como la infraestructura de transporte y distribución eléctrica en ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md).
+En las lecciones anteriores trabajamos con representaciones **atributivas** (vectores de características o tablas de datos planas). Si bien una tabla es apta para describir el estado termomecánico puntual de un transformador individual, fracasa rotundamente al intentar modelar sistemas interconectados en red, tales como la infraestructura de transporte y distribución eléctrica en ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml).
 
 Una red eléctrica real es un **grafo dinámico** de generadores, barras, transformadores, alimentadores y centros de carga. El fenómeno de mayor gravedad operativa —el **apagón en cascada** o colapso por contingencia $N-1$— no depende de un único sensor aislado, sino de relaciones de topología y adyacencia.
 

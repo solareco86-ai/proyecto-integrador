@@ -1,6 +1,6 @@
 # Lección 2.3: Exposición y Auditoría del Conjunto de Reglas en GET /rules en energy-ml
 
-En las lecciones anteriores exploramos cómo inducir reglas lógicas transparentes mediante cobertura secuencial (AQ) y relaciones de primer orden (FOIL). En esta lección llevamos estas reglas al plano operativo construyendo un servicio de auditoría en FastAPI para ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md).
+En las lecciones anteriores exploramos cómo inducir reglas lógicas transparentes mediante cobertura secuencial (AQ) y relaciones de primer orden (FOIL). En esta lección llevamos estas reglas al plano operativo construyendo un servicio de auditoría en FastAPI para ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml).
 
 El endpoint `GET /api/v1/rules` expone la base de conocimiento inducida en formato JSON estructurado, permitiendo que ingenieros de despacho, auditores del ente regulador y agentes de IA autónomos inspeccionen el fundamento exacto detrás de las decisiones del sistema.
 

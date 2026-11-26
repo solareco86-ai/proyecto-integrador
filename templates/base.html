@@ -11,7 +11,11 @@
             <main data-v-236fef00="" id="contenido-principal" class="{% block main_class %}c-home-main with-floating-cta{% endblock %}">
                 {% block main_content %}{% endblock %}
             </main>
-            {% block fab %}{% endblock %}
+            {% block fab %}
+            {# Widget conversacional (Epic #144): reemplaza al botón flotante de WhatsApp en todo el sitio. #}
+            {% import 'partials/components/chat_widget.html' as chat_widget_macro %}
+            {{ chat_widget_macro.chat_widget(chat_widget_textos(), contacto=chat_widget_contacto()) }}
+            {% endblock %}
             {% block dock %}{% endblock %}
             {% block footer %}{% endblock %}
             {% block cookie_banner %}{% endblock %}

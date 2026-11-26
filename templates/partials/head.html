@@ -125,56 +125,7 @@
                 "hasOfferCatalog": {
                     "@type": "OfferCatalog",
                     "name": "Tecnicaturas Superiores Oficiales del ISFT N° 199",
-                    "itemListElement": [
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Course",
-                                "name": "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial",
-                                "description": "Carrera oficial de 3 años en Python, Machine Learning, Deep Learning, SQL y Big Data. Turno vespertino, 100% gratuita."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Course",
-                                "name": "Tecnicatura Superior en Logística",
-                                "description": "Carrera oficial de 3 años en gestión de la cadena de suministro, almacenamiento, ruteo y comercio exterior. Turno vespertino, 100% gratuita."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Course",
-                                "name": "Tecnicatura Superior en Higiene y Seguridad en el Trabajo",
-                                "description": "Carrera oficial de 3 años con matrícula habilitante en prevención de riesgos laborales y normativa SRT. Turno vespertino, 100% gratuita."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Course",
-                                "name": "Tecnicatura Superior en Administración de Recursos Humanos",
-                                "description": "Carrera oficial de 3 años en gestión del talento, relaciones laborales y liquidación de haberes. Turno vespertino, 100% gratuita."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Course",
-                                "name": "Tecnicatura Superior en Turismo",
-                                "description": "Carrera oficial de 3 años. Planificación, organización y gestión de servicios turísticos, con diseño de paquetes, circuitos y experiencias turísticas sostenibles. Turno vespertino, 100% gratuita."
-                            }
-                        },
-                        {
-                            "@type": "Offer",
-                            "itemOffered": {
-                                "@type": "Course",
-                                "name": "Tecnicatura Superior en Hotelería",
-                                "description": "Carrera oficial de 3 años. Gestión de servicios hoteleros y de alojamiento, coordinación de equipos y atención al huésped, con foco en hospitalidad y calidad de servicio. Turno vespertino, 100% gratuita."
-                            }
-                        }
-                    ]
+                    "itemListElement": {{ catalogo_carreras_json_ld() | tojson }}
                 },
                 "contactPoint": {
                     "@type": "ContactPoint",

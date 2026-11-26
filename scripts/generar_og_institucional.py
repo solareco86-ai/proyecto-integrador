@@ -132,5 +132,5 @@ draw.text(
 )
 
 # 6. Guardar en formato WebP de alta fidelidad
-img.save(output_path, format="WEBP", quality=92, method=6)
+img.save(output_path, format="WEBP", quality=80, method=6)
 print(f"✅ Imagen Open Graph institucional generada con éxito en {output_path.resolve()}")

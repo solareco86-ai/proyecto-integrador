@@ -71,6 +71,8 @@ _CSP_DIRECTIVES: dict[str, list[str]] = {
         "https://*.bing.com",
     ],
     "font-src": ["'self'", "https://cdn.jsdelivr.net"],
+    # blob: permite escuchar la nota de voz grabada antes de enviarla (widget conversacional, FE 4.3).
+    "media-src": ["'self'", "blob:"],
     "frame-src": ["'self'", "https://www.clarity.ms", "https://*.clarity.ms"],
     "report-uri": ["/csp-report"],
 }

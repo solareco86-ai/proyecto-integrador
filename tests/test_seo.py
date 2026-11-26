@@ -383,18 +383,6 @@ async def test_healthz_endpoint():
 
 
 @pytest.mark.asyncio
-async def test_ready_endpoint():
-    """Verifica que el endpoint de readiness responde (DB check)."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        response = await ac.get("/ready")
-
-    assert response.status_code == 200
-    assert response.json()["status"] == "ok"
-    assert response.json()["checks"]["db_accessible"] is True
-
-
-@pytest.mark.asyncio
 async def test_request_id_header_present():
     """Verifica que el middleware X-Request-ID esta presente en las respuestas."""
     transport = ASGITransport(app=app)

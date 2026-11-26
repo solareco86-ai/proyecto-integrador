@@ -3,7 +3,6 @@
 {% import 'partials/components/header.html' as header_macro %}
 {% import 'partials/components/dock.html' as dock_macro %}
 {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
-{% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
 
 {% block head %}
 {{ seo_macro.head_seo(request=request, seo_data=seo, brand=brand, page_type='article') }}
@@ -230,9 +229,6 @@
 </script>
 {% endblock %}
 
-{% block fab %}
-{{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
-{% endblock %}
 
 {% block dock %}
 {{ dock_macro.dock([{'href': '/', 'icon_name': 'house-door-fill', 'label': 'Inicio'}, {'href': '/cursos', 'icon_name': 'journal-bookmark-fill', 'label': 'Materias'}, {'href': '/contact', 'icon_name': 'telephone-forward-fill', 'label': 'Contacto'}]) }}

@@ -311,7 +311,7 @@ img {
    5. IMPORTACIÓN DE HOJAS DE ESTILOS LEGACY (Unificadas en el bundle)
    ========================================================================== */
 @import "../CookieBanner.css";
-@import "../WhatsappFab.css";
+@import "../ChatWidget.css";
 @import "../useContactPageActions.css";
 @import "../LegalPage.css";
 @import "../cursos.css";

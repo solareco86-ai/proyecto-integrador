@@ -1,0 +1,69 @@
+# Textos del widget conversacional flotante (Epic #144).
+# El motor que responde las consultas vive en /api/v1/chat (Epics #129, #134 y #139).
+titulo: "Consultas ISFT N° 199"
+subtitulo: "Carreras, inscripción y cursada"
+avatar:
+  src: "/static/media/logo-isft199.webp"
+  alt: "Logotipo del ISFT N° 199"
+saludo: "¡Hola! Soy el asistente de consultas del ISFT N° 199. Escribime tu pregunta sobre carreras, inscripción o cursada."
+aviso: "Las respuestas se arman automáticamente con la información publicada en este sitio. Para trámites puntuales, consultá con Secretaría."
+placeholder: "Escribí tu consulta…"
+# Alternativa al asistente (FE 4.5): WhatsApp si está habilitado; si no, el correo de Secretaría.
+contacto:
+  whatsapp: "¿Preferís hablar con una persona? Escribinos por WhatsApp"
+  correo: "¿Preferís hablar con una persona? Escribinos a Secretaría"
+longitudMaxima: 500
+etiquetas:
+  abrir: "Abrir el chat de consultas"
+  cerrar: "Cerrar el chat de consultas"
+  conversacion: "Conversación con el asistente"
+  campo: "Tu consulta"
+  enviar: "Enviar consulta"
+  grabar: "Grabar una nota de voz"
+  cancelarGrabacion: "Cancelar la nota de voz"
+  enviarGrabacion: "Enviar la nota de voz"
+
+# Textos que el JavaScript muestra durante la conversación.
+interfaz:
+  escribiendo: "El asistente está escribiendo…"
+  fuentes: "Más información:"
+  reintentar: "Reintentar"
+  grabando: "Grabando"
+  notaDeVoz: "Nota de voz"
+
+# Notas de voz (FE 4.3). Se descartan las grabaciones más cortas que el mínimo.
+audio:
+  duracionMaximaSeg: 60
+  duracionMinimaMs: 700
+
+# Conexión con el motor (contrato del Epic #144). Mientras el backend de los
+# estudiantes no esté disponible (#130), el widget responde en modo mock.
+api:
+  baseUrl: "/api/v1/chat"
+  mock: true
+  timeoutTextoMs: 15000
+  timeoutAudioMs: 45000
+
+# Mensajes que ve el público ante cada tipo de error.
+errores:
+  timeout: "La respuesta está tardando más de lo normal. Probá de nuevo en un momento."
+  red: "No pudimos conectarnos con el servicio. Revisá tu conexión e intentá otra vez."
+  servidor: "El servicio de consultas no está disponible ahora. Probá más tarde o escribinos a Secretaría."
+  validacion: "No pudimos procesar tu consulta. Revisá que no esté vacía ni sea demasiado larga."
+  audioVacio: "La nota de voz quedó vacía. Grabala de nuevo, por favor."
+  respuestaInvalida: "Recibimos una respuesta inesperada del servicio. Probá de nuevo."
+  permisoDenegado: "Para mandar una nota de voz tenés que permitir el uso del micrófono. También podés escribir tu consulta."
+  sinMicrofono: "No encontramos un micrófono en este dispositivo. Podés escribir tu consulta."
+  noDisponible: "La grabación de voz no está disponible en este navegador. Podés escribir tu consulta."
+
+# Respuestas del modo mock, que el público ve mientras el motor no esté conectado.
+# Si el texto incluye {mensaje}, se reemplaza por la consulta.
+mock:
+  respuesta: "¡Gracias por tu consulta! Este asistente todavía está en desarrollo y por ahora no puede responder preguntas. Mientras tanto, en los enlaces de abajo encontrás la oferta académica y cómo comunicarte con Secretaría."
+  transcripcion: "Nota de voz recibida (todavía no podemos transcribirla)."
+  intencion: "mock"
+  fuentes:
+    - "/carreras"
+    - "/contact"
+  confianza: 1
+  demoraMs: 600

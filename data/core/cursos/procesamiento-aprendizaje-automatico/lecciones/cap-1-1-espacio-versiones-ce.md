@@ -8,7 +8,7 @@ El aprendizaje de conceptos formula el entrenamiento como un problema de búsque
 
 ## 1. El Problema de Aprendizaje de Conceptos en Subestaciones Eléctricas
 
-En la infraestructura de ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md), los centros de control requieren identificar condiciones determinísticas bajo las cuales se produce un evento crítico: **Disparo por Falla Térmica en Transformador** (`FallaDisparo = True`).
+En la infraestructura de ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml), los centros de control requieren identificar condiciones determinísticas bajo las cuales se produce un evento crítico: **Disparo por Falla Térmica en Transformador** (`FallaDisparo = True`).
 
 A diferencia de un modelo de caja negra, los inspectores regulatorios y los sistemas SCADA necesitan una regla lógica inequívoca que describa exactamente la combinación de factores causales. Para formalizar el problema, discretizamos la telemetría de monitoreo continuo en cuatro atributos clave:
 

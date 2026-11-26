@@ -9,6 +9,7 @@ from src.application.dtos import (
     CarrerasContainerModel,
     CasoModel,
     CasosContainerModel,
+    ChatWidgetModel,
     ContenidoModel,
     CourseModel,
     CursoEspecificacionModel,
@@ -39,6 +40,7 @@ class DataService:
         self.brand_path = os.path.join(self.data_dir, "config", "brand.yaml")
         self.footer_path = os.path.join(self.data_dir, "config", "footer.yaml")
         self.redirects_path = os.path.join(self.data_dir, "config", "redirects.yaml")
+        self.chat_widget_path = os.path.join(self.data_dir, "config", "chat_widget.yaml")
 
         self.home_sections_path = os.path.join(self.data_dir, "content", "home_sections.yaml")
         self.legal_path = os.path.join(self.data_dir, "content", "legal.yaml")
@@ -68,6 +70,7 @@ class DataService:
         self._cached_especificaciones: dict[str, CursoEspecificacionModel] = {}
         self._cached_guias: GuiasContainerModel | None = None
         self._cached_planes: list[TelemetryPlanModel] | None = None
+        self._cached_chat_widget: ChatWidgetModel | None = None
 
     def get_contenido(self) -> ContenidoModel:
         if self._cached_contenido is None:
@@ -98,6 +101,14 @@ class DataService:
 
             self._cached_contenido = ContenidoModel.model_validate(raw_data)
         return self._cached_contenido
+
+    def get_chat_widget(self) -> ChatWidgetModel:
+        """Textos del widget conversacional flotante (data/config/chat_widget.yaml)."""
+        if self._cached_chat_widget is None:
+            with open(self.chat_widget_path, encoding="utf-8") as f:
+                raw_data: dict[str, Any] = yaml.safe_load(f) or {}
+            self._cached_chat_widget = ChatWidgetModel.model_validate(raw_data)
+        return self._cached_chat_widget
 
     def get_geografia(self) -> dict[str, Any]:
         if self._cached_geografia is None:
