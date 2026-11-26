@@ -39,6 +39,7 @@ _ALLOWED_TAGS = {
     "span",
     "div",
     "audio",
+    "video",
     "source",
 }
 _ALLOWED_ATTRS = {
@@ -47,6 +48,7 @@ _ALLOWED_ATTRS = {
     "code": {"class"},
     "pre": {"class"},
     "audio": {"controls", "preload", "class"},
+    "video": {"controls", "preload", "poster", "class"},
     "source": {"src", "type"},
 }
 
