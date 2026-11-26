@@ -33,6 +33,23 @@ def test_modelo_rechaza_longitud_maxima_invalida(textos: ChatWidgetModel) -> Non
         ChatWidgetModel.model_validate(datos)
 
 
+def test_configuracion_del_cliente_sale_de_los_datos(textos: ChatWidgetModel) -> None:
+    config = textos.configuracion_cliente()
+
+    assert config["longitudMaxima"] == textos.longitudMaxima
+    assert config["api"]["baseUrl"] == "/api/v1/chat"
+    assert set(config["errores"]) == {"timeout", "red", "servidor", "validacion", "audioVacio", "respuestaInvalida"}
+    assert all(config["errores"].values())
+    assert "{mensaje}" in config["mock"]["respuesta"]
+
+
+def test_modelo_rechaza_confianza_mock_fuera_de_rango(textos: ChatWidgetModel) -> None:
+    datos: dict[str, Any] = textos.model_dump()
+    datos["mock"]["confianza"] = 1.5
+    with pytest.raises(ValidationError):
+        ChatWidgetModel.model_validate(datos)
+
+
 def test_funcion_global_de_jinja_devuelve_los_textos() -> None:
     funcion = cast(Callable[[], object], templates.env.globals["chat_widget_textos"])
     assert isinstance(funcion(), ChatWidgetModel)

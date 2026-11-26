@@ -16,3 +16,30 @@ etiquetas:
   campo: "Tu consulta"
   enviar: "Enviar consulta"
   grabar: "Grabar una nota de voz"
+
+# Conexión con el motor (contrato del Epic #144). Mientras el backend de los
+# estudiantes no esté disponible (#130), el widget responde en modo mock.
+api:
+  baseUrl: "/api/v1/chat"
+  mock: true
+  timeoutTextoMs: 15000
+  timeoutAudioMs: 45000
+
+# Mensajes que ve el público ante cada tipo de error.
+errores:
+  timeout: "La respuesta está tardando más de lo normal. Probá de nuevo en un momento."
+  red: "No pudimos conectarnos con el servicio. Revisá tu conexión e intentá otra vez."
+  servidor: "El servicio de consultas no está disponible ahora. Probá más tarde o escribinos a Secretaría."
+  validacion: "No pudimos procesar tu consulta. Revisá que no esté vacía ni sea demasiado larga."
+  audioVacio: "La nota de voz quedó vacía. Grabala de nuevo, por favor."
+  respuestaInvalida: "Recibimos una respuesta inesperada del servicio. Probá de nuevo."
+
+# Respuestas simuladas del modo mock. {mensaje} se reemplaza por la consulta.
+mock:
+  respuesta: "Modo de prueba: recibí tu consulta «{mensaje}». Cuando el motor de respuestas esté conectado, acá vas a ver la respuesta real."
+  transcripcion: "Transcripción de prueba de la nota de voz."
+  intencion: "mock"
+  fuentes:
+    - "/carreras"
+  confianza: 1
+  demoraMs: 600
