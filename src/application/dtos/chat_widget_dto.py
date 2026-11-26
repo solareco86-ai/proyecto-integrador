@@ -21,6 +21,14 @@ class ChatWidgetEtiquetasModel(BaseModel):
     grabar: str
 
 
+class ChatWidgetInterfazModel(BaseModel):
+    """Textos que el JavaScript muestra durante la conversación (FE 4.2)."""
+
+    escribiendo: str
+    fuentes: str
+    reintentar: str
+
+
 class ChatWidgetApiModel(BaseModel):
     """Conexión del widget con el motor conversacional (contrato del Epic #144)."""
 
@@ -61,6 +69,7 @@ class ChatWidgetModel(BaseModel):
     placeholder: str
     longitudMaxima: int = Field(gt=0)
     etiquetas: ChatWidgetEtiquetasModel
+    interfaz: ChatWidgetInterfazModel
     api: ChatWidgetApiModel
     errores: ChatWidgetErroresModel
     mock: ChatWidgetMockModel
@@ -69,6 +78,7 @@ class ChatWidgetModel(BaseModel):
         """Datos que necesita el JavaScript del widget, para serializar en la plantilla."""
         return {
             "longitudMaxima": self.longitudMaxima,
+            "interfaz": self.interfaz.model_dump(),
             "api": self.api.model_dump(),
             "errores": self.errores.model_dump(),
             "mock": self.mock.model_dump(),

@@ -17,6 +17,12 @@ etiquetas:
   enviar: "Enviar consulta"
   grabar: "Grabar una nota de voz"
 
+# Textos que el JavaScript muestra durante la conversación.
+interfaz:
+  escribiendo: "El asistente está escribiendo…"
+  fuentes: "Más información:"
+  reintentar: "Reintentar"
+
 # Conexión con el motor (contrato del Epic #144). Mientras el backend de los
 # estudiantes no esté disponible (#130), el widget responde en modo mock.
 api:
