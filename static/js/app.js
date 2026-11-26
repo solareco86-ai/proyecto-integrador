@@ -6,6 +6,7 @@ import { getAttributionSource } from './modules/AttributionTracker.js';
 import { captureAndPersistCampaign, updateWhatsAppLinks } from './modules/WhatsAppDynamicMessage.js';
 import { initDirectContactTracking } from './modules/DirectContactTracker.js';
 import { initEmailProtection } from './modules/EmailProtector.js';
+import { initChatWidgets } from './modules/ChatWidget.js';
 import * as logger from './modules/logger.js';
 
 /**
@@ -94,6 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
         initEmailProtection();
     } catch (e) {
         logger.error("[App] Fallo al inicializar EmailProtector:", e);
+    }
+
+    // 3a-bis. Widget conversacional flotante (Epic #144)
+    try {
+        initChatWidgets();
+    } catch (e) {
+        logger.error("[App] Fallo al inicializar el widget conversacional:", e);
     }
 
     // 3b. Telemetría de Contacto Directo (clics en mailto:, tel: y copias de email/teléfono)
