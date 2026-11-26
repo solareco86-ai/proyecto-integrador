@@ -29,8 +29,16 @@
  */
 
 /**
+ * @typedef {Object} ChatInterfazTextos
+ * @property {string} escribiendo - Texto accesible del indicador de «escribiendo».
+ * @property {string} fuentes - Rótulo de la lista de fuentes de una respuesta.
+ * @property {string} reintentar - Texto del botón para reintentar tras un error.
+ */
+
+/**
  * @typedef {Object} ChatClienteConfig
  * @property {number} longitudMaxima - Largo máximo de una consulta escrita.
+ * @property {ChatInterfazTextos} interfaz
  * @property {ChatApiConfig} api
  * @property {Record<ChatErrorTipo, string>} errores - Mensajes para el público, por tipo de error.
  * @property {ChatMockConfig} mock

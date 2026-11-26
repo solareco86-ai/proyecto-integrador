@@ -37,6 +37,7 @@ def test_configuracion_del_cliente_sale_de_los_datos(textos: ChatWidgetModel) ->
     config = textos.configuracion_cliente()
 
     assert config["longitudMaxima"] == textos.longitudMaxima
+    assert all(config["interfaz"].values())
     assert config["api"]["baseUrl"] == "/api/v1/chat"
     assert set(config["errores"]) == {"timeout", "red", "servidor", "validacion", "audioVacio", "respuestaInvalida"}
     assert all(config["errores"].values())
