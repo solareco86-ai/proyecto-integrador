@@ -18,6 +18,11 @@ def test_build_csp_incluye_directivas_requeridas() -> None:
         assert f"{directive} " in csp
 
 
+def test_build_csp_permite_reproducir_notas_de_voz_grabadas() -> None:
+    # El widget conversacional reproduce la grabación desde una URL blob: antes de enviarla.
+    assert "media-src 'self' blob:;" in build_csp()
+
+
 def test_build_csp_sin_cloudflare() -> None:
     csp = build_csp()
     assert "cloudflareinsights.com" not in csp
