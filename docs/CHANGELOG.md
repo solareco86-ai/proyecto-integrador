@@ -2,6 +2,18 @@
 
 Este documento consolida cronológicamente las decisiones estratégicas, refactorizaciones arquitectónicas y evoluciones del portal institucional y campus virtual del **Instituto Superior de Formación Técnica N° 199** (`isftn199.com.ar`).
 
+## [2026-11-22] — Concordancias de Palabras Clave Negativas (Google Ads)
+
+* **Lista maestra de negativas (`data/ads/negative_keywords_clean.txt` y `data/ads/negative_keywords_editor.csv`):** pasa de 108 a 102 términos (se eliminan 49, se agregan 43 y se modifica 1 concordancia). Ambos archivos siguen sincronizados en el mismo orden.
+  * Se eliminan 40 términos residenciales, eléctricos y de oficios heredados de DataMaq (`casa`, `hogar`, `electricista`, `enchufe`, `edenor`, `baja tension`, `plomero`, `gasista`, etc.).
+  * Se eliminan 8 negativas genéricas de precio, cuota y costo (`arancel`, `aranceles`, `cuota mensual`, `precio de la carrera`, `cuanto cuesta la carrera`, `costo por mes`, `cuanto sale la cuota`, `precio mensual`): la educación es pública y gratuita, y esas búsquedas provienen de aspirantes potenciales.
+  * Se elimina `convenio colectivo`, que es contenido curricular de Administración de Recursos Humanos.
+  * Concordancia de frase para intención explícitamente privada o de financiación y para nombres ambiguos: `"matricula de pago"` pasa de amplia a frase, y se agregan `"medio arancel"`, `"planes de pago carrera"`, `"beca arancelaria"`, `"universidad de san isidro"`, `"universidad kennedy"` y `"trabajo social"`.
+  * Concordancia exacta para carreras no dictadas cuyo nombre coincide con contenidos propios (`[derecho]`, `[medicina]`, `[psicologia]`, `[psicologo]`, `[arquitectura]`, `[arquitecto]`, `[nutricion]`, `[farmacia]`).
+  * Se agregan, en concordancia amplia, universidades privadas (`usi`, `uces`, `usal`, `universidad del salvador`), carreras no dictadas (`abogacia`, `enfermeria`, `odontologia`, `veterinaria`, `profesorado`, etc.), bootcamps (`digital house`, `ironhack`, `le wagon`, `mindhub`, `ada itw`, `bootcamp`) y búsquedas docentes (`concurso docente`, `postulacion docente`).
+* **Tests (`tests/test_negative_keywords.py`):** se verifica que 8 búsquedas genéricas de precio no queden bloqueadas por ninguna negativa.
+* **Origen:** el cambio proviene de la división atómica del commit `5d54353` (commit histórico `f245458`, donde figuraba como tarea "T-32" del backlog de esa rama de trabajo). No corresponde a la numeración de `docs/todo.md`.
+
 ## [2026-09-03] — Migración Integral hacia Portal Institucional y Campus Virtual ISFT N° 199
 
 * **Catálogo Académico Oficial (`data/content/carreras.yaml`):**

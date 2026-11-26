@@ -1,43 +1,3 @@
-casa
-casas
-hogar
-hogares
-domicilio
-domiciliario
-residencial
-departamento
-depto
-ph
-electricista
-electricistas
-electricista matriculado
-electricista de urgencia
-electricista a domicilio
-cableado casa
-enchufe
-toma corriente
-disyuntor casa
-termotanque
-calefon
-estufa electrica
-aire acondicionado instalacion
-heladera
-ventilador
-cortocircuito casa
-luz cortada
-sin luz
-corte de luz
-edenor
-edesur
-monofasico
-220v
-baja tension
-tarifa t1
-plomero
-gasista
-cerrajero
-flete
-mudanza
 uade
 uai
 siglo 21
@@ -53,15 +13,16 @@ ucema
 torcuato di tella
 universidad de belgrano
 universidad de palermo
-cuota mensual
-arancel
-aranceles
-matricula de pago
-precio de la carrera
-costo por mes
-cuanto sale la cuota
-cuanto cuesta la carrera
-precio mensual
+"universidad de san isidro"
+usi
+uces
+"universidad kennedy"
+usal
+universidad del salvador
+"matricula de pago"
+"medio arancel"
+"planes de pago carrera"
+"beca arancelaria"
 primaria
 primario
 escuela primaria
@@ -77,6 +38,32 @@ fines
 bachillerato de adultos
 cens
 educacion especial
+abogacia
+abogado
+[derecho]
+[medicina]
+enfermeria
+enfermero
+enfermera
+paramedico
+[psicologia]
+[psicologo]
+psicopedagogia
+[arquitectura]
+[arquitecto]
+odontologia
+dentista
+veterinaria
+veterinario
+kinesiologia
+kinesiologo
+[nutricion]
+[farmacia]
+bioquimica
+"trabajo social"
+profesorado
+radiologia
+instrumentacion quirurgica
 coderhouse
 soyhenry
 henry
@@ -84,6 +71,12 @@ platzi
 udemy
 coursera
 edx
+digital house
+ada itw
+ironhack
+le wagon
+mindhub
+bootcamp
 curso de 1 semana
 curso de 2 semanas
 curso de un mes
@@ -104,5 +97,6 @@ salario de
 cuanto se cobra
 sueldos promedio
 recibo de sueldo
-convenio colectivo
 escala salarial
+postulacion docente
+concurso docente
