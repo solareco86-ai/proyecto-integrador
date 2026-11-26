@@ -1,5 +1,5 @@
 // Pruebas del cliente de la API del widget conversacional (FE 4.4, issue #148).
-// Se ejecutan con `node --test` desde tests/test_chat_api_client_js.py.
+// Se ejecutan con `node --test` desde tests/test_pruebas_js.py.
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
