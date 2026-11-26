@@ -4,7 +4,7 @@ Cuando entrenamos un modelo de Machine Learning en Scikit-Learn y lo persistimos
 
 Un modelo de lenguaje de un agente no puede leer ni interpretar bytes binarios compilados de C/Python. Para que un agente pueda **auditar el árbol**, **explicar la causa raíz de una alerta** a un operador humano o **verificar el cumplimiento de normativas de seguridad eléctrica**, necesita que el árbol se exponga en un formato declarativo estándar: **JSON estructurado**.
 
-En esta lección implementamos el serializador recursivo de árboles de Scikit-Learn y el endpoint `GET /api/v1/explain/tree` en FastAPI para ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md).
+En esta lección implementamos el serializador recursivo de árboles de Scikit-Learn y el endpoint `GET /api/v1/explain/tree` en FastAPI para ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml).
 
 ---
 

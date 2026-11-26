@@ -41,6 +41,9 @@
                 {{ profile_macro.profile(request, brand, content.profile) }}
             {% elif 'hero' in partial_name %}
                 {{ hero_macro.hero(request, content.hero) }}
+            {% elif 'chat_widget' in partial_name %}
+                {% import 'partials/components/chat_widget.html' as chat_widget_macro %}
+                {{ chat_widget_macro.chat_widget(chat_widget_textos(), abierto=('cerrado' not in partial_name)) }}
             {% elif 'whatsapp_fab' in partial_name %}
                 {{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
             {% elif 'cookie_banner' in partial_name %}

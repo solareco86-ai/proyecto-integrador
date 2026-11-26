@@ -1,0 +1,75 @@
+{#
+  Widget conversacional flotante (Epic #144, FE 4.1).
+  Solo estructura y estilos: el comportamiento lo agregan los módulos JS de FE 4.2 a 4.4.
+  Los textos vienen de data/config/chat_widget.yaml (función global `chat_widget_textos`).
+  `abierto` muestra la ventana desplegada (vista previa y pruebas).
+#}
+{% import 'partials/components/icon.html' as icon_macro %}
+{% macro chat_widget(textos, abierto=false) %}
+<div class="c-chat-widget{% if abierto %} is-open{% endif %}" data-component="chat-widget" data-max-length="{{ textos.longitudMaxima }}">
+    <button type="button"
+            class="c-chat-widget__fab"
+            aria-controls="chat-widget-panel"
+            aria-expanded="{{ 'true' if abierto else 'false' }}"
+            aria-label="{{ textos.etiquetas.abrir }}"
+            title="{{ textos.etiquetas.abrir }}"
+            data-chat-toggle>
+        {{ icon_macro.bootstrap_icon('chat-dots-fill', class='c-chat-widget__fab-icon') }}
+    </button>
+
+    <section id="chat-widget-panel"
+             class="c-chat-widget__panel"
+             role="dialog"
+             aria-modal="false"
+             aria-labelledby="chat-widget-titulo"
+             {% if not abierto %}hidden{% endif %}
+             data-chat-panel>
+        <header class="c-chat-widget__header">
+            <img class="c-chat-widget__avatar" src="{{ textos.avatar.src }}" alt="{{ textos.avatar.alt }}" width="40" height="40" loading="lazy" decoding="async">
+            <div class="c-chat-widget__heading">
+                <h2 id="chat-widget-titulo" class="c-chat-widget__title">{{ textos.titulo }}</h2>
+                <p class="c-chat-widget__subtitle">{{ textos.subtitulo }}</p>
+            </div>
+            <button type="button" class="c-chat-widget__close" aria-label="{{ textos.etiquetas.cerrar }}" title="{{ textos.etiquetas.cerrar }}" data-chat-close>
+                {{ icon_macro.bootstrap_icon('x-lg') }}
+            </button>
+        </header>
+
+        <div class="c-chat-widget__messages" role="log" aria-live="polite" aria-label="{{ textos.etiquetas.conversacion }}" tabindex="0" data-chat-messages>
+            <p class="c-chat-widget__bubble c-chat-widget__bubble--bot">{{ textos.saludo }}</p>
+        </div>
+
+        <p class="c-chat-widget__notice">{{ textos.aviso }}</p>
+
+        <form class="c-chat-widget__composer" novalidate data-chat-form>
+            <label for="chat-widget-input" class="c-chat-widget__sr-only">{{ textos.etiquetas.campo }}</label>
+            <textarea id="chat-widget-input"
+                      class="c-chat-widget__input"
+                      name="message"
+                      rows="1"
+                      maxlength="{{ textos.longitudMaxima }}"
+                      placeholder="{{ textos.placeholder }}"
+                      autocomplete="off"
+                      data-chat-input></textarea>
+            <button type="button" class="c-chat-widget__action c-chat-widget__action--mic" aria-label="{{ textos.etiquetas.grabar }}" title="{{ textos.etiquetas.grabar }}" hidden data-chat-mic>
+                {{ icon_macro.bootstrap_icon('mic-fill') }}
+            </button>
+            <button type="submit" class="c-chat-widget__action c-chat-widget__action--send" aria-label="{{ textos.etiquetas.enviar }}" title="{{ textos.etiquetas.enviar }}" data-chat-send>
+                {{ icon_macro.bootstrap_icon('send-fill') }}
+            </button>
+            <div class="c-chat-widget__recorder" hidden data-chat-recorder>
+                <span class="c-chat-widget__rec-dot" aria-hidden="true"></span>
+                <span class="c-chat-widget__rec-label">{{ textos.interfaz.grabando }}</span>
+                <span class="c-chat-widget__rec-time" data-chat-rec-time>0:00</span>
+                <button type="button" class="c-chat-widget__action c-chat-widget__action--cancel" aria-label="{{ textos.etiquetas.cancelarGrabacion }}" title="{{ textos.etiquetas.cancelarGrabacion }}" data-chat-rec-cancel>
+                    {{ icon_macro.bootstrap_icon('trash3-fill') }}
+                </button>
+                <button type="button" class="c-chat-widget__action c-chat-widget__action--send" aria-label="{{ textos.etiquetas.enviarGrabacion }}" title="{{ textos.etiquetas.enviarGrabacion }}" data-chat-rec-send>
+                    {{ icon_macro.bootstrap_icon('send-fill') }}
+                </button>
+            </div>
+        </form>
+    </section>
+    <script type="application/json" data-chat-config>{{ textos.configuracion_cliente() | tojson }}</script>
+</div>
+{% endmacro %}

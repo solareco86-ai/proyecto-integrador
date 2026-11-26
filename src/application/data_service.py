@@ -4,10 +4,12 @@ from typing import Any, cast
 import yaml  # type: ignore
 
 from src.application.dtos import (
+    CampusMuestraModel,
     CarreraModel,
     CarrerasContainerModel,
     CasoModel,
     CasosContainerModel,
+    ChatWidgetModel,
     ContenidoModel,
     CourseModel,
     CursoEspecificacionModel,
@@ -38,6 +40,7 @@ class DataService:
         self.brand_path = os.path.join(self.data_dir, "config", "brand.yaml")
         self.footer_path = os.path.join(self.data_dir, "config", "footer.yaml")
         self.redirects_path = os.path.join(self.data_dir, "config", "redirects.yaml")
+        self.chat_widget_path = os.path.join(self.data_dir, "config", "chat_widget.yaml")
 
         self.home_sections_path = os.path.join(self.data_dir, "content", "home_sections.yaml")
         self.legal_path = os.path.join(self.data_dir, "content", "legal.yaml")
@@ -67,6 +70,7 @@ class DataService:
         self._cached_especificaciones: dict[str, CursoEspecificacionModel] = {}
         self._cached_guias: GuiasContainerModel | None = None
         self._cached_planes: list[TelemetryPlanModel] | None = None
+        self._cached_chat_widget: ChatWidgetModel | None = None
 
     def get_contenido(self) -> ContenidoModel:
         if self._cached_contenido is None:
@@ -97,6 +101,14 @@ class DataService:
 
             self._cached_contenido = ContenidoModel.model_validate(raw_data)
         return self._cached_contenido
+
+    def get_chat_widget(self) -> ChatWidgetModel:
+        """Textos del widget conversacional flotante (data/config/chat_widget.yaml)."""
+        if self._cached_chat_widget is None:
+            with open(self.chat_widget_path, encoding="utf-8") as f:
+                raw_data: dict[str, Any] = yaml.safe_load(f) or {}
+            self._cached_chat_widget = ChatWidgetModel.model_validate(raw_data)
+        return self._cached_chat_widget
 
     def get_geografia(self) -> dict[str, Any]:
         if self._cached_geografia is None:
@@ -290,6 +302,25 @@ class DataService:
             if carrera.slug == slug:
                 return carrera
         return None
+
+    def get_otras_carreras(self, slug: str, limite: int = 2) -> list[CarreraModel]:
+        """Las carreras que siguen a `slug` en el catálogo, dando la vuelta al final.
+
+        Alimenta el bloque «Seguir mirando» del detalle: así cada página enlaza a
+        carreras distintas y ninguna queda sin enlaces que lleguen a ella.
+        """
+        carreras = self.get_carreras()
+        slugs = [carrera.slug for carrera in carreras]
+        inicio = slugs.index(slug) + 1 if slug in slugs else 0
+        siguientes = carreras[inicio:] + carreras[:inicio]
+        return [carrera for carrera in siguientes if carrera.slug != slug][:limite]
+
+    def get_campus_muestra(self) -> CampusMuestraModel:
+        """Datos de muestra que alimentan la pantalla de estructura del campus."""
+        ruta = os.path.join(self.data_dir, "campus", "muestra.yaml")
+        with open(ruta, encoding="utf-8") as archivo:
+            crudo: Any = yaml.safe_load(archivo)
+        return CampusMuestraModel.model_validate(crudo)
 
     def get_curso_especificacion(self, curso_id: str) -> CursoEspecificacionModel | None:
         """Carga la especificación oficial de un curso desde YAML."""

@@ -62,10 +62,11 @@ async def ready() -> JSONResponse:
             status_code=503,
             content={"status": "not_ready", "checks": {"db_accessible": False}},
         )
-    except Exception as e:
+    except Exception:
+        logger.exception("Error al comprobar la disponibilidad de la base de datos")
         return JSONResponse(
             status_code=503,
-            content={"status": "not_ready", "checks": {"db_accessible": False, "error": str(e)}},
+            content={"status": "not_ready", "checks": {"db_accessible": False}},
         )
 
 

@@ -1,0 +1,309 @@
+# Mapa de Cobertura Curricular: Anexo I (Resolución DGCyE N° 2730/22) -> Lecciones
+# Espacio Curricular 12: Procesamiento de Aprendizaje Automático
+# Carrera: Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial
+# Ubicación: 2.º año, 2.º cuatrimestre, Trayecto F (128 h anuales, 64 h cuatrimestrales deducidas)
+
+metadata:
+  resolucion: "Resolución DGCyE N° 2730/22 (Anexo I)"
+  espacio: "12 - Procesamiento de Aprendizaje Automático"
+  curso_slug: "procesamiento-aprendizaje-automatico"
+  version: "1.0"
+  modo_estricto: true  # Activado al finalizar todos los entregables de la épica #107
+
+contenidos_bloques:
+  # =========================================================================
+  # BLOQUE 1: Aprendizaje automático
+  # =========================================================================
+  - id: bloque-aa-concepto
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Concepto de Aprendizaje automático"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Definición formal de Mitchell T, P, E y contraste con programación tradicional)."
+
+  - id: bloque-aa-tecnicas
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Técnicas de aprendizaje automático"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Taxonomía de aprendizaje supervisado, no supervisado, por refuerzo y semi-supervisado)."
+
+  - id: bloque-aa-objetivos
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Objetivos de la tarea de Aprendizaje"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Generalización empírica, optimización de función de pérdida y explicabilidad)."
+
+  - id: bloque-aa-busqueda
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "El aprendizaje como una tarea de búsqueda"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Navegación del espacio de hipótesis H, minimización de riesgo empírico y sesgo inductivo)."
+
+  - id: bloque-aa-subtareas
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Sub tareas relacionadas con la tarea de aprendizaje"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-2-subtareas-del-aprendizaje.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 2, lección 2.2: partición de datos, feature engineering, entrenamiento e inferencia)."
+
+  - id: bloque-aa-diseno-modelos
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Diseño de modelos"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-0-mapa-conceptual-unidad2.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo Intro / Lección 1.0: Metodología de 4 etapas: formulación, espacio de hipótesis, función objetivo y algoritmo de búsqueda)."
+
+  - id: bloque-aa-evaluacion-modelo
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Evaluación del modelo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-5-1-metricas-confusion-f1.md"
+      - "lecciones/cap-5-3-endpoint-metricas-observabilidad.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 5: matriz de confusión, precisión, recall, F1 y exposición en API)."
+
+  - id: bloque-aa-inductivo-deductivo
+    bloque: "Bloque Aprendizaje automático"
+    contenido_literal: "Aprendizaje Inductivo y Deductivo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-1-deduccion-vs-induccion.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 2, lección 2.1: deducción lógica vs inducción estadística y sesgo inductivo)."
+
+  # =========================================================================
+  # BLOQUE 2: Aprendizaje Supervisado
+  # =========================================================================
+  - id: bloque-sup-clasificadores
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Clasificadores"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+      - "lecciones/cap-3-1-entropia-ganancia-gini.md"
+    observaciones: "Cubierto mediante clasificadores probabilísticos, por instancias y basados en árboles."
+
+  - id: bloque-sup-conceptos-reglas
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Aprendizaje de Conceptos y de Reglas"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-1-espacio-versiones-ce.md"
+      - "lecciones/cap-2-1-algoritmo-aq-cobertura.md"
+      - "lecciones/cap-2-3-endpoint-rules-auditoria.md"
+    observaciones: "Cubierto en Unidad 3 (aprendizaje de conceptos y extracción de reglas lógicas interpretables)."
+
+  - id: bloque-sup-espacio-versiones
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Espacio de Versiones"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-1-1-espacio-versiones-ce.md"
+      - "lecciones/cap-1-2-endpoint-version-space-step.md"
+    observaciones: "Cubierto en Unidad 3 (fronteras S y G, algoritmo Candidate-Elimination y endpoint iterativo)."
+
+  - id: bloque-sup-aq
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Algoritmo AQ"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-1-algoritmo-aq-cobertura.md"
+    observaciones: "Cubierto en Unidad 3 (cobertura secuencial y complejos estrella de Michalski)."
+
+  - id: bloque-sup-foil
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Programación Lógica Inductiva: Algoritmo FOIL"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-2-programacion-logica-inductiva-foil.md"
+    observaciones: "Cubierto en Unidad 3 (inducción de cláusulas de Horn de primer orden y ganancia de información FOIL)."
+
+  - id: bloque-sup-arboles
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Árboles de Decisión y de Regresión"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-entropia-ganancia-gini.md"
+      - "lecciones/cap-3-2-arboles-regresion-continuos.md"
+      - "lecciones/cap-3-3-exportacion-arbol-json.md"
+    observaciones: "Cubierto en Unidad 3 (árboles de clasificación CART, árboles de regresión continua y exportación JSON)."
+
+  - id: bloque-sup-instancias
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Aprendizaje basado en Instancias"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+      - "lecciones/cap-4-2-endpoint-knn-fastapi.md"
+    observaciones: "Cubierto en Unidad 2 (k-NN, métricas de distancia, normalización e inferencia)."
+
+  - id: bloque-sup-bayesianos
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Clasificadores Bayesianos"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+    observaciones: "Cubierto en Unidad 2 (probabilidad a priori, verosimilitud y regla de decisión de Bayes)."
+
+  - id: bloque-sup-naive-bayes
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Algoritmo Naive-Bayes"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+      - "lecciones/cap-3-2-endpoint-naive-bayes-opencode.md"
+    observaciones: "Cubierto en Unidad 2 (supuesto de independencia condicional e implementación en endpoint)."
+
+  - id: bloque-sup-elaboracion-modelo
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Elaboración del modelo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-2-subtareas-del-aprendizaje.md"
+      - "lecciones/cap-5-2-primer-servidor-fastapi.md"
+    observaciones: "Cubierto en Unidad 2 (ciclo de construcción, entrenamiento e instanciación de modelos supervisados)."
+
+  - id: bloque-sup-caracteristicas
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Características"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-0-1-numpy-vectores-telemetria.md"
+      - "lecciones/cap-1-1-pydantic-esquemas-ml.md"
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+    observaciones: "Cubierto mediante ingeniería de características, esquemas de entrada y escalado."
+
+  - id: bloque-sup-medidas-rendimiento
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Medidas de rendimiento"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-5-1-metricas-confusion-f1.md"
+    observaciones: "Cubierto en Unidad 2 (accuracy, precision, recall, F1-score y análisis de errores)."
+
+  - id: bloque-sup-ajustes-modelo
+    bloque: "Bloque Aprendizaje Supervisado"
+    contenido_literal: "Ajustes del modelo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-5-4-ajustes-modelo-validacion-cruzada.md"
+      - "lecciones/cap-3-2-arboles-regresion-continuos.md"
+    observaciones: "Cubierto en Unidad 2 (Capítulo 5, lección 5.4: optimización de hiperparámetros con Grid/Random Search, prevención de fuga de datos; y poda de árboles en lección 3.2)."
+
+  # =========================================================================
+  # BLOQUE 3: Aprendizaje No Supervisado
+  # =========================================================================
+  - id: bloque-nosup-elaboracion-modelo
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Elaboración del modelo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: definición de espacio de características, métricas de disimilitud y criterios de agrupamiento)."
+
+  - id: bloque-nosup-caracteristicas
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Características"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: espacio de features no etiquetado, estandarización crítica y maldición de la dimensionalidad)."
+
+  - id: bloque-nosup-ejemplos-aplicaciones
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Ejemplos y aplicaciones"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: desagregación de cargas NILM en energy-ml, segmentación de consumo y detección de anomalías)."
+
+  - id: bloque-nosup-comparacion-seleccion
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Comparación y selección de modelos"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-5-5-comparacion-seleccion-modelos.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6, lección 6.7: comparación y selección entre modelos supervisados Bayes/k-NN/CART y no supervisados k-medias/Aglomerativo)."
+
+  - id: bloque-nosup-agrupamiento
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Agrupamiento (Clustering)"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-1-aprendizaje-no-supervisado-clustering.md"
+      - "lecciones/cap-6-2-estrategia-aglomerativa-clustering-jerarquico.md"
+      - "lecciones/cap-6-3-algoritmo-k-medias-codo-silueta.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: fundamentos matemáticos, partición dura, métricas de cohesión y separación)."
+
+  - id: bloque-nosup-estrategia-aglomerativa
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Estrategia Aglomerativa"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-2-estrategia-aglomerativa-clustering-jerarquico.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: enfoque bottom-up, criterios de enlace simple/completo/promedio/Ward y dendrogramas)."
+
+  - id: bloque-nosup-k-medias
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Algoritmo k-medias"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-3-algoritmo-k-medias-codo-silueta.md"
+      - "lecciones/cap-6-4-laboratorio-clustering-energy-ml.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6: algoritmo de Lloyd, minimización de inercia WCSS, método del codo y coeficiente de silueta)."
+
+  - id: bloque-nosup-refuerzo
+    bloque: "Bloque Aprendizaje No Supervisado"
+    contenido_literal: "Aprendizaje por refuerzo"
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-6-5-aprendizaje-por-refuerzo-introduccion.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 6, lección 6.5: agentes, entornos, recompensas, ecuaciones de Bellman y Q-Learning)."
+
+capacidades_profesionales:
+  - id: cap-prof-1-tecnicas-seleccion
+    numero: 1
+    texto_literal: "Aplicar las distintas técnicas de aprendizaje automático, así como determinar cuál de ellas es apropiada para resolver un determinado problema."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+      - "lecciones/cap-3-1-entropia-ganancia-gini.md"
+      - "lecciones/cap-5-5-comparacion-seleccion-modelos.md"
+    observaciones: "Aplicación y selección entre familias de modelos predictivos según la naturaleza del problema."
+
+  - id: cap-prof-2-validacion-verificacion
+    numero: 2
+    texto_literal: "Utilizar técnicas de validación y verificación de modelos y experimentar con dichas técnicas en diferentes problemas reales."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-2-2-subtareas-del-aprendizaje.md"
+      - "lecciones/cap-5-1-metricas-confusion-f1.md"
+      - "lecciones/cap-5-2-tdd-pytest-aider-agy.md"
+      - "lecciones/cap-5-4-ajustes-modelo-validacion-cruzada.md"
+    observaciones: "Cubierto en Unidad 2 (Cap 5, lecciones 5.1 a 5.4: partición temporal, matriz de confusión, TDD, K-Fold, TimeSeriesSplit y pruebas unitarias de verificación causal)."
+
+  - id: cap-prof-3-optimizacion-geneticos
+    numero: 3
+    texto_literal: "Resolver problemas de predicción y optimización usando algoritmos de clasificación, clustering y genéticos."
+    estado: cubierto
+    lecciones:
+      - "lecciones/cap-3-1-teorema-bayes-clasificacion.md"
+      - "lecciones/cap-4-1-knn-distancias-normalizacion.md"
+      - "lecciones/cap-3-1-entropia-ganancia-gini.md"
+      - "lecciones/cap-6-2-estrategia-aglomerativa-clustering-jerarquico.md"
+      - "lecciones/cap-6-3-algoritmo-k-medias-codo-silueta.md"
+      - "lecciones/cap-6-6-optimizacion-algoritmos-geneticos.md"
+    observaciones: "Cubierto en su totalidad: clasificación (Bayes, k-NN, CART), clustering (k-medias y aglomerativo) y optimización con algoritmos genéticos (lección 6.6)."

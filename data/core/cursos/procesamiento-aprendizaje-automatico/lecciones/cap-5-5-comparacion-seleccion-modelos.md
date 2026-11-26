@@ -1,351 +1,148 @@
-# Lección 5.5: Comparación Crítica y Selección de Modelos — ¿Cuándo Usar Bayes, k-NN o CART?
+# Lección 6.7: Comparación Crítica y Selección de Modelos: Supervisados (Bayes, k-NN, CART) y No Supervisados (k-medias, Aglomerativo)
 
-**Asignatura:** Unidad 2 — Machine Learning (Nivel Intermedio)  
-**Capítulo 5:** Evaluación Rigurosa y TDD Asistido por Agentes en `energy-ml`  
+**Asignatura:** Unidad 2 — Machine Learning e Inferencia Estadística  
+**Capítulo 6:** Bloque Aprendizaje No Supervisado y Agrupamiento (Clustering)  
 **Carga horaria estimada:** 40 min  
-**Prerrequisitos:** Haber completado Capítulos 3-4 (Bayes, k-NN, CART).
+**Prerrequisitos:** Haber completado los Capítulos 3 a 6 de la Unidad 2 (Modelos supervisados: Bayes, k-NN, CART; y modelos no supervisados: k-medias y clustering aglomerativo).  
+**Fuente normativa:** Resolución DGCyE N° 2730/22 (Anexo I, Sección 10, Espacio 12: Bloque Aprendizaje No Supervisado: *«Comparación y selección de modelos»*).
 
 ---
 
-## Objetivo
+## 1. El Dilema de la Selección de Modelos en Producción
 
-Hasta ahora aprendimos a **construir** tres algoritmos aislados: Naive Bayes, k-NN y CART. Pero en producción surge la pregunta decisiva:
+A lo largo del trayecto formativo hemos estudiado algoritmos pertenecientes a diferentes familias y paradigmas de aprendizaje:
+* **Supervisados probabilísticos:** Naive Bayes.
+* **Supervisados basados en instancias (*Lazy*):** k-Nearest Neighbors (k-NN).
+* **Supervisados basados en partición recursiva y reglas:** Árboles CART.
+* **No supervisados particionales:** Algoritmo k-medias.
+* **No supervisados jerárquicos (*Bottom-Up*):** Estrategia Aglomerativa.
 
-> **"Tengo un problema de diagnóstico de fallas. ¿Qué algoritmo debo usar?"**
-
-Esta lección te enseña a **comparar algoritmos en igualdad de condiciones** y elegir el mejor para tu contexto específico.
+En un entorno productivo real como **`energy-ml`**, la pregunta determinante del ingeniero de datos es:
+> **"Frente a este problema de telemetría y diagnóstico, ¿cuál es el modelo óptimo y bajo qué criterios objetivos debo seleccionarlo?"**
 
 ---
 
-## 1. Matriz Comparativa: Bayes vs. k-NN vs. CART
+## 2. Árbol de Decisión: ¿Supervisado o No Supervisado?
+
+El primer paso metodológico consiste en determinar la naturaleza de los datos y el objetivo de la tarea:
 
 ```text
-┌──────────────────┬──────────────┬──────────────┬──────────────┐
-│ Característica   │ Naive Bayes  │ k-NN         │ CART         │
-├──────────────────┼──────────────┼──────────────┼──────────────┤
-│ Complejidad      │ Lineal (O(n))│ Cúbica (O(n·d))│ Cuadrática  │
-│ Interpretación   │ Probabilista │ Geométrica   │ Visual/Lógica│
-│ Datos Pequeños   │ ✅ Excelente │ ⚠️ Riesgo    │ ⚠️ Sobreajusta│
-│                  │              │  overfitting │              │
-│ Datos Grandes    │ ✅ Escalable │ ❌ Lento     │ ✅ Rápido     │
-│ Variables Mixed  │ ⚠️ No recome│ ✅ Sí        │ ✅ Sí         │
-│ (núm + categ.)   │               │              │              │
-│ Ruido / Outliers │ ✅ Robusto   │ ❌ Sensible  │ ⚠️ Moderado  │
-│ Features Correl. │ ❌ Asume     │ ✅ Maneja    │ ✅ Maneja    │
-│                  │  independ.   │              │              │
-│ Ajuste de Paráms │ Mínimo       │ Solo `k`     │ Múltiples    │
-│ (Hiperparáms)    │              │              │              │
-├──────────────────┼──────────────┼──────────────┼──────────────┤
-│ **Caso Óptimo**  │ Datos       │ Firmas       │ Reglas       │
-│ en energy-ml     │ históricos   │ geométricas  │ lógicas      │
-│                  │ con prior    │ en espacio   │ (si/no)      │
-│                  │ de falla     │ de features  │              │
-└──────────────────┴──────────────┴──────────────┴──────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│             ÁRBOL DE DECISIÓN METODOLÓGICO: PARADIGMAS                 │
+├────────────────────────────────────────────────────────────────────────┤
+│ ¿Se dispone de etiquetas históricas confiables (ground truth)?         │
+│  ├── SÍ -> APRENDIZAJE SUPERVISADO                                     │
+│  │    ├── ¿Se necesitan probabilidades calibradas de certeza?          │
+│  │    │     └──> NAIVE BAYES (Inferencia lineal ultrarrápida)          │
+│  │    ├── ¿Las clases forman firmas geométricas complejas en espacio?  │
+│  │    │     └──> k-NN (Aprendizaje por instancias con StandardScaler)  │
+│  │    └── ¿Se requiere interpretabilidad en reglas if/else y auditoría?│
+│  │          └──> ÁRBOLES CART (Decisión estructurada y explicabilidad) │
+│  │                                                                     │
+│  └── NO -> APRENDIZAJE NO SUPERVISADO                                  │
+│       ├── ¿Dataset masivo en streaming con necesidad de baja latencia? │
+│       │     └──> k-MEDIAS (Partición iterativa, O(N*K*iter))           │
+│       └── ¿Se busca taxonomía jerárquica o clusters de forma no esférica?│
+│             └──> ESTRATEGIA AGLOMERATIVA (Dendrogramas, Ward/Complete) │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 2. Caso Práctico: Clasificación de Cargas en energy-ml
+## 3. Matriz Comparativa Integral de Algoritmos
 
-Supongamos que tenemos 4 tipos de cargas en la planta:
-- **Motor Inducción** (3200 W, FP=0.72)
-- **Horno Eléctrico** (4500 W, FP=0.98)
-- **Iluminación LED** (250 W, FP=0.92)
-- **Sistema Ventilación** (2200 W, FP=0.85)
+```text
+┌─────────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+│ Característica  │ Naive Bayes  │ k-NN         │ CART         │ k-medias     │ Aglomerativo │
+├─────────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ Paradigma       │ Supervisado  │ Supervisado  │ Supervisado  │ No supervis. │ No supervis. │
+│ Tipo de salida  │ Probabilidad │ Clase/Regres.│ Reglas/Valor │ Cluster ID   │ Dendrograma  │
+│ Complejidad Tr. │ O(N * D)     │ O(1)         │ O(N * D logN)│ O(N*K*D*iter)│ O(N^2 log N) │
+│ Complejidad Inf.│ O(D)         │ O(N * D)     │ O(profund.)  │ O(K * D)     │ N/A (estático)│
+│ Escalabilidad   │ Excelente    │ Mala (>50k)  │ Muy buena    │ Muy buena    │ Limitada     │
+│ Datos mixtos    │ Moderado     │ Requiere enc.│ Excelente    │ Requiere enc.│ Soporta Gower│
+│ Ruido/Outliers  │ Robusto      │ Muy sensible │ Moderado     │ Sensible     │ Robusto (Avg)│
+│ Métrica de      │ Log-Loss, F1,│ Accuracy, F1,│ Gini, MAE,   │ Inercia      │ Cofenético,  │
+│ Evaluación      │ ROC-AUC      │ Matriz conf. │ R2, F1-Score │ (WCSS), Codo │ Silueta      │
+├─────────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ Caso Óptimo en  │ Detección de │ Matching de  │ Reglas de    │ Descubrimiento│ Taxonomía de│
+│ energy-ml       │ fallas con   │ firmas trans-│ disparo de   │ de máquinas  │ régimen de   │
+│                 │ probabilidades│itorias raras│ alarmas      │ sin etiquetas│ operación    │
+└─────────────────┴──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
+```
 
-Y queremos clasificar una nueva observación: (2800 W, FP=0.75)
+---
 
-### 2.1 Enfoque con Naive Bayes
+## 4. Comparación Específica en No Supervisado: k-medias vs Aglomerativo
+
+Dentro del Bloque No Supervisado, la elección entre k-medias y Estrategia Aglomerativa se guía por tres factores técnicos:
+
+1. **Volumen de Muestras ($N$):**
+   - Si $N > 10.000$, la matriz de distancias de la estrategia aglomerativa ($O(N^2)$ en memoria) desborda la RAM del servidor. **k-medias** es la opción mandatoria.
+   - Para estudios de auditoría energética con muestras representativas de transitorios ($N < 2.000$), la **estrategia aglomerativa** provee dendrogramas determinísticos sin riesgo de caer en óptimos locales.
+2. **Forma de las Agrupaciones:**
+   - k-medias asume clusters esféricos e isotrópicos con varianza similar.
+   - La estrategia aglomerativa (con enlace promedio o simple) puede identificar agrupamientos con geometrías irregulares o alargadas.
+3. **Criterio de Validación:**
+   - En k-medias se evalúa la inercia (método del codo) para descartar sobre-segmentación.
+   - En ambos algoritmos, el **coeficiente de silueta** permite comparar directamente cuál estrategia genera clusters mejor delimitados.
+
+---
+
+## 5. Laboratorio Práctico: Comparación Empírica en energy-ml
+
+El siguiente script evalúa y compara tanto modelos supervisados (cuando se cuenta con etiquetas) como modelos no supervisados (cuando se analizan perfiles en crudo):
 
 ```python
-from sklearn.naive_bayes import GaussianNB
 import numpy as np
-
-# Datos históricos etiquetados
-X_train = np.array([
-    [3200, 0.72], [3100, 0.70],  # Motor
-    [4500, 0.98], [4600, 0.99],  # Horno
-    [250,  0.92], [280,  0.90],  # LED
-    [2200, 0.85], [2300, 0.86]   # Ventilador
-])
-
-y_train = ["motor", "motor", "horno", "horno", "led", "led", "ventilador", "ventilador"]
-
-modelo_bayes = GaussianNB()
-modelo_bayes.fit(X_train, y_train)
-
-muestra = [[2800, 0.75]]
-prediccion = modelo_bayes.predict(muestra)[0]
-confianza = modelo_bayes.predict_proba(muestra)[0]
-
-print(f"Predicción: {prediccion}")
-print(f"Confianzas: {dict(zip(modelo_bayes.classes_, confianza))}")
-```
-
-**Salida esperada:**
-```
-Predicción: motor
-Confianzas: {'motor': 0.78, 'horno': 0.02, 'led': 0.01, 'ventilador': 0.19}
-```
-
-**Análisis:**
-- ✅ Proporción clara (78% vs 19% vs 2% vs 1%)
-- ✅ Interpretable: "Es un motor con 78% de certeza"
-- ⚠️ Supone independencia entre potencia y FP (falso en realidad)
-
----
-
-### 2.2 Enfoque con k-NN (k=3)
-
-```python
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.datasets import make_blobs
 from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-
-# Pipeline seguro: escala + k-NN
-modelo_knn = Pipeline([
-    ("scaler", StandardScaler()),
-    ("knn", KNeighborsClassifier(n_neighbors=3))
-])
-
-modelo_knn.fit(X_train, y_train)
-prediccion = modelo_knn.predict(muestra)[0]
-
-print(f"Predicción: {prediccion}")
-
-# Encontrar los 3 vecinos más cercanos
-vecinos_indices = modelo_knn.named_steps["knn"].kneighbors(modelo_knn.named_steps["scaler"].transform(muestra))[1][0]
-vecinos_etiquetas = [y_train[i] for i in vecinos_indices]
-print(f"3 Vecinos más cercanos: {vecinos_etiquetas}")
-```
-
-**Salida esperada:**
-```
-Predicción: motor
-3 Vecinos más cercanos: ['motor', 'motor', 'ventilador']
-```
-
-**Análisis:**
-- ✅ Resultado comprensible: "Es similar a dos motores y un ventilador"
-- ⚠️ Sin probabilidad (o con heurística de votación: 2/3 = 66.7%)
-- ❌ Compleja de escalar con 10.000+ registros históricos (lento en inferencia)
-
----
-
-### 2.3 Enfoque con CART (Árbol de Decisión)
-
-```python
-from sklearn.tree import DecisionTreeClassifier, plot_tree
-import matplotlib.pyplot as plt
-
-modelo_cart = DecisionTreeClassifier(max_depth=3, random_state=42)
-modelo_cart.fit(X_train, y_train)
-
-prediccion = modelo_cart.predict(muestra)[0]
-confianza = modelo_cart.predict_proba(muestra)[0]
-
-print(f"Predicción: {prediccion}")
-print(f"Confianzas: {dict(zip(modelo_cart.classes_, confianza))}")
-
-# Visualizar reglas de decisión
-plot_tree(modelo_cart, feature_names=["Potencia (W)", "Factor Potencia"],
-          class_names=modelo_cart.classes_, filled=True)
-plt.show()
-```
-
-**Salida esperada:**
-```
-Predicción: motor
-Confianzas: {'motor': 1.0, 'horno': 0.0, 'led': 0.0, 'ventilador': 0.0}
-```
-
-**Reglas descubiertas (ejemplo):**
-```
-Si Potencia <= 1000:
-  └─ Clasificar como "led"
-Si Potencia > 1000 y Potencia <= 3500:
-  └─ Clasificar como "motor"
-Si Potencia > 3500 y FP >= 0.95:
-  └─ Clasificar como "horno"
-```
-
-**Análisis:**
-- ✅ Reglas interpretables (ejecutivos entienden "si/entonces")
-- ✅ Rápido en inferencia (solo comparaciones)
-- ⚠️ Confianza binaria (1.0 o 0.0, no probabilidad suave)
-- ⚠️ Propenso a sobreajuste con pocos datos
-
----
-
-## 3. Matriz de Decisión: ¿Cuál Elegir?
-
-### 3.1 Si el Cliente Pregunta: "¿Qué Probabilidad de Falla Hay?"
-
-| Algoritmo | Respuesta | Confianza |
-|---|---|---|
-| **Bayes** | "97.2% de falla" | Probabilística calibrada |
-| **k-NN** | "3 de 5 vecinos fallaron" | Heurística de votación |
-| **CART** | "Falla (100% o 0%)" | Binaria, no suave |
-
-→ **Recomendación: Naive Bayes** (probabilidades explícitas)
-
----
-
-### 3.2 Si el Dataset Histórico es Muy Pequeño (< 100 muestras)
-
-| Algoritmo | Comportamiento | Riesgo |
-|---|---|---|
-| **Bayes** | Aprende bien con pocas muestras | Bajo; robusto |
-| **k-NN** | Busca los vecinos más cercanos | Medio; riesgo de overfitting |
-| **CART** | Crece sin control | **Alto; sobreajusta seguro** |
-
-→ **Recomendación: Naive Bayes** (mín. hiperparámetros, máx. generalización)
-
----
-
-### 3.3 Si Necesitas Máxima Velocidad en Inferencia (Tiempo Real)
-
-| Algoritmo | Latencia | Escalabilidad |
-|---|---|---|
-| **Bayes** | O(d) — Microsegundos | ✅ Excelente |
-| **k-NN** | O(N·d) — Milisegundos | ⚠️ Limita a N < 100k |
-| **CART** | O(log N) — Microsegundos | ✅ Excelente |
-
-→ **Recomendación: Bayes o CART** (según contexto de interpretabilidad)
-
----
-
-### 3.4 Si Necesitas Reglas Explicables a No-Técnicos
-
-| Algoritmo | Explicabilidad | Aceptación Stakeholder |
-|---|---|---|
-| **Bayes** | "P(A\|B) = ..." | ⚠️ Requiere enseñanza |
-| **k-NN** | "Es similar a estos casos..." | ✅ Intuitivo |
-| **CART** | "Si X > 5000 entonces..." | ✅ **Mejor aceptación** |
-
-→ **Recomendación: CART** (o comité de decisión híbrido)
-
----
-
-## 4. Estrategia Híbrida: Ensemble de Modelos
-
-En producción de energy-ml, **no es "elige uno"**, sino **"usa varios en conjunto"**:
-
-```python
-from sklearn.ensemble import VotingClassifier
-
-# Combinamos los 3 modelos
-modelo_hibrido = VotingClassifier(
-    estimators=[
-        ("bayes", GaussianNB()),
-        ("knn", Pipeline([("scaler", StandardScaler()), 
-                          ("knn", KNeighborsClassifier(n_neighbors=5))])),
-        ("cart", DecisionTreeClassifier(max_depth=5))
-    ],
-    voting="soft"  # Promedia probabilidades
-)
-
-modelo_hibrido.fit(X_train, y_train)
-prob_prediccion = modelo_hibrido.predict_proba(muestra)[0]
-
-print(f"Predicción Ensemble: {modelo_hibrido.predict(muestra)[0]}")
-print(f"Confianzas promediadas: {dict(zip(modelo_hibrido.classes_, prob_prediccion))}")
-```
-
-**Ventajas del Ensemble:**
-- ✅ Suaviza errores de un modelo individual
-- ✅ Mayor robustez ante datos anómalos
-- ✅ Proporciona intervalo de confianza (si 2/3 acuerdan, confianza 66%+)
-
----
-
-## 5. Autoevaluación Formativa: Selección en Contextos Reales
-
-### Pregunta 1: Escenario "Mantenimiento Preventivo"
-
-Un operador de planta monitorea 50 transformadores. Tiene 2 años de datos históricos (etiquetados: "Falla Próxima" o "Normal"). Quiere predecir si hay falla en **tiempo real (< 10 ms latencia)**.
-
-¿Qué algoritmo recomiendas?
-- A) Naive Bayes (O(d) latencia, interpretable, probabilístico)
-- B) k-NN (busca los 5 más cercanos, latencia O(50*4) = O(200) ms, **demasiado lento**)
-- C) CART (O(log 50) = 6 comparaciones, latencia microsegundos, interpretable)
-- D) Ensemble (máxima robustez, pero latencia 3x Bayes)
-
-**Respuesta correcta:** **A o C**
-- Si necesitas probabilidades explícitas → **A (Bayes)**
-- Si necesitas reglas = "Si Temp > X entonces Falla" → **C (CART)**
-
----
-
-### Pregunta 2: Escenario "Dataset Pequeño"
-
-Tienes solo 30 registros históricos de una nueva subestación y necesitas predecir fallas. ¿Cuál es el mayor riesgo?
-
-- A) Naive Bayes generaliza bien incluso con 30 muestras (asunción de independencia actúa como regularizador)
-- B) k-NN encontrará "vecinos muy cercanos" pero podrían ser ruido
-- C) CART seguro va a sobreajustar, memorizando los 30 casos sin aprender patrones
-
-**Respuesta correcta:** **C**  
-**Justificación:** Con 30 muestras, CART crece sin control. Bayes es la opción más segura. Si usas CART, **limita profundidad (`max_depth=2`)**
-
----
-
-### Pregunta 3: Integración en Endpoint FastAPI
-
-Tu endpoint `POST /api/v1/classify` recibe telemetría cada segundo de 100 clientes concurrentes. ¿Qué combinación es más viable?
-
-- A) Un Bayes por cliente (100 modelos ligeros) — **100 × O(d) = Viable**
-- B) Un k-NN centralizado con 50k registros — **O(50k × d) = ~50 ms, marginal**
-- C) Un CART por segmento industrial — **O(log N) × clientes = Viable**
-- D) Ensemble pesado (Bayes + k-NN + CART) × 100 clientes — **Lento y caro**
-
-**Respuesta correcta:** **A o C**  
-**Recomendación:** Bayes por cliente (100 × microsegundos) es la opción más escalable.
-
----
-
-## 6. Conclusión: No Hay Un "Ganador"
-
-| Contexto | Algoritmo | Razón |
-|---|---|---|
-| Probabilidades calibradas | **Bayes** | P(Falla\|Datos) es lo que quiero |
-| Dataset pequeño | **Bayes** | Regularización implícita |
-| Máxima velocidad | **CART** | O(log N) inferencia |
-| Máxima inteligibilidad | **CART** | Si/entonces humano |
-| Máxima robustez | **Ensemble** | Vota los 3 juntos |
-| Firmas geométricas | **k-NN** | Similitud espacial |
-
-**La sabiduría del Científico de Datos: Experimenta, compara en tu dataset específico y elige el que generalice mejor en validación cruzada.**
-
----
-
-## 7. Laboratorio Integrador: Comparación Empírica en energy-ml
-
-```python
 from sklearn.model_selection import cross_val_score
 from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.cluster import KMeans, AgglomerativeClustering
+from sklearn.metrics import silhouette_score
 
-# Cargar datos reales de energy-ml
-X, y = load_energy_ml_dataset()
+# Generación de telemetría de prueba (Potencia, Factor de Potencia, THD)
+np.random.seed(42)
+X_raw, y_real = make_blobs(n_samples=300, n_features=3, centers=3, cluster_std=0.8, random_state=42)
+scaler = StandardScaler()
+X = scaler.fit_transform(X_raw)
 
-modelos = {
+print("=== 1. EVALUACIÓN DE MODELOS SUPERVISADOS (5-Fold CV) ===")
+modelos_sup = {
     "Naive Bayes": GaussianNB(),
     "k-NN (k=5)": KNeighborsClassifier(n_neighbors=5),
-    "CART (depth=3)": DecisionTreeClassifier(max_depth=3)
+    "CART (depth=3)": DecisionTreeClassifier(max_depth=3, random_state=42)
 }
 
-for nombre, modelo in modelos.items():
-    # Validación cruzada: 5-fold
-    scores = cross_val_score(modelo, X, y, cv=5, scoring="f1_weighted")
-    print(f"{nombre}: F1 promedio = {scores.mean():.3f} (+/- {scores.std():.3f})")
-```
+for nombre, mod in modelos_sup.items():
+    scores = cross_val_score(mod, X, y_real, cv=5, scoring="f1_weighted")
+    print(f" - {nombre:15s} | F1-Score: {scores.mean():.4f} (+/- {scores.std():.4f})")
 
-**Ejecuta este laboratorio en tu `energy-ml` local y veras cuál es el mejor para TUS datos.**
+print("\n=== 2. EVALUACIÓN DE MODELOS NO SUPERVISADOS (Silueta) ===")
+# k-medias
+km = KMeans(n_clusters=3, init="k-means++", n_init=10, random_state=42)
+labels_km = km.fit_predict(X)
+sil_km = silhouette_score(X, labels_km)
+
+# Estrategia Aglomerativa (Ward)
+agg = AgglomerativeClustering(n_clusters=3, linkage="ward")
+labels_agg = agg.fit_predict(X)
+sil_agg = silhouette_score(X, labels_agg)
+
+print(f" - k-medias (k=3)       | Coeficiente de Silueta: {sil_km:.4f} (Inercia: {km.inertia_:.1f})")
+print(f" - Aglomerativo (Ward)  | Coeficiente de Silueta: {sil_agg:.4f}")
+
+# Criterio de selección
+ganador_nosup = "k-medias" if sil_km >= sil_agg else "Estrategia Aglomerativa"
+print(f"\n=> Selección no supervisada recomendada: {ganador_nosup}")
+```
 
 ---
 
-## Siguiente Lección
+## 6. Autoevaluación Formativa
 
-En **Cap 5.6 (TDD y Prod)**, operacionalizaremos el modelo ganador dentro de un endpoint FastAPI con métricas, tests y monitoreo en producción.
+1. Si un sensor de planta industrial debe diagnosticar fallas en un microcontrolador embebido con 64 KB de memoria y latencia inferior a 1 ms, ¿qué algoritmo supervisado seleccionarías y por qué?
+2. Si un auditor energético recibe un volcado de un mes de telemetría eléctrica sin ninguna etiqueta y necesita descubrir cuántos patrones de consumo existen, ¿cuál es el procedimiento riguroso de selección de modelo y número de clusters?

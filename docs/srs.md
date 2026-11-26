@@ -57,3 +57,22 @@ La institución ofrece 6 tecnicaturas superiores diseñadas en articulación dir
 * **RNF-03 (Tipado Estricto):** 100% del código en `src/`, `scripts/` y `tests/` verificado con `pyright` (0 errores), y código JavaScript en `static/js/` tipado con JSDoc validado con `npm run typecheck:js` (0 errores LSP).
 * **RNF-04 (Cobertura de Pruebas):** Suite automatizada de pruebas unitarias y de integración con `pytest` manteniendo cobertura >= 85%.
 * **RNF-05 (Observabilidad y Seguridad):** Middleware de `X-Request-ID`, registro de logs estructurados con tiempo de respuesta, headers de seguridad HTTP y protección de datos conforme a la normativa vigente.
+
+---
+
+## 5. Especificación del Módulo: Fundamentos de la Programación (Proyecto Integrador)
+
+### 5.1 Introducción
+El presente documento especifica los requisitos técnicos y funcionales para el módulo de *Fundamentos de la Programación* del Proyecto Integrador.
+
+### 5.2 Descripción General
+El sistema provee una estructura modular en Markdown y YAML para la enseñanza de pseudocódigo (PSeInt) y lógica de programación, integrada con flujos de control de versiones en GitHub.
+
+### 5.3 Requisitos Funcionales
+* **RF01:** El repositorio debe almacenar las definiciones del curso en archivos estructurados (`curso.yaml` y lecciones en formato `.md`).
+* **RF02:** El sistema de validación debe verificar la sintaxis de las lecciones para asegurar que cumplan con los estándares pedagógicos.
+* **RF03:** Toda incorporación de contenido curricular debe realizarse exclusivamente a través de Pull Requests revisados y aprobados por al menos un par.
+
+### 5.4 Criterios de Aceptación
+* Validación exitosa de esquemas YAML sin errores de sintaxis.
+* Renderizado correcto de las lecciones en Markdown dentro de la plataforma de visualización del curso.

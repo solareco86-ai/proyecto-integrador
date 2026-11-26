@@ -51,9 +51,19 @@
             <div class="contador">
                 <p class="contador__cab">{{ admision.requisitos_titulo }}</p>
                 <div class="contador__cuerpo">
+                    {# Los días se calculan en vivo desde la fecha cargada en data/:
+                       si el plazo venció, se avisa en lugar de mostrar un número negativo. #}
                     {% if admision.cierre %}
-                    <p class="contador__n">{{ admision.cierre.fecha_texto }}</p>
-                    <p class="contador__u">Cierre de la inscripción</p>
+                    {% set dias = dias_restantes(admision.cierre.fecha_iso) %}
+                    {% if dias is none %}
+                    <p class="contador__u">La inscripción cerró el {{ admision.cierre.fecha_texto }}</p>
+                    {% elif dias == 0 %}
+                    <p class="contador__n">Hoy</p>
+                    <p class="contador__u">cierra la inscripción</p>
+                    {% else %}
+                    <p class="contador__n">{{ dias }}</p>
+                    <p class="contador__u">{{ 'día' if dias == 1 else 'días' }} para el cierre de la inscripción · {{ admision.cierre.fecha_texto }}</p>
+                    {% endif %}
                     {% endif %}
                     <ul class="requisitos">
                         {% for requisito in admision.requisitos %}
@@ -168,7 +178,7 @@
 {# ============ SEDES ============
    Los domicilios viven en data/content/home_sections.yaml desde esta migración;
    antes estaban escritos acá, contra la regla de desacoplamiento de contenido. #}
-<section class="seccion marco" aria-labelledby="titulo-sedes">
+<section class="seccion marco" id="sedes" aria-labelledby="titulo-sedes">
     <div class="marcador">
         <span class="marcador__n">04</span>
         <span class="marcador__t" id="titulo-sedes">Dónde se cursa</span>

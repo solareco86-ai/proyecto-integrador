@@ -74,7 +74,7 @@ sections:
             id: "les-pdi-2-2"
             slug: "histogramas-umbralizacion-bordes-canny"
             title: "2.2 Histogramas, umbralización de Otsu y detección de bordes con Sobel y Canny"
-            duration: "40 min"
+            duration: "75 min"
             content_file: "cap-2-2-histogramas-umbralizacion-bordes-canny.md"
 
       - id: "chap-pdi-cap-3"

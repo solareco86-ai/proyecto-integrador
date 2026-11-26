@@ -1,6 +1,6 @@
 # Lección 3.2: Árboles de Regresión y Poda para Prevención de Overfitting en energy-ml
 
-En la lección anterior exploramos árboles de decisión para clasificar categorías discretas de fallas. Sin embargo, en la operación diaria del sistema eléctrico de ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md), muchas variables críticas son cuantitativas y continuas:
+En la lección anterior exploramos árboles de decisión para clasificar categorías discretas de fallas. Sin embargo, en la operación diaria del sistema eléctrico de ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml), muchas variables críticas son cuantitativas y continuas:
 - **Potencia activa demandada** por un alimentador (en Megavatios, MW).
 - **Temperatura del punto caliente (*hotspot*)** en los devanados del transformador (en °C).
 - **Pérdidas técnicas de transmisión** (en kilovatios-hora, kWh).

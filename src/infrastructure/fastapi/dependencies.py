@@ -10,13 +10,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.types import Scope
 
+from src.adapters.presenters.content_presenter import present_catalogo_carreras_json_ld
 from src.application.data_service import DataService
-from src.application.dtos import ContenidoModel
+from src.application.dtos import ChatWidgetModel, ContenidoModel
 from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.application.gateways.notification_gateway import NotificationGateway
 from src.application.gateways.password_hasher_gateway import PasswordHasherGateway
 from src.domain.auth.entities import Usuario
 from src.domain.auth.repositories import UsuarioRepository
+from src.domain.common.fechas import dias_restantes
 from src.domain.content.repositories import ComunicadoRepository, EventoRepository, NoticiaRepository
 from src.domain.repositories.lead_repository import LeadRepository
 from src.infrastructure.gateways.bcrypt_password_hasher import BcryptPasswordHasher
@@ -244,7 +246,24 @@ def get_static_version() -> str:
     return _static_version_cache[1]
 
 
+def get_catalogo_carreras_json_ld() -> list[dict[str, Any]]:
+    """Elementos del `hasOfferCatalog` del JSON-LD global, tomados de carreras.yaml al renderizar."""
+    return present_catalogo_carreras_json_ld(data_service.get_carreras())
+
+
+def get_chat_widget_textos() -> ChatWidgetModel:
+    """Textos del widget conversacional, leídos de data/config/chat_widget.yaml."""
+    return data_service.get_chat_widget()
+
+
 templates.env.globals["static_version"] = get_static_version  # type: ignore[index]
+# El widget conversacional toma sus textos de los datos, sin escribirlos en la plantilla.
+templates.env.globals["chat_widget_textos"] = get_chat_widget_textos  # type: ignore[index]
+# El head arma el catálogo JSON-LD desde los datos, sin repetir carreras en la plantilla.
+templates.env.globals["catalogo_carreras_json_ld"] = get_catalogo_carreras_json_ld  # type: ignore[index]
 templates.env.globals["config"] = config  # type: ignore[index]
 templates.env.globals["year"] = datetime.now().year
+# Función pura del dominio: la plantilla muestra los días que faltan para un
+# plazo sin calcularlos ella misma.
+templates.env.globals["dias_restantes"] = dias_restantes  # type: ignore[index]
 templates.env.globals["commit_sha"] = config.GIT_COMMIT_SHA
