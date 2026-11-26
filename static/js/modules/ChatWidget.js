@@ -149,6 +149,12 @@ export class ChatWidget {
             }
         });
         this.campo.addEventListener('input', () => this.#ajustarAltoCampo());
+        // Con la ventana abierta, Tab y Shift+Tab recorren solo sus controles (Escape la cierra).
+        this.panel.addEventListener('keydown', (evento) => {
+            if (evento.key === 'Tab') {
+                this.#atraparFoco(evento);
+            }
+        });
         this.microfono.addEventListener('click', () => void this.#iniciarGrabacion());
         this.cancelarGrabacionBoton.addEventListener('click', () => this.#cancelarGrabacion());
         this.enviarGrabacionBoton.addEventListener('click', () => void this.#enviarGrabacion());
@@ -175,6 +181,30 @@ export class ChatWidget {
         } finally {
             indicador.remove();
             this.#ocupado(false);
+        }
+    }
+
+    /**
+     * Si el foco está en el primer o el último control visible, lo pasa al otro extremo.
+     * @param {KeyboardEvent} evento
+     */
+    #atraparFoco(evento) {
+        /** @type {HTMLElement[]} */
+        const enfocables = Array.from(this.panel.querySelectorAll(
+            'a[href], button:not([disabled]), textarea:not([disabled]), audio[controls], [tabindex]:not([tabindex="-1"])',
+        ));
+        const visibles = enfocables.filter((elemento) => elemento.getClientRects().length > 0);
+        if (visibles.length === 0) {
+            return;
+        }
+        const primero = visibles[0];
+        const ultimo = visibles[visibles.length - 1];
+        if (evento.shiftKey && document.activeElement === primero) {
+            evento.preventDefault();
+            ultimo.focus();
+        } else if (!evento.shiftKey && document.activeElement === ultimo) {
+            evento.preventDefault();
+            primero.focus();
         }
     }
 

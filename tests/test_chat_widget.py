@@ -60,6 +60,8 @@ def test_widget_cerrado_por_defecto(textos: ChatWidgetModel) -> None:
     panel = elementos["#chat-widget-panel"]
     assert "hidden" in panel
     assert panel["role"] == "dialog"
+    # La ventana atrapa el foco mientras está abierta (FE 4.5), así que se declara modal.
+    assert panel["aria-modal"] == "true"
     assert panel["aria-labelledby"] == "chat-widget-titulo"
     assert "is-open" not in (elementos["data-component"]["class"] or "")
 
