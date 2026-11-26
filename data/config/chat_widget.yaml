@@ -1,0 +1,18 @@
+# Textos del widget conversacional flotante (Epic #144).
+# El motor que responde las consultas vive en /api/v1/chat (Epics #129, #134 y #139).
+titulo: "Consultas ISFT N° 199"
+subtitulo: "Carreras, inscripción y cursada"
+avatar:
+  src: "/static/media/logo-isft199.webp"
+  alt: "Logotipo del ISFT N° 199"
+saludo: "¡Hola! Soy el asistente de consultas del ISFT N° 199. Escribime tu pregunta sobre carreras, inscripción o cursada."
+aviso: "Las respuestas se arman automáticamente con la información publicada en este sitio. Para trámites puntuales, consultá con Secretaría."
+placeholder: "Escribí tu consulta…"
+longitudMaxima: 500
+etiquetas:
+  abrir: "Abrir el chat de consultas"
+  cerrar: "Cerrar el chat de consultas"
+  conversacion: "Conversación con el asistente"
+  campo: "Tu consulta"
+  enviar: "Enviar consulta"
+  grabar: "Grabar una nota de voz"

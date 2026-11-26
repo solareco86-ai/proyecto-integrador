@@ -12,7 +12,7 @@ from starlette.types import Scope
 
 from src.adapters.presenters.content_presenter import present_catalogo_carreras_json_ld
 from src.application.data_service import DataService
-from src.application.dtos import ContenidoModel
+from src.application.dtos import ChatWidgetModel, ContenidoModel
 from src.application.gateways.image_storage_gateway import ImageStorageGateway
 from src.application.gateways.notification_gateway import NotificationGateway
 from src.application.gateways.password_hasher_gateway import PasswordHasherGateway
@@ -251,7 +251,14 @@ def get_catalogo_carreras_json_ld() -> list[dict[str, Any]]:
     return present_catalogo_carreras_json_ld(data_service.get_carreras())
 
 
+def get_chat_widget_textos() -> ChatWidgetModel:
+    """Textos del widget conversacional, leídos de data/config/chat_widget.yaml."""
+    return data_service.get_chat_widget()
+
+
 templates.env.globals["static_version"] = get_static_version  # type: ignore[index]
+# El widget conversacional toma sus textos de los datos, sin escribirlos en la plantilla.
+templates.env.globals["chat_widget_textos"] = get_chat_widget_textos  # type: ignore[index]
 # El head arma el catálogo JSON-LD desde los datos, sin repetir carreras en la plantilla.
 templates.env.globals["catalogo_carreras_json_ld"] = get_catalogo_carreras_json_ld  # type: ignore[index]
 templates.env.globals["config"] = config  # type: ignore[index]
