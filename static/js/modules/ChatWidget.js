@@ -1,12 +1,14 @@
 /**
- * @fileoverview Comportamiento del widget conversacional (FE 4.2, issue #146).
- * Abre y cierra la ventana, envía las consultas escritas con ChatApiClient y
- * muestra la conversación. Por seguridad (XSS) todo lo que llega del servidor
- * se inserta con `textContent` y los enlaces de las fuentes pasan por
- * `urlDeFuenteSegura`: en este módulo no se usa `innerHTML`.
+ * @fileoverview Comportamiento del widget conversacional (FE 4.2 y 4.3, issues #146 y #147).
+ * Abre y cierra la ventana, envía consultas escritas y notas de voz con
+ * ChatApiClient y muestra la conversación. Por seguridad (XSS) todo lo que
+ * llega del servidor se inserta con `textContent` y los enlaces de las fuentes
+ * pasan por `urlDeFuenteSegura`: en este módulo no se usa `innerHTML`.
  */
 import { ChatApiClient, ChatApiError, leerConfiguracion } from './ChatApiClient.js';
 import { ChatConversacion, obtenerAlmacenamientoDeSesion, urlDeFuenteSegura } from './ChatConversacion.js';
+import { prepararParaEnvio } from './ConversorWav.js';
+import { GrabacionError, GrabadorDeVoz, grabacionDisponible } from './VoiceRecorder.js';
 import * as logger from './logger.js';
 
 /** @typedef {import('./ChatApiClient.js').ChatClienteConfig} ChatClienteConfig */
@@ -32,6 +34,15 @@ function requerir(raiz, selector, tipo) {
     return elemento;
 }
 
+/**
+ * @param {number} ms
+ * @returns {string} Duración como `m:ss`.
+ */
+export function formatearDuracion(ms) {
+    const segundos = Math.floor(ms / 1000);
+    return `${Math.floor(segundos / 60)}:${String(segundos % 60).padStart(2, '0')}`;
+}
+
 export class ChatWidget {
     /**
      * @param {HTMLElement} raiz - Elemento `[data-component="chat-widget"]`.
@@ -51,9 +62,20 @@ export class ChatWidget {
         this.formulario = requerir(raiz, '[data-chat-form]', HTMLFormElement);
         this.campo = requerir(raiz, '[data-chat-input]', HTMLTextAreaElement);
         this.enviarBoton = requerir(raiz, '[data-chat-send]', HTMLButtonElement);
+        this.microfono = requerir(raiz, '[data-chat-mic]', HTMLButtonElement);
+        this.barraDeGrabacion = requerir(raiz, '[data-chat-recorder]', HTMLElement);
+        this.contador = requerir(raiz, '[data-chat-rec-time]', HTMLElement);
+        this.cancelarGrabacionBoton = requerir(raiz, '[data-chat-rec-cancel]', HTMLButtonElement);
+        this.enviarGrabacionBoton = requerir(raiz, '[data-chat-rec-send]', HTMLButtonElement);
         /** @type {boolean} */
         this.esperando = false;
+        /** @type {GrabadorDeVoz | null} */
+        this.grabador = null;
+        /** @type {number} */
+        this.duracionGrabada = 0;
 
+        // Sin MediaRecorder, sin micrófono o con la Permissions-Policy bloqueándolo, solo hay chat de texto.
+        this.microfono.hidden = !grabacionDisponible();
         this.conversacion.mensajes.forEach((mensaje) => this.mensajes.append(this.#crearBurbuja(mensaje)));
         this.#enlazarEventos();
     }
@@ -72,6 +94,9 @@ export class ChatWidget {
     }
 
     cerrar() {
+        if (this.grabador) {
+            this.#cancelarGrabacion();
+        }
         this.panel.hidden = true;
         this.raiz.classList.remove('is-open');
         this.boton.setAttribute('aria-expanded', 'false');
@@ -85,21 +110,30 @@ export class ChatWidget {
      */
     async enviar(texto) {
         const consulta = texto.trim();
-        if (!consulta || this.esperando) {
+        if (!consulta || this.esperando || this.grabador) {
             return;
         }
         this.#agregar({ autor: 'usuario', texto: consulta });
         this.campo.value = '';
         this.#ajustarAltoCampo();
-        await this.#consultar(consulta);
+        await this.#esperarRespuesta(async () => {
+            const respuesta = await this.cliente.enviarTexto(this.conversacion.sessionId, consulta);
+            this.#agregar({ autor: 'bot', texto: respuesta.reply, fuentes: respuesta.sources });
+        });
     }
 
     #enlazarEventos() {
         this.boton.addEventListener('click', () => this.abrir());
         this.cerrarBoton.addEventListener('click', () => this.cerrar());
         this.raiz.addEventListener('keydown', (evento) => {
-            if (evento.key === 'Escape' && this.abierto) {
-                evento.preventDefault();
+            if (evento.key !== 'Escape' || !this.abierto) {
+                return;
+            }
+            evento.preventDefault();
+            // Con una grabación en curso, Escape la descarta; si no, cierra la ventana.
+            if (this.grabador) {
+                this.#cancelarGrabacion();
+            } else {
                 this.cerrar();
             }
         });
@@ -115,32 +149,116 @@ export class ChatWidget {
             }
         });
         this.campo.addEventListener('input', () => this.#ajustarAltoCampo());
+        this.microfono.addEventListener('click', () => void this.#iniciarGrabacion());
+        this.cancelarGrabacionBoton.addEventListener('click', () => this.#cancelarGrabacion());
+        this.enviarGrabacionBoton.addEventListener('click', () => void this.#enviarGrabacion());
     }
 
     /**
-     * @param {string} consulta
+     * Muestra «escribiendo» mientras se espera al motor; ante un error, ofrece reintentar el mismo pedido.
+     * @param {() => Promise<void>} pedir - Llama a la API y agrega la respuesta.
      * @returns {Promise<void>}
      */
-    async #consultar(consulta) {
-        this.esperando = true;
-        this.enviarBoton.disabled = true;
+    async #esperarRespuesta(pedir) {
+        this.#ocupado(true);
         const indicador = this.#crearIndicadorEscribiendo();
         this.mensajes.append(indicador);
         this.#desplazarAlFinal();
         try {
-            const respuesta = await this.cliente.enviarTexto(this.conversacion.sessionId, consulta);
-            this.#agregar({ autor: 'bot', texto: respuesta.reply, fuentes: respuesta.sources });
+            await pedir();
         } catch (error) {
             const tipo = error instanceof ChatApiError ? error.tipo : 'red';
             if (!(error instanceof ChatApiError)) {
                 logger.error('[ChatWidget] Error inesperado al consultar:', error);
             }
-            this.#mostrarError(this.config.errores[tipo], consulta);
+            this.#mostrarError(this.config.errores[tipo], () => void this.#esperarRespuesta(pedir));
         } finally {
             indicador.remove();
-            this.esperando = false;
-            this.enviarBoton.disabled = false;
+            this.#ocupado(false);
         }
+    }
+
+    /** @param {boolean} ocupado */
+    #ocupado(ocupado) {
+        this.esperando = ocupado;
+        this.enviarBoton.disabled = ocupado;
+        this.microfono.disabled = ocupado;
+    }
+
+    async #iniciarGrabacion() {
+        if (this.esperando || this.grabador) {
+            return;
+        }
+        const grabador = new GrabadorDeVoz({
+            duracionMaximaMs: this.config.audio.duracionMaximaSeg * 1000,
+            alAvanzar: (ms) => {
+                this.duracionGrabada = ms;
+                this.contador.textContent = formatearDuracion(ms);
+            },
+            alLlegarAlLimite: () => void this.#enviarGrabacion(),
+        });
+        try {
+            await grabador.iniciar();
+        } catch (error) {
+            const tipo = error instanceof GrabacionError ? error.tipo : 'noDisponible';
+            this.#mostrarError(this.config.errores[tipo]);
+            return;
+        }
+        this.grabador = grabador;
+        this.duracionGrabada = 0;
+        this.contador.textContent = formatearDuracion(0);
+        this.#modoGrabacion(true);
+        this.enviarGrabacionBoton.focus();
+    }
+
+    #cancelarGrabacion() {
+        this.grabador?.cancelar();
+        this.grabador = null;
+        this.#modoGrabacion(false);
+        this.microfono.focus();
+    }
+
+    async #enviarGrabacion() {
+        const grabador = this.grabador;
+        if (!grabador) {
+            return;
+        }
+        this.grabador = null;
+        const duracion = this.duracionGrabada;
+        const grabacion = await grabador.detener();
+        this.#modoGrabacion(false);
+        this.campo.focus();
+        if (grabacion.size === 0 || duracion < this.config.audio.duracionMinimaMs) {
+            this.#mostrarError(this.config.errores.audioVacio);
+            return;
+        }
+        /** @type {{ audio: Blob, nombre: string }} */
+        let preparada;
+        try {
+            preparada = await prepararParaEnvio(grabacion);
+        } catch (error) {
+            logger.error('[ChatWidget] No se pudo convertir la nota de voz:', error);
+            this.#mostrarError(this.config.errores.noDisponible);
+            return;
+        }
+        const burbuja = this.#crearBurbujaDeVoz(URL.createObjectURL(preparada.audio));
+        this.mensajes.append(burbuja);
+        await this.#esperarRespuesta(async () => {
+            const respuesta = await this.cliente.enviarAudio(this.conversacion.sessionId, preparada.audio, preparada.nombre);
+            const transcripcion = respuesta.transcript ?? '';
+            const texto = document.createElement('p');
+            texto.className = 'c-chat-widget__text';
+            texto.textContent = transcripcion;
+            burbuja.append(texto);
+            this.conversacion.agregar({ autor: 'usuario', texto: transcripcion, voz: true });
+            this.#agregar({ autor: 'bot', texto: respuesta.reply, fuentes: respuesta.sources });
+        });
+    }
+
+    /** @param {boolean} activo */
+    #modoGrabacion(activo) {
+        this.barraDeGrabacion.hidden = !activo;
+        this.raiz.classList.toggle('is-recording', activo);
     }
 
     /** @param {ChatMensaje} mensaje */
@@ -157,6 +275,9 @@ export class ChatWidget {
     #crearBurbuja(mensaje) {
         const burbuja = document.createElement('div');
         burbuja.className = `${CLASE_BURBUJA} ${CLASE_BURBUJA}--${mensaje.autor === 'usuario' ? 'user' : 'bot'}`;
+        if (mensaje.voz) {
+            burbuja.append(this.#crearRotuloDeVoz());
+        }
         const texto = document.createElement('p');
         texto.className = 'c-chat-widget__text';
         texto.textContent = mensaje.texto;
@@ -169,6 +290,31 @@ export class ChatWidget {
             burbuja.append(this.#crearFuentes(/** @type {string[]} */ (enlaces)));
         }
         return burbuja;
+    }
+
+    /**
+     * Burbuja del usuario con el reproductor de su nota de voz; la transcripción se agrega al responder.
+     * @param {string} url - URL blob: de la grabación.
+     * @returns {HTMLElement}
+     */
+    #crearBurbujaDeVoz(url) {
+        const burbuja = document.createElement('div');
+        burbuja.className = `${CLASE_BURBUJA} ${CLASE_BURBUJA}--user ${CLASE_BURBUJA}--voice`;
+        const reproductor = document.createElement('audio');
+        reproductor.controls = true;
+        reproductor.preload = 'metadata';
+        reproductor.src = url;
+        burbuja.append(this.#crearRotuloDeVoz(), reproductor);
+        this.#desplazarAlFinal();
+        return burbuja;
+    }
+
+    /** @returns {HTMLElement} */
+    #crearRotuloDeVoz() {
+        const rotulo = document.createElement('span');
+        rotulo.className = 'c-chat-widget__voice-label';
+        rotulo.textContent = this.config.interfaz.notaDeVoz;
+        return rotulo;
     }
 
     /**
@@ -215,26 +361,29 @@ export class ChatWidget {
     }
 
     /**
-     * Burbuja de error con botón para reintentar la misma consulta. No se guarda en el historial.
+     * Burbuja de error, con botón para reintentar si se indica cómo. No se guarda en el historial.
      * @param {string} mensaje
-     * @param {string} consulta
+     * @param {() => void} [reintentar]
      */
-    #mostrarError(mensaje, consulta) {
+    #mostrarError(mensaje, reintentar) {
         const burbuja = document.createElement('div');
         burbuja.className = `${CLASE_BURBUJA} ${CLASE_BURBUJA}--bot ${CLASE_BURBUJA}--error`;
         burbuja.setAttribute('role', 'alert');
         const texto = document.createElement('p');
         texto.className = 'c-chat-widget__text';
         texto.textContent = mensaje;
-        const reintentar = document.createElement('button');
-        reintentar.type = 'button';
-        reintentar.className = 'c-chat-widget__retry';
-        reintentar.textContent = this.config.interfaz.reintentar;
-        reintentar.addEventListener('click', () => {
-            burbuja.remove();
-            void this.#consultar(consulta);
-        });
-        burbuja.append(texto, reintentar);
+        burbuja.append(texto);
+        if (reintentar) {
+            const boton = document.createElement('button');
+            boton.type = 'button';
+            boton.className = 'c-chat-widget__retry';
+            boton.textContent = this.config.interfaz.reintentar;
+            boton.addEventListener('click', () => {
+                burbuja.remove();
+                reintentar();
+            });
+            burbuja.append(boton);
+        }
         this.mensajes.append(burbuja);
         this.#desplazarAlFinal();
     }

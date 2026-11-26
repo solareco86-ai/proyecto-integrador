@@ -57,6 +57,17 @@
             <button type="submit" class="c-chat-widget__action c-chat-widget__action--send" aria-label="{{ textos.etiquetas.enviar }}" title="{{ textos.etiquetas.enviar }}" data-chat-send>
                 {{ icon_macro.bootstrap_icon('send-fill') }}
             </button>
+            <div class="c-chat-widget__recorder" hidden data-chat-recorder>
+                <span class="c-chat-widget__rec-dot" aria-hidden="true"></span>
+                <span class="c-chat-widget__rec-label">{{ textos.interfaz.grabando }}</span>
+                <span class="c-chat-widget__rec-time" data-chat-rec-time>0:00</span>
+                <button type="button" class="c-chat-widget__action c-chat-widget__action--cancel" aria-label="{{ textos.etiquetas.cancelarGrabacion }}" title="{{ textos.etiquetas.cancelarGrabacion }}" data-chat-rec-cancel>
+                    {{ icon_macro.bootstrap_icon('trash3-fill') }}
+                </button>
+                <button type="button" class="c-chat-widget__action c-chat-widget__action--send" aria-label="{{ textos.etiquetas.enviarGrabacion }}" title="{{ textos.etiquetas.enviarGrabacion }}" data-chat-rec-send>
+                    {{ icon_macro.bootstrap_icon('send-fill') }}
+                </button>
+            </div>
         </form>
     </section>
     <script type="application/json" data-chat-config>{{ textos.configuracion_cliente() | tojson }}</script>

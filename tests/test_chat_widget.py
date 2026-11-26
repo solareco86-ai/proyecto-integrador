@@ -90,6 +90,12 @@ def test_textos_y_controles_salen_de_los_datos(textos: ChatWidgetModel) -> None:
     assert "hidden" in elementos["data-chat-mic"]
     assert elementos["data-chat-messages"]["aria-live"] == "polite"
 
+    # La barra de grabación (FE 4.3) arranca oculta y sus botones tienen etiquetas de los datos.
+    assert "hidden" in elementos["data-chat-recorder"]
+    assert textos.interfaz.grabando in html
+    assert elementos["data-chat-rec-cancel"]["aria-label"] == textos.etiquetas.cancelarGrabacion
+    assert elementos["data-chat-rec-send"]["aria-label"] == textos.etiquetas.enviarGrabacion
+
 
 def test_estilos_del_widget_se_incluyen_en_el_bundle() -> None:
     entrada = (ROOT / "static/css/src/input.css").read_text(encoding="utf-8")
