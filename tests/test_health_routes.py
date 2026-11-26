@@ -1,7 +1,7 @@
 """Contrato HTTP de liveness y readiness, con repositorio doble y sin conexiones reales."""
 
 from typing import cast
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, Mock
 
 import pytest
 from httpx import ASGITransport, AsyncClient, Response
@@ -9,6 +9,7 @@ from httpx import ASGITransport, AsyncClient, Response
 from src.domain.repositories.lead_repository import LeadRepository
 from src.infrastructure.fastapi import dependencies
 from src.infrastructure.fastapi.app import app
+from src.infrastructure.fastapi.routes import main_routes
 
 
 @pytest.fixture
@@ -52,13 +53,17 @@ async def test_ready_refleja_disponibilidad_de_la_base(repositorio_salud: AsyncM
 
 
 @pytest.mark.asyncio
-async def test_ready_devuelve_503_si_falla_la_comprobacion(repositorio_salud: AsyncMock) -> None:
+async def test_ready_devuelve_503_si_falla_la_comprobacion(
+    repositorio_salud: AsyncMock, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    registrar_excepcion: Mock = Mock()
+    monkeypatch.setattr(main_routes.logger, "exception", registrar_excepcion)
     repositorio_salud.is_healthy.side_effect = RuntimeError("Fallo simulado al comprobar la base")
     transport: ASGITransport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as cliente:
         respuesta: Response = await cliente.get("/ready")
 
     assert respuesta.status_code == 503
-    assert respuesta.json()["status"] == "not_ready"
-    assert respuesta.json()["checks"]["db_accessible"] is False
+    assert respuesta.json() == {"status": "not_ready", "checks": {"db_accessible": False}}
+    registrar_excepcion.assert_called_once_with("Error al comprobar la disponibilidad de la base de datos")
     repositorio_salud.is_healthy.assert_awaited_once_with()
