@@ -12,6 +12,7 @@
  * @property {ChatAutor} autor
  * @property {string} texto
  * @property {string[]} [fuentes] - Rutas o URLs de donde sale una respuesta del bot.
+ * @property {boolean} [voz] - El usuario la envió como nota de voz; `texto` es la transcripción.
  */
 
 /** @typedef {Pick<Storage, 'getItem' | 'setItem'>} AlmacenamientoSimple */
@@ -76,7 +77,8 @@ function esMensajeValido(valor) {
     const m = /** @type {Record<string, unknown>} */ (valor);
     const fuentesValidas = m.fuentes === undefined
         || (Array.isArray(m.fuentes) && m.fuentes.every((f) => typeof f === 'string'));
-    return (m.autor === 'usuario' || m.autor === 'bot') && typeof m.texto === 'string' && fuentesValidas;
+    const vozValida = m.voz === undefined || typeof m.voz === 'boolean';
+    return (m.autor === 'usuario' || m.autor === 'bot') && typeof m.texto === 'string' && fuentesValidas && vozValida;
 }
 
 export class ChatConversacion {

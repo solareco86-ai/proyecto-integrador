@@ -33,14 +33,24 @@
  * @property {string} escribiendo - Texto accesible del indicador de «escribiendo».
  * @property {string} fuentes - Rótulo de la lista de fuentes de una respuesta.
  * @property {string} reintentar - Texto del botón para reintentar tras un error.
+ * @property {string} grabando - Rótulo de la barra de grabación.
+ * @property {string} notaDeVoz - Rótulo de las burbujas de notas de voz.
+ */
+
+/**
+ * @typedef {Object} ChatAudioConfig
+ * @property {number} duracionMaximaSeg - Al llegar, la nota de voz se envía sola.
+ * @property {number} duracionMinimaMs - Las grabaciones más cortas se descartan.
  */
 
 /**
  * @typedef {Object} ChatClienteConfig
  * @property {number} longitudMaxima - Largo máximo de una consulta escrita.
  * @property {ChatInterfazTextos} interfaz
+ * @property {ChatAudioConfig} audio
  * @property {ChatApiConfig} api
- * @property {Record<ChatErrorTipo, string>} errores - Mensajes para el público, por tipo de error.
+ * @property {Record<ChatErrorTipo | import('./VoiceRecorder.js').GrabacionErrorTipo, string>} errores
+ *   Mensajes para el público, por tipo de error de la API o de la grabación.
  * @property {ChatMockConfig} mock
  */
 

@@ -50,11 +50,16 @@ test('descarta un historial guardado que está corrupto o tiene mensajes inváli
             { autor: 'admin', texto: 'autor desconocido' },
             { autor: 'bot', texto: 42 },
             { autor: 'bot', texto: 'fuentes inválidas', fuentes: [1] },
+            { autor: 'usuario', texto: 'transcripción', voz: true },
+            { autor: 'usuario', texto: 'voz inválida', voz: 'sí' },
         ]),
     }));
 
     assert.deepEqual(corrupto.mensajes, []);
-    assert.deepEqual(mezclado.mensajes, [{ autor: 'usuario', texto: 'válido' }]);
+    assert.deepEqual(mezclado.mensajes, [
+        { autor: 'usuario', texto: 'válido' },
+        { autor: 'usuario', texto: 'transcripción', voz: true },
+    ]);
 });
 
 test('funciona sin almacenamiento o si el almacenamiento falla', () => {

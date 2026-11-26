@@ -19,6 +19,8 @@ class ChatWidgetEtiquetasModel(BaseModel):
     campo: str
     enviar: str
     grabar: str
+    cancelarGrabacion: str
+    enviarGrabacion: str
 
 
 class ChatWidgetInterfazModel(BaseModel):
@@ -27,6 +29,15 @@ class ChatWidgetInterfazModel(BaseModel):
     escribiendo: str
     fuentes: str
     reintentar: str
+    grabando: str
+    notaDeVoz: str
+
+
+class ChatWidgetAudioModel(BaseModel):
+    """Límites de las notas de voz (FE 4.3)."""
+
+    duracionMaximaSeg: int = Field(gt=0, le=300)
+    duracionMinimaMs: int = Field(ge=0)
 
 
 class ChatWidgetApiModel(BaseModel):
@@ -47,6 +58,9 @@ class ChatWidgetErroresModel(BaseModel):
     validacion: str
     audioVacio: str
     respuestaInvalida: str
+    permisoDenegado: str
+    sinMicrofono: str
+    noDisponible: str
 
 
 class ChatWidgetMockModel(BaseModel):
@@ -70,6 +84,7 @@ class ChatWidgetModel(BaseModel):
     longitudMaxima: int = Field(gt=0)
     etiquetas: ChatWidgetEtiquetasModel
     interfaz: ChatWidgetInterfazModel
+    audio: ChatWidgetAudioModel
     api: ChatWidgetApiModel
     errores: ChatWidgetErroresModel
     mock: ChatWidgetMockModel
@@ -79,6 +94,7 @@ class ChatWidgetModel(BaseModel):
         return {
             "longitudMaxima": self.longitudMaxima,
             "interfaz": self.interfaz.model_dump(),
+            "audio": self.audio.model_dump(),
             "api": self.api.model_dump(),
             "errores": self.errores.model_dump(),
             "mock": self.mock.model_dump(),

@@ -356,6 +356,69 @@
     opacity: .5;
 }
 
+/* --- Notas de voz (FE 4.3) ---------------------------------------------- */
+.c-chat-widget.is-recording .c-chat-widget__composer > :not(.c-chat-widget__recorder) {
+    display: none;
+}
+
+.c-chat-widget__recorder {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    min-height: 2.5rem;
+    font-size: .9rem;
+    color: var(--chat-text);
+}
+
+.c-chat-widget__rec-dot {
+    flex: none;
+    width: .7rem;
+    height: .7rem;
+    background-color: #dc2626;
+    border-radius: 9999px;
+    animation: c-chat-widget-latido 1.2s infinite ease-in-out;
+}
+
+.c-chat-widget__rec-label {
+    flex: 1;
+}
+
+.c-chat-widget__rec-time {
+    font-variant-numeric: tabular-nums;
+    color: var(--chat-muted);
+}
+
+.c-chat-widget__action--cancel {
+    color: var(--chat-muted);
+    background-color: transparent;
+    border: 1px solid var(--chat-border);
+}
+
+.c-chat-widget__action--cancel:hover {
+    color: #dc2626;
+    background-color: transparent;
+}
+
+.c-chat-widget__voice-label {
+    display: block;
+    margin-bottom: .3rem;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--chat-muted);
+}
+
+.c-chat-widget__bubble--voice audio {
+    display: block;
+    width: min(15rem, 100%);
+    height: 2.25rem;
+}
+
+.c-chat-widget__bubble--voice .c-chat-widget__text {
+    margin-top: .35rem;
+    font-style: italic;
+}
+
 /* --- Foco visible -------------------------------------------------------- */
 .c-chat-widget__fab:focus-visible,
 .c-chat-widget__close:focus-visible,
@@ -412,7 +475,8 @@ body.offcanvas-open .c-chat-widget {
         transition: none;
     }
 
-    .c-chat-widget__dot {
+    .c-chat-widget__dot,
+    .c-chat-widget__rec-dot {
         animation: none;
         opacity: .6;
     }
