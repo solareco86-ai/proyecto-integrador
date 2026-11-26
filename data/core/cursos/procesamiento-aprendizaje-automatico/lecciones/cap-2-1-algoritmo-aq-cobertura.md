@@ -66,7 +66,7 @@ El proceso de inducción de una regla individual para una semilla positiva `e+` 
 
 ## 3. Inducción Práctica en la Telemetría de energy-ml
 
-Consideremos un conjunto de telemetría de transformadores en la subestación Tigre de ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md):
+Consideremos un conjunto de telemetría de transformadores en la subestación Tigre de ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml):
 
 | ID Muestra | Temperatura Aceite (°C) | Carga Potencia (%) | Vibración RMS (mm/s) | Nivel Gas DGA (ppm) | Estado Operativo (Clase) |
 | :--- | :--- | :--- | :--- | :--- | :--- |

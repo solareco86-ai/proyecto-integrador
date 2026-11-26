@@ -1,5 +1,6 @@
 import html
 import re
+from html.parser import HTMLParser
 
 import markdown  # type: ignore
 
@@ -52,54 +53,81 @@ _ALLOWED_ATTRS = {
     "source": {"src", "type"},
 }
 
-_TAG_RE = re.compile(r"</?(\w+)[^>]*/?>")
+# Atributos que llevan una URL: solo se aceptan rutas del sitio, anclas y http(s)/mailto.
+_URL_ATTRS = {"href", "src", "poster"}
+_ALLOWED_SCHEMES = {"http", "https", "mailto"}
+_SCHEME_RE = re.compile(r"^([a-z][a-z0-9+.\-]*):")
+_CLASS_RE = re.compile(r"^[a-zA-Z0-9_\-\s]+$")
+# Caracteres que el navegador ignora dentro de una URL (sirven para esconder "javascript:").
+_URL_IGNORED_RE = re.compile(r"[\x00-\x20\x7f]+")
+
+
+def _is_safe_url(value: str) -> bool:
+    """True si la URL es relativa o usa un esquema permitido (nunca javascript:, data:, etc.)."""
+    normalized: str = _URL_IGNORED_RE.sub("", value).lower()
+    match = _SCHEME_RE.match(normalized)
+    return match is None or match.group(1) in _ALLOWED_SCHEMES
+
+
+class _Sanitizer(HTMLParser):
+    """Reconstruye el HTML dejando solo tags y atributos de la whitelist.
+
+    Un tag no permitido se muestra como texto (escapado). Los atributos se vuelven a
+    escribir siempre entre comillas, así que no importa cómo vinieron escritos
+    (sin comillas, con comillas simples o sin valor).
+    """
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=False)
+        self.parts: list[str] = []
+
+    def _open_tag(self, tag: str, attrs: list[tuple[str, str | None]]) -> str:
+        allowed: set[str] = _ALLOWED_ATTRS.get(tag, set())
+        kept: list[str] = []
+        for name, value in attrs:
+            if name not in allowed:
+                continue
+            if value is None:  # atributo booleano, como "controls"
+                kept.append(name)
+                continue
+            if name == "class" and not _CLASS_RE.match(value):
+                continue
+            if name in _URL_ATTRS and not _is_safe_url(value):
+                continue
+            kept.append(f'{name}="{html.escape(value, quote=True)}"')
+        attrs_str: str = " " + " ".join(kept) if kept else ""
+        return f"<{tag}{attrs_str}>"
+
+    def _raw_tag(self) -> str:
+        return html.escape(self.get_starttag_text() or "")
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.parts.append(self._open_tag(tag, attrs) if tag in _ALLOWED_TAGS else self._raw_tag())
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.parts.append(self._open_tag(tag, attrs) if tag in _ALLOWED_TAGS else self._raw_tag())
+
+    def handle_endtag(self, tag: str) -> None:
+        self.parts.append(f"</{tag}>" if tag in _ALLOWED_TAGS else html.escape(f"</{tag}>"))
+
+    def handle_data(self, data: str) -> None:
+        self.parts.append(html.escape(data, quote=False))
+
+    def handle_entityref(self, name: str) -> None:
+        self.parts.append(f"&{name};")
+
+    def handle_charref(self, name: str) -> None:
+        self.parts.append(f"&#{name};")
+
+    # Comentarios, declaraciones e instrucciones de procesamiento se descartan.
 
 
 def _sanitize_html(html_text: str) -> str:
     """Elimina tags y atributos no permitidos del HTML generado por markdown."""
-
-    def _replace_tag(match: re.Match[str]) -> str:
-        tag: str = match.group(1).lower()
-        full_tag: str = match.group(0)
-
-        if tag not in _ALLOWED_TAGS:
-            # Escapar tag no permitido
-            return html.escape(full_tag)
-
-        if full_tag.startswith("</"):
-            # Closing tag: no attributes to check
-            return full_tag
-
-        # Opening/self-closing tag: filtrar atributos
-        allowed = _ALLOWED_ATTRS.get(tag, set())
-        if not allowed:
-            # Tag permitido pero sin atributos: permitir solo el tag puro
-            return re.sub(rf"<{re.escape(tag)}[^>]*>", f"<{tag}>", full_tag, flags=re.IGNORECASE)
-
-        # Mantener solo los atributos permitidos
-        def _filter_attrs(m: re.Match[str]) -> str:
-            tag_name: str = m.group(1).lower()
-            attrs_str: str = m.group(2).strip()
-            # Parsear atributos simples key="value"
-            kept: list[str] = []
-            for attr_match in re.finditer(r'(\w+)=(?:"([^"]*)"|\'([^\']*)\')', attrs_str):
-                attr_name = attr_match.group(1).lower()
-                val = attr_match.group(2) if attr_match.group(2) is not None else attr_match.group(3)
-                if attr_name in allowed:
-                    if attr_name == "class" and not re.match(r"^[a-zA-Z0-9_\-\s]+$", val):
-                        continue
-                    kept.append(attr_match.group(0))
-            attrs = " " + " ".join(kept) if kept else ""
-            return f"<{tag_name}{attrs}>"
-
-        return re.sub(
-            r"<(\w+)((?:\s+\w+=(?:\"[^\"]*\"|'[^']*'))*)\s*/?>",
-            _filter_attrs,
-            full_tag,
-            flags=re.IGNORECASE,
-        )
-
-    return _TAG_RE.sub(_replace_tag, html_text)
+    sanitizer = _Sanitizer()
+    sanitizer.feed(html_text)
+    sanitizer.close()
+    return "".join(sanitizer.parts)
 
 
 class MarkdownParser:

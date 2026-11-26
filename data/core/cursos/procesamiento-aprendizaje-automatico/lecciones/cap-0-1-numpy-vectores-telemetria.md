@@ -4,7 +4,7 @@ En la Unidad 1 aprendimos a configurar nuestro entorno de desarrollo en GNU/Linu
 
 Muchos estudiantes experimentan una sobrecarga cognitiva en este pasaje porque los modelos de Machine Learning (como Naive Bayes, k-NN o regresiones) no procesan objetos heterogéneos de Python, sino bloques homogéneos de memoria contigua denominados **tensores**.
 
-En esta lección puente de nivelación activa sobre ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md), desmitificamos el álgebra lineal aplicada a la telemetría eléctrica y aprendemos a operar con NumPy en la CPU local con máxima eficiencia.
+En esta lección puente de nivelación activa sobre ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml), desmitificamos el álgebra lineal aplicada a la telemetría eléctrica y aprendemos a operar con NumPy en la CPU local con máxima eficiencia.
 
 ---
 

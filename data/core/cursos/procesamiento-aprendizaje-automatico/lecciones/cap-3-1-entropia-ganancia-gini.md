@@ -2,7 +2,7 @@
 
 En las lecciones previas analizamos algoritmos de cobertura secuencial (*Separate-and-Conquer*) que inducen reglas lógicas independientes. En este capítulo nos enfocamos en el paradigma de **partición jerárquica recursiva** (*Divide-and-Conquer*): los **Árboles de Decisión**.
 
-Los árboles de decisión son uno de los pilares del Machine Learning industrial gracias a su capacidad de modelar interacciones no lineales entre variables continuas y categóricas, manteniendo una estructura de grafo totalmente interpretable. En el ecosistema de ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md), los utilizamos para clasificar contingencias en subestaciones eléctricas a partir de la telemetría de monitoreo continuo.
+Los árboles de decisión son uno de los pilares del Machine Learning industrial gracias a su capacidad de modelar interacciones no lineales entre variables continuas y categóricas, manteniendo una estructura de grafo totalmente interpretable. En el ecosistema de ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml), los utilizamos para clasificar contingencias en subestaciones eléctricas a partir de la telemetría de monitoreo continuo.
 
 ---
 

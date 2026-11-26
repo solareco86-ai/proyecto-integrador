@@ -1,6 +1,6 @@
 # Lección 4.1: Cómo Leen Código los Agentes: Árboles de Sintaxis Abstracta (AST) y Poda de Contexto en energy-ml
 
-A lo largo del curso aprendimos a construir y desplegar modelos de Machine Learning y reglas lógicas en ↗ [energy-ml](file:///home/agustin/proyectos_software/proyecto-integrador/data/core/cursos/procesamiento-aprendizaje-automatico/lecciones/cap-1-3-git-clone-proyecto-energy-ml.md). Sin embargo, una pregunta fundamental para todo ingeniero de software e IA es: **¿Cómo interactúan realmente los agentes de código (como AGY CLI, OpenCode o Aider) con repositorios de miles de líneas?**
+A lo largo del curso aprendimos a construir y desplegar modelos de Machine Learning y reglas lógicas en ↗ [energy-ml](/cursos/procesamiento-aprendizaje-automatico/paa-ini-git-clone-proyecto-energy-ml). Sin embargo, una pregunta fundamental para todo ingeniero de software e IA es: **¿Cómo interactúan realmente los agentes de código (como AGY CLI, OpenCode o Aider) con repositorios de miles de líneas?**
 
 La respuesta intuitiva —"el agente lee todos los archivos enteros y se los envía al modelo de lenguaje"— es económicamente inviable y técnicamente errónea. Enviar archivos completos colapsaría la ventana de contexto de los modelos, diluiría la atención del LLM y dispararía facturas exorbitantes en APIs comerciales.
 
