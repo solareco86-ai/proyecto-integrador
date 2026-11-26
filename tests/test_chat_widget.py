@@ -88,3 +88,8 @@ def test_textos_y_controles_salen_de_los_datos(textos: ChatWidgetModel) -> None:
     assert "hidden" in elementos["data-chat-mic"]
     assert elementos["data-chat-messages"]["aria-live"] == "polite"
 
+
+def test_estilos_del_widget_se_incluyen_en_el_bundle() -> None:
+    entrada = (ROOT / "static/css/src/input.css").read_text(encoding="utf-8")
+    assert '@import "../ChatWidget.css";' in entrada
+    assert ".c-chat-widget__panel" in (ROOT / "static/css/index.css").read_text(encoding="utf-8")

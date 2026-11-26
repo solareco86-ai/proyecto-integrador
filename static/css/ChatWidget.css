@@ -1,0 +1,330 @@
+/* ==========================================================================
+   Widget conversacional flotante (Epic #144, FE 4.1)
+   Componente autocontenido: todas las clases usan el prefijo c-chat-widget
+   y las variables propias --chat-*, para no afectar ni depender del resto
+   del sitio. Tema claro por defecto y oscuro según la preferencia del
+   sistema, con la misma convención que sistema.css (data-tema="claro").
+   ========================================================================== */
+
+.c-chat-widget {
+    --chat-primary: var(--dm-data-cyan, #0284c7);
+    --chat-primary-hover: #0369a1;
+    --chat-on-primary: #ffffff;
+    --chat-header-bg: var(--dm-bg-0, #0a192f);
+    --chat-header-text: #f8fafc;
+    --chat-bg: #eef2f6;
+    --chat-surface: #ffffff;
+    --chat-text: #10202f;
+    --chat-muted: #4f5f6c;
+    --chat-border: rgba(16, 32, 47, .14);
+    --chat-bubble-bot: #ffffff;
+    --chat-bubble-user: #d4ecfb;
+    --chat-focus: rgba(2, 132, 199, .9);
+    --chat-shadow: 0 1.25rem 2.5rem rgba(10, 25, 47, .28);
+    --chat-radius: 1rem;
+    --chat-gap: .75rem;
+    --chat-bottom: calc(var(--fab-offset, 1.5rem) + env(safe-area-inset-bottom, 0px));
+    font-family: var(--ui-font-family-base, system-ui, sans-serif);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-tema="claro"]) .c-chat-widget {
+        --chat-primary: #38bdf8;
+        --chat-primary-hover: #7dd3fc;
+        --chat-on-primary: #0a192f;
+        --chat-header-bg: #071326;
+        --chat-bg: #0a192f;
+        --chat-surface: #112240;
+        --chat-text: #f8fafc;
+        --chat-muted: #b8c4cc;
+        --chat-border: rgba(248, 250, 252, .16);
+        --chat-bubble-bot: #1a345d;
+        --chat-bubble-user: #0c4a6e;
+        --chat-focus: rgba(56, 189, 248, .95);
+    }
+}
+
+.c-chat-widget [hidden] {
+    display: none !important;
+}
+
+.c-chat-widget__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* --- Botón flotante ------------------------------------------------------ */
+.c-chat-widget__fab {
+    position: fixed;
+    right: 1.5rem;
+    bottom: var(--chat-bottom);
+    z-index: var(--z-index-whatsapp, 1030);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0;
+    color: var(--chat-on-primary);
+    background-color: var(--chat-primary);
+    border: none;
+    border-radius: 9999px;
+    box-shadow: var(--chat-shadow);
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease;
+}
+
+.c-chat-widget__fab:hover {
+    background-color: var(--chat-primary-hover);
+    transform: translateY(-2px);
+}
+
+.c-chat-widget__fab:active {
+    transform: scale(.95);
+}
+
+.c-chat-widget__fab-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.c-chat-widget.is-open .c-chat-widget__fab {
+    display: none;
+}
+
+/* --- Ventana ------------------------------------------------------------- */
+.c-chat-widget__panel {
+    position: fixed;
+    right: 1.5rem;
+    bottom: var(--chat-bottom);
+    z-index: calc(var(--z-index-dock, 1045) + 1);
+    display: flex;
+    flex-direction: column;
+    width: min(24rem, calc(100vw - 3rem));
+    height: min(36rem, calc(100vh - var(--chat-bottom) - 2rem));
+    overflow: hidden;
+    color: var(--chat-text);
+    background-color: var(--chat-bg);
+    border: 1px solid var(--chat-border);
+    border-radius: var(--chat-radius);
+    box-shadow: var(--chat-shadow);
+}
+
+.c-chat-widget__header {
+    display: flex;
+    align-items: center;
+    gap: var(--chat-gap);
+    padding: .75rem 1rem;
+    color: var(--chat-header-text);
+    background-color: var(--chat-header-bg);
+}
+
+.c-chat-widget__avatar {
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 9999px;
+}
+
+.c-chat-widget__heading {
+    flex: 1;
+    min-width: 0;
+}
+
+.c-chat-widget__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: inherit;
+}
+
+.c-chat-widget__subtitle {
+    margin: 0;
+    font-size: .8rem;
+    line-height: 1.3;
+    opacity: .8;
+}
+
+.c-chat-widget__close {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+}
+
+.c-chat-widget__close:hover {
+    background-color: rgba(248, 250, 252, .14);
+}
+
+/* --- Mensajes ------------------------------------------------------------ */
+.c-chat-widget__messages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.c-chat-widget__bubble {
+    max-width: 85%;
+    margin: 0;
+    padding: .55rem .8rem;
+    font-size: .925rem;
+    line-height: 1.45;
+    color: var(--chat-text);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    border-radius: .9rem;
+    box-shadow: 0 1px 1px rgba(10, 25, 47, .12);
+}
+
+.c-chat-widget__bubble--bot {
+    align-self: flex-start;
+    background-color: var(--chat-bubble-bot);
+    border-bottom-left-radius: .25rem;
+}
+
+.c-chat-widget__bubble--user {
+    align-self: flex-end;
+    background-color: var(--chat-bubble-user);
+    border-bottom-right-radius: .25rem;
+}
+
+.c-chat-widget__notice {
+    margin: 0;
+    padding: .4rem 1rem;
+    font-size: .72rem;
+    line-height: 1.35;
+    color: var(--chat-muted);
+    text-align: center;
+}
+
+/* --- Área de escritura --------------------------------------------------- */
+.c-chat-widget__composer {
+    display: flex;
+    align-items: flex-end;
+    gap: .5rem;
+    padding: .75rem;
+    background-color: var(--chat-surface);
+    border-top: 1px solid var(--chat-border);
+}
+
+.c-chat-widget__input {
+    flex: 1;
+    min-height: 2.5rem;
+    max-height: 7.5rem;
+    padding: .55rem .8rem;
+    font: inherit;
+    font-size: .95rem;
+    line-height: 1.4;
+    color: var(--chat-text);
+    background-color: var(--chat-bg);
+    border: 1px solid var(--chat-border);
+    border-radius: 1.25rem;
+    resize: none;
+}
+
+.c-chat-widget__input::placeholder {
+    color: var(--chat-muted);
+    opacity: 1;
+}
+
+.c-chat-widget__action {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    font-size: 1.05rem;
+    color: var(--chat-on-primary);
+    background-color: var(--chat-primary);
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+}
+
+.c-chat-widget__action:hover {
+    background-color: var(--chat-primary-hover);
+}
+
+.c-chat-widget__action:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+}
+
+/* --- Foco visible -------------------------------------------------------- */
+.c-chat-widget__fab:focus-visible,
+.c-chat-widget__close:focus-visible,
+.c-chat-widget__action:focus-visible,
+.c-chat-widget__messages:focus-visible {
+    outline: 3px solid var(--chat-focus);
+    outline-offset: 2px;
+}
+
+.c-chat-widget__input:focus-visible {
+    outline: 2px solid var(--chat-focus);
+    outline-offset: 0;
+}
+
+/* --- Convivencia con otros elementos flotantes --------------------------- */
+body.has-consent-banner .c-chat-widget__fab {
+    bottom: calc(var(--chat-bottom) + var(--cookie-banner-height, 6rem) + .75rem);
+}
+
+body.dmq-offcanvas-open .c-chat-widget,
+body.offcanvas-open .c-chat-widget {
+    visibility: hidden;
+}
+
+/* --- Móvil: botón sobre el dock y ventana a pantalla completa ------------ */
+@media (max-width: 767.98px) {
+    .c-chat-widget__fab {
+        right: 1rem;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+    }
+
+    .c-chat-widget__panel {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        height: 100dvh;
+        border: none;
+        border-radius: 0;
+    }
+
+    .c-chat-widget__header {
+        padding-top: calc(.75rem + env(safe-area-inset-top, 0px));
+    }
+
+    .c-chat-widget__composer {
+        padding-bottom: calc(.75rem + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .c-chat-widget__fab {
+        transition: none;
+    }
+}

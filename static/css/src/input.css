@@ -312,6 +312,7 @@ img {
    ========================================================================== */
 @import "../CookieBanner.css";
 @import "../WhatsappFab.css";
+@import "../ChatWidget.css";
 @import "../useContactPageActions.css";
 @import "../LegalPage.css";
 @import "../cursos.css";
