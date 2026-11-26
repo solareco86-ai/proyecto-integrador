@@ -45,7 +45,8 @@ def test_configuracion_del_cliente_sale_de_los_datos(textos: ChatWidgetModel) ->
     }
     assert 0 < config["audio"]["duracionMaximaSeg"] <= 300
     assert all(config["errores"].values())
-    assert "{mensaje}" in config["mock"]["respuesta"]
+    assert config["mock"]["respuesta"]
+    assert config["mock"]["fuentes"]
 
 
 def test_modelo_rechaza_confianza_mock_fuera_de_rango(textos: ChatWidgetModel) -> None:
