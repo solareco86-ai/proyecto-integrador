@@ -1,5 +1,7 @@
 """Pruebas de la plantilla del widget conversacional flotante (FE 4.1, issue #145)."""
 
+import json
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
@@ -93,3 +95,11 @@ def test_estilos_del_widget_se_incluyen_en_el_bundle() -> None:
     entrada = (ROOT / "static/css/src/input.css").read_text(encoding="utf-8")
     assert '@import "../ChatWidget.css";' in entrada
     assert ".c-chat-widget__panel" in (ROOT / "static/css/index.css").read_text(encoding="utf-8")
+
+
+def test_configuracion_del_cliente_se_serializa_en_la_plantilla(textos: ChatWidgetModel) -> None:
+    html = _renderizar(textos)
+    bloque = re.search(r'<script type="application/json" data-chat-config>(.*?)</script>', html, re.S)
+
+    assert bloque is not None
+    assert json.loads(bloque.group(1)) == textos.configuracion_cliente()
