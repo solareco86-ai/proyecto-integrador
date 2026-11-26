@@ -18,6 +18,7 @@ from src.application.dtos import (
     BrandModel,
     CarrerasContainerModel,
     CasoModel,
+    ChatWidgetModel,
     ContentModel,
     CourseModel,
     FooterModel,
@@ -141,6 +142,7 @@ def run_validation(data_dir: str, fix_mode: bool) -> bool:
     targets: list[tuple[str, type[Any]]] = [
         (os.path.join(data_dir, "config", "brand.yaml"), BrandModel),
         (os.path.join(data_dir, "config", "footer.yaml"), FooterModel),
+        (os.path.join(data_dir, "config", "chat_widget.yaml"), ChatWidgetModel),
         (os.path.join(data_dir, "content", "carreras.yaml"), CarrerasContainerModel),
         (os.path.join(data_dir, "content", "home_sections.yaml"), ContentModel),
         (os.path.join(data_dir, "content", "legal.yaml"), LegalPagesModel),

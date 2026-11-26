@@ -1,5 +1,10 @@
 """Data Transfer Objects (DTOs) de la capa de Aplicación basados en Pydantic."""
 
+from src.application.dtos.chat_widget_dto import (
+    ChatWidgetAvatarModel,
+    ChatWidgetEtiquetasModel,
+    ChatWidgetModel,
+)
 from src.application.dtos.content_dto import (
     AboutModel,
     AssistanceModeModel,
@@ -78,6 +83,10 @@ __all__ = [
     "SubitemPresupuestoDTO",
     "ItemDescuentoDTO",
     "PresupuestoCalculadoDTO",
+    # Widget conversacional
+    "ChatWidgetAvatarModel",
+    "ChatWidgetEtiquetasModel",
+    "ChatWidgetModel",
     # Content & Brand
     "PhotoModel",
     "TechnicianModel",
