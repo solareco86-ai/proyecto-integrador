@@ -21,7 +21,6 @@
             {% import 'partials/components/profile.html' as profile_macro %}
             {% import 'partials/components/dock.html' as dock_macro %}
             {% import 'partials/components/hero.html' as hero_macro %}
-            {% import 'partials/components/whatsapp_fab.html' as whatsapp_macro %}
             {% import 'partials/components/cookie_banner.html' as cookie_banner_macro %}
             {% import 'partials/components/icon.html' as icon_macro %}
             {% import 'partials/components/section_wrapper.html' as section_wrapper_macro %}
@@ -43,9 +42,7 @@
                 {{ hero_macro.hero(request, content.hero) }}
             {% elif 'chat_widget' in partial_name %}
                 {% import 'partials/components/chat_widget.html' as chat_widget_macro %}
-                {{ chat_widget_macro.chat_widget(chat_widget_textos(), abierto=('cerrado' not in partial_name)) }}
-            {% elif 'whatsapp_fab' in partial_name %}
-                {{ whatsapp_macro.whatsapp_fab(config.WHATSAPP_PHONE, config.WHATSAPP_MESSAGE) }}
+                {{ chat_widget_macro.chat_widget(chat_widget_textos(), contacto=chat_widget_contacto(), abierto=('cerrado' not in partial_name)) }}
             {% elif 'cookie_banner' in partial_name %}
                 {{ cookie_banner_macro.cookie_banner(content.cookie_banner) }}
             {% elif 'dock' in partial_name %}

@@ -114,13 +114,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // 4. Tracking & Notificaciones WhatsApp (GA4, Google Ads y Notificación Backend a Telegram)
     try {
         /** @type {NodeListOf<HTMLAnchorElement>} */
-        const whatsappElements = document.querySelectorAll('a[href*="wa.me"], .c-whatsapp-fab');
+        const whatsappElements = document.querySelectorAll('a[href*="wa.me"]');
         whatsappElements.forEach((el) => {
             el.addEventListener('click', () => {
                 // Determinar el botón / elemento específico presionado
                 let elementName = 'Botón WhatsApp';
-                if (el.classList.contains('c-whatsapp-fab') || el.closest('.c-whatsapp-fab')) {
-                    elementName = 'Botón Flotante (FAB)';
+                if (el.closest('.c-chat-widget')) {
+                    elementName = 'Widget de chat (contacto humano)';
                 } else if (el.closest('.c-hero') || el.closest('.hero') || el.closest('[data-section="hero"]')) {
                     elementName = 'Hero CTA (Portada / Encabezado)';
                 } else if (el.closest('.c-contact') || window.location.pathname.includes('/contact')) {

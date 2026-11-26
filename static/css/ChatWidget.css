@@ -300,6 +300,21 @@
     text-align: center;
 }
 
+.c-chat-widget__contact {
+    display: block;
+    padding: 0 1rem .45rem;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--chat-primary);
+    text-align: center;
+    text-decoration: underline;
+}
+
+.c-chat-widget__contact:focus-visible {
+    outline: 3px solid var(--chat-focus);
+    outline-offset: 2px;
+}
+
 /* --- Área de escritura --------------------------------------------------- */
 .c-chat-widget__composer {
     display: flex;

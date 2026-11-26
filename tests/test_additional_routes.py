@@ -341,21 +341,26 @@ async def test_sitemap_excludes_hidden_monitoreo():
 
 
 @pytest.mark.asyncio  # type: ignore
-async def test_whatsapp_fab_widget_disabled_by_default(monkeypatch: pytest.MonkeyPatch):
+async def test_widget_de_chat_ofrece_correo_y_whatsapp_solo_si_esta_habilitado(monkeypatch: pytest.MonkeyPatch):
+    """El widget conversacional reemplazó al botón de WhatsApp (FE 4.5, #149)."""
     transport = ASGITransport(app=app)
     target_url = "/cursos/procesamiento-aprendizaje-automatico/paa-ini-debate-terminal-o-agentes-ia"
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response = await ac.get(target_url)
 
     assert response.status_code == 200
+    assert 'data-component="chat-widget"' in response.text
     assert "c-whatsapp-fab" not in response.text
+    # Por defecto (número institucional en trámite) se ofrece el correo protegido, no WhatsApp.
+    assert "c-chat-widget__contact js-email-protect" in response.text
+    assert "wa.me/" not in response.text
 
-    # Si se activa explícitamente con un número real, el widget se renderiza
+    # Si se activa explícitamente con un número real, el chat ofrece WhatsApp
     from src.infrastructure.settings import config
+
     monkeypatch.setattr(config, "WHATSAPP_ENABLED", True)
     monkeypatch.setattr(config, "WHATSAPP_PHONE", "5491112345678")
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         response_enabled = await ac.get(target_url)
     assert response_enabled.status_code == 200
-    assert "c-whatsapp-fab" in response_enabled.text
-
+    assert "https://wa.me/5491112345678?text=" in response_enabled.text
