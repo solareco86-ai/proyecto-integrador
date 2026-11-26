@@ -2,7 +2,7 @@
 
 Chat flotante estilo WhatsApp con el que el público consulta sobre el instituto por **texto** o por **nota de voz**. Es el frontend del Epic #144 (iniciativa #150). El motor que responde lo desarrollan los estudiantes de *Técnicas de Procesamiento del Habla* en los Epics #129, #134 y #139.
 
-Mientras ese motor no exista, el widget funciona en **modo mock**: responde con textos de prueba y no llama al servidor.
+Mientras ese motor no exista, el widget funciona en **modo mock**: no llama al servidor y responde con un aviso de que el asistente está en desarrollo, con enlaces a la oferta académica y a Secretaría.
 
 ## Dónde está cada cosa
 
@@ -47,7 +47,7 @@ Mientras ese motor no exista, el widget funciona en **modo mock**: responde con 
 | `api.baseUrl`, `api.timeoutTextoMs`, `api.timeoutAudioMs` | Conexión con el motor. |
 | `api.mock` | `true`: respuestas simuladas sin llamar al servidor. **Pasar a `false` cuando el backend esté disponible (#130).** |
 | `errores.*` | Mensaje para el público por cada tipo de error (red, timeout, servidor, validación, audio vacío, respuesta inválida, permiso de micrófono denegado, sin micrófono, grabación no disponible). |
-| `mock.*` | Respuesta, transcripción, intención, fuentes, confianza y demora simuladas. `{mensaje}` se reemplaza por la consulta. |
+| `mock.*` | Respuesta, transcripción, intención, fuentes, confianza y demora del modo mock. **El público ve estos textos**, así que no deben sonar a prueba técnica. Si la respuesta incluye `{mensaje}`, se reemplaza por la consulta. |
 
 **WhatsApp:** el enlace de contacto se controla con las variables de entorno `WHATSAPP_ENABLED`, `WHATSAPP_PHONE` y `WHATSAPP_MESSAGE` (ver `src/infrastructure/settings/config.py`). Mientras el número institucional siga en trámite, `WHATSAPP_ENABLED` queda en `False` y el chat ofrece el correo de Secretaría.
 
@@ -76,7 +76,11 @@ Sobrescribir el bloque vacío en la plantilla de esa página:
 
 El botón de micrófono solo aparece si el navegador tiene `MediaRecorder` y `getUserMedia`, y si la cabecera `Permissions-Policy` del sitio permite el micrófono.
 
-⚠️ **Producción hoy lo bloquea.** El nginx del VPS envía `permissions-policy: geolocation=(), microphone=(), camera=(), payment=()`. Esa configuración no está en este repositorio. Para habilitar las notas de voz hay que cambiar `microphone=()` por `microphone=(self)` en la configuración de nginx de `isftn199.com.ar`, siguiendo las reglas de operación de [ops.md](ops.md). Mientras tanto, el widget ofrece solo texto. En dev funciona.
+En producción, las cabeceras de seguridad las agrega nginx en el VPS (no están en este repositorio). `isftn199.com.ar` envía `permissions-policy: geolocation=(), microphone=(self), camera=(), payment=()`, que permite el micrófono solo al propio sitio.
+
+- Esa cabecera sale de `/etc/nginx/snippets/security-headers-isftn199.conf`: una copia del snippet común `/etc/nginx/conf.d/security-headers-common.conf`, que comparten otros sitios del VPS y bloquea el micrófono. **Si cambia el snippet común, hay que replicar el cambio en el de isftn199.**
+- `dev.isftn199.com.ar` no envía `Permissions-Policy`, así que ahí el micrófono funciona por defecto.
+- Para cualquier cambio en el VPS, seguir las reglas de operación de [ops.md](ops.md).
 
 ## Ver y probar en local
 
@@ -103,5 +107,4 @@ En `127.0.0.1` el navegador permite el micrófono porque lo considera un context
 ## Limitaciones conocidas
 
 - Si alguien cambia de página mientras espera una respuesta, esa respuesta se pierde (su consulta queda en el historial).
-- El widget responde en modo mock hasta que el backend implemente el contrato (#130).
-- Sin cambiar la `Permissions-Policy` de producción, no hay notas de voz en `isftn199.com.ar`.
+- El widget responde en modo mock hasta que el backend implemente el contrato (#130). En ese modo, la nota de voz no se transcribe: se muestra el texto de `mock.transcripcion`.

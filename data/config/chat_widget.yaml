@@ -56,12 +56,14 @@ errores:
   sinMicrofono: "No encontramos un micrófono en este dispositivo. Podés escribir tu consulta."
   noDisponible: "La grabación de voz no está disponible en este navegador. Podés escribir tu consulta."
 
-# Respuestas simuladas del modo mock. {mensaje} se reemplaza por la consulta.
+# Respuestas del modo mock, que el público ve mientras el motor no esté conectado.
+# Si el texto incluye {mensaje}, se reemplaza por la consulta.
 mock:
-  respuesta: "Modo de prueba: recibí tu consulta «{mensaje}». Cuando el motor de respuestas esté conectado, acá vas a ver la respuesta real."
-  transcripcion: "Transcripción de prueba de la nota de voz."
+  respuesta: "¡Gracias por tu consulta! Este asistente todavía está en desarrollo y por ahora no puede responder preguntas. Mientras tanto, en los enlaces de abajo encontrás la oferta académica y cómo comunicarte con Secretaría."
+  transcripcion: "Nota de voz recibida (todavía no podemos transcribirla)."
   intencion: "mock"
   fuentes:
     - "/carreras"
+    - "/contact"
   confianza: 1
   demoraMs: 600
