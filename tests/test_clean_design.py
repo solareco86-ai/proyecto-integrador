@@ -392,6 +392,11 @@ def scan_clean_design(
 _KNOWN_MICRO_FILES: frozenset[str] = frozenset(
     {
         "src/application/gateways/telemetry_planes_gateway.py",
+        "src/application/gateways/nlp_gateway.py",
+        "src/domain/conversacion/consulta.py",
+        "src/domain/conversacion/respuesta.py",
+        "src/domain/conversacion/texto_analizado.py",
+        "src/domain/conversacion/token.py",
         "src/domain/entities/lead.py",
         "src/domain/value_objects/price.py",
         "src/domain/value_objects/lead_submission_result.py",
