@@ -1,0 +1,12 @@
+status: "ok"
+modules:
+  nlp_normalization: true
+  intent_classification: true
+  speech_recognition: false
+  information_retrieval: false
+mock_response:
+  reply: "¡Hola! Soy el asistente virtual del ISFT N° 199. El instituto ofrece tecnicaturas superiores públicas y gratuitas en Ciencia de Datos e IA, Logística, Higiene y Seguridad, Recursos Humanos, Turismo y Hotelería. ¿Sobre qué carrera o trámite te gustaría consultar?"
+  intent: "informacion_general"
+  sources:
+    - "/carreras"
+  confidence: 1.0

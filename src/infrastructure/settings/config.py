@@ -150,3 +150,6 @@ def _get_git_commit_sha(root: Path = _PROJECT_ROOT) -> str:
 
 GIT_COMMIT_SHA = _get_git_commit_sha()
 
+
+# Widget conversacional del sitio (Eje 1)
+CHAT_MAX_MESSAGE_LENGTH = int(os.getenv('CHAT_MAX_MESSAGE_LENGTH', '1000'))
