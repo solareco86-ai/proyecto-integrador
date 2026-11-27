@@ -1,0 +1,80 @@
+# Intenciones del motor conversacional y sus respuestas — Eje 1.3.
+#
+# Cada intención puede definir hasta tres plantillas, que se eligen según las
+# entidades detectadas en la consulta:
+#   reply_anio    -> la consulta menciona un año de cursada
+#   reply_carrera -> la consulta menciona una carrera
+#   reply         -> consulta general
+# Si la plantilla que corresponde no existe, el motor deriva a Secretaría en
+# lugar de inventar información (AGENTS.md §7.5).
+#
+# Variables disponibles:
+#   {title}, {slug}, {duracion}, {modalidad}, {turno}, {titulo_otorgado},
+#   {resolucion}, {materias_destacadas}  -> de data/content/carreras.yaml
+#   {lista_carreras}                     -> títulos de data/content/carreras.yaml
+#   {email}                              -> contactEmail de data/config/brand.yaml
+# Los textos generales replican las respuestas oficiales publicadas en
+# data/content/home_sections.yaml (preguntas frecuentes e ingreso).
+
+umbral_confianza: 0.6
+
+derivacion:
+  reply: "No tengo ese dato confirmado en la información oficial del sitio, así que prefiero no darte una respuesta equivocada. Podés consultarlo con Secretaría escribiendo a {email}."
+  sources:
+    - "/contact"
+
+fuera_de_dominio:
+  reply: "No pude entender bien tu consulta. Puedo ayudarte con las carreras del ISFT N° 199, la inscripción, los horarios, el plan de estudios y la sede. Si preferís, también podés escribir a Secretaría: {email}."
+  sources:
+    - "/carreras"
+
+intenciones:
+  saludo:
+    reply: "¡Hola! Soy el asistente virtual del ISFT N° 199. ¿Querés saber sobre alguna carrera, la inscripción o los horarios?"
+    sources: ["/"]
+
+  info_carrera:
+    reply: "El instituto ofrece estas tecnicaturas superiores, públicas y gratuitas: {lista_carreras}. ¿Sobre cuál te gustaría saber más?"
+    sources: ["/carreras"]
+    reply_carrera: "La {title} dura {duracion}, es de modalidad {modalidad} y se cursa en turno {turno}. Otorga el título de {titulo_otorgado} ({resolucion})."
+    sources_carrera: ["/carreras/{slug}"]
+
+  plan_estudios:
+    reply: "¿De qué carrera querés conocer las materias? Las opciones son: {lista_carreras}."
+    sources: ["/carreras"]
+    reply_carrera: "Algunas materias destacadas de la {title} son: {materias_destacadas}."
+    sources_carrera: ["/carreras/{slug}"]
+    # Sin reply_anio: el sitio no publica el plan desglosado por año -> deriva.
+
+  duracion:
+    reply: "¿De qué carrera querés saber la duración? Las opciones son: {lista_carreras}."
+    sources: ["/carreras"]
+    reply_carrera: "La {title} dura {duracion}."
+    sources_carrera: ["/carreras/{slug}"]
+
+  horarios:
+    reply: "El horario de cursada es vespertino, de lunes a viernes de 18:00 a 22:30 hs, pensado para compatibilizar trabajo y estudio."
+    sources: ["/"]
+    reply_carrera: "La {title} se cursa en turno {turno}."
+    sources_carrera: ["/carreras/{slug}"]
+
+  inscripcion:
+    reply: "Para inscribirte necesitás secundario completo (o constancia de título en trámite), fotocopia de DNI vigente y la planilla de inscripción. Podés empezar completando el formulario de consulta del sitio."
+    sources: ["/", "/contact"]
+    reply_carrera: "Para inscribirte en la {title} necesitás secundario completo (o constancia de título en trámite), fotocopia de DNI vigente y la planilla de inscripción. Podés empezar completando el formulario de consulta del sitio."
+    sources_carrera: ["/carreras/{slug}", "/contact"]
+
+  sedes:
+    reply: "La sede está ubicada en Maestra Celina Voena 1750, El Talar, Tigre. Cuenta con acceso rápido desde Panamericana y varias líneas de colectivos."
+    sources: ["/"]
+
+  costos:
+    reply: "Todas las tecnicaturas del ISFT N° 199 son públicas y 100 % gratuitas: no se cobra matrícula ni cuota."
+    sources: ["/"]
+    reply_carrera: "La {title} es pública y 100 % gratuita: no se cobra matrícula ni cuota."
+    sources_carrera: ["/carreras/{slug}"]
+
+  # Sin datos publicados en data/: siempre derivan a Secretaría.
+  correlatividades: {}
+  mesas_examen: {}
+  becas: {}
