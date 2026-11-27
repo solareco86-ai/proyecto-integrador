@@ -24,7 +24,7 @@ El **Instituto Superior de Formación Técnica N° 199 de Tigre** es una institu
 
 ## 2. Oferta Académica Oficial (Catálogo de Tecnicaturas)
 
-La institución ofrece 6 tecnicaturas superiores diseñadas en articulación directa con el entorno socio-productivo:
+La institución ofrece 6 tecnicaturas superiores diseñadas en articulación directa con el entorno socio-productivo. El catálogo y sus resoluciones se mantienen en [data/content/carreras.yaml](../data/content/carreras.yaml), fuente de verdad para esta sección:
 
 1. **Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial (Res. 2730/22):** Formación en programación Python, pipelines de datos, machine learning, deep learning y gobierno ético del dato.
 2. **Tecnicatura Superior en Logística (Res. 5312/24):** Gestión integral de suministros, centros de almacenamiento, distribución física y comercio exterior.
