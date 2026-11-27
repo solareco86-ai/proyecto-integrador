@@ -1,13 +1,14 @@
 """Pruebas del primer work unit de asignación de aulas."""
 
 import csv
+from datetime import time
 from pathlib import Path
 
 from src.adapters.classroom_assignment.csv_reader import read_csv_rows
 from src.application.use_cases.classroom_assignment.validate_input_data import (
     ValidateInputDataUseCase,
 )
-from src.domain.classroom_assignment.validation import validate_aulas, validate_comisiones
+from src.domain.classroom_assignment.validation import ScheduleRules, validate_aulas, validate_comisiones
 
 DATA_DIR = Path(__file__).parents[1] / "data" / "asignacion_aulas"
 
@@ -88,4 +89,57 @@ def test_rechaza_hora_con_formato_invalido() -> None:
     result = validate_comisiones(rows)
 
     assert any(issue.code == "invalid_time" and issue.field == "hora_inicio" for issue in result.issues)
+
+
+def test_permite_el_inicio_del_turno_institucional() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["hora_inicio"] = "18:00"
+
+    result = validate_comisiones(rows)
+
+    assert not any(issue.code == "outside_schedule" for issue in result.issues)
+
+
+def test_permite_el_fin_del_turno_institucional() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["hora_fin"] = "22:30"
+
+    result = validate_comisiones(rows)
+
+    assert not any(issue.code == "outside_schedule" for issue in result.issues)
+
+
+def test_aplica_un_rango_horario_especifico_de_una_sede() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["hora_inicio"] = "18:00"
+    rows[0]["hora_fin"] = "21:41"
+    synthetic_schedule = ScheduleRules(
+        hora_inicio_minima=time(18, 30),
+        hora_fin_maxima=time(21, 40),
+    )
+
+    result = validate_comisiones(rows, synthetic_schedule)
+
+    assert {issue.field for issue in result.issues if issue.code == "outside_schedule"} == {
+        "hora_inicio",
+        "hora_fin",
+    }
+
+
+def test_rechaza_horario_posterior_al_turno_institucional() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["hora_fin"] = "22:31"
+
+    result = validate_comisiones(rows)
+
+    assert any(issue.code == "outside_schedule" and issue.field == "hora_fin" for issue in result.issues)
+
+
+def test_rechaza_dia_fuera_del_turno_semanal() -> None:
+    rows = _read_csv("comisiones.csv")
+    rows[0]["dia"] = "Sábado"
+
+    result = validate_comisiones(rows)
+
+    assert any(issue.code == "invalid_day" and issue.field == "dia" for issue in result.issues)
 

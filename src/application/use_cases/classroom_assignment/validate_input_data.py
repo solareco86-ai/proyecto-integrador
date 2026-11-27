@@ -5,6 +5,8 @@ from dataclasses import dataclass
 
 from src.domain.classroom_assignment.entities import Aula, Comision
 from src.domain.classroom_assignment.validation import (
+    DEFAULT_SCHEDULE_RULES,
+    ScheduleRules,
     ValidationIssue,
     validate_aulas,
     validate_comisiones,
@@ -32,10 +34,11 @@ class ValidateInputDataUseCase:
         self,
         aulas_rows: Iterable[Mapping[str, str | None]],
         comisiones_rows: Iterable[Mapping[str, str | None]],
+        schedule_rules: ScheduleRules = DEFAULT_SCHEDULE_RULES,
     ) -> ValidateInputDataResult:
         """Valida filas previamente leídas desde archivos tabulares."""
         aulas_result = validate_aulas(aulas_rows)
-        comisiones_result = validate_comisiones(comisiones_rows)
+        comisiones_result = validate_comisiones(comisiones_rows, schedule_rules)
         return ValidateInputDataResult(
             aulas=aulas_result.aulas,
             comisiones=comisiones_result.comisiones,

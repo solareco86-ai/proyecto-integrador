@@ -11,6 +11,20 @@ from datetime import datetime, time
 
 from src.domain.classroom_assignment.entities import Aula, Comision
 
+DEFAULT_VALID_DAYS: frozenset[str] = frozenset(("Lunes", "Martes", "Miércoles", "Jueves", "Viernes"))
+
+
+@dataclass(frozen=True)
+class ScheduleRules:
+    """Reglas configurables del turno en una sede educativa."""
+
+    valid_days: frozenset[str] = DEFAULT_VALID_DAYS
+    hora_inicio_minima: time = time(18, 0)
+    hora_fin_maxima: time = time(22, 30)
+
+
+DEFAULT_SCHEDULE_RULES = ScheduleRules()
+
 REQUIRED_AULA_FIELDS: tuple[str, ...] = (
     "id_aula",
     "nombre",
@@ -102,7 +116,10 @@ def validate_aulas(rows: Iterable[Mapping[str, str | None]]) -> AulasValidationR
     return AulasValidationResult(aulas=tuple(aulas), issues=tuple(issues))
 
 
-def validate_comisiones(rows: Iterable[Mapping[str, str | None]]) -> ComisionesValidationResult:
+def validate_comisiones(
+    rows: Iterable[Mapping[str, str | None]],
+    schedule_rules: ScheduleRules = DEFAULT_SCHEDULE_RULES,
+) -> ComisionesValidationResult:
     """Valida filas de comisiones y construye las entidades válidas."""
     rows_list: list[Mapping[str, str | None]] = list(rows)
     issues: list[ValidationIssue] = _validate_headers(rows_list, REQUIRED_COMISION_FIELDS)
@@ -112,7 +129,7 @@ def validate_comisiones(rows: Iterable[Mapping[str, str | None]]) -> ComisionesV
     comisiones: list[Comision] = []
     seen_session_ids: set[str] = set()
     for row_number, row in enumerate(rows_list, start=2):
-        comision, row_issues = _validate_comision_row(row, row_number, seen_session_ids)
+        comision, row_issues = _validate_comision_row(row, row_number, seen_session_ids, schedule_rules)
         if comision is None:
             issues.extend(row_issues)
             continue
@@ -123,7 +140,10 @@ def validate_comisiones(rows: Iterable[Mapping[str, str | None]]) -> ComisionesV
 
 
 def _validate_comision_row(
-    row: Mapping[str, str | None], row_number: int, seen_session_ids: set[str]
+    row: Mapping[str, str | None],
+    row_number: int,
+    seen_session_ids: set[str],
+    schedule_rules: ScheduleRules,
 ) -> tuple[Comision | None, list[ValidationIssue]]:
     row_issues: list[ValidationIssue] = []
     values = {field: _value(row, field) for field in ("id_comision", "id_sesion", "materia", "carrera", "dia")}
@@ -133,9 +153,28 @@ def _validate_comision_row(
 
     for field in values:
         _check_required_text(row, field, row_number, row_issues)
+    _check_allowed_day(values["dia"], row_number, row_issues, schedule_rules)
     if hora_inicio is not None and hora_fin is not None and hora_inicio >= hora_fin:
         row_issues.append(
             ValidationIssue(row_number, "hora_fin", "invalid_interval", "La hora de fin debe ser posterior a la hora de inicio.")
+        )
+    if hora_inicio is not None and hora_inicio < schedule_rules.hora_inicio_minima:
+        row_issues.append(
+            ValidationIssue(
+                row_number,
+                "hora_inicio",
+                "outside_schedule",
+                "La hora de inicio está fuera del turno configurado.",
+            )
+        )
+    if hora_fin is not None and hora_fin > schedule_rules.hora_fin_maxima:
+        row_issues.append(
+            ValidationIssue(
+                row_number,
+                "hora_fin",
+                "outside_schedule",
+                "La hora de fin está fuera del turno configurado.",
+            )
         )
     if values["id_sesion"] and values["id_sesion"] in seen_session_ids:
         row_issues.append(
@@ -183,6 +222,20 @@ def _check_required_text(
 ) -> None:
     if not _value(row, field):
         issues.append(ValidationIssue(row_number, field, "required", "El campo es obligatorio."))
+
+
+def _check_allowed_day(
+    day: str, row_number: int, issues: list[ValidationIssue], schedule_rules: ScheduleRules
+) -> None:
+    if day and day not in schedule_rules.valid_days:
+        issues.append(
+            ValidationIssue(
+                row_number,
+                "dia",
+                "invalid_day",
+                "El día debe ser de lunes a viernes.",
+            )
+        )
 
 
 def _positive_integer(

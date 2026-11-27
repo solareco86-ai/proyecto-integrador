@@ -1,10 +1,13 @@
 """Pruebas de asignación automática mediante matching."""
 
 import csv
+from datetime import time
 from pathlib import Path
+from time import perf_counter
 
 from src.application.use_cases.classroom_assignment.assign_rooms import AssignRoomsUseCase
 from src.application.use_cases.classroom_assignment.validate_input_data import ValidateInputDataUseCase
+from src.domain.classroom_assignment.assignment import MatchingConfig
 from src.domain.classroom_assignment.entities import Aula, Comision
 
 DATA_DIR = Path(__file__).parents[1] / "data" / "asignacion_aulas"
@@ -90,3 +93,44 @@ def test_matching_resuelve_dos_comisiones_que_comparten_alternativas() -> None:
 
     assert result.is_complete
     assert len({item.id_aula for item in result.assignments}) == 2
+
+
+def test_matching_no_reutiliza_aula_en_superposiciones_parciales() -> None:
+    aulas = (
+        Aula("A001", "Aula 1", 30, "Sede Principal"),
+        Aula("A002", "Aula 2", 30, "Sede Principal"),
+    )
+    primera = Comision("C100", "S100", "Materia A", "Carrera", 20, "Lunes", time(18, 30), time(20, 0))
+    segunda = Comision("C101", "S101", "Materia B", "Carrera", 20, "Lunes", time(19, 0), time(21, 0))
+
+    result = AssignRoomsUseCase().execute((primera, segunda), aulas)
+
+    assert result.is_complete
+    assert len({item.id_aula for item in result.assignments}) == 2
+
+
+def test_matching_acotado_informa_solucion_aproximada_en_saturacion() -> None:
+    aulas = tuple(Aula(f"A{i:03}", f"Aula {i}", 30, "Sede Principal") for i in range(4))
+    comisiones = tuple(
+        Comision(
+            f"C{i:03}",
+            f"S{i:03}",
+            f"Materia {i}",
+            "Carrera",
+            20,
+            "Lunes",
+            time(18, 30),
+            time(21, 30),
+        )
+        for i in range(20)
+    )
+    config = MatchingConfig(max_search_nodes=2_000)
+
+    started = perf_counter()
+    result = AssignRoomsUseCase().execute(comisiones, aulas, config)
+    elapsed = perf_counter() - started
+
+    assert elapsed < 1.0
+    assert result.limit_reached
+    assert not result.optimal
+    assert result.search_nodes == 2_000
