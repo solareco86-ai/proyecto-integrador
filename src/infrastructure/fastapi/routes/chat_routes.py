@@ -1,13 +1,28 @@
 from fastapi import APIRouter, Depends, status
 
 from src.application.dtos.chat_dto import ChatHealthResponse, ChatTextRequest, ChatTextResponse
+from src.application.gateways.nlp_gateway import NLPProcessorGateway
+from src.application.services.text_morphology_service import TextMorphologyService
 from src.application.use_cases.chat.process_chat_text_use_case import ProcessChatTextUseCase
+from src.infrastructure.gateways.nltk_nlp_gateway import NltkNLPGateway
 
 router = APIRouter(prefix="/api/v1/chat", tags=["Chat"])
 
 
-def get_process_chat_text_use_case() -> ProcessChatTextUseCase:
-    return ProcessChatTextUseCase()
+def get_nlp_gateway() -> NLPProcessorGateway:
+    return NltkNLPGateway()
+
+
+def get_morphology_service(
+    gateway: NLPProcessorGateway = Depends(get_nlp_gateway),
+) -> TextMorphologyService:
+    return TextMorphologyService(nlp_gateway=gateway)
+
+
+def get_process_chat_text_use_case(
+    morphology_service: TextMorphologyService = Depends(get_morphology_service),
+) -> ProcessChatTextUseCase:
+    return ProcessChatTextUseCase(morphology_service=morphology_service)
 
 
 @router.get(
