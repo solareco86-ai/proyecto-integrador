@@ -1,0 +1,174 @@
+# Léxico controlado del dominio institucional — Eje 1.3 (Técnicas de Procesamiento del Habla).
+#
+# Cada entrada es una forma ya normalizada por el pipeline del Eje 1.2
+# (minúsculas, sin tildes, abreviaturas expandidas). Las expresiones de varias
+# palabras se reconocen por coincidencia más larga primero; las de una sola
+# palabra también se reconocen por su raíz (stem), lo que cubre variantes como
+# "materia" / "materias" o "inscribir" / "inscribirme".
+#
+# Los nombres oficiales de las carreras NO se escriben acá: se leen de
+# data/content/carreras.yaml (fuente única de verdad). Esta sección solo agrega
+# alias coloquiales asociados al slug oficial de cada carrera.
+
+saludos:
+  - hola
+  - buenas
+  - buen dia
+  - buenos dias
+  - buenas tardes
+  - buenas noches
+  - que tal
+
+# Verbos y pronombres de pedido: no aportan intención propia, pero forman
+# parte de la consulta y cuentan como palabras reconocidas.
+pedidos:
+  - quiero
+  - quisiera
+  - necesito
+  - saber
+  - consultar
+  - consulta
+  - informacion
+  - puedo
+  - podria
+  - hay
+  - tienen
+  - tiene
+  - ofrecen
+  - son
+  - cuales
+  - cuantos
+  - cuanto
+  - que
+  - como
+  - cual
+  - cuando
+  - donde
+  - instituto
+  - isft
+
+# Núcleo nominal genérico ("carrera", "tecnicatura"): indica que se habla de
+# la oferta académica sin pedir un trámite concreto.
+nucleo_carrera:
+  - carrera
+  - carreras
+  - tecnicatura
+  - tecnicaturas
+  - oferta academica
+  - estudiar
+
+tramites:
+  inscripcion:
+    - inscripcion
+    - inscripciones
+    - inscribirme
+    - inscribirse
+    - inscribir
+    - inscribo
+    - ingreso
+    - ingresar
+    - requisito
+    - requisitos
+    - documentacion
+    - papeles
+  plan_estudios:
+    - plan de estudios
+    - plan de estudio
+    - materias
+    - materia
+    - asignaturas
+    - asignatura
+    - que se estudia
+    - que se ve
+  duracion:
+    - cuanto dura
+    - cuantos años dura
+    - cuantos años
+    - duracion
+    - dura
+  horarios:
+    - horario
+    - horarios
+    - horas
+    - turno
+    - turnos
+    - a la noche
+    - noche
+    - vespertino
+    - cursada
+  sedes:
+    - sede
+    - sedes
+    - direccion
+    - ubicacion
+    - donde queda
+    - donde estan
+    - donde es
+    - como llego
+    - como llegar
+    - el talar
+  costos:
+    - arancel
+    - aranceles
+    - gratuita
+    - gratuito
+    - pagar
+    - pago
+    - cobran
+  correlatividades:
+    - correlatividad
+    - correlatividades
+    - correlativa
+    - correlativas
+  mesas_examen:
+    - mesa de examen
+    - mesas de examen
+    - mesa de final
+    - mesas de finales
+    - fecha de examen
+    - fechas de examen
+    - examen
+    - examenes
+    - final
+    - finales
+  becas:
+    - beca
+    - becas
+    - progresar
+    - ayuda economica
+
+# Alias coloquiales -> slug oficial de data/content/carreras.yaml.
+# El título oficial de cada carrera se agrega automáticamente como alias.
+carreras:
+  ciencia-de-datos-ia:
+    - ciencia de datos
+    - ciencias de datos
+    - ciencia de datos e inteligencia artificial
+    - inteligencia artificial
+    - datos
+    - data science
+  logistica:
+    - logistica
+  higiene-y-seguridad:
+    - higiene y seguridad
+    - seguridad e higiene
+    - higiene
+    - seguridad laboral
+  recursos-humanos:
+    - recursos humanos
+    - administracion de recursos humanos
+  turismo:
+    - turismo
+  hoteleria:
+    - hoteleria
+
+# Sub-gramática del año de cursada: ordinal + marcador ("primer año") o
+# marcador + ordinal ("año 2").
+ordinales:
+  1: [primero, primer, 1ro, 1er, 1, uno]
+  2: [segundo, 2do, 2, dos]
+  3: [tercero, tercer, 3ro, 3er, 3, tres]
+marcador_anio:
+  - año
+  - ano
+  - anio
