@@ -37,7 +37,7 @@ flowchart TD
 3. **Fase 3: Análisis Semántico e Inferencia**
    - **Objetivo:** Determinar la intención del usuario y seleccionar el contenido de respuesta adecuado.
    - **Componente:** `src/application/use_cases/chat/process_chat_text_use_case.py` (`ProcessChatTextUseCase`).
-   - **Implementación actual (Scaffolding / Eje 1.1):** Lectura desacoplada de la respuesta simulada desde `data/chat/mock_response.yaml`. En las etapas posteriores (Eje 1.2, 1.3 y Eje 3) este componente orquesta el análisis léxico-morfológico, gramáticas formales y recuperación de información.
+   - **Implementación actual (Eje 1.3):** El caso de uso orquesta el análisis morfológico (Eje 1.2), el etiquetado con el léxico controlado y la gramática de intenciones, y arma la respuesta con `data/chat/intenciones.yaml` (ver [eje1-gramatica-intenciones.md](eje1-gramatica-intenciones.md)). La respuesta simulada de `data/chat/mock_response.yaml` queda solo como respaldo si no se inyectan esos servicios. El Eje 3 sumará la recuperación de información.
 
 4. **Fase 4: Generación y Validación de Veracidad Institucional**
    - **Objetivo:** Construir la respuesta garantizando que los datos deriven exclusivamente de fuentes oficiales del instituto (`/carreras`, `/contacto`, etc.).
