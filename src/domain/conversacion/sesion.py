@@ -1,6 +1,6 @@
+import uuid
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
-import uuid
 
 from src.domain.conversacion.consulta import Consulta
 from src.domain.conversacion.respuesta import Respuesta
