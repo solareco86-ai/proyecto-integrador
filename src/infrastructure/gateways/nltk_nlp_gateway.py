@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import re
+from collections.abc import Callable
 from typing import Any, cast
 
 from nltk.stem.snowball import SpanishStemmer

@@ -1,0 +1,173 @@
+# Intenciones del chatbot institucional con respuestas y fuentes oficiales.
+# Las respuestas que requieren datos institucionales no presentes en data/
+# (becas, mesas de examen, correlatividades) derivan a Secretaría (AGENTS.md §7.5).
+
+intenciones:
+  consulta_carreras:
+    patrones:
+      - "que carreras"
+      - "carreras ofrecen"
+      - "carreras hay"
+      - "carreras tienen"
+      - "que se estudia"
+      - "que puedo estudiar"
+      - "oferta academica"
+      - "tecnicaturas"
+    respuesta: "El ISFT N° 199 ofrece 6 tecnicaturas superiores de 3 años, públicas y gratuitas: Ciencia de Datos e IA, Logística, Higiene y Seguridad en el Trabajo, Administración de Recursos Humanos, Turismo y Hotelería."
+    sources:
+      - "/carreras"
+    confidence: 0.9
+
+  info_carrera:
+    patrones:
+      - "de que se trata"
+      - "que es la carrera"
+      - "informacion sobre"
+      - "contame sobre"
+      - "info de"
+      - "quiero saber de"
+      - "en que consiste"
+    respuesta_template: "La carrera {carrera} tiene una duración de 3 años, es presencial en turno vespertino (18:00 a 22:30) y es 100% pública y gratuita. Para más detalle podés visitar /carreras/{slug}."
+    sources:
+      - "/carreras"
+    confidence: 0.85
+
+  inscripcion:
+    patrones:
+      - "inscribirme"
+      - "inscripcion"
+      - "anotarme"
+      - "anotarse"
+      - "como me inscribo"
+      - "requisitos"
+      - "que necesito para"
+      - "documentacion"
+    respuesta: "Para inscribirte necesitás: título secundario completo (o constancia de título en trámite), fotocopia de DNI, analítico secundario, partida de nacimiento, 2 fotos 4x4 y certificado de aptitud psicofísica. Podés consultar más detalles en /contacto o escribir a isft199@abc.gob.ar."
+    sources:
+      - "/contacto"
+    confidence: 0.9
+
+  horarios:
+    patrones:
+      - "horario"
+      - "horarios"
+      - "a que hora"
+      - "turno"
+      - "cuando se cursa"
+      - "noche"
+      - "vespertino"
+    respuesta: "Todas las carreras se cursan en turno vespertino, de 18:00 a 22:30 hs, de lunes a viernes."
+    sources:
+      - "/carreras"
+    confidence: 0.9
+
+  ubicacion:
+    patrones:
+      - "donde queda"
+      - "ubicacion"
+      - "direccion"
+      - "como llego"
+      - "donde esta"
+      - "sede"
+    respuesta: "El ISFT N° 199 se encuentra en Maestra Celina Voena 1750, El Talar, Partido de Tigre, Provincia de Buenos Aires."
+    sources:
+      - "/contacto"
+    confidence: 0.95
+
+  contacto:
+    patrones:
+      - "contacto"
+      - "telefono"
+      - "mail"
+      - "email"
+      - "como comunicarme"
+      - "whatsapp"
+    respuesta: "Podés comunicarte con la Secretaría del instituto por correo electrónico a isft199@abc.gob.ar o visitar la página de contacto en /contacto."
+    sources:
+      - "/contacto"
+    confidence: 0.9
+
+  modalidad:
+    patrones:
+      - "modalidad"
+      - "es presencial"
+      - "es virtual"
+      - "a distancia"
+    respuesta: "Todas las tecnicaturas del ISFT N° 199 son de modalidad presencial."
+    sources:
+      - "/carreras"
+    confidence: 0.9
+
+  duracion:
+    patrones:
+      - "cuanto dura"
+      - "duracion"
+      - "cuantos años"
+    respuesta: "Todas las tecnicaturas tienen una duración de 3 años."
+    sources:
+      - "/carreras"
+    confidence: 0.9
+
+  gratuidad:
+    patrones:
+      - "cuanto sale"
+      - "cuanto cuesta"
+      - "precio"
+      - "costo"
+      - "arancel"
+      - "cuota"
+      - "gratis"
+      - "gratuita"
+      - "pagar"
+      - "cobran"
+    respuesta: "La educación en el ISFT N° 199 es 100% pública y gratuita. No se cobran aranceles, matrículas ni cuotas."
+    sources:
+      - "/carreras"
+    confidence: 0.95
+
+  saludo:
+    patrones:
+      - "hola"
+      - "buen dia"
+      - "buenas tardes"
+      - "buenas noches"
+      - "buenos dias"
+    respuesta: "¡Hola! Soy el asistente virtual del ISFT N° 199. ¿En qué puedo ayudarte? Podés preguntarme sobre carreras, inscripción, horarios o ubicación del instituto."
+    sources: []
+    confidence: 1.0
+
+  # Intenciones sin datos disponibles → derivación a Secretaría
+  correlatividades:
+    patrones:
+      - "correlatividad"
+      - "correlatividades"
+      - "correlativa"
+      - "aprobar antes"
+    respuesta: "La información sobre correlatividades la maneja directamente la Secretaría Académica. Te recomendamos escribir a isft199@abc.gob.ar para una respuesta precisa."
+    sources: []
+    confidence: 0.8
+
+  mesas_de_examen:
+    patrones:
+      - "mesa de examen"
+      - "mesas"
+      - "fecha de final"
+      - "finales"
+      - "examenes"
+    respuesta: "Las fechas de mesas de examen las publica la Secretaría Académica. Te recomendamos escribir a isft199@abc.gob.ar para consultar el calendario vigente."
+    sources: []
+    confidence: 0.8
+
+  becas:
+    patrones:
+      - "beca"
+      - "becas"
+      - "ayuda economica"
+    respuesta: "Para consultas sobre becas y programas de ayuda económica, te recomendamos comunicarte con la Secretaría del instituto a isft199@abc.gob.ar."
+    sources: []
+    confidence: 0.8
+
+fallback:
+  respuesta: "No estoy seguro de entender tu consulta. ¿Podrías reformularla? Puedo ayudarte con información sobre carreras, inscripción, horarios y ubicación del ISFT N° 199. Si necesitás atención personalizada, escribí a isft199@abc.gob.ar."
+  sources: []
+  confidence: 0.0

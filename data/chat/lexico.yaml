@@ -1,0 +1,126 @@
+# Léxico controlado del dominio institucional del ISFT N° 199.
+# Las carreras provienen de data/content/carreras.yaml (fuente de verdad).
+
+carreras:
+  ciencia-de-datos-ia:
+    nombre: "Tecnicatura Superior en Ciencia de Datos e Inteligencia Artificial"
+    sinonimos:
+      - "ciencia de datos"
+      - "inteligencia artificial"
+      - "datos"
+      - "ia"
+      - "data science"
+      - "machine learning"
+      - "programacion"
+  logistica:
+    nombre: "Tecnicatura Superior en Logística"
+    sinonimos:
+      - "logistica"
+      - "cadena de suministro"
+      - "supply chain"
+      - "transporte"
+      - "distribucion"
+      - "almacen"
+  higiene-y-seguridad:
+    nombre: "Tecnicatura Superior en Higiene y Seguridad en el Trabajo"
+    sinonimos:
+      - "higiene"
+      - "seguridad"
+      - "higiene y seguridad"
+      - "prevencion"
+      - "riesgos laborales"
+      - "srt"
+      - "seguridad laboral"
+  recursos-humanos:
+    nombre: "Tecnicatura Superior en Administración de Recursos Humanos"
+    sinonimos:
+      - "recursos humanos"
+      - "rrhh"
+      - "rh"
+      - "talento humano"
+      - "personal"
+      - "liquidacion de sueldos"
+  turismo:
+    nombre: "Tecnicatura Superior en Turismo"
+    sinonimos:
+      - "turismo"
+      - "viajes"
+      - "guia de turismo"
+      - "turismo sustentable"
+  hoteleria:
+    nombre: "Tecnicatura Superior en Hotelería"
+    sinonimos:
+      - "hoteleria"
+      - "hotel"
+      - "hospitalidad"
+      - "alojamiento"
+      - "gastronomia"
+
+entidades:
+  tramites:
+    - "inscripcion"
+    - "inscribirme"
+    - "inscribirse"
+    - "anotarme"
+    - "anotarse"
+    - "matricula"
+    - "requisitos"
+    - "documentacion"
+    - "analítico"
+    - "titulo"
+  horarios:
+    - "horario"
+    - "horarios"
+    - "turno"
+    - "noche"
+    - "vespertino"
+    - "hora"
+    - "horas"
+    - "cuando"
+  ubicacion:
+    - "direccion"
+    - "donde"
+    - "ubicacion"
+    - "sede"
+    - "talar"
+    - "tigre"
+    - "llegar"
+  contacto:
+    - "contacto"
+    - "telefono"
+    - "mail"
+    - "email"
+    - "whatsapp"
+    - "secretaria"
+  correlatividades:
+    - "correlatividad"
+    - "correlatividades"
+    - "correlativa"
+    - "correlativas"
+    - "aprobar antes"
+    - "requisito para cursar"
+  mesas_de_examen:
+    - "mesa"
+    - "mesas"
+    - "examen"
+    - "examenes"
+    - "mesa de examen"
+    - "fecha de examen"
+    - "finales"
+    - "final"
+  becas:
+    - "beca"
+    - "becas"
+    - "ayuda economica"
+    - "beneficio"
+  modalidad:
+    - "modalidad"
+    - "presencial"
+    - "virtual"
+    - "semipresencial"
+    - "distancia"
+  duracion:
+    - "duracion"
+    - "cuanto dura"
+    - "años"
+    - "cuatrimestres"

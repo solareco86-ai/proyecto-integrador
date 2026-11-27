@@ -4,6 +4,7 @@ from typing import Any, cast
 import yaml
 
 from src.application.dtos.chat_dto import ChatHealthResponse, ChatTextRequest, ChatTextResponse
+from src.application.services.intent_classification_service import IntentClassificationService
 from src.application.services.text_morphology_service import TextMorphologyService
 from src.domain.conversacion.consulta import Consulta
 from src.domain.conversacion.respuesta import Respuesta
@@ -16,6 +17,7 @@ class ProcessChatTextUseCase:
         self,
         data_dir: str | None = None,
         morphology_service: TextMorphologyService | None = None,
+        intent_service: IntentClassificationService | None = None,
     ) -> None:
         if not data_dir or (data_dir == "data" and "DATA_DIR" in os.environ):
             self.data_dir = os.getenv("DATA_DIR", "data")
@@ -31,18 +33,23 @@ class ProcessChatTextUseCase:
         else:
             self.morphology_service = morphology_service
 
+        if intent_service is None:
+            self.intent_service = IntentClassificationService(data_dir=self.data_dir)
+        else:
+            self.intent_service = intent_service
+
     def _load_data(self) -> dict[str, Any]:
         if not os.path.exists(self.config_path):
             return {
                 "status": "ok",
                 "modules": {
                     "nlp_normalization": True,
-                    "intent_classification": False,
+                    "intent_classification": True,
                     "speech_recognition": False,
                     "information_retrieval": False,
                 },
                 "mock_response": {
-                    "reply": "Respuesta predeterminada del ISFT N° 199.",
+                    "reply": "Respuesta predeterminada del ISFT N\u00b0 199.",
                     "intent": "informacion_general",
                     "sources": ["/carreras"],
                     "confidence": 1.0,
@@ -63,28 +70,23 @@ class ProcessChatTextUseCase:
         # 2. Normalización y Análisis Morfológico (Eje 1.2)
         _texto_analizado: TextoAnalizado = self.morphology_service.analyze(request.message)
 
-        # 3. Carga y generación de respuesta
-        data = self._load_data()
-        raw_mock: Any = data.get("mock_response", {})
-        mock_data: dict[str, Any] = cast(dict[str, Any], raw_mock) if isinstance(raw_mock, dict) else {}
+        # 3. Clasificación de Intención (Eje 1.3)
+        intencion = self.intent_service.classify(_texto_analizado.texto_normalizado)
+        reply_text, sources_list = self.intent_service.get_response(intencion)
 
-        reply_text = str(mock_data.get("reply", ""))
-        intent_text = str(mock_data.get("intent", "desconocido"))
-        raw_sources: Any = mock_data.get("sources", [])
-        sources_list: list[str] = []
-        if isinstance(raw_sources, list):
-            sources_iterable: list[object] = cast(list[object], raw_sources)
-            for item in sources_iterable:
-                sources_list.append(str(item))
+        # Si la intención es fallback, usar respuesta del YAML de fallback
+        if intencion.nombre == "fallback":
+            raw_fallback: Any = self.intent_service.intenciones_data.get("fallback", {})
+            if isinstance(raw_fallback, dict):
+                fb: dict[object, object] = cast(dict[object, object], raw_fallback)
+                reply_text = str(fb.get("respuesta", reply_text))
 
-        confidence_val = float(mock_data.get("confidence", 1.0))
-
-        # Modelado de entidad de dominio de Respuesta
+        # 4. Modelado de entidad de dominio de Respuesta
         _respuesta = Respuesta(
             texto=reply_text,
-            intencion=intent_text,
+            intencion=intencion.nombre,
             fuentes=sources_list,
-            confianza=confidence_val,
+            confianza=intencion.confianza,
         )
 
         return ChatTextResponse(

@@ -1,7 +1,8 @@
 import os
 import re
-from typing import Any, cast
 import unicodedata
+from typing import Any, cast
+
 import yaml
 
 from src.application.gateways.nlp_gateway import NLPProcessorGateway
