@@ -5,6 +5,9 @@ import yaml
 
 from src.application.dtos.chat_dto import ChatHealthResponse, ChatTextRequest, ChatTextResponse
 from src.application.gateways.nlp_gateway import NLPProcessorGateway
+from src.application.services.gramatica_intenciones_service import GramaticaIntencionesService
+from src.application.services.lexico_institucional_service import LexicoInstitucionalService
+from src.application.services.respuestas_chat_service import RespuestasChatService
 from src.application.services.text_morphology_service import TextMorphologyService
 from src.domain.conversacion.consulta import Consulta
 from src.domain.conversacion.respuesta import Respuesta
@@ -17,6 +20,9 @@ class ProcessChatTextUseCase:
         data_dir: str | None = None,
         morphology_service: TextMorphologyService | None = None,
         nlp_gateway: NLPProcessorGateway | None = None,
+        lexico_service: LexicoInstitucionalService | None = None,
+        gramatica_service: GramaticaIntencionesService | None = None,
+        respuestas_service: RespuestasChatService | None = None,
     ) -> None:
         if not data_dir or (data_dir == "data" and "DATA_DIR" in os.environ):
             self.data_dir = os.getenv("DATA_DIR", "data")
@@ -33,6 +39,11 @@ class ProcessChatTextUseCase:
             )
         else:
             self.morphology_service = None
+
+        # Análisis semántico (Eje 1.3): si falta alguna pieza se usa la respuesta simulada.
+        self.lexico_service: LexicoInstitucionalService | None = lexico_service
+        self.gramatica_service: GramaticaIntencionesService | None = gramatica_service
+        self.respuestas_service: RespuestasChatService | None = respuestas_service
 
     def _load_data(self) -> dict[str, Any]:
         if not os.path.exists(self.config_path):
@@ -65,9 +76,15 @@ class ProcessChatTextUseCase:
 
         # 2. Normalización y Análisis Morfológico (Eje 1.2)
         if self.morphology_service is not None:
-            _texto_analizado: TextoAnalizado = self.morphology_service.analyze(request.message)
+            texto_analizado: TextoAnalizado = self.morphology_service.analyze(_consulta.mensaje)
 
-        # 3. Carga y generación de respuesta
+            # 3. Análisis semántico: léxico + gramática -> intención y entidades (Eje 1.3)
+            if self.lexico_service and self.gramatica_service and self.respuestas_service:
+                simbolos = self.lexico_service.etiquetar(texto_analizado.tokens)
+                interpretacion = self.gramatica_service.interpretar(simbolos)
+                return self._serializar(self.respuestas_service.responder(interpretacion))
+
+        # 4. Respuesta simulada (scaffolding Eje 1.1)
         data = self._load_data()
         raw_mock: Any = data.get("mock_response", {})
         mock_data: dict[str, Any] = cast(dict[str, Any], raw_mock) if isinstance(raw_mock, dict) else {}
@@ -91,11 +108,15 @@ class ProcessChatTextUseCase:
             confianza=confidence_val,
         )
 
+        return self._serializar(_respuesta)
+
+    @staticmethod
+    def _serializar(respuesta: Respuesta) -> ChatTextResponse:
         return ChatTextResponse(
-            reply=_respuesta.texto,
-            intent=_respuesta.intencion,
-            sources=_respuesta.fuentes,
-            confidence=_respuesta.confianza,
+            reply=respuesta.texto,
+            intent=respuesta.intencion,
+            sources=respuesta.fuentes,
+            confidence=respuesta.confianza,
         )
 
     def get_health(self) -> ChatHealthResponse:

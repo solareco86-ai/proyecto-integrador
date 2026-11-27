@@ -1,7 +1,12 @@
+from functools import lru_cache
+
 from fastapi import APIRouter, Depends, status
 
 from src.application.dtos.chat_dto import ChatHealthResponse, ChatTextRequest, ChatTextResponse
 from src.application.gateways.nlp_gateway import NLPProcessorGateway
+from src.application.services.gramatica_intenciones_service import GramaticaIntencionesService
+from src.application.services.lexico_institucional_service import LexicoInstitucionalService
+from src.application.services.respuestas_chat_service import RespuestasChatService
 from src.application.services.text_morphology_service import TextMorphologyService
 from src.application.use_cases.chat.process_chat_text_use_case import ProcessChatTextUseCase
 from src.infrastructure.gateways.nltk_nlp_gateway import NltkNLPGateway
@@ -19,10 +24,28 @@ def get_morphology_service(
     return TextMorphologyService(nlp_gateway=gateway)
 
 
+@lru_cache(maxsize=1)
+def get_lexico_service() -> LexicoInstitucionalService:
+    # El léxico se construye una sola vez por proceso (lee YAML y precalcula raíces).
+    return LexicoInstitucionalService(morphology_service=TextMorphologyService(nlp_gateway=NltkNLPGateway()))
+
+
+@lru_cache(maxsize=1)
+def get_respuestas_service() -> RespuestasChatService:
+    return RespuestasChatService()
+
+
 def get_process_chat_text_use_case(
     morphology_service: TextMorphologyService = Depends(get_morphology_service),
+    lexico_service: LexicoInstitucionalService = Depends(get_lexico_service),
+    respuestas_service: RespuestasChatService = Depends(get_respuestas_service),
 ) -> ProcessChatTextUseCase:
-    return ProcessChatTextUseCase(morphology_service=morphology_service)
+    return ProcessChatTextUseCase(
+        morphology_service=morphology_service,
+        lexico_service=lexico_service,
+        gramatica_service=GramaticaIntencionesService(),
+        respuestas_service=respuestas_service,
+    )
 
 
 @router.get(
