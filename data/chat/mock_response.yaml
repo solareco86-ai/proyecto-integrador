@@ -1,7 +1,7 @@
 status: "ok"
 modules:
   nlp_normalization: true
-  intent_classification: false
+  intent_classification: true
   speech_recognition: false
   information_retrieval: false
 mock_response:
